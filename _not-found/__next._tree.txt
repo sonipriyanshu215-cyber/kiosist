@@ -1,0 +1,2 @@
+:HL["/kiosist/_next/static/chunks/21znx2a6q1lsv.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"gya8yuevB5nAhyL6Cn7fv"}

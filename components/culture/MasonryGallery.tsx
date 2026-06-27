@@ -1,0 +1,94 @@
+"use client";
+
+import { useState } from "react";
+import { SafeImage } from "@/components/primitives/SafeImage";
+import { motion, useReducedMotion } from "framer-motion";
+import dynamic from "next/dynamic";
+import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
+import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
+
+const GALLERY = [
+  { src: "/img/culture/office-1.webp", alt: "Office space" },
+  { src: "/img/culture/team-meeting-1.webp", alt: "Team meeting" },
+  { src: "/img/culture/training-1.webp", alt: "Training session" },
+  { src: "/img/culture/celebration-1.webp", alt: "Team celebration" },
+  { src: "/img/culture/office-2.webp", alt: "Work station" },
+  { src: "/img/culture/team-meeting-2.webp", alt: "Team huddle" },
+  { src: "/img/culture/training-2.webp", alt: "Agent training" },
+  { src: "/img/culture/celebration-2.webp", alt: "Birthday celebration" },
+  { src: "/img/culture/office-3.webp", alt: "Office candid" },
+  { src: "/img/culture/team-3.webp", alt: "The team" },
+  { src: "/img/culture/training-3.webp", alt: "PMS training" },
+  { src: "/img/culture/event-1.webp", alt: "Company event" },
+];
+
+export function MasonryGallery() {
+  const [index, setIndex] = useState(-1);
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <section className="section-pad bg-kio-bg">
+      <div className="container-kio">
+        <RevealOnScroll className="mb-14 text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-kio-accent">
+            Our Culture
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
+            Life inside Kiosist
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-kio-muted">
+            A glimpse into our office, training sessions, celebrations, and the people who
+            make it all happen.
+          </p>
+        </RevealOnScroll>
+
+        <motion.div
+          variants={staggerParent}
+          initial={reducedMotion ? "show" : "hidden"}
+          whileInView="show"
+          viewport={{ once: true }}
+          className="columns-2 gap-4 sm:columns-3 lg:columns-4"
+        >
+          {GALLERY.map((img, i) => (
+            <motion.div
+              key={img.src}
+              variants={staggerChild}
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
+              className="mb-4 break-inside-avoid"
+            >
+              <motion.div
+                variants={hoverLift}
+                className="group relative cursor-zoom-in overflow-hidden rounded-2xl"
+                onClick={() => setIndex(i)}
+              >
+                <SafeImage
+                  src={img.src}
+                  alt={img.alt}
+                  width={400}
+                  height={300}
+                  className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
+                <div className="absolute inset-0 bg-kio-primary/0 transition-colors duration-300 group-hover:bg-kio-primary/20" />
+                <div className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-kio-primary/80 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
+                  <p className="text-xs font-medium text-white">{img.alt}</p>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <Lightbox
+          open={index >= 0}
+          index={index}
+          close={() => setIndex(-1)}
+          slides={GALLERY.map((img) => ({ src: img.src, alt: img.alt }))}
+        />
+      </div>
+    </section>
+  );
+}

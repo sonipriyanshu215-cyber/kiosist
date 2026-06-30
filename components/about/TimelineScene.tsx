@@ -160,9 +160,8 @@ export function TimelineScene() {
                   <div
                     className="absolute inset-x-0 rounded-2xl p-6 text-center ring-1 backdrop-blur-sm transition-all duration-300"
                     style={{
-                      background:  `linear-gradient(135deg, rgba(18,20,30,0.82), rgba(22,25,38,0.72))`,
-                      ringColor:   "transparent",
-                      boxShadow:   `0 0 0 1px ${color}28`,
+                      background: `linear-gradient(135deg, rgba(18,20,30,0.82), rgba(22,25,38,0.72))`,
+                      boxShadow:  `0 0 0 1px ${color}28`,
                       bottom: above ? "calc(50% + 2.5rem)" : undefined,
                       top:    above ? undefined : "calc(50% + 2.5rem)",
                     }}

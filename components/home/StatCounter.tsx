@@ -44,11 +44,7 @@ export function StatCounter() {
               style={{ animation: `scan-beam ${3.5 + i * 0.6}s ease-in-out infinite`, animationDelay: `${i * 0.7}s` }}
             />
             <div className="relative text-[2.4rem] font-black leading-none text-gradient">
-              {s.raw ? (
-                s.raw
-              ) : (
-                <Counter to={s.value!} suffix={s.suffix} prefix={s.prefix} />
-              )}
+              {s.raw}
             </div>
             <div className="relative mt-1.5 text-sm text-kio-muted">{s.label}</div>
           </div>

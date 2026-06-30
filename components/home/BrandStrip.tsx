@@ -1,51 +1,82 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { staggerParent, staggerChild } from "@/lib/motion";
-import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
-
-const CLIENT_TYPES = [
-  { icon: "🏨", label: "Boutique Hotels" },
-  { icon: "🏢", label: "Business Hotels" },
-  { icon: "🏖️", label: "Resort Properties" },
-  { icon: "🏷️", label: "Budget Chains" },
-  { icon: "✈️", label: "Airport Hotels" },
-  { icon: "🌆", label: "Urban Properties" },
+const ROW1 = [
+  { src: "/img/logos/Americas_Best_Value_Inn_Logo.png", alt: "Americas Best Value Inn & Suites" },
+  { src: "/img/logos/Baymont Logo.png",                 alt: "Baymont by Wyndham"              },
+  { src: "/img/logos/Days Inn.png",                     alt: "Days Inn by Wyndham"             },
+  { src: "/img/logos/gilman-logo-days-inn.png",         alt: "Days Inn & Suites by Wyndham"    },
+  { src: "/img/logos/Econolodge Logo.png",              alt: "Econo Lodge"                     },
+  { src: "/img/logos/HomeTowne Studios Logo.png",       alt: "HomeTowne Studios by Red Roof"   },
+  { src: "/img/logos/Howard-Johnson-logo.png",          alt: "Howard Johnson by Wyndham"       },
+  { src: "/img/logos/laquinta logo.png",                alt: "La Quinta by Wyndham"            },
 ];
+
+const ROW2 = [
+  { src: "/img/logos/Microtel Logo.png",                alt: "Microtel by Wyndham"             },
+  { src: "/img/logos/Motel6 logo.png",                  alt: "Motel 6"                         },
+  { src: "/img/logos/Quality-Inn-Icon-New-1.png",       alt: "Quality Inn"                     },
+  { src: "/img/logos/RedRoof Logo 2.png",               alt: "Red Roof Inn"                    },
+  { src: "/img/logos/Sleep Inn Logo.png",               alt: "Sleep Inn"                       },
+  { src: "/img/logos/Super-8-Logo.png",                 alt: "Super 8 by Wyndham"              },
+  { src: "/img/logos/SureStay Logo1.png",               alt: "SureStay by Best Western"        },
+  { src: "/img/logos/Travelodge logo.png",              alt: "Travelodge by Wyndham"           },
+];
+
+function LogoItem({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="flex h-16 w-44 shrink-0 items-center justify-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full select-none object-contain"
+        draggable={false}
+      />
+    </div>
+  );
+}
 
 export function BrandStrip() {
   return (
-    <section className="py-20 px-6">
-      <div className="mx-auto max-w-container">
-        <RevealOnScroll className="mb-12 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[.05em] text-kio-muted">
-            Trusted by hotels across the country
-          </p>
-        </RevealOnScroll>
+    <section className="relative overflow-hidden py-20 md:py-28">
 
-        <motion.div
-          variants={staggerParent}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4"
-        >
-          {CLIENT_TYPES.map(({ icon, label }, i) => (
-            <motion.div
-              key={label}
-              variants={staggerChild}
-              className="group relative overflow-hidden flex items-center gap-2 rounded-xl border border-kio-line bg-kio-bg-soft px-7 py-4 text-[.9rem] font-semibold text-kio-muted transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-cream hover:text-kio-ink cursor-default"
-            >
-              {/* Scan beam on hover */}
-              <div
-                className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ animation: `scan-beam ${2.5 + i * 0.3}s ease-in-out infinite`, animationDelay: `${i * 0.2}s` }}
-              />
-              <span className="relative">{icon}</span>
-              <span className="relative">{label}</span>
-            </motion.div>
+      {/* Heading */}
+      <div className="mb-12 text-center">
+        <span className="section-label">Our Hotel Partners</span>
+        <h2 className="mt-4 text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold leading-snug text-kio-ink">
+          Trusted by hotel brands<br className="hidden sm:block" /> across the USA
+        </h2>
+      </div>
+
+      {/* Left fade mask */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32"
+        style={{ background: "linear-gradient(to right, #0d1117, transparent)" }}
+      />
+      {/* Right fade mask */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32"
+        style={{ background: "linear-gradient(to left, #0d1117, transparent)" }}
+      />
+
+      {/* Row 1 — scrolls left */}
+      <div className="overflow-hidden mb-6">
+        <div className="marquee-track flex w-max items-center gap-10 px-10">
+          {[...ROW1, ...ROW1].map((logo, i) => (
+            <LogoItem key={i} {...logo} />
           ))}
-        </motion.div>
+        </div>
+      </div>
+
+      {/* Row 2 — scrolls right */}
+      <div className="overflow-hidden">
+        <div className="marquee-track-reverse flex w-max items-center gap-10 px-10">
+          {[...ROW2, ...ROW2].map((logo, i) => (
+            <LogoItem key={i} {...logo} />
+          ))}
+        </div>
       </div>
     </section>
   );

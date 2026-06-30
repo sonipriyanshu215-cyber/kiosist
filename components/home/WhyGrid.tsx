@@ -70,7 +70,7 @@ export function WhyGrid() {
   const color = COLORS[active];
 
   return (
-    <section id="features" className="section-pad relative overflow-hidden bg-kio-bg-soft">
+    <section id="features" className="section-pad relative overflow-hidden">
       {/* Ambient blob */}
       <div
         aria-hidden="true"

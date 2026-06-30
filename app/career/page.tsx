@@ -29,7 +29,7 @@ export default function Career() {
               Work US hours. Grow without limits.
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-white/70">
-              No travel required. Join a team of 45+ professionals managing front desks for
+              No travel required. Join a team of 150+ professionals managing front desks for
               US hotels — from right here in Surat.
             </p>
           </RevealOnScroll>

@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { HeroBanner }          from "@/components/home/HeroBanner";
 import { StatCounter }         from "@/components/home/StatCounter";
-import { AboutTeaser }         from "@/components/home/AboutTeaser";
 import { WhyGrid }             from "@/components/home/WhyGrid";
-import { HowItWorks }          from "@/components/home/HowItWorks";
 import { VideoStory }          from "@/components/home/VideoStory";
-import { TestimonialSection }  from "@/components/home/TestimonialSection";
 import { BrandStrip }          from "@/components/home/BrandStrip";
 import { FinalCTA }            from "@/components/home/FinalCTA";
 
@@ -24,12 +21,9 @@ export default function Home() {
   return (
     <>
       <HeroBanner />
-      <StatCounter />
-      <AboutTeaser />
       <WhyGrid />
-      <HowItWorks />
+      <StatCounter />
       <VideoStory />
-      <TestimonialSection />
       <BrandStrip />
       <FinalCTA />
     </>

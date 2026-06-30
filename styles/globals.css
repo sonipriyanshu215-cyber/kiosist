@@ -5,13 +5,13 @@
 /* ── DARK THEME (default) ── */
 :root,
 [data-theme="dark"] {
-  --kio-bg:        rgba(6,12,24,0.80);       /* semi-transparent — canvas shows through */
-  --kio-bg-soft:   rgba(11,21,38,0.84);
-  --kio-cream:     rgba(15,29,53,0.80);
-  --kio-line:      rgba(255,255,255,.08);
+  --kio-bg:        rgba(18,20,30,0.42);      /* grey-tinted, transparent — canvas shows through */
+  --kio-bg-soft:   rgba(22,25,38,0.50);
+  --kio-cream:     rgba(20,24,40,0.48);
+  --kio-line:      rgba(255,255,255,.09);
   --kio-muted:     #8fa3c4;
   --kio-ink:       #f0f4ff;
-  --kio-primary:   rgba(15,29,53,0.90);
+  --kio-primary:   rgba(14,16,28,0.58);
   --kio-accent:    #3b82f6;
   --kio-accent2:   #06b6d4;
   --kio-success:   #10b981;
@@ -68,10 +68,11 @@
   animation: kio-loader-gradient 10s ease infinite;
 }
 
-/* Hide page chrome while the intro loader is active */
-body[data-intro] header,
-body[data-intro] main,
-body[data-intro] footer {
+/* Hide page chrome while the intro loader is active.
+   The attribute is set by an inline <script> before first paint. */
+html[data-intro] header,
+html[data-intro] main,
+html[data-intro] footer {
   visibility: hidden;
 }
 
@@ -83,7 +84,7 @@ body[data-intro] footer {
   }
 
   body {
-    background-color: #060c18; /* solid — canvas sits on top, sections are rgba */
+    background-color: #0d1117; /* dark grey — particle ring canvas sits behind */
     color: var(--kio-ink);
     font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -282,6 +283,28 @@ body[data-intro] footer {
 ::-webkit-scrollbar-track { background: var(--kio-bg); }
 ::-webkit-scrollbar-thumb { background: var(--kio-accent); border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--kio-accent2); }
+
+/* ── Brand logo marquee ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+.marquee-track-reverse {
+  animation: marquee-reverse 40s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover,
+.marquee-track-reverse:hover {
+  animation-play-state: paused;
+}
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {

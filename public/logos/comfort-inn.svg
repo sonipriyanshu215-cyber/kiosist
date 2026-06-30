@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 72">
+  <rect width="200" height="72" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+  <text x="100" y="33" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700" fill="#004B8D">Comfort</text>
+  <text x="100" y="53" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#c8ddf5">INN</text>
+</svg>

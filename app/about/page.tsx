@@ -9,7 +9,7 @@ import { FinalCTA } from "@/components/home/FinalCTA";
 export const metadata: Metadata = {
   title: "About Kiosist",
   description:
-    "Learn how Kiosist was founded to bring 24/7 virtual front desk staffing to US hotels. Meet the team, our values, and our journey from 2020 to 100+ hotels.",
+    "Learn how Kiosist was founded to bring 24/7 virtual front desk staffing to US hotels. Meet the team, our values, and our journey from 2020 to 100+ hotels across 70+ locations serving 3M+ guests.",
   openGraph: {
     title: "About Kiosist",
     images: [{ url: "/og/about.jpg", width: 1200, height: 630 }],

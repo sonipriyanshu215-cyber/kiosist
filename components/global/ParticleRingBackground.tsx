@@ -32,7 +32,7 @@ function WaveLines({ isDark }: { isDark: boolean }) {
         pos[i + 2] = 0;
 
         /* Fade brightness toward line ends */
-        const b    = 0.3 * Math.sin(pointNorm * Math.PI);
+        const b    = 0.14 * Math.sin(pointNorm * Math.PI);
         cols[i]     = b * 0.95;
         cols[i + 1] = b * 0.97;
         cols[i + 2] = b;
@@ -44,25 +44,31 @@ function WaveLines({ isDark }: { isDark: boolean }) {
 
   useFrame((state) => {
     if (!ptsRef.current) return;
-    const time = state.clock.getElapsedTime() * 0.4;
-    const arr  = ptsRef.current.geometry.attributes.position.array as Float32Array;
-    const mat  = ptsRef.current.material as THREE.PointsMaterial;
+    const t   = state.clock.getElapsedTime();
+    const arr = ptsRef.current.geometry.attributes.position.array as Float32Array;
+    const mat = ptsRef.current.material as THREE.PointsMaterial;
 
-    /* Smooth colour lerp toward the current theme target */
     mat.color.lerp(isDarkRef.current ? COLOR_DARK : COLOR_LIGHT, 0.06);
 
     let i = 0;
     for (let l = 0; l < NUM_LINES; l++) {
       for (let p = 0; p < POINTS_PER_LINE; p++) {
-        const lineNorm  = l / NUM_LINES;
-        const pointNorm = p / POINTS_PER_LINE;
+        const lx = l / NUM_LINES;
+        const px = p / POINTS_PER_LINE;
 
-        const wave1 = Math.sin(pointNorm * 4  + time        + lineNorm  * 2);
-        const wave2 = Math.cos(lineNorm  * 6  - time * 1.5  + pointNorm * 3);
-        const wave3 = Math.sin(pointNorm * 12 + time * 2)   * 0.2;
+        /*
+         * Standing waves: sin(spatial) × cos(time)
+         * The spatial pattern is fixed in place; only the amplitude
+         * oscillates over time — exactly like a water surface.
+         * Multiple overlapping frequencies create realistic interference.
+         */
+        const w1 = Math.sin(px * 5.0 + lx * 2.0) * Math.cos(t * 0.55);
+        const w2 = Math.cos(lx * 7.0 + px * 3.5) * Math.sin(t * 0.40);
+        const w3 = Math.sin(px * 9.0 - lx * 4.0) * Math.cos(t * 0.70);
+        const w4 = Math.cos(px * 3.0 + lx * 6.0) * Math.sin(t * 0.30);
+        const w5 = Math.sin(px * 14  + lx * 1.5) * Math.cos(t * 0.90) * 0.3;
 
-        arr[i]     += Math.sin(time * 0.1 + pointNorm) * 0.002; // minor x drift
-        arr[i + 2]  = (wave1 * 0.4 + wave2 * 0.3 + wave3) * 1.8; // z wave depth
+        arr[i + 2] = (w1 * 0.38 + w2 * 0.30 + w3 * 0.18 + w4 * 0.22 + w5) * 1.6;
         i += 3;
       }
     }
@@ -79,7 +85,7 @@ function WaveLines({ isDark }: { isDark: boolean }) {
         size={0.035}
         vertexColors
         transparent
-        opacity={0.8}
+        opacity={0.35}
         sizeAttenuation
         depthWrite={false}
         blending={THREE.AdditiveBlending}

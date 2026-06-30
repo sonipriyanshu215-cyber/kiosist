@@ -69,6 +69,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
       className={`${inter.variable} ${jetbrains.variable} ${dmSans.variable}`}
     >
+      {/* Runs synchronously before first paint — hides nav/main/footer on first visit */}
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(!sessionStorage.getItem('kio_intro_seen')){document.documentElement.setAttribute('data-intro','');}}catch(e){}})();` }} />
+      </head>
       <body suppressHydrationWarning>
         <IntroLoader />
         <ThemeProvider>

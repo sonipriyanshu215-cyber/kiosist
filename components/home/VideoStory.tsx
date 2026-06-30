@@ -2,13 +2,12 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useTheme } from "next-themes";
 import { Play, Pause, Volume2, VolumeX, Maximize2, RefreshCw } from "lucide-react";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const VIDEO_SRC = "/video/explainer.mp4";
 
-/* ─── Animated canvas background scoped to this section ─── */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 function VideoBackground({ rm, isDark }: { rm: boolean; isDark: boolean }) {
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   /* Ref so the draw loop reads the latest theme without restarting */
@@ -156,11 +155,7 @@ export function VideoStory() {
   const videoRef      = useRef<HTMLVideoElement>(null);
   const containerRef  = useRef<HTMLDivElement>(null);
   const progressRef   = useRef<HTMLDivElement>(null);
-  const rm            = useReducedMotion();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const isDark = !mounted || resolvedTheme !== "light";
+  const rm = useReducedMotion();
 
   const [playing,      setPlaying]      = useState(false);
   const [muted,        setMuted]        = useState(true);
@@ -256,7 +251,7 @@ export function VideoStory() {
   /* Placeholder when video file is absent */
   if (!videoExists) {
     return (
-      <section className="section-pad bg-kio-primary">
+      <section className="section-pad">
         <div className="container-kio">
           <RevealOnScroll className="mb-10 text-center">
             <span className="section-label">See It In Action</span>
@@ -276,41 +271,7 @@ export function VideoStory() {
   }
 
   return (
-    <section className="section-pad relative overflow-hidden bg-kio-primary">
-      {/* Canvas-driven animated background */}
-      <VideoBackground rm={!!rm} isDark={isDark} />
-
-      {/* Ambient blobs — colours via CSS vars so they react to theme instantly */}
-      <motion.div
-        className="pointer-events-none absolute -left-40 top-[-60px] h-[560px] w-[560px] rounded-full opacity-[0.14]"
-        style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 68%)" }}
-        animate={rm ? {} : { x: [0, 36, 0], y: [0, 24, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="pointer-events-none absolute -right-40 bottom-[-60px] h-[560px] w-[560px] rounded-full opacity-[0.14]"
-        style={{ background: "radial-gradient(circle, var(--kio-accent2), transparent 68%)" }}
-        animate={rm ? {} : { x: [0, -36, 0], y: [0, -24, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* Third blob — violet accent */}
-      <motion.div
-        className="pointer-events-none absolute left-1/2 -top-24 h-[420px] w-[420px] -translate-x-1/2 rounded-full opacity-[0.09]"
-        style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 68%)" }}
-        animate={rm ? {} : { scale: [1, 1.12, 1] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Corner accent lines */}
-      <span aria-hidden="true" className="pointer-events-none absolute left-8 top-8 h-10 w-px bg-gradient-to-b from-kio-accent/40 to-transparent" />
-      <span aria-hidden="true" className="pointer-events-none absolute left-8 top-8 h-px w-10 bg-gradient-to-r from-kio-accent/40 to-transparent" />
-      <span aria-hidden="true" className="pointer-events-none absolute right-8 top-8 h-10 w-px bg-gradient-to-b from-kio-accent/40 to-transparent" />
-      <span aria-hidden="true" className="pointer-events-none absolute right-8 top-8 h-px w-10 bg-gradient-to-l from-kio-accent/40 to-transparent" />
-      <span aria-hidden="true" className="pointer-events-none absolute left-8 bottom-8 h-10 w-px bg-gradient-to-t from-kio-accent/40 to-transparent" />
-      <span aria-hidden="true" className="pointer-events-none absolute left-8 bottom-8 h-px w-10 bg-gradient-to-r from-kio-accent/40 to-transparent" />
-      <span aria-hidden="true" className="pointer-events-none absolute right-8 bottom-8 h-10 w-px bg-gradient-to-t from-kio-accent/40 to-transparent" />
-      <span aria-hidden="true" className="pointer-events-none absolute right-8 bottom-8 h-px w-10 bg-gradient-to-l from-kio-accent/40 to-transparent" />
-
+    <section className="section-pad relative overflow-hidden">
       <div className="container-kio relative z-10">
         {/* Heading */}
         <RevealOnScroll className="mb-12 text-center">

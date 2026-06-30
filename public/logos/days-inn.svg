@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 72">
+  <rect width="200" height="72" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+  <text x="100" y="33" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#0056A2">Days Inn</text>
+  <text x="100" y="52" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" letter-spacing="2" fill="#8fa3c4">BY WYNDHAM</text>
+</svg>

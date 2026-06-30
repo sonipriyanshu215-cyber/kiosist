@@ -122,7 +122,7 @@ export function MissionBlock() {
             {[
               { n: "24/7", l: "Coverage" },
               { n: "< 30s", l: "Response Time" },
-              { n: "100+", l: "Hotels Served" },
+              { n: "100+", l: "Hotels Onboard" },
             ].map(({ n, l }) => (
               <motion.div
                 key={l}

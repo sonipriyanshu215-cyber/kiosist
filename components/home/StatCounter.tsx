@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 const STATS = [
-  { value: 1000, suffix: "s", prefix: "$", label: "Saved per hotel per month" },
-  { raw: "24/7",                             label: "Always-on guest service" },
-  { raw: "3 sec",                            label: "Average check-in time" },
-  { raw: "5★",                               label: "Guest satisfaction rating" },
+  { raw: "3M+",  label: "Guests Attended"  },
+  { raw: "150+", label: "Workforce"        },
+  { raw: "45+",  label: "Brands"           },
+  { raw: "100+", label: "Hotels Onboard"   },
+  { raw: "70+",  label: "Locations"        },
 ];
 
 function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
@@ -33,10 +34,10 @@ function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string
 
 export function StatCounter() {
   return (
-    <section className="border-y border-kio-line bg-kio-bg-soft">
-      <div className="mx-auto grid max-w-container grid-cols-2 gap-10 px-6 py-10 md:grid-cols-4 md:px-10 lg:px-16">
+    <section className="py-14">
+      <div className="mx-auto grid max-w-container grid-cols-2 gap-6 px-6 md:grid-cols-5 md:px-10 lg:px-16">
         {STATS.map((s, i) => (
-          <div key={s.label} className="group relative overflow-hidden rounded-xl p-4 text-center transition-all duration-300 hover:bg-kio-bg/60">
+          <div key={s.label} className="group relative overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg">
             {/* Scanning beam — staggered per stat */}
             <div
               className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/12 to-transparent"

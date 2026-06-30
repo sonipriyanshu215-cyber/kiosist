@@ -231,7 +231,7 @@ export function TeamMosaic() {
             <span className="text-gradient">the front desk</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-kio-muted">
-            45+ trained virtual agents ready to represent your property, every hour of the day.
+            150+ trained virtual agents ready to represent your property, every hour of the day.
           </p>
         </RevealOnScroll>
 

@@ -2,6 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+
+const CYCLING_WORDS = [
+  "Check‑In",
+  "Hospitality",
+  "Guest Service",
+  "Front Desk",
+  "Concierge",
+  "Reservations",
+  "Room Service",
+  "Check‑Out",
+  "Valet Service",
+];
 import Image from "next/image";
 import Link from "next/link";
 
@@ -215,6 +227,13 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
 
 export function HeroBanner() {
   const rm = useReducedMotion();
+  const [wordIdx, setWordIdx] = useState(0);
+
+  useEffect(() => {
+    if (rm) return;
+    const id = setInterval(() => setWordIdx(i => (i + 1) % CYCLING_WORDS.length), 5000);
+    return () => clearInterval(id);
+  }, [rm]);
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-20 pt-[120px]">
@@ -307,7 +326,26 @@ export function HeroBanner() {
             className="text-[clamp(2.4rem,5vw,3.8rem)] font-black leading-[1.1] text-kio-ink"
           >
             The Future of<br />
-            <span className="text-gradient-shimmer">Hotel Check‑In</span><br />
+            <span className="inline-flex items-baseline gap-2">
+              <span className="text-kio-muted/70">Hotel</span>
+              <span
+                className="relative inline-block overflow-hidden"
+                style={{ minWidth: "10ch", verticalAlign: "bottom" }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={CYCLING_WORDS[wordIdx]}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: "0%",   opacity: 1 }}
+                    exit={{    y: "-100%", opacity: 0 }}
+                    transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
+                    className="text-gradient-shimmer inline-block"
+                  >
+                    {CYCLING_WORDS[wordIdx]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </span><br />
             Is Self‑Service
           </motion.h1>
 
@@ -344,25 +382,6 @@ export function HeroBanner() {
             </Link>
           </motion.div>
 
-          {/* Mini stats strip */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-12 flex flex-wrap items-center gap-8"
-          >
-            {[
-              { v: "100+",  l: "Hotels" },
-              { v: "24/7",  l: "Coverage" },
-              { v: "3 sec", l: "Avg Check-In" },
-              { v: "5★",    l: "Rating" },
-            ].map((s) => (
-              <div key={s.l} className="text-center">
-                <div className="text-xl font-bold text-kio-ink">{s.v}</div>
-                <div className="text-[.72rem] text-kio-muted">{s.l}</div>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         {/* RIGHT: animated image slideshow */}

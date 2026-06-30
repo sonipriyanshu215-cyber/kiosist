@@ -28,18 +28,18 @@ export const milestones: Milestone[] = [
     id: "m-2023",
     year: "2023",
     title: "50 Hotels Served",
-    body: "Growth accelerates as word spreads. 50 properties across 15 states now trust Kiosist for overnight and full-day coverage.",
+    body: "Growth accelerates as word spreads. 50 properties across 30+ locations now trust Kiosist for overnight and full-day coverage.",
   },
   {
     id: "m-2024",
     year: "2024",
-    title: "45+ Team Members",
-    body: "Team triples in size. KioClerk v2 launches with enhanced kiosk integration, multi-PMS support, and real-time dashboards.",
+    title: "150+ Workforce",
+    body: "Team grows to 150+ agents. KioClerk v2 launches with enhanced kiosk integration, multi-PMS support, and real-time dashboards.",
   },
   {
     id: "m-2025",
     year: "2025",
     title: "100+ Hotels & Expanding",
-    body: "Over 100 hotels served across the USA. New verticals — motels, extended stays, and boutique hotels — join the platform.",
+    body: "Over 100 hotels onboard across 70+ locations in the USA, serving 3M+ guests. New verticals — motels, extended stays, and boutique hotels — join the platform.",
   },
 ];

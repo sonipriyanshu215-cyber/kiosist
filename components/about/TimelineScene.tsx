@@ -8,13 +8,91 @@ import { milestones } from "@/content/milestones";
 const ICONS  = [Lightbulb, Building2, Hotel, TrendingUp, Users, Globe];
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"];
 
-export function TimelineScene() {
-  const rm         = useReducedMotion();
-  const outerRef   = useRef<HTMLDivElement>(null);
-  const trackRef   = useRef<HTMLDivElement>(null);
+/* ── Shared section header ── */
+function Header() {
+  return (
+    <div className="container-kio pb-10 pt-24 text-center">
+      <span className="section-label">Our Journey</span>
+      <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
+        From idea to 100+ hotels
+      </h2>
+      <p className="mt-4 text-kio-muted">
+        Our story — one milestone at a time.
+      </p>
+    </div>
+  );
+}
+
+/* ── Mobile: vertical stacked timeline ── */
+function VerticalTimeline() {
+  return (
+    <div className="container-kio pb-20">
+      <div className="relative">
+        {/* Vertical spine */}
+        <div
+          aria-hidden="true"
+          className="absolute left-5 top-0 bottom-0 w-px"
+          style={{ background: "linear-gradient(to bottom, transparent, var(--kio-line) 10%, var(--kio-line) 90%, transparent)" }}
+        />
+
+        <div className="flex flex-col gap-8">
+          {milestones.map((m, i) => {
+            const Icon  = ICONS[i] ?? Lightbulb;
+            const color = COLORS[i % COLORS.length];
+
+            return (
+              <motion.div
+                key={m.id}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="relative pl-14"
+              >
+                {/* Dot on spine */}
+                <div
+                  className="absolute left-[14px] top-4 h-3 w-3 rounded-full border-2"
+                  style={{ borderColor: color, background: "#0d1117" }}
+                />
+
+                {/* Card */}
+                <div
+                  className="rounded-2xl p-5 backdrop-blur-sm"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(18,20,30,0.82), rgba(22,25,38,0.72))",
+                    boxShadow: `0 0 0 1px ${color}30`,
+                  }}
+                >
+                  <div className="mb-3 flex items-center gap-3">
+                    <div
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
+                      style={{ background: `${color}18`, border: `1px solid ${color}45` }}
+                    >
+                      <Icon className="h-4 w-4" style={{ color }} />
+                    </div>
+                    <span className="font-mono text-2xl font-bold" style={{ color }}>
+                      {m.year}
+                    </span>
+                  </div>
+                  <h3 className="text-sm font-bold text-kio-ink">{m.title}</h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-kio-muted">{m.body}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Desktop: pinned horizontal scroll ── */
+function HorizontalTimeline() {
+  const rm       = useReducedMotion();
+  const outerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [xMax, setXMax] = useState(0);
 
-  /* Calculate how far to translate the track horizontally */
   useEffect(() => {
     const calc = () => {
       if (!trackRef.current) return;
@@ -25,7 +103,6 @@ export function TimelineScene() {
     return () => window.removeEventListener("resize", calc);
   }, []);
 
-  /* Map vertical scroll progress of the outer container → horizontal x */
   const { scrollYProgress } = useScroll({
     target: outerRef,
     offset: ["start start", "end end"],
@@ -34,63 +111,45 @@ export function TimelineScene() {
   const x = useTransform(scrollYProgress, [0, 1], [0, rm ? 0 : xMax]);
 
   return (
-    <section className="relative">
-      {/* ── Section header (outside the sticky zone) ── */}
-      <div className="container-kio pb-10 pt-24 text-center">
-        <span className="section-label">Our Journey</span>
-        <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-          From idea to 100+ hotels
-        </h2>
-        <p className="mt-4 text-kio-muted">
-          Scroll through our story — one milestone at a time.
-        </p>
-        {/* Scroll hint */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-kio-muted/60">
+    <>
+      {/* Scroll hint */}
+      <div className="container-kio pb-6 text-center">
+        <div className="flex items-center justify-center gap-2 text-xs text-kio-muted/60">
           <motion.span
-            animate={rm ? {} : { x: [0, 8, 0] }}
+            animate={rm ? {} : { x: [0, 6, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            ↓
-          </motion.span>
-          <span>Scroll down to explore</span>
+          >↓</motion.span>
+          <span>Scroll to explore</span>
           <motion.span
-            animate={rm ? {} : { x: [0, 8, 0] }}
+            animate={rm ? {} : { x: [0, 6, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-          >
-            →
-          </motion.span>
+          >→</motion.span>
         </div>
       </div>
 
-      {/* ── Outer scroll container — height controls how long the pin lasts ── */}
+      {/* Outer scroll container */}
       <div ref={outerRef} style={{ height: "400vh" }}>
-
-        {/* ── Sticky viewport ── */}
         <div className="sticky top-0 h-screen overflow-hidden">
 
-          {/* Timeline spine */}
+          {/* Spine */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-0 right-0 top-1/2 h-px -translate-y-1/2"
-            style={{
-              background: "linear-gradient(90deg, transparent, var(--kio-line) 5%, var(--kio-line) 95%, transparent)",
-            }}
+            style={{ background: "linear-gradient(90deg, transparent, var(--kio-line) 5%, var(--kio-line) 95%, transparent)" }}
           />
 
-          {/* Shimmer running along spine */}
+          {/* Shimmer */}
           {!rm && (
             <motion.div
               aria-hidden="true"
               className="pointer-events-none absolute top-1/2 h-px w-40 -translate-y-1/2"
-              style={{
-                background: "linear-gradient(90deg, transparent, var(--kio-accent), transparent)",
-              }}
+              style={{ background: "linear-gradient(90deg, transparent, var(--kio-accent), transparent)" }}
               animate={{ left: ["-15%", "115%"] }}
               transition={{ duration: 5, repeat: Infinity, ease: "linear", repeatDelay: 2 }}
             />
           )}
 
-          {/* Progress bar at bottom */}
+          {/* Progress bar */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 h-0.5 w-48 rounded-full overflow-hidden bg-kio-line">
             <motion.div
               className="h-full rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
@@ -98,7 +157,7 @@ export function TimelineScene() {
             />
           </div>
 
-          {/* ── Horizontally moving track ── */}
+          {/* Moving track */}
           <motion.div
             ref={trackRef}
             style={{ x }}
@@ -114,9 +173,11 @@ export function TimelineScene() {
                   key={m.id}
                   className="relative flex h-full w-72 shrink-0 items-center justify-center"
                 >
-                  {/* Spine dot with pulse rings */}
-                  <div className="absolute left-1/2 top-1/2 z-20" style={{ transform: "translate(-50%, -50%)" }}>
-                    {/* Pulse rings — positioned with calc so Framer Motion's scale doesn't fight the centering */}
+                  {/* Dot */}
+                  <div
+                    className="absolute left-1/2 top-1/2 z-20"
+                    style={{ transform: "translate(-50%, -50%)" }}
+                  >
                     {!rm && [0, 1].map(j => {
                       const size = 22 + j * 14;
                       return (
@@ -137,14 +198,13 @@ export function TimelineScene() {
                         />
                       );
                     })}
-                    {/* Core dot */}
                     <span
                       className="relative z-10 block h-3 w-3 rounded-full border-2"
                       style={{ borderColor: color, background: "#0d1117" }}
                     />
                   </div>
 
-                  {/* Connector line */}
+                  {/* Connector */}
                   <div
                     aria-hidden="true"
                     className="absolute left-1/2 w-px -translate-x-1/2"
@@ -156,32 +216,25 @@ export function TimelineScene() {
                     }}
                   />
 
-                  {/* Milestone card */}
+                  {/* Card */}
                   <div
-                    className="absolute inset-x-0 rounded-2xl p-6 text-center ring-1 backdrop-blur-sm transition-all duration-300"
+                    className="absolute inset-x-0 rounded-2xl p-6 text-center backdrop-blur-sm"
                     style={{
-                      background: `linear-gradient(135deg, rgba(18,20,30,0.82), rgba(22,25,38,0.72))`,
+                      background: "linear-gradient(135deg, rgba(18,20,30,0.82), rgba(22,25,38,0.72))",
                       boxShadow:  `0 0 0 1px ${color}28`,
                       bottom: above ? "calc(50% + 2.5rem)" : undefined,
                       top:    above ? undefined : "calc(50% + 2.5rem)",
                     }}
                   >
-                    {/* Icon */}
                     <div
                       className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
                       style={{ background: `${color}18`, border: `1px solid ${color}45` }}
                     >
                       <Icon className="h-5 w-5" style={{ color }} />
                     </div>
-
-                    {/* Year */}
-                    <div
-                      className="font-mono text-4xl font-bold leading-none"
-                      style={{ color }}
-                    >
+                    <div className="font-mono text-4xl font-bold leading-none" style={{ color }}>
                       {m.year}
                     </div>
-
                     <h3 className="mt-2 text-base font-bold text-kio-ink">{m.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-kio-muted">{m.body}</p>
                   </div>
@@ -190,6 +243,25 @@ export function TimelineScene() {
             })}
           </motion.div>
         </div>
+      </div>
+    </>
+  );
+}
+
+/* ── Main export ── */
+export function TimelineScene() {
+  return (
+    <section className="relative">
+      <Header />
+
+      {/* Mobile: vertical */}
+      <div className="md:hidden">
+        <VerticalTimeline />
+      </div>
+
+      {/* Desktop: horizontal scroll */}
+      <div className="hidden md:block">
+        <HorizontalTimeline />
       </div>
     </section>
   );

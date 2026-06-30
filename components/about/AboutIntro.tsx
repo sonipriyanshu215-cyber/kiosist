@@ -115,6 +115,20 @@ export function AboutIntro() {
 
   return (
     <div>
+      {/* ── Mobile image banner (hidden on lg) ── */}
+      <div className="relative h-56 w-full overflow-hidden lg:hidden">
+        <Image
+          src="/img/about/team-wide.webp"
+          alt="Kiosist team at work"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          priority
+        />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, transparent 30%, #0d1117 100%)" }} />
+      </div>
+
       {/* ── Hero ── */}
       <section className="relative min-h-screen overflow-hidden">
 
@@ -147,7 +161,7 @@ export function AboutIntro() {
           initial={{ opacity: 0, x: -28 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex min-h-screen flex-col justify-center px-8 pb-16 pt-32 lg:w-[52%] lg:px-14 xl:px-20"
+          className="relative z-10 flex min-h-[70vh] flex-col justify-center px-6 pb-16 pt-10 lg:min-h-screen lg:w-[52%] lg:pt-32 lg:px-14 xl:px-20"
         >
           {/* Badge */}
           <div className="mb-7 inline-flex items-center gap-2 self-start rounded-full border border-kio-accent/30 bg-kio-accent/10 px-4 py-1.5">
@@ -198,7 +212,7 @@ export function AboutIntro() {
       </section>
 
       {/* ── Bottom perks strip ── */}
-      <div className="grid grid-cols-2 border-t border-kio-line bg-kio-bg-soft lg:grid-cols-4">
+      <div className="grid grid-cols-1 border-t border-kio-line bg-kio-bg-soft sm:grid-cols-2 lg:grid-cols-4">
         {PERKS.map((p, i) => (
           <motion.div
             key={p.label}

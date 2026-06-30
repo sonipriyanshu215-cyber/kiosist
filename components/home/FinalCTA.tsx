@@ -12,7 +12,7 @@ export function FinalCTA() {
       <div className="mx-auto max-w-container">
         <RevealOnScroll>
           <div
-            className="relative overflow-hidden rounded-3xl border border-kio-accent/25 p-[60px_48px] md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-10"
+            className="relative overflow-hidden rounded-3xl border border-kio-accent/25 p-8 md:p-[60px_48px] md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-10"
             style={{
               background: "linear-gradient(135deg, rgba(59,130,246,.15) 0%, rgba(6,182,212,.1) 100%)",
             }}

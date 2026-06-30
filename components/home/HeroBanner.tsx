@@ -323,14 +323,14 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(2.4rem,5vw,3.8rem)] font-black leading-[1.1] text-kio-ink"
+            className="text-[clamp(1.9rem,5vw,3.8rem)] font-black leading-[1.1] text-kio-ink"
           >
             The Future of<br />
             <span className="inline-flex items-baseline gap-2">
               <span className="text-kio-muted/70">Hotel</span>
               <span
                 className="relative inline-block overflow-hidden"
-                style={{ minWidth: "10ch", verticalAlign: "bottom" }}
+                style={{ minWidth: "7ch", verticalAlign: "bottom" }}
               >
                 <AnimatePresence mode="wait">
                   <motion.span

@@ -37,7 +37,7 @@ export function StatCounter() {
     <section className="py-14">
       <div className="mx-auto grid max-w-container grid-cols-2 gap-6 px-6 md:grid-cols-5 md:px-10 lg:px-16">
         {STATS.map((s, i) => (
-          <div key={s.label} className="group relative overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg">
+          <div key={s.label} className={`group relative overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg${i === STATS.length - 1 && STATS.length % 2 !== 0 ? " col-span-2 md:col-span-1" : ""}`}>
             {/* Scanning beam — staggered per stat */}
             <div
               className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/12 to-transparent"

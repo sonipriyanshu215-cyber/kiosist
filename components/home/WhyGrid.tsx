@@ -95,7 +95,7 @@ export function WhyGrid() {
       <div className="container-kio relative z-10 flex flex-col items-center gap-12 xl:flex-row xl:items-center xl:justify-center xl:gap-20">
 
         {/* ── Orbit ring ── */}
-        <div className="relative w-full max-w-[480px] shrink-0 aspect-square">
+        <div className="relative w-full max-w-[320px] shrink-0 aspect-square sm:max-w-[400px] xl:max-w-[480px]">
 
           {/* SVG layer: orbit rings + connector lines */}
           <svg

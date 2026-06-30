@@ -68,6 +68,13 @@
   animation: kio-loader-gradient 10s ease infinite;
 }
 
+/* Hide page chrome while the intro loader is active */
+body[data-intro] header,
+body[data-intro] main,
+body[data-intro] footer {
+  visibility: hidden;
+}
+
 @layer base {
   html {
     scroll-behavior: auto;

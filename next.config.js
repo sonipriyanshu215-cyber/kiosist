@@ -4,7 +4,9 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [],
   },
-  optimizePackageImports: ["framer-motion", "lucide-react"],
+  experimental: {
+    optimizePackageImports: ["framer-motion", "lucide-react"],
+  },
 };
 
 module.exports = nextConfig;

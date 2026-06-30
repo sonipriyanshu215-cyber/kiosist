@@ -1,4 +1,5 @@
 {
+  "homepage": "https://sonipriyanshu215-cyber.github.io/kiosist",
   "name": "kiosist-web",
   "version": "0.1.0",
   "private": true,
@@ -6,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

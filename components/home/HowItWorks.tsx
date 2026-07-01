@@ -8,7 +8,7 @@ const STEPS = [
   {
     num: 1,
     title: "Consult & Customize",
-    body: "Our team analyzes your hotel's workflow and tailors KioClerk to match your branding, PMS, and specific operational needs.",
+    body: "Our team analyzes your hotel's workflow and tailors Kiosist to match your branding, PMS, and specific operational needs.",
   },
   {
     num: 2,
@@ -44,7 +44,7 @@ export function HowItWorks() {
           <span className="text-gradient">3 Easy Steps</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
-          Getting KioClerk into your hotel is fast, painless, and fully supported
+          Getting <span className="text-color-cycle">KIOSIST</span> into your hotel is fast, painless, and fully supported
           by our team from start to finish.
         </p>
       </RevealOnScroll>

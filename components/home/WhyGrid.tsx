@@ -28,7 +28,7 @@ const FEATURES = [
   {
     icon: "🌐",
     title: "Multilingual Support",
-    body: "KioClerk speaks your guests' language. Support for 20+ languages means every traveler feels at home from the moment they arrive.",
+    body: "Kiosist speaks your guests' language. Support for 20+ languages means every traveler feels at home from the moment they arrive.",
   },
   {
     icon: "🔗",
@@ -86,7 +86,7 @@ export function WhyGrid() {
           <span className="text-gradient">Needs in One Kiosk</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
-          KioClerk packs a full suite of hospitality tools into a single elegant kiosk —
+          Kiosist packs a full suite of hospitality tools into a single elegant kiosk —
           no more juggling software, no more bottlenecks at the front desk.
         </p>
       </RevealOnScroll>

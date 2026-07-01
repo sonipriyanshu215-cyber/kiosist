@@ -19,7 +19,7 @@ export const clients: Client[] = [
     coordinates: [-84.388, 33.749],
     testimonial: {
       quote:
-        "KioClerk has helped us greatly with our check-in process. Our guests love the seamless experience.",
+        "Kiosist has helped us greatly with our check-in process. Our guests love the seamless experience.",
       author: "Rakesh Patel",
       rating: 5,
     },

@@ -52,7 +52,7 @@ export function FinalCTA() {
               </h2>
               <p className="mt-2.5 text-[.95rem] text-kio-muted">
                 Join hotels saving thousands every month. Schedule a free demo today and
-                see KioClerk in action.
+                see <span className="text-color-cycle">KIOSIST</span> in action.
               </p>
             </div>
 

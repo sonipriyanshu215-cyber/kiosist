@@ -13,7 +13,7 @@ const CASES = [
     metric: "60%",
     metricLabel: "Cost reduction",
     front: "Eliminated overnight in-person staff while maintaining 100% check-in coverage.",
-    back: "After deploying KioClerk, the property reduced labour costs by 60% in the first quarter. Zero missed check-ins across 6 months of operation.",
+    back: "After deploying Kiosist, the property reduced labour costs by 60% in the first quarter. Zero missed check-ins across 6 months of operation.",
   },
   {
     id: "cs-2",

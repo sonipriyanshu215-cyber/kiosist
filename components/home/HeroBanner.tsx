@@ -47,8 +47,8 @@ const STAT_PILLS = [
 
 /* ── Hero image slides ── */
 const SLIDES = [
-  { src: "/img/hero/lobby.webp",        alt: "Hotel lobby managed by KioClerk", label: "Real Hotel Lobby"    },
-  { src: "/img/hero/kiosk.webp",        alt: "KioClerk kiosk in action",         label: "Self-Check-In Kiosk" },
+  { src: "/img/hero/lobby.webp",        alt: "Hotel lobby managed by Kiosist", label: "Real Hotel Lobby"    },
+  { src: "/img/hero/machine.webp",        alt: " kiosk in action",         label: "Self-Check-In Kiosk" },
   { src: "/img/hero/agent-bubble.webp", alt: "24/7 virtual agent assisting guests", label: "24/7 Virtual Agent" },
 ];
 
@@ -74,14 +74,15 @@ const slideVariants = {
 
 function HeroSlider({ rm }: { rm: boolean | null }) {
   const [[idx, dir], setSlide] = useState([0, 1]);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    if (rm) return;
+    if (rm || hovered) return;
     const id = setInterval(() => {
       setSlide(([prev]) => [(prev + 1) % SLIDES.length, 1]);
-    }, 4200);
+    }, 4500);
     return () => clearInterval(id);
-  }, [rm]);
+  }, [rm, hovered]);
 
   const goTo = (next: number) =>
     setSlide(([prev]) => [next, next > prev ? 1 : -1]);
@@ -89,31 +90,17 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
   return (
     <div className="relative flex flex-col gap-4">
       {/* Savings badge */}
-      <motion.div
-        className="absolute -top-4 right-5 z-20 rounded-full bg-gradient-to-r from-kio-success to-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-[0_4px_20px_rgba(16,185,129,.4)]"
-        animate={rm ? {} : { y: [0, -7, 0] }}
-        transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
-      >
+      <div className="absolute -top-4 right-5 z-20 rounded-full bg-gradient-to-r from-kio-success to-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-[0_4px_20px_rgba(16,185,129,.4)]">
         💰 Save $1000s/month
-      </motion.div>
+      </div>
 
       {/* Image viewport */}
-      <div className="relative overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)]"
-           style={{ aspectRatio: "4/3" }}>
-        {/* Rotating conic accent ring */}
-        {!rm && (
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute -inset-[2px] rounded-3xl z-0"
-            style={{
-              background: "conic-gradient(from 0deg, transparent 0%, var(--kio-accent) 6%, var(--kio-accent2) 13%, transparent 20%)",
-              opacity: 0.5,
-            }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          />
-        )}
-
+      <div
+        className="relative overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)]"
+        style={{ aspectRatio: "4/3" }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
         <AnimatePresence custom={dir} mode="popLayout" initial={false}>
           <motion.div
             key={idx}
@@ -124,18 +111,27 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
             exit="exit"
             className="absolute inset-0 z-10"
           >
-            <Image
-              src={SLIDES[idx].src}
-              alt={SLIDES[idx].alt}
-              fill
-              className="object-cover"
-              priority={idx === 0}
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+            {/* Image with hover zoom */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{ scale: hovered ? 1.06 : 1 }}
+              transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
+            >
+              <Image
+                src={SLIDES[idx].src}
+                alt={SLIDES[idx].alt}
+                fill
+                className="object-cover"
+                priority={idx === 0}
+                loading={idx === 0 ? "eager" : "lazy"}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </motion.div>
+
             {/* Bottom scrim */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
 
-            {/* Caption badge — fades in after image settles */}
+            {/* Caption badge */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -168,15 +164,15 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
           ))}
         </div>
 
-        {/* Progress bar */}
+        {/* Progress bar — pauses on hover */}
         {!rm && (
           <div className="absolute bottom-0 left-0 right-0 z-20 h-[2px] bg-white/10">
             <motion.div
-              key={idx}
+              key={`${idx}-${hovered}`}
               className="h-full bg-kio-accent"
               initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 4.2, ease: "linear" }}
+              animate={{ width: hovered ? undefined : "100%" }}
+              transition={{ duration: 4.5, ease: "linear" }}
             />
           </div>
         )}
@@ -197,30 +193,6 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
           </motion.div>
         ))}
       </div>
-
-      {/* Floating accent dots */}
-      {!rm && (
-        <>
-          <motion.div
-            aria-hidden="true"
-            className="absolute -right-4 top-1/4 h-3 w-3 rounded-full bg-kio-accent"
-            animate={{ y: [0, -12, 0], opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            aria-hidden="true"
-            className="absolute -left-3 top-2/3 h-2 w-2 rounded-full bg-kio-accent2"
-            animate={{ y: [0, 10, 0], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-          <motion.div
-            aria-hidden="true"
-            className="absolute right-1/4 -bottom-3 h-2.5 w-2.5 rounded-full bg-kio-accent"
-            animate={{ x: [0, 8, 0], opacity: [0.4, 0.8, 0.4] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          />
-        </>
-      )}
     </div>
   );
 }
@@ -356,7 +328,7 @@ export function HeroBanner() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="mt-5 max-w-[480px] text-[1.05rem] leading-[1.8] text-kio-muted"
           >
-            KioClerk by Kiosist transforms your hotel lobby into an intelligent,
+            <span className="text-color-cycle">KIOSIST</span> transforms your hotel lobby into an intelligent,
             guest-first experience — cutting operational costs while elevating
             every touchpoint.
           </motion.p>

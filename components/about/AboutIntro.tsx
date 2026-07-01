@@ -91,22 +91,19 @@ export function AboutIntro() {
             src="/img/about/office.webp"
             alt="Kiosist team at work"
             fill
-            className="object-cover object-center"
+            className="object-cover object-right"
             sizes="(max-width: 1023px) 0px, 100vw"
             priority
           />
-          {/* Heavy left vignette — dissolves photo into content */}
+          {/* Left vignette — lighter so more image shows through */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to right, #0d1117 0%, #0d1117ee 30%, #0d111799 50%, #0d111733 65%, transparent 80%)" }} />
+            style={{ background: "linear-gradient(to right, #0d1117 0%, #0d1117cc 22%, #0d111766 42%, #0d111722 58%, transparent 72%)" }} />
           {/* Top fade */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to bottom, #0d1117 0%, #0d111788 15%, transparent 45%)" }} />
+            style={{ background: "linear-gradient(to bottom, #0d1117 0%, #0d111755 12%, transparent 38%)" }} />
           {/* Bottom fade */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to top, #0d1117 0%, #0d111799 20%, transparent 50%)" }} />
-          {/* Right edge fade */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to left, #0d1117 0%, transparent 25%)" }} />
+            style={{ background: "linear-gradient(to top, #0d1117 0%, #0d111766 18%, transparent 45%)" }} />
         </div>
 
         {/* ── Left: content (sits on top of full-bleed image) ── */}

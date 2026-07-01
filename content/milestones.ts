@@ -22,7 +22,7 @@ export const milestones: Milestone[] = [
     id: "m-2022",
     year: "2022",
     title: "First US Hotel Goes Live",
-    body: "We deploy KioClerk at our first US property. 24/7 virtual front-desk coverage powered from India — a first for the industry.",
+    body: "We deploy Kiosist at our first US property. 24/7 virtual front-desk coverage powered from India — a first for the industry.",
   },
   {
     id: "m-2023",
@@ -34,7 +34,7 @@ export const milestones: Milestone[] = [
     id: "m-2024",
     year: "2024",
     title: "150+ Workforce",
-    body: "Team grows to 150+ agents. KioClerk v2 launches with enhanced kiosk integration, multi-PMS support, and real-time dashboards.",
+    body: "Team grows to 150+ agents. Kiosist v2 launches with enhanced kiosk integration, multi-PMS support, and real-time dashboards.",
   },
   {
     id: "m-2025",

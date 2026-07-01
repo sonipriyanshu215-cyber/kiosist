@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   description:
     "Kiosist provides 24/7 virtual front desk staffing for hotels across the USA — reducing costs, improving guest satisfaction, and never missing a check-in.",
-  keywords: ["virtual front desk", "hotel staffing", "KioClerk", "24/7 hotel management"],
+  keywords: ["virtual front desk", "hotel staffing", "Kiosist", "24/7 hotel management"],
   authors: [{ name: "Kiosist Pvt. Ltd." }],
   creator: "Kiosist",
   openGraph: {

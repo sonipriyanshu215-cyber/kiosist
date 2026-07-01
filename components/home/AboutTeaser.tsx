@@ -27,12 +27,12 @@ const INFO_CARDS = [
   {
     icon: "🏨",
     title: "Designed for Hotels",
-    body: "Built from the ground up for the hospitality industry, KioClerk understands the nuances of hotel operations — from PMS integration to room key encoding and payment processing.",
+    body: "Built from the ground up for the hospitality industry, Kiosist understands the nuances of hotel operations — from PMS integration to room key encoding and payment processing.",
   },
   {
     icon: "💡",
     title: "Smart & Adaptive",
-    body: "KioClerk learns from usage patterns, adapts its interface, and gives management real-time insights into guest flow, peak hours, and service preferences.",
+    body: "Kiosist learns from usage patterns, adapts its interface, and gives management real-time insights into guest flow, peak hours, and service preferences.",
   },
   {
     icon: "🔒",
@@ -71,11 +71,11 @@ export function AboutTeaser() {
           <p className="mt-5 text-[.95rem] leading-[1.9] text-kio-muted">
             Kiosist is a Surat-based hospitality technology company dedicated to
             transforming how hotels operate and serve guests. Our flagship product,{" "}
-            <strong className="text-kio-ink">KioClerk</strong>, brings the power of
+            <span className="text-color-cycle">KIOSIST</span>, brings the power of
             intelligent self-service kiosks to hotel lobbies worldwide.
           </p>
           <p className="mt-4 text-[.95rem] leading-[1.9] text-kio-muted">
-            We believe great hospitality doesn&apos;t have to mean high overhead. KioClerk
+            We believe great hospitality doesn&apos;t have to mean high overhead. Kiosist
             allows your staff to focus on what matters most — personal, memorable guest
             interactions — while the kiosk handles the administrative workload seamlessly.
           </p>

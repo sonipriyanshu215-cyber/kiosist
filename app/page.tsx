@@ -4,12 +4,13 @@ import { StatCounter }         from "@/components/home/StatCounter";
 import { WhyGrid }             from "@/components/home/WhyGrid";
 import { VideoStory }          from "@/components/home/VideoStory";
 import { BrandStrip }          from "@/components/home/BrandStrip";
+import { WhatIsKiosist }       from "@/components/home/WhatIsKiosist";
 import { FinalCTA }            from "@/components/home/FinalCTA";
 
 export const metadata: Metadata = {
   title: "Kiosist — Smart Hotel Self-Service Kiosks",
   description:
-    "KioClerk by Kiosist transforms your hotel lobby with intelligent self-service kiosks — cutting operational costs while elevating every guest touchpoint.",
+    "Kiosist transforms your hotel lobby with intelligent self-service kiosks — cutting operational costs while elevating every guest touchpoint.",
   openGraph: {
     title: "Kiosist — Smart Hotel Self-Service Kiosks",
     description: "Intelligent self-service kiosk solutions for modern hotels.",
@@ -21,10 +22,11 @@ export default function Home() {
   return (
     <>
       <HeroBanner />
-      <WhyGrid />
+      <BrandStrip />
+      <WhatIsKiosist />
       <StatCounter />
       <VideoStory />
-      <BrandStrip />
+      <WhyGrid />
       <FinalCTA />
     </>
   );

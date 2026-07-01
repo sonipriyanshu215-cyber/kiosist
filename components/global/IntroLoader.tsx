@@ -451,11 +451,11 @@ export function IntroLoader() {
     enter:  { scale: 1,                       y: 0,   opacity: 1,   x: 0 },
     /* Shrink and move left to make room for character */
     shrink: isMobile
-      ? { scale: 0.52, y: "-24vh", opacity: 0.55, x: 0 }
-      : { scale: 0.78, y: 0,       opacity: 0.72, x: "-18vw" },
+      ? { scale: 0.70, y: "-18vh", opacity: 0.75, x: 0 }
+      : { scale: 1.20, y: 0,       opacity: 1.00, x: "-12vw" },
   };
 
-  const kioskW = isMobile ? "min(260px, 74vw)" : "min(360px, 40vw)";
+  const kioskW = isMobile ? "min(480px, 96vw)" : "min(860px, 82vw)";
 
   return (
     <AnimatePresence onExitComplete={handleExitComplete}>
@@ -537,14 +537,14 @@ export function IntroLoader() {
                 style={{
                   position:       "relative",
                   width:          kioskW,
-                  aspectRatio:    "260 / 390",
+                  aspectRatio:    "4 / 3",
                   transformStyle: "preserve-3d",
                   willChange:     "transform",
                 }}
               >
                 <Image
-                  src="/img/hero/kiosk.webp"
-                  alt="KioClerk kiosk"
+                  src="/img/hero/machine.webp"
+                  alt="Kiosist kiosk"
                   fill
                   className="object-contain"
                   priority

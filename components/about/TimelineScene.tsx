@@ -14,10 +14,10 @@ function Header() {
     <div className="container-kio pb-10 pt-24 text-center">
       <span className="section-label">Our Journey</span>
       <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-        From idea to 100+ hotels
+        Five Years. One Front Desk. <span className="text-color-cycle">Everywhere.</span>
       </h2>
       <p className="mt-4 text-kio-muted">
-        Our story — one milestone at a time.
+        From one idea in Surat to 100+ hotels across the USA — here&apos;s how we got here.
       </p>
     </div>
   );

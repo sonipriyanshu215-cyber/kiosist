@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const FOOTER_COLS = [
   {
@@ -69,11 +70,14 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           {/* Brand */}
           <div>
-            <Link
-              href="/"
-              className="text-[1.4rem] font-extrabold tracking-[.08em] text-gradient"
-            >
-              KIOSIST
+            <Link href="/" className="inline-flex items-center">
+              <Image
+                src="/img/kiosist-logo.png"
+                alt="Kiosist"
+                width={1122}
+                height={794}
+                className="h-[150px] w-auto object-contain"
+              />
             </Link>
             <p className="mt-3.5 max-w-[280px] text-[.875rem] leading-[1.8] text-kio-muted">
               Smart self-service kiosk solutions for the modern hospitality industry.

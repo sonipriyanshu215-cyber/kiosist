@@ -8,7 +8,7 @@ export function FinalCTA() {
   const rm = useReducedMotion();
 
   return (
-    <section className="bg-kio-bg-soft py-20 px-6">
+    <section className="bg-kio-bg-soft py-16 md:py-20 lg:py-24 px-6">
       <div className="mx-auto max-w-container">
         <RevealOnScroll>
           <div
@@ -47,12 +47,13 @@ export function FinalCTA() {
             {/* Text */}
             <div className="relative z-10">
               <h2 className="text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold text-kio-ink">
-                Ready to{" "}
-                <span className="text-gradient">Transform Your Hotel?</span>
+                The smallest smile can become a{" "}
+                <span className="text-gradient">guest&apos;s biggest memory.</span>
               </h2>
               <p className="mt-2.5 text-[.95rem] text-kio-muted">
-                Join hotels saving thousands every month. Schedule a free demo today and
-                see <span className="text-color-cycle">KIOSIST</span> in action.
+                If you believe that,{" "}
+                <span className="text-color-cycle font-semibold">Kiosist</span>{" "}
+                is the place for you.
               </p>
             </div>
 
@@ -68,13 +69,10 @@ export function FinalCTA() {
                     transition={{ duration: 2.2, repeat: Infinity }}
                   />
                 )}
-                <Link href="/contact" className="btn-primary relative">
-                  Book a Free Demo
+                <Link href="/contact" className="btn-primary relative tracking-widest uppercase">
+                  Join Now
                 </Link>
               </div>
-              <a href="tel:9825400070" className="btn-secondary">
-                📞 Call Us
-              </a>
             </div>
           </div>
         </RevealOnScroll>

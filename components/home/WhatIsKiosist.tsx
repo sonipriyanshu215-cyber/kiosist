@@ -26,26 +26,23 @@ export function WhatIsKiosist() {
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       />
 
-      <div className="container-kio relative z-10">
+      <div className="relative z-10 w-full">
         {/* Heading */}
-        <RevealOnScroll className="mb-12 text-center">
+        <RevealOnScroll className="container-kio mx-auto mb-12 text-center">
           <span className="section-label">Our Story</span>
-          <h2 className="mt-4 text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            What is{" "}
-            <span className="text-color-cycle">KIOSIST</span>?
-          </h2>
         </RevealOnScroll>
 
-        {/* Two-column layout */}
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        {/* Stacked layout: image centered, text below */}
+        <div className="flex flex-col items-center gap-12">
 
-          {/* Image column */}
+          {/* Image — centered */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-            className="relative"
+            className="relative mx-auto"
+            style={{ width: "1100px", maxWidth: "100%" }}
           >
             {/* Outer glow ring */}
             <motion.div
@@ -63,7 +60,7 @@ export function WhatIsKiosist() {
             {/* Image */}
             <motion.div
               className="relative overflow-hidden rounded-2xl"
-              style={{ aspectRatio: "4/3" }}
+              style={{ width: "1100px", maxWidth: "100%", height: "500px" }}
               whileHover="hovered"
               initial="idle"
             >
@@ -79,8 +76,8 @@ export function WhatIsKiosist() {
                   src="/img/about/kiosist-team.jpeg"
                   alt="The Kiosist team at their office in India"
                   fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-[center_35%]"
+                  sizes="1100px"
                 />
               </motion.div>
 
@@ -145,40 +142,37 @@ export function WhatIsKiosist() {
             )}
           </motion.div>
 
-          {/* Text column */}
+          {/* Text — full width below image */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1], delay: 0.1 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1], delay: 0.15 }}
+            className="mx-auto max-w-[820px] text-center"
           >
-            {/* Decorative quote mark */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none mb-2 block font-serif text-[5rem] leading-[0.6] text-kio-accent/15 select-none"
-            >
-              &ldquo;
-            </span>
+            {/* Title */}
+            <h3 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold leading-snug text-kio-ink">
+              Welcome to <span className="text-color-cycle">Kiosist</span>
+            </h3>
 
-            <p className="text-[1rem] leading-[1.95] text-kio-muted md:text-[1.05rem]">
-              The idea of{" "}
-              <span className="text-color-cycle font-semibold">KIOSIST</span> is executed by Ms. Henal Dalal in India. A hotel owner wanted to replace the front-office operation in the U.S. with the virtually assisted kiosk to operate front-office from India.
-            </p>
-            <p className="mt-5 text-[1rem] leading-[1.95] text-kio-muted md:text-[1.05rem]">
-              However, this idea sounded impossible — but with collaboration and a lot of trials and errors, she successfully established a strong system that runs a front-desk of hotels in the U.S. virtually from India.
-            </p>
-            <p className="mt-5 text-[1rem] leading-[1.95] text-kio-muted md:text-[1.05rem]">
-              And this is how Henal&apos;s solution became existent — turning an idea that once seemed out of reach into a thriving reality powering{" "}
-              <span className="font-semibold text-kio-ink">100+ hotels</span> across{" "}
-              <span className="font-semibold text-kio-ink">70+ locations</span>.
+            {/* Sub-title */}
+            <p className="mt-2 text-[clamp(1rem,1.8vw,1.25rem)] font-semibold italic text-kio-muted">
+              Where Every Hello Becomes a Story.
             </p>
 
             {/* Divider */}
             <div
               aria-hidden="true"
-              className="mt-8 h-px w-full rounded-full"
+              className="my-6 h-px w-full rounded-full"
               style={{ background: "linear-gradient(90deg, var(--kio-accent), var(--kio-accent2), transparent)" }}
             />
+
+            <p className="text-[1rem] leading-[1.95] text-kio-muted md:text-[1.05rem]">
+              Our Front Desk Executives power guest experiences for hotels across the USA, turning &ldquo;just checking in&rdquo; into &ldquo;I can&apos;t wait to come back.&rdquo;
+            </p>
+            <p className="mt-5 text-[1rem] leading-[1.95] text-kio-muted md:text-[1.05rem]">
+              We&apos;re the first face, the first voice, the first impression a guest gets — and in hospitality, that&apos;s everything.
+            </p>
           </motion.div>
         </div>
       </div>

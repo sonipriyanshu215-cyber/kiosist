@@ -248,14 +248,6 @@ export function TeamMosaic() {
           ))}
         </motion.div>
 
-        {/* Footer note */}
-        <RevealOnScroll className="mt-10 text-center">
-          <p className="text-sm text-kio-muted">
-            And{" "}
-            <span className="font-semibold text-kio-accent">35+ more</span>{" "}
-            agents ready to staff your property around the clock.
-          </p>
-        </RevealOnScroll>
       </div>
     </section>
   );

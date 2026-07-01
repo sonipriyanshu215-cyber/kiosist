@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
-const HEADING = "To make 24/7 front desk excellence achievable for every US hotel.";
+const HEADING = "Making World-Class Hospitality Achievable, 24/7, for Every US Hotel.";
 
 const wordVariants: Variants = {
   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },

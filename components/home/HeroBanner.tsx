@@ -4,15 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const CYCLING_WORDS = [
-  "Check‑In",
-  "Hospitality",
-  "Guest Service",
-  "Front Desk",
-  "Concierge",
-  "Reservations",
-  "Room Service",
-  "Check‑Out",
-  "Valet Service",
+  "People.",
+  "Care.",
+  "Technology.",
+  "Speed.",
+  "Excellence.",
 ];
 import Image from "next/image";
 import Link from "next/link";
@@ -123,7 +119,6 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
                 fill
                 className="object-cover"
                 priority={idx === 0}
-                loading={idx === 0 ? "eager" : "lazy"}
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </motion.div>
@@ -159,7 +154,7 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
                 opacity: i === idx ? 1 : 0.55,
               }}
             >
-              <Image src={s.src} alt={s.alt} fill className="object-cover" sizes="44px" />
+              <Image src={s.src} alt={s.alt} fill className="object-cover" sizes="44px" priority={i === 0} />
             </button>
           ))}
         </div>
@@ -295,43 +290,30 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(1.9rem,5vw,3.8rem)] font-black leading-[1.1] text-kio-ink"
+            className="text-[clamp(1.9rem,5vw,3.8rem)] font-black leading-[1.3] text-kio-ink"
           >
-            The Future of<br />
-            <span className="inline-flex items-baseline gap-2">
-              <span className="text-kio-muted/70">Hotel</span>
-              <span
-                className="relative inline-block overflow-hidden"
-                style={{ minWidth: "7ch", verticalAlign: "bottom" }}
-              >
+            {/* Line 1 */}
+            <span className="block">Kiosist Delivers Hospitality</span>
+
+            {/* Line 2 — Powered by [word] on one line, no layout shift */}
+            <span className="block mt-1">
+              <span className="text-kio-muted/60 font-semibold">Powered by </span>
+              <span className="inline-block" style={{ minWidth: "7em" }}>
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={CYCLING_WORDS[wordIdx]}
-                    initial={{ y: "100%", opacity: 0 }}
-                    animate={{ y: "0%",   opacity: 1 }}
-                    exit={{    y: "-100%", opacity: 0 }}
-                    transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
-                    className="text-gradient-shimmer inline-block"
+                    initial={{ opacity: 0, y: "30%" }}
+                    animate={{ opacity: 1, y: "0%" }}
+                    exit={{    opacity: 0, y: "-30%" }}
+                    transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+                    className="text-color-cycle inline-block"
                   >
                     {CYCLING_WORDS[wordIdx]}
                   </motion.span>
                 </AnimatePresence>
               </span>
-            </span><br />
-            Is Self‑Service
+            </span>
           </motion.h1>
-
-          {/* Sub */}
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-5 max-w-[480px] text-[1.05rem] leading-[1.8] text-kio-muted"
-          >
-            <span className="text-color-cycle">KIOSIST</span> transforms your hotel lobby into an intelligent,
-            guest-first experience — cutting operational costs while elevating
-            every touchpoint.
-          </motion.p>
 
           {/* CTAs */}
           <motion.div

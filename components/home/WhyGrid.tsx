@@ -82,12 +82,12 @@ export function WhyGrid() {
       <RevealOnScroll className="relative z-10 container-kio mb-16 mx-auto max-w-[640px] text-center">
         <span className="section-label">What We Offer</span>
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-          Everything Your Hotel<br />
+          Everything Hospitality<br />
           <span className="text-gradient">Needs in One Kiosk</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
-          Kiosist packs a full suite of hospitality tools into a single elegant kiosk —
-          no more juggling software, no more bottlenecks at the front desk.
+          Kiosist packs the full hospitality experience into a single elegant kiosk —
+          no juggling software, no bottlenecks, no compromise.
         </p>
       </RevealOnScroll>
 

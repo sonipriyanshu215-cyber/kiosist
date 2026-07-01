@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -54,11 +55,15 @@ export function Nav() {
     >
       <div className="mx-auto flex h-[72px] max-w-container items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-[1.4rem] font-extrabold tracking-[.08em] text-gradient"
-        >
-          KIOSIST
+        <Link href="/" className="flex items-center shrink-0">
+          <Image
+            src="/img/kiosist-logo.png"
+            alt="Kiosist"
+            width={1122}
+            height={794}
+            className="h-[150px] w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop links */}

@@ -47,35 +47,6 @@
   --kio-dur-scene:   1200ms;
 }
 
-/* ── Intro loader animated gradient background ── */
-@keyframes kio-loader-gradient {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.kio-loader-bg {
-  background: linear-gradient(
-    -45deg,
-    #020a18,
-    #0d1540,
-    #060c2a,
-    #041a30,
-    #0a0d35,
-    #020e1e
-  );
-  background-size: 400% 400%;
-  animation: kio-loader-gradient 10s ease infinite;
-}
-
-/* Hide page chrome while the intro loader is active.
-   The attribute is set by an inline <script> before first paint. */
-html[data-intro] header,
-html[data-intro] main,
-html[data-intro] footer {
-  visibility: hidden;
-}
-
 @layer base {
   html {
     scroll-behavior: auto;
@@ -113,7 +84,7 @@ html[data-intro] footer {
   }
 
   .section-pad {
-    @apply py-20 md:py-28 lg:py-36;
+    @apply py-16 md:py-20 lg:py-24;
   }
 
   /* Section label pill */

@@ -51,7 +51,16 @@ function LogoItem({ src, alt }: { src: string; alt: string }) {
 
 export function BrandStrip() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28">
+    <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
+
+      {/* Tagline above heading */}
+      <div className="mb-10 text-center">
+        <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-kio-ink">
+          Trusted by Hotels.{" "}
+          <span className="text-color-cycle">Loved by Guests.</span>{" "}
+          Across USA.
+        </p>
+      </div>
 
       {/* Heading */}
       <div className="mb-12 text-center">

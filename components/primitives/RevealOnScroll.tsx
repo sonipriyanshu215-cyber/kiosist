@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
 import { reveal, staggerParent } from "@/lib/motion";
 
 interface RevealOnScrollProps {

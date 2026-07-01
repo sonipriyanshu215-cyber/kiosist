@@ -4,247 +4,440 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 
-type Phase = "intro" | "glow" | "zoom" | "message";
+type Phase = "intro" | "welcome" | "cta";
 
-/* ── Typing dots ── */
-function TypingDots() {
+const SESSION_KEY   = "kio_intro_seen";
+const WELCOME_TEXT  =
+  "Welcome to Kiosist! The future of hotel check-in is here. No queues, no confusion — just seamless, smart hospitality, powered by you.";
+
+/* ── Speak with a male voice; returns a cancel fn ── */
+function speakMale(
+  text: string,
+  onStart: () => void,
+  onEnd:   () => void,
+): () => void {
+  if (typeof window === "undefined" || !window.speechSynthesis) { onEnd(); return () => {}; }
+
+  const u    = new SpeechSynthesisUtterance(text);
+  u.rate     = 0.86;
+  u.pitch    = 0.82;
+  u.volume   = 0.92;
+  u.onstart  = onStart;
+  u.onend    = onEnd;
+  u.onerror  = () => onEnd();
+
+  const go = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const male =
+      voices.find(v => /google uk english male|daniel|fred|alex|rishi|microsoft david|thomas/i.test(v.name)) ||
+      voices.find(v => v.name.toLowerCase().includes("male")) ||
+      voices.find(v => v.lang === "en-GB" && !/(kate|serena|female)/i.test(v.name)) ||
+      voices.find(v => v.lang === "en-US" && !/(samantha|karen|victoria|moira|zoe)/i.test(v.name)) ||
+      voices.find(v => v.lang.startsWith("en"));
+    if (male) u.voice = male;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  };
+
+  if (window.speechSynthesis.getVoices().length === 0) {
+    window.speechSynthesis.addEventListener("voiceschanged", go, { once: true });
+  } else {
+    /* Tiny delay so browser registers it as part of a user session */
+    setTimeout(go, 80);
+  }
+
+  return () => window.speechSynthesis.cancel();
+}
+
+/* ── Floating dots ── */
+const DOTS = [
+  { x: 8,  y: 14, s: 2,   d: 8,  delay: 0.3 },
+  { x: 88, y: 10, s: 1.5, d: 10, delay: 0.9 },
+  { x: 5,  y: 62, s: 2,   d: 9,  delay: 1.3 },
+  { x: 93, y: 70, s: 1.5, d: 7,  delay: 0.6 },
+  { x: 50, y: 4,  s: 1,   d: 11, delay: 2.0 },
+  { x: 20, y: 84, s: 2,   d: 8,  delay: 0.4 },
+];
+
+/* ── Sound toggle (re-play or stop) ── */
+function SoundToggle({
+  isSpeaking, hasSpoken, onToggle, isMobile,
+}: {
+  isSpeaking: boolean;
+  hasSpoken:  boolean;
+  onToggle:   () => void;
+  isMobile:   boolean;
+}) {
+  const [supported, setSupported] = useState(false);
+  useEffect(() => { setSupported("speechSynthesis" in window); }, []);
+  if (!supported) return null;
+
   return (
-    <div style={{ display: "flex", gap: 5, alignItems: "center", padding: "6px 2px" }}>
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={i}
-          style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: "rgba(59,130,246,0.8)", flexShrink: 0 }}
-          animate={{ y: [0, -8, 0], opacity: [0.45, 1, 0.45] }}
-          transition={{ duration: 0.65, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
-        />
-      ))}
-    </div>
+    <motion.button
+      initial={{ opacity: 0, scale: 0.75 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 1.2, duration: 0.35 }}
+      onClick={onToggle}
+      title={isSpeaking ? "Stop" : "Replay welcome"}
+      style={{
+        position:       "fixed",
+        bottom:         isMobile ? 24 : 28,
+        right:          isMobile ? 18 : 28,
+        zIndex:         10070,
+        width:          42,
+        height:         42,
+        borderRadius:   "50%",
+        border:         `1px solid ${isSpeaking ? "rgba(59,130,246,0.6)" : "rgba(255,255,255,0.12)"}`,
+        background:     isSpeaking
+          ? "linear-gradient(135deg,#3b82f6,#06b6d4)"
+          : "rgba(10,14,26,0.72)",
+        backdropFilter: "blur(12px)",
+        cursor:         "pointer",
+        display:        "flex",
+        alignItems:     "center",
+        justifyContent: "center",
+        boxShadow:      isSpeaking ? "0 0 20px rgba(59,130,246,0.45)" : "none",
+        transition:     "background 0.3s, border-color 0.3s, box-shadow 0.3s",
+      }}
+    >
+      {isSpeaking ? (
+        /* Stop icon */
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+        </svg>
+      ) : (
+        /* Speaker icon */
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke={hasSpoken ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.8)"}
+          strokeWidth="2" strokeLinecap="round" aria-hidden="true"
+        >
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" strokeOpacity="0.45" />
+        </svg>
+      )}
+    </motion.button>
   );
 }
 
-const MSG_LINES = [
-  "When was the last time",
-  "a hotel check‑in took under 30 seconds?",
-  "No queue. No confusion.",
-  "Just a kiosk that knows what you need —",
-  "before you even ask.",
-];
-
-function KioskScreenContent({
-  tod, onEnter, rm, isMobile,
-}: { tod: string; onEnter: () => void; rm: boolean | null; isMobile: boolean }) {
-  const [sub,   setSub]   = useState<"typing" | "revealing" | "cta">("typing");
-  const [lines, setLines] = useState(0);
-  const [clock, setClock] = useState("");
-
-  useEffect(() => {
-    const tick = () =>
-      setClock(new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }));
-    tick();
-    const id = setInterval(tick, 30_000);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    const t = setTimeout(() => setSub("revealing"), rm ? 0 : 1200);
-    return () => clearTimeout(t);
-  }, [rm]);
-
-  useEffect(() => {
-    if (sub !== "revealing") return;
-    if (rm) { setLines(MSG_LINES.length); setSub("cta"); return; }
-    let n = 0;
-    const id = setInterval(() => {
-      n += 1; setLines(n);
-      if (n >= MSG_LINES.length) { clearInterval(id); setTimeout(() => setSub("cta"), 400); }
-    }, 480);
-    return () => clearInterval(id);
-  }, [sub, rm]);
-
-  const cardW = isMobile ? "min(420px, 90vw)" : "min(520px, 44vw)";
-  const fontSize = isMobile ? 13 : 14;
+/* ── Welcome character panel ── */
+function CharacterPanel({
+  phase, rm, isMobile, isSpeaking, onEnter,
+}: {
+  phase:      Phase;
+  rm:         boolean | null;
+  isMobile:   boolean;
+  isSpeaking: boolean;
+  onEnter:    () => void;
+}) {
+  const visible  = phase === "welcome" || phase === "cta";
+  const imgW     = isMobile ? 170 : 240;
+  const imgH     = Math.round(imgW * 2.05);
 
   return (
-    <div style={{
-      width: cardW,
-      background: "linear-gradient(160deg,#1b2338 0%,#0c1120 100%)",
-      borderRadius: isMobile ? 20 : 26,
-      padding: isMobile ? "10px 10px 18px" : "12px 12px 24px",
-      boxShadow: [
-        "0 0 0 1px rgba(255,255,255,0.07)",
-        "inset 0 1px 0 rgba(255,255,255,0.09)",
-        "0 40px 80px rgba(0,0,0,0.9)",
-        "0 0 60px rgba(59,130,246,0.22)",
-      ].join(", "),
-    }}>
-      {/* Screen chrome */}
-      <div style={{ borderRadius: isMobile ? 14 : 18, overflow: "hidden", position: "relative", background: "linear-gradient(180deg,#030b1a 0%,#050e24 100%)", boxShadow: "inset 0 0 0 1px rgba(59,130,246,0.2)" }}>
-        {/* Glare */}
-        <div style={{ position:"absolute",top:0,left:0,width:"52%",height:"38%",background:"linear-gradient(138deg,rgba(255,255,255,0.04) 0%,transparent 65%)",borderRadius:"14px 0 0 0",pointerEvents:"none",zIndex:30 }} />
-        {/* Scanlines */}
-        <div style={{ position:"absolute",inset:0,backgroundImage:"repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(0,0,0,0.1) 3px,rgba(0,0,0,0.1) 4px)",pointerEvents:"none",zIndex:29 }} />
-
-        {/* Status bar */}
-        <div style={{ display:"flex",alignItems:"center",padding:`8px ${isMobile ? 14 : 18}px`,gap:8,background:"rgba(3,9,20,0.92)",borderBottom:"1px solid rgba(59,130,246,0.1)" }}>
-          <div style={{ display:"flex",alignItems:"center",gap:5 }}>
-            <div style={{ width:16,height:16,borderRadius:4,background:"linear-gradient(135deg,#2563eb,#0891b2)",display:"flex",alignItems:"center",justifyContent:"center" }}>
-              <span style={{ color:"#fff",fontSize:9,fontWeight:900 }}>K</span>
-            </div>
-            <span style={{ color:"rgba(255,255,255,0.5)",fontSize:10,fontWeight:700,letterSpacing:"0.12em",fontFamily:"var(--font-mono),monospace" }}>KIOSIST</span>
-          </div>
-          <div style={{ flex:1 }} />
-          <span style={{ color:"rgba(255,255,255,0.5)",fontSize:10,fontFamily:"var(--font-mono),monospace" }}>{clock}</span>
-        </div>
-
-        {/* Agent header */}
-        <div style={{ display:"flex",alignItems:"center",gap:10,padding:`12px ${isMobile ? 14 : 18}px`,background:"rgba(3,10,22,0.75)",borderBottom:"1px solid rgba(255,255,255,0.05)" }}>
-          <div style={{ width:38,height:38,borderRadius:11,flexShrink:0,background:"linear-gradient(135deg,#1d4ed8,#0891b2)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 3px 10px rgba(29,78,216,0.45)" }}>
-            <span style={{ color:"#fff",fontWeight:900,fontSize:16 }}>K</span>
-          </div>
-          <div>
-            <div style={{ color:"#f0f4ff",fontWeight:700,fontSize:14 }}>KioClerk</div>
-            <div style={{ display:"flex",alignItems:"center",gap:4,marginTop:2 }}>
-              <motion.span style={{ width:5,height:5,borderRadius:"50%",backgroundColor:"#34d399",display:"inline-block" }} animate={{ opacity:[1,0.3,1],scale:[1,1.4,1] }} transition={{ duration:1.5,repeat:Infinity }} />
-              <span style={{ color:"#34d399",fontSize:10,fontFamily:"var(--font-mono),monospace" }}>Online · AI Receptionist</span>
-            </div>
-          </div>
-          <div style={{ marginLeft:"auto",fontSize:10,color:"rgba(143,163,196,0.4)",fontFamily:"var(--font-mono),monospace" }}>{tod}</div>
-        </div>
-
-        {/* Chat bubble */}
-        <div style={{ padding:`${isMobile ? 14 : 18}px ${isMobile ? 14 : 18}px 12px` }}>
-          <div style={{ display:"flex",gap:9,alignItems:"flex-start" }}>
-            <div style={{ width:30,height:30,borderRadius:9,flexShrink:0,background:"rgba(29,78,216,0.3)",border:"1px solid rgba(59,130,246,0.25)",display:"flex",alignItems:"center",justifyContent:"center" }}>
-              <span style={{ color:"#93c5fd",fontSize:12,fontWeight:800 }}>K</span>
-            </div>
-            <div style={{ flex:1,minWidth:0 }}>
-              <div style={{ backgroundColor:"rgba(29,78,216,0.18)",border:"1px solid rgba(59,130,246,0.15)",borderRadius:"4px 14px 14px 14px",padding:"12px 14px",minHeight:52 }}>
-                <AnimatePresence mode="wait">
-                  {sub === "typing" ? (
-                    <motion.div key="dots" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:0.18 }}>
-                      <TypingDots />
-                    </motion.div>
-                  ) : (
-                    <motion.div key="msg" initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:0.18 }}>
-                      {MSG_LINES.slice(0, lines).map((line, i) => (
-                        <motion.p key={i} initial={{ opacity:0,y:5 }} animate={{ opacity:1,y:0 }} transition={{ duration:0.35,ease:[0.16,1,0.3,1] }} style={{ margin:0,marginBottom:i<lines-1?5:0,fontSize,lineHeight:1.65,color:i===1?"#93c5fd":"#d1d9f0",fontWeight:i===1?600:400,fontFamily:"var(--font-body),sans-serif" }}>{line}</motion.p>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              <div style={{ fontSize:9,color:"rgba(143,163,196,0.25)",marginTop:4,textAlign:"right",fontFamily:"var(--font-mono),monospace" }}>Just now</div>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div style={{ padding:`0 ${isMobile ? 14 : 18}px ${isMobile ? 14 : 18}px` }}>
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 0, x: isMobile ? 0 : 60, y: isMobile ? 40 : 0, scale: 0.88 }}
+          animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            position:       "fixed",
+            zIndex:         10020,
+            display:        "flex",
+            flexDirection:  "column",
+            alignItems:     "center",
+            /* Desktop: right panel; Mobile: bottom center */
+            ...(isMobile
+              ? {
+                  left:   "50%",
+                  bottom: 0,
+                  transform: "translateX(-50%)",
+                }
+              : {
+                  right:  "clamp(40px, 8vw, 120px)",
+                  bottom: 0,
+                }),
+          }}
+        >
+          {/* Speech bubble */}
           <AnimatePresence>
-            {sub === "cta" && (
-              <motion.div initial={{ opacity:0,y:10 }} animate={{ opacity:1,y:0 }} transition={{ duration:0.45,ease:[0.16,1,0.3,1] }}>
+            {visible && (
+              <motion.div
+                key="bubble"
+                initial={{ opacity: 0, y: 14, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.4, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  background:   "rgba(255,255,255,0.96)",
+                  backdropFilter: "blur(8px)",
+                  borderRadius: "16px 16px 16px 4px",
+                  padding:      isMobile ? "10px 14px" : "12px 20px",
+                  marginBottom: isMobile ? 8 : 14,
+                  boxShadow:    "0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.15)",
+                  maxWidth:     isMobile ? 200 : 260,
+                  textAlign:    "center",
+                  position:     "relative",
+                }}
+              >
+                <p style={{
+                  margin:     0,
+                  fontSize:   isMobile ? 12.5 : 14.5,
+                  fontWeight: 800,
+                  color:      "#0f172a",
+                  lineHeight: 1.3,
+                }}>
+                  {isSpeaking
+                    ? "Let me walk you through this…"
+                    : phase === "cta"
+                    ? "Ready to transform your hotel?"
+                    : "Welcome to Kiosist! 👋"}
+                </p>
+                <p style={{ margin: "4px 0 0", fontSize: isMobile ? 10 : 11.5, color: "#475569", lineHeight: 1.4 }}>
+                  {isSpeaking
+                    ? "Smart hospitality, powered by you"
+                    : "The future of hotel check-in is here"}
+                </p>
+                {/* Talking indicator */}
+                {isSpeaking && (
+                  <div style={{ display: "flex", justifyContent: "center", gap: 4, marginTop: 6 }}>
+                    {[0, 1, 2].map(i => (
+                      <motion.div key={i}
+                        style={{ width: 5, height: 5, borderRadius: "50%", background: "#3b82f6" }}
+                        animate={{ scaleY: [1, 2.2, 1], opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 0.55, repeat: Infinity, delay: i * 0.14 }}
+                      />
+                    ))}
+                  </div>
+                )}
+                {/* Bubble tail */}
+                <div style={{
+                  position:    "absolute",
+                  bottom:      -9,
+                  left:        24,
+                  width:       0,
+                  height:      0,
+                  borderLeft:  "9px solid transparent",
+                  borderRight: "9px solid transparent",
+                  borderTop:   "9px solid rgba(255,255,255,0.96)",
+                }} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* ── Concierge image ── */}
+          <motion.div
+            /* Idle float / talking bob */
+            animate={rm ? {} : {
+              y:      isSpeaking ? [0, -7, 0] : [0, -14, 0],
+              rotate: isSpeaking ? [-1, 1, -1] : [-1.5, 1.5, -1.5],
+            }}
+            transition={{
+              duration: isSpeaking ? 0.5 : 3.5,
+              repeat:   Infinity,
+              ease:     "easeInOut",
+            }}
+            style={{ position: "relative" }}
+          >
+            {/* Shadow beneath feet */}
+            <div style={{
+              position:     "absolute",
+              bottom:       isMobile ? -4 : -6,
+              left:         "50%",
+              transform:    "translateX(-50%)",
+              width:        imgW * 0.52,
+              height:       10,
+              borderRadius: "50%",
+              background:   isSpeaking ? "rgba(59,130,246,0.28)" : "rgba(0,0,0,0.28)",
+              filter:       "blur(7px)",
+              transition:   "background 0.5s",
+            }} />
+
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/img/hero/concierge.png"
+              alt="Kiosist concierge welcoming guests"
+              width={imgW}
+              height={imgH}
+              style={{
+                objectFit:     "contain",
+                display:       "block",
+                userSelect:    "none",
+                pointerEvents: "none",
+                filter: isSpeaking
+                  ? "drop-shadow(0 0 22px rgba(59,130,246,0.6)) drop-shadow(0 12px 24px rgba(0,0,0,0.5))"
+                  : "drop-shadow(0 12px 28px rgba(0,0,0,0.55))",
+                transition: "filter 0.5s ease",
+              }}
+              draggable={false}
+            />
+          </motion.div>
+
+          {/* CTA button */}
+          <AnimatePresence>
+            {phase === "cta" && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  position:  "absolute",
+                  bottom:    isMobile ? imgH + 24 : imgH + 20,
+                  left:      "50%",
+                  transform: "translateX(-50%)",
+                  display:   "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 8,
+                  width: "max-content",
+                }}
+              >
                 <motion.button
                   onClick={onEnter}
-                  whileHover={rm ? {} : { scale:1.02,y:-2 }}
-                  whileTap={rm ? {} : { scale:0.97 }}
-                  style={{ width:"100%",padding:`${isMobile ? 12 : 14}px 20px`,borderRadius:99,border:"none",background:"linear-gradient(135deg,#3b82f6,#06b6d4)",color:"#fff",fontSize:isMobile ? 14 : 15,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:8,boxShadow:"0 6px 22px rgba(59,130,246,0.4)",fontFamily:"var(--font-body),sans-serif" }}
+                  whileHover={rm ? {} : { scale: 1.04, y: -2 }}
+                  whileTap={rm ? {}  : { scale: 0.97 }}
+                  style={{
+                    padding:       isMobile ? "13px 28px" : "14px 36px",
+                    borderRadius:  99,
+                    border:        "none",
+                    background:    "linear-gradient(135deg, #3b82f6, #06b6d4)",
+                    color:         "#fff",
+                    fontSize:      isMobile ? 14 : 15,
+                    fontWeight:    700,
+                    cursor:        "pointer",
+                    display:       "flex",
+                    alignItems:    "center",
+                    gap:           8,
+                    boxShadow:     "0 6px 28px rgba(59,130,246,0.45), 0 0 0 1px rgba(255,255,255,0.08)",
+                    fontFamily:    "var(--font-body), sans-serif",
+                    whiteSpace:    "nowrap",
+                  }}
                 >
                   Explore Kiosist
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
                 </motion.button>
                 <button
                   onClick={onEnter}
-                  style={{ marginTop:8,width:"100%",background:"none",border:"none",color:"rgba(143,163,196,0.35)",fontSize:11,cursor:"pointer",padding:"4px 0",fontFamily:"var(--font-body),sans-serif" }}
+                  style={{
+                    background: "none",
+                    border:     "none",
+                    color:      "rgba(255,255,255,0.28)",
+                    fontSize:   11,
+                    cursor:     "pointer",
+                    fontFamily: "var(--font-body), sans-serif",
+                    padding:    "2px 0",
+                  }}
                 >
                   Skip intro
                 </button>
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
-        {/* Home bar */}
-        <div style={{ display:"flex",justifyContent:"center",padding:"10px 0 12px",background:"rgba(3,9,20,0.7)",borderTop:"1px solid rgba(255,255,255,0.04)" }}>
-          <div style={{ width:100,height:3,background:"rgba(255,255,255,0.18)",borderRadius:99 }} />
-        </div>
-      </div>
-
-      <div style={{ display:"flex",alignItems:"center",justifyContent:"center",gap:8,paddingTop:12 }}>
-        <span style={{ color:"rgba(255,255,255,0.18)",fontSize:9,letterSpacing:"0.18em",fontWeight:700,fontFamily:"var(--font-mono),monospace" }}>KIOSIST</span>
-        <motion.div style={{ width:5,height:5,borderRadius:3,background:"#34d399" }} animate={{ opacity:[1,0.35,1] }} transition={{ duration:2.2,repeat:Infinity }} />
-        <span style={{ color:"rgba(255,255,255,0.1)",fontSize:8,fontFamily:"var(--font-mono),monospace" }}>KioClerk v2.1</span>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
-const DOTS = [
-  { x:8,  y:14, s:2,   d:8,  delay:0.3 },
-  { x:88, y:10, s:1.5, d:10, delay:0.9 },
-  { x:5,  y:62, s:2,   d:9,  delay:1.3 },
-  { x:93, y:70, s:1.5, d:7,  delay:0.6 },
-  { x:50, y:4,  s:1,   d:11, delay:2.0 },
-  { x:20, y:84, s:2,   d:8,  delay:0.4 },
-];
-
-const SESSION_KEY = "kio_intro_seen";
-
+/* ── Main loader ── */
 export function IntroLoader() {
   const rm = useReducedMotion();
+
   const [mounted,    setMounted]    = useState(false);
   const [visible,    setVisible]    = useState(false);
   const [phase,      setPhase]      = useState<Phase>("intro");
-  const [kioskPhase, setKioskPhase] = useState<"idle" | "enter" | "zoomed">("idle");
-  const [tod,        setTod]        = useState("Good Day");
+  const [kioskPhase, setKioskPhase] = useState<"idle" | "enter" | "shrink">("idle");
   const [isMobile,   setIsMobile]   = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [hasSpoken,  setHasSpoken]  = useState(false);
+  const cancelRef = useState<(() => void) | null>(null);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   useEffect(() => {
-    const h = new Date().getHours();
-    setTod(h < 12 ? "Good Morning" : h < 17 ? "Good Afternoon" : "Good Evening");
-
     if (sessionStorage.getItem(SESSION_KEY) === "1") return;
     sessionStorage.setItem(SESSION_KEY, "1");
     setMounted(true);
     setVisible(true);
   }, []);
 
+  /* Start kiosk entrance */
   useEffect(() => {
     if (!mounted) return;
-    if (rm) { setKioskPhase("enter"); setPhase("message"); }
-    else setKioskPhase("enter");
-  }, [mounted, rm]);
+    setKioskPhase("enter");
+  }, [mounted]);
 
+  /* intro → welcome */
   useEffect(() => {
     if (phase !== "intro" || rm) return;
-    const t = setTimeout(() => setPhase("glow"), 2100);
+    const t = setTimeout(() => {
+      setPhase("welcome");
+      setKioskPhase("shrink");
+    }, 1800);
     return () => clearTimeout(t);
   }, [phase, rm]);
 
+  /* Reduced motion: skip straight to cta */
   useEffect(() => {
-    if (phase !== "glow") return;
-    const t = setTimeout(() => setPhase("zoom"), 650);
-    return () => clearTimeout(t);
-  }, [phase]);
+    if (!mounted || !rm) return;
+    setPhase("cta");
+  }, [mounted, rm]);
 
+  /* welcome → attempt auto-play speech → cta after delay */
   useEffect(() => {
-    if (phase !== "zoom") return;
-    const t = setTimeout(() => setPhase("message"), 1100);
-    return () => clearTimeout(t);
-  }, [phase]);
+    if (phase !== "welcome" || rm) return;
 
-  useEffect(() => {
-    if (phase !== "zoom") return;
-    setKioskPhase("zoomed");
-  }, [phase]);
+    /* Attempt auto-play; browsers may block without user gesture */
+    const cancelSpeech = speakMale(
+      WELCOME_TEXT,
+      () => { setIsSpeaking(true); setHasSpoken(true); },
+      () => { setIsSpeaking(false); setPhase("cta"); },
+    );
+    cancelRef[0] = cancelSpeech;
 
-  const handleEnter = useCallback(() => setVisible(false), []);
+    /* Fallback: show CTA after 3.5s even if speech is blocked */
+    const fallback = setTimeout(() => setPhase("cta"), 3500);
+    return () => {
+      clearTimeout(fallback);
+      cancelSpeech();
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, rm]);
+
+  const handleToggleSpeech = useCallback(() => {
+    if (isSpeaking) {
+      window.speechSynthesis?.cancel();
+      setIsSpeaking(false);
+      setPhase("cta");
+    } else {
+      const cancelSpeech = speakMale(
+        WELCOME_TEXT,
+        () => { setIsSpeaking(true); setHasSpoken(true); },
+        () => { setIsSpeaking(false); setPhase("cta"); },
+      );
+      cancelRef[0] = cancelSpeech;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSpeaking]);
+
+  const handleEnter = useCallback(() => {
+    window.speechSynthesis?.cancel();
+    setVisible(false);
+  }, []);
+
   const handleExitComplete = useCallback(() => {
     document.documentElement.removeAttribute("data-intro");
     setMounted(false);
@@ -252,18 +445,17 @@ export function IntroLoader() {
 
   if (!mounted) return null;
 
-  const screenActive = phase === "zoom" || phase === "message";
-
-  /* ── Kiosk animation targets — different for mobile ── */
+  /* Kiosk animation targets */
   const kioskAnim = {
-    idle:   { rotateY: isMobile ? 0 : -22, rotateX: isMobile ? 8 : 6, scale: isMobile ? 0.8 : 0.84, y: 36, x: 0, opacity: 0 },
-    enter:  { rotateY: 0, rotateX: 0, scale: 1, y: 0, x: 0, opacity: 1 },
-    zoomed: isMobile
-      ? { rotateY: 0, rotateX: 0, scale: 0.48, y: "-28vh", x: 0, opacity: 0.7 }
-      : { rotateY: -8, rotateX: 0, scale: 1.6, y: 0, x: "-22vw", opacity: 0.95 },
+    idle:   { scale: isMobile ? 0.78 : 0.82, y: 40,  opacity: 0,   x: 0 },
+    enter:  { scale: 1,                       y: 0,   opacity: 1,   x: 0 },
+    /* Shrink and move left to make room for character */
+    shrink: isMobile
+      ? { scale: 0.52, y: "-24vh", opacity: 0.55, x: 0 }
+      : { scale: 0.78, y: 0,       opacity: 0.72, x: "-18vw" },
   };
 
-  const kioskW = isMobile ? "min(260px, 72vw)" : "min(380px, 52vw)";
+  const kioskW = isMobile ? "min(260px, 74vw)" : "min(360px, 40vw)";
 
   return (
     <AnimatePresence onExitComplete={handleExitComplete}>
@@ -272,124 +464,149 @@ export function IntroLoader() {
           key="intro"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.85, ease: "easeInOut" }}
+          transition={{ duration: 0.75, ease: "easeInOut" }}
           className="kio-loader-bg"
-          style={{ position:"fixed",inset:0,zIndex:10000,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",overflow:"hidden" }}
+          style={{
+            position:   "fixed",
+            inset:      0,
+            zIndex:     10000,
+            display:    "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow:   "hidden",
+          }}
           aria-hidden="true"
         >
           {/* Dot grid */}
-          <div className="pointer-events-none absolute inset-0" style={{ backgroundImage:"radial-gradient(circle,rgba(59,130,246,0.14) 1px,transparent 1px)",backgroundSize:"48px 48px",opacity:0.55 }} />
-
-          {/* Ambient glow blob */}
-          <motion.div
-            className="pointer-events-none absolute rounded-full"
-            style={{ width:isMobile?420:700,height:isMobile?420:700,background:"radial-gradient(circle,rgba(59,130,246,0.09),transparent 65%)",left:"calc(50% - 210px)",top:"calc(50% - 210px)" }}
-            animate={{ x: screenActive ? (isMobile ? 0 : "-22vw") : 0, y: screenActive && isMobile ? "-20vh" : 0 }}
-            transition={{ duration:1.0,ease:[0.16,1,0.3,1] }}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage: "radial-gradient(circle, rgba(59,130,246,0.13) 1px, transparent 1px)",
+              backgroundSize:  "48px 48px",
+              opacity: 0.5,
+            }}
           />
 
-          {/* Floating dots */}
-          {!rm && DOTS.map((d,i) => (
-            <motion.span key={i} style={{ position:"absolute",left:`${d.x}%`,top:`${d.y}%`,width:d.s,height:d.s,borderRadius:"50%",backgroundColor:"#3b82f6",opacity:0.26 }} animate={{ y:[0,-24,0],opacity:[0.26,0.1,0.26] }} transition={{ duration:d.d,delay:d.delay,repeat:Infinity,ease:"easeInOut" }} />
+          {/* Ambient glow — follows kiosk then shifts right */}
+          <motion.div
+            className="pointer-events-none absolute rounded-full"
+            style={{
+              width:      isMobile ? 380 : 640,
+              height:     isMobile ? 380 : 640,
+              background: "radial-gradient(circle, rgba(59,130,246,0.10), transparent 65%)",
+              left:       "calc(50% - 320px)",
+              top:        "calc(50% - 320px)",
+            }}
+            animate={{
+              x: phase !== "intro" ? (isMobile ? 0 : "-18vw") : 0,
+              y: phase !== "intro" &&  isMobile ? "-18vh" : 0,
+            }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          />
+
+          {/* Floating particles */}
+          {!rm && DOTS.map((d, i) => (
+            <motion.span
+              key={i}
+              style={{
+                position:        "absolute",
+                left:            `${d.x}%`,
+                top:             `${d.y}%`,
+                width:           d.s,
+                height:          d.s,
+                borderRadius:    "50%",
+                backgroundColor: "#3b82f6",
+                opacity:         0.22,
+              }}
+              animate={{ y: [0, -22, 0], opacity: [0.22, 0.08, 0.22] }}
+              transition={{ duration: d.d, delay: d.delay, repeat: Infinity, ease: "easeInOut" }}
+            />
           ))}
 
-          {/* Kiosk */}
-          <div style={{ position:"relative",zIndex:10010 }}>
-            <div style={{ perspective:"900px",perspectiveOrigin:"50% 50%" }}>
+          {/* ── Kiosk ── */}
+          <div style={{ position: "relative", zIndex: 10010 }}>
+            <div style={{ perspective: "900px", perspectiveOrigin: "50% 50%" }}>
               <motion.div
                 initial={kioskAnim.idle}
                 animate={kioskAnim[kioskPhase]}
-                transition={kioskPhase==="enter" ? { duration:1.8,ease:[0.16,1,0.3,1] } : kioskPhase==="zoomed" ? { duration:0.95,ease:[0.16,1,0.3,1] } : {}}
-                style={{ position:"relative",width:kioskW,aspectRatio:"260/390",transformStyle:"preserve-3d",willChange:"transform" }}
+                transition={
+                  kioskPhase === "enter"  ? { duration: 1.7, ease: [0.16, 1, 0.3, 1] } :
+                  kioskPhase === "shrink" ? { duration: 1.0, ease: [0.16, 1, 0.3, 1] } :
+                  {}
+                }
+                style={{
+                  position:       "relative",
+                  width:          kioskW,
+                  aspectRatio:    "260 / 390",
+                  transformStyle: "preserve-3d",
+                  willChange:     "transform",
+                }}
               >
-                <Image src="/img/hero/kiosk.webp" alt="KioClerk Kiosk" fill className="object-contain" priority sizes={kioskW} />
-
+                <Image
+                  src="/img/hero/kiosk.webp"
+                  alt="KioClerk kiosk"
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes={kioskW}
+                />
+                {/* Screen glow when character appears */}
                 <AnimatePresence>
-                  {(phase==="glow"||phase==="zoom"||phase==="message") && (
-                    <motion.div key="sg" initial={{ opacity:0 }} animate={{ opacity:phase==="message"?0.45:[0,1,0.6] }} exit={{ opacity:0 }} transition={{ duration:0.9 }} style={{ position:"absolute",inset:0,borderRadius:14,background:"radial-gradient(ellipse 68% 38% at 50% 32%,rgba(59,130,246,0.6) 0%,rgba(6,182,212,0.2) 44%,transparent 68%)",pointerEvents:"none" }} />
+                  {phase !== "intro" && (
+                    <motion.div
+                      key="glow"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.4 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.9 }}
+                      style={{
+                        position:   "absolute",
+                        inset:      0,
+                        borderRadius: 14,
+                        background: "radial-gradient(ellipse 68% 38% at 50% 32%, rgba(59,130,246,0.55) 0%, transparent 68%)",
+                        pointerEvents: "none",
+                      }}
+                    />
                   )}
                 </AnimatePresence>
-
-                {!rm && phase==="glow" && (
-                  <motion.div style={{ position:"absolute",left:"15%",right:"15%",height:1,background:"linear-gradient(90deg,transparent,rgba(59,130,246,0.8),transparent)",pointerEvents:"none" }} animate={{ top:["15%","54%"] }} transition={{ duration:0.75,ease:"easeInOut" }} />
-                )}
-                {!rm && phase==="glow" && (
-                  <motion.div initial={{ opacity:0,scale:0.88 }} animate={{ opacity:[0,0.4,0.12,0.4],scale:[0.88,1.03,1,1.03] }} transition={{ duration:3,repeat:Infinity,ease:"easeInOut" }} style={{ position:"absolute",inset:-18,borderRadius:26,border:"1px solid rgba(59,130,246,0.28)",pointerEvents:"none" }} />
-                )}
               </motion.div>
             </div>
           </div>
 
-          {/* Scrim */}
-          <AnimatePresence>
-            {screenActive && (
-              <motion.div key="scrim" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:0.38 }} style={{ position:"fixed",inset:0,backgroundColor:"rgba(0,3,14,0.62)",zIndex:10055,pointerEvents:"none" }} />
-            )}
-          </AnimatePresence>
+          {/* ── Character panel (replaces chat card) ── */}
+          <CharacterPanel
+            phase={phase}
+            rm={rm}
+            isMobile={isMobile}
+            isSpeaking={isSpeaking}
+            onEnter={handleEnter}
+          />
 
-          {/* Desktop beams */}
-          {!isMobile && (
-            <AnimatePresence>
-              {screenActive && !rm && (
-                <motion.div key="beams" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:0.55,delay:0.3 }} style={{ position:"fixed",left:"calc(50% - 22vw)",top:"calc(50% - 319px)",zIndex:10056,pointerEvents:"none" }}>
-                  {[
-                    { a:17,w:1.5,op:0.36,delay:0.16 },
-                    { a:21,w:2.0,op:0.48,delay:0.08 },
-                    { a:25,w:3.0,op:0.62,delay:0.00 },
-                    { a:29,w:2.0,op:0.48,delay:0.08 },
-                    { a:33,w:1.5,op:0.36,delay:0.16 },
-                  ].map((b,i) => (
-                    <motion.div key={i} style={{ position:"absolute",top:0,left:0,width:"clamp(180px,32vw,560px)",height:b.w,background:`linear-gradient(90deg,rgba(59,130,246,${b.op+0.1}),rgba(6,182,212,${b.op*0.45}),transparent)`,transform:`rotate(${b.a}deg)`,transformOrigin:"0% 50%",borderRadius:99 }} animate={{ opacity:[0,b.op,b.op*0.55,b.op] }} transition={{ duration:2.2,delay:b.delay+0.4,repeat:Infinity,ease:"easeInOut" }} />
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          )}
-
-          {/* Chat screen — centered on mobile, right-aligned on desktop */}
-          <AnimatePresence>
-            {screenActive && (
-              <motion.div
-                key="screen"
-                style={{
-                  position:       "fixed",
-                  inset:          0,
-                  display:        "flex",
-                  alignItems:     isMobile ? "flex-end" : "center",
-                  justifyContent: isMobile ? "center"   : "flex-end",
-                  paddingBottom:  isMobile ? 28          : 0,
-                  paddingRight:   isMobile ? 0           : "clamp(16px,5vw,72px)",
-                  zIndex:         10060,
-                  pointerEvents:  "none",
-                }}
-                exit={{ opacity:0,transition:{ duration:0.3 } }}
-              >
-                <motion.div
-                  style={{ pointerEvents:"auto" }}
-                  initial={{ scale:0.10, opacity:0, y: isMobile ? 60 : 0 }}
-                  animate={
-                    phase==="zoom"
-                      ? isMobile
-                        ? { scale:[0.10,1],  opacity:[0,1], y:[60,0] }
-                        : { scale:[0.10,0.065,1], opacity:[0,1,1], y:0 }
-                      : { scale:1, opacity:1, y:0 }
-                  }
-                  exit={{ scale:0.07, opacity:0 }}
-                  transition={{
-                    scale:   { duration:1.0, ease:"easeInOut" },
-                    opacity: { duration:0.22 },
-                    y:       { duration:1.0, ease:[0.16,1,0.3,1] },
-                  }}
-                >
-                  <KioskScreenContent tod={tod} onEnter={handleEnter} rm={rm} isMobile={isMobile} />
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* ── Sound toggle ── */}
+          <SoundToggle
+            isSpeaking={isSpeaking}
+            hasSpoken={hasSpoken}
+            onToggle={handleToggleSpeech}
+            isMobile={isMobile}
+          />
 
           {/* Corner brackets */}
-          {(["top-5 left-5","top-5 right-5","bottom-5 left-5","bottom-5 right-5"] as const).map((pos,i) => (
-            <motion.div key={i} initial={{ opacity:0 }} animate={{ opacity:0.18 }} transition={{ delay:0.3+i*0.06 }} className={`pointer-events-none absolute ${pos}`} style={{ width:24,height:24,borderTop:i<2?"1px solid #3b82f6":"none",borderBottom:i>=2?"1px solid #3b82f6":"none",borderLeft:i%2===0?"1px solid #3b82f6":"none",borderRight:i%2===1?"1px solid #3b82f6":"none" }} />
+          {(["top-5 left-5", "top-5 right-5", "bottom-5 left-5", "bottom-5 right-5"] as const).map((pos, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.16 }}
+              transition={{ delay: 0.3 + i * 0.06 }}
+              className={`pointer-events-none absolute ${pos}`}
+              style={{
+                width:       22,
+                height:      22,
+                borderTop:   i < 2  ? "1px solid #3b82f6" : "none",
+                borderBottom:i >= 2 ? "1px solid #3b82f6" : "none",
+                borderLeft:  i % 2 === 0 ? "1px solid #3b82f6" : "none",
+                borderRight: i % 2 === 1 ? "1px solid #3b82f6" : "none",
+              }}
+            />
           ))}
         </motion.div>
       )}

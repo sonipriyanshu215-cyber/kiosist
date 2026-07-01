@@ -20,10 +20,10 @@ export default function About() {
   return (
     <>
       <AboutIntro />
+      <TimelineScene />
       <MissionBlock />
       <ValuesGrid />
       <TeamMosaic />
-      <TimelineScene />
       <FinalCTA />
     </>
   );

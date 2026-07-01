@@ -4,32 +4,33 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 const STATS = [
-  { raw: "3M+",  label: "Guests Attended"  },
-  { raw: "150+", label: "Workforce"        },
-  { raw: "45+",  label: "Brands"           },
-  { raw: "100+", label: "Hotels Onboard"   },
-  { raw: "70+",  label: "Locations"        },
+  { to: 3,   suffix: "M+", label: "Guests Attended" },
+  { to: 150, suffix: "+",  label: "Workforce"       },
+  { to: 45,  suffix: "+",  label: "Brands"          },
+  { to: 100, suffix: "+",  label: "Hotels Onboard"  },
+  { to: 70,  suffix: "+",  label: "Locations"       },
 ];
 
-function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
+function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: "-10%" });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!isInView) return;
     const start = performance.now();
-    const duration = 1800;
+    const duration = 2200;
     const step = (t: number) => {
       const progress = Math.min((t - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      /* ease-out quart — fast start, smooth finish */
+      const eased = 1 - Math.pow(1 - progress, 4);
       setCount(Math.round(eased * to));
       if (progress < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }, [isInView, to]);
 
-  return <span ref={ref}>{prefix}{count}{suffix}</span>;
+  return <span ref={ref}>{count}{suffix}</span>;
 }
 
 export function StatCounter() {
@@ -44,7 +45,7 @@ export function StatCounter() {
               style={{ animation: `scan-beam ${3.5 + i * 0.6}s ease-in-out infinite`, animationDelay: `${i * 0.7}s` }}
             />
             <div className="relative text-[2.4rem] font-black leading-none text-gradient">
-              {s.raw}
+              <Counter to={s.to} suffix={s.suffix} />
             </div>
             <div className="relative mt-1.5 text-sm text-kio-muted">{s.label}</div>
           </div>

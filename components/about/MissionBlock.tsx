@@ -99,18 +99,6 @@ export function MissionBlock() {
             style={{ transformOrigin: "center" }}
           />
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 leading-relaxed text-white/70"
-          >
-            We believe no guest should arrive at an unstaffed front desk. And no hotel owner
-            should have to choose between quality coverage and a sustainable cost structure.
-            Kiosist exists to eliminate that trade-off.
-          </motion.p>
-
           {/* Three stat chips */}
           <motion.div
             className="mt-10 flex flex-wrap justify-center gap-4"

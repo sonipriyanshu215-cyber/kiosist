@@ -62,53 +62,6 @@ const SERVICES = [
   },
 ];
 
-/* ── Bottom perks strip ── */
-const PERKS = [
-  {
-    label: "Work with top hotels in the USA",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Build a global hospitality career",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-  },
-  {
-    label: "Learn, grow & advance with us",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 20V10M12 20V4M6 20v-6" />
-      </svg>
-    ),
-  },
-  {
-    label: "Night shifts. Better balance. Bright future.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 6v6l4 2" />
-      </svg>
-    ),
-  },
-];
-
-/* border class per perk index for 2-col mobile / 4-col desktop */
-const PERK_BORDER = [
-  "border-r border-b border-kio-line lg:border-b-0",
-  "border-b border-kio-line lg:border-b-0 lg:border-r",
-  "border-r border-kio-line",
-  "",
-];
 
 export function AboutIntro() {
   const rm = useReducedMotion();
@@ -118,11 +71,11 @@ export function AboutIntro() {
       {/* ── Mobile image banner (hidden on lg) ── */}
       <div className="relative h-56 w-full overflow-hidden lg:hidden">
         <Image
-          src="/img/about/team-wide.webp"
+          src="/img/about/office.webp"
           alt="Kiosist team at work"
           fill
           className="object-cover object-center"
-          sizes="100vw"
+          sizes="(min-width: 1024px) 0px, 100vw"
           priority
         />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0"
@@ -135,11 +88,11 @@ export function AboutIntro() {
         {/* Full-bleed photo — sits behind everything */}
         <div className="absolute inset-0 hidden lg:block">
           <Image
-            src="/img/about/team-wide.webp"
+            src="/img/about/office.webp"
             alt="Kiosist team at work"
             fill
-            className="object-cover object-right"
-            sizes="100vw"
+            className="object-cover object-center"
+            sizes="(max-width: 1023px) 0px, 100vw"
             priority
           />
           {/* Heavy left vignette — dissolves photo into content */}
@@ -210,25 +163,6 @@ export function AboutIntro() {
           </motion.div>
         </motion.div>
       </section>
-
-      {/* ── Bottom perks strip ── */}
-      <div className="grid grid-cols-1 border-t border-kio-line bg-kio-bg-soft sm:grid-cols-2 lg:grid-cols-4">
-        {PERKS.map((p, i) => (
-          <motion.div
-            key={p.label}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className={`flex items-center gap-4 px-6 py-5 ${PERK_BORDER[i]}`}
-          >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-kio-accent/12 text-kio-accent [&>svg]:h-5 [&>svg]:w-5">
-              {p.icon}
-            </div>
-            <p className="text-[.82rem] font-medium leading-[1.5] text-kio-muted">{p.label}</p>
-          </motion.div>
-        ))}
-      </div>
     </div>
   );
 }

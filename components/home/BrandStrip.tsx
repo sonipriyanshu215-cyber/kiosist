@@ -24,13 +24,26 @@ const ROW2 = [
 
 function LogoItem({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="flex h-16 w-44 shrink-0 items-center justify-center">
+    <div className="group flex h-16 w-44 shrink-0 items-center justify-center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt={alt}
-        className="h-full w-full select-none object-contain"
         draggable={false}
+        className="h-full w-full select-none object-contain"
+        style={{
+          filter:     "grayscale(1) brightness(0.55)",
+          opacity:    0.65,
+          transition: "filter 0.35s ease, opacity 0.35s ease",
+        }}
+        onMouseEnter={e => {
+          (e.currentTarget as HTMLImageElement).style.filter  = "none";
+          (e.currentTarget as HTMLImageElement).style.opacity = "1";
+        }}
+        onMouseLeave={e => {
+          (e.currentTarget as HTMLImageElement).style.filter  = "grayscale(1) brightness(0.55)";
+          (e.currentTarget as HTMLImageElement).style.opacity = "0.65";
+        }}
       />
     </div>
   );
@@ -49,17 +62,11 @@ export function BrandStrip() {
       </div>
 
       {/* Left fade mask */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32"
-        style={{ background: "linear-gradient(to right, #0d1117, transparent)" }}
-      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32"
+        style={{ background: "linear-gradient(to right, #0d1117, transparent)" }} />
       {/* Right fade mask */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32"
-        style={{ background: "linear-gradient(to left, #0d1117, transparent)" }}
-      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32"
+        style={{ background: "linear-gradient(to left, #0d1117, transparent)" }} />
 
       {/* Row 1 — scrolls left */}
       <div className="overflow-hidden mb-6">

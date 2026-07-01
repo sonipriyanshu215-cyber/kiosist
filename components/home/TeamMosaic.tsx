@@ -1,230 +1,92 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
-import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
-/* Unique accent per card — cycles if team grows */
-const ACCENTS = [
-  { from: "#3b82f6", to: "#06b6d4", glow: "rgba(59,130,246,0.38)" },
-  { from: "#8b5cf6", to: "#6366f1", glow: "rgba(139,92,246,0.38)" },
-  { from: "#06b6d4", to: "#10b981", glow: "rgba(6,182,212,0.38)" },
-  { from: "#f59e0b", to: "#ef4444", glow: "rgba(245,158,11,0.32)" },
-  { from: "#ec4899", to: "#8b5cf6", glow: "rgba(236,72,153,0.38)" },
-  { from: "#10b981", to: "#3b82f6", glow: "rgba(16,185,129,0.32)" },
-  { from: "#6366f1", to: "#ec4899", glow: "rgba(99,102,241,0.38)" },
-  { from: "#f59e0b", to: "#06b6d4", glow: "rgba(245,158,11,0.32)" },
-];
-
 const TEAM = [
-  { name: "Rahil",    role: "Founder & CEO",   img: "/img/team/rahil.webp", tag: "Leadership"  },
-  { name: "Sarah M.", role: "Operations Lead",  img: "/img/team/t2.webp",   tag: "Operations"  },
-  { name: "James K.", role: "Senior Agent",     img: "/img/team/t3.webp",   tag: "Front Desk"  },
-  { name: "Maya R.",  role: "Trainer",          img: "/img/team/t4.webp",   tag: "Training"    },
-  { name: "Lena T.",  role: "Agent",            img: "/img/team/t5.webp",   tag: "Front Desk"  },
-  { name: "Carlos M.",role: "Agent",            img: "/img/team/t6.webp",   tag: "Front Desk"  },
-  { name: "Priya S.", role: "Agent",            img: "/img/team/t7.webp",   tag: "Support"     },
-  { name: "Omar J.",  role: "Agent",            img: "/img/team/t8.webp",   tag: "Front Desk"  },
+  { name: "Rahil",     role: "Founder & CEO",  img: "/img/team/rahil.webp", tag: "Leadership" },
+  { name: "Sarah M.",  role: "Operations Lead", img: "/img/team/t2.webp",   tag: "Operations" },
+  { name: "James K.",  role: "Senior Agent",    img: "/img/team/t3.webp",   tag: "Front Desk" },
+  { name: "Maya R.",   role: "Trainer",         img: "/img/team/t4.webp",   tag: "Training"   },
+  { name: "Lena T.",   role: "Agent",           img: "/img/team/t5.webp",   tag: "Front Desk" },
+  { name: "Carlos M.", role: "Agent",           img: "/img/team/t6.webp",   tag: "Front Desk" },
+  { name: "Priya S.",  role: "Agent",           img: "/img/team/t7.webp",   tag: "Support"    },
+  { name: "Omar J.",   role: "Agent",           img: "/img/team/t8.webp",   tag: "Front Desk" },
 ];
 
-type TeamMember = typeof TEAM[0];
-
-function AvatarCard({
-  member,
-  idx,
-  rm,
-}: {
-  member: TeamMember;
-  idx: number;
-  rm: boolean | null;
-}) {
+function AvatarCard({ member, idx }: { member: typeof TEAM[0]; idx: number }) {
   const [imgErr, setImgErr] = useState(false);
-  const accent = ACCENTS[idx % ACCENTS.length];
-  const initials = member.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-  const floatDuration = 3.6 + (idx % 3) * 0.7;
-  const floatDelay    = idx * 0.28;
+  const initials = member.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
 
   return (
-    <motion.div variants={staggerChild} className="group relative">
-      {/* Floating idle wrapper */}
-      <motion.div
-        animate={rm ? {} : { y: [0, -9, 0] }}
-        transition={{
-          duration: floatDuration,
-          delay: floatDelay,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="relative rounded-3xl p-[1px] transition-all duration-500
-                   group-hover:shadow-[0_0_44px_var(--cg)]"
-        style={{ "--cg": accent.glow } as React.CSSProperties}
-      >
-        {/* Animated gradient border via rotating conic ring */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background: `conic-gradient(from 0deg, ${accent.from}80, ${accent.to}80, transparent, ${accent.from}80)`,
-            padding: "1px",
-          }}
-          animate={rm ? {} : { rotate: 360 }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-        />
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.45, delay: idx * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -8, transition: { duration: 0.25, ease: "easeOut" } }}
+      className="group relative cursor-default overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-6 text-center"
+      style={{ transition: "border-color 0.3s, box-shadow 0.3s" }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLElement).style.borderColor = "rgba(59,130,246,0.4)";
+        (e.currentTarget as HTMLElement).style.boxShadow  = "0 16px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(59,130,246,0.15), 0 0 32px rgba(59,130,246,0.10)";
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLElement).style.borderColor = "";
+        (e.currentTarget as HTMLElement).style.boxShadow  = "";
+      }}
+    >
+      {/* Top sweep line on hover */}
+      <span className="pointer-events-none absolute inset-x-0 top-0 h-px -translate-x-full bg-gradient-to-r from-transparent via-[#3b82f6]/70 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
 
-        {/* Card body */}
-        <div
-          className="relative overflow-hidden rounded-3xl border border-white/[0.07]
-                     bg-kio-bg-soft p-6 text-center"
-        >
-          {/* Hover tint overlay */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-            style={{
-              background: `linear-gradient(135deg, ${accent.from}14, ${accent.to}0a)`,
-            }}
+      {/* Subtle blue tint on hover */}
+      <span className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{ background: "radial-gradient(ellipse 75% 55% at 50% 0%, rgba(59,130,246,0.07), transparent)" }} />
+
+      {/* Avatar */}
+      <div className="relative mx-auto mb-5 h-24 w-24 overflow-hidden rounded-full border-2 border-kio-line transition-[border-color,box-shadow] duration-300 group-hover:border-[#3b82f6]/50 group-hover:shadow-[0_0_0_4px_rgba(59,130,246,0.10)]">
+        {!imgErr ? (
+          <Image
+            src={member.img}
+            alt={member.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            onError={() => setImgErr(true)}
+            sizes="96px"
           />
-
-          {/* Scan beam on hover */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-            <div
-              className="absolute inset-y-0 w-[55%] -translate-x-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              style={{
-                background: `linear-gradient(90deg, transparent, ${accent.from}18, transparent)`,
-                animation: "scan-beam 2.6s ease-in-out infinite",
-              }}
-            />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-kio-bg">
+            <span className="text-2xl font-extrabold text-kio-accent">{initials}</span>
           </div>
+        )}
+      </div>
 
-          {/* ── Avatar ── */}
-          <div className="relative mx-auto mb-5 h-28 w-28">
-            {/* Pulsing ambient halo */}
-            <motion.div
-              className="absolute -inset-4 rounded-full"
-              style={{
-                background: `radial-gradient(circle, ${accent.from}28, transparent 70%)`,
-              }}
-              animate={rm ? {} : { scale: [1, 1.35, 1], opacity: [0.7, 0, 0.7] }}
-              transition={{
-                duration: 2.6 + idx * 0.12,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: idx * 0.18,
-              }}
-            />
+      {/* Name */}
+      <h3 className="relative z-10 text-sm font-bold text-kio-ink transition-colors duration-300 group-hover:text-[#60a5fa]">
+        {member.name}
+      </h3>
 
-            {/* Rotating conic ring */}
-            <motion.div
-              className="absolute -inset-[3px] rounded-full"
-              style={{
-                background: `conic-gradient(from 0deg, transparent 0%, ${accent.from} 22%, ${accent.to} 48%, transparent 68%)`,
-              }}
-              animate={rm ? {} : { rotate: 360 }}
-              transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }}
-            />
+      {/* Role */}
+      <p className="relative z-10 mt-1 text-xs text-kio-muted">{member.role}</p>
 
-            {/* Inner circle — image or initials */}
-            <div
-              className="relative z-10 h-full w-full overflow-hidden rounded-full"
-              style={{
-                background: `linear-gradient(135deg, ${accent.from}38, ${accent.to}28)`,
-              }}
-            >
-              {!imgErr ? (
-                <Image
-                  src={member.img}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                  onError={() => setImgErr(true)}
-                  sizes="112px"
-                />
-              ) : (
-                /* Stylised initials placeholder */
-                <div className="flex h-full w-full items-center justify-center">
-                  <span
-                    className="select-none text-3xl font-extrabold tracking-tight"
-                    style={{
-                      background: `linear-gradient(135deg, ${accent.from}, ${accent.to})`,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    {initials}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Online status dot */}
-            <motion.div
-              className="absolute bottom-0.5 right-0.5 z-20 h-4 w-4 rounded-full border-2 border-kio-bg-soft bg-emerald-400"
-              animate={rm ? {} : { scale: [1, 1.3, 1] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: idx * 0.14 }}
-            />
-          </div>
-
-          {/* Name */}
-          <h3
-            className="relative z-10 text-base font-bold"
-            style={{
-              background: `linear-gradient(135deg, ${accent.from}, ${accent.to})`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            {member.name}
-          </h3>
-
-          {/* Role */}
-          <p className="relative z-10 mt-1 text-xs text-kio-muted">{member.role}</p>
-
-          {/* Tag badge */}
-          <div className="relative z-10 mt-4 flex justify-center">
-            <span
-              className="rounded-full px-3 py-[5px] text-[10px] font-semibold uppercase tracking-widest"
-              style={{
-                background: `${accent.from}1a`,
-                border: `1px solid ${accent.from}38`,
-                color: accent.from,
-              }}
-            >
-              {member.tag}
-            </span>
-          </div>
-        </div>
-      </motion.div>
+      {/* Tag badge */}
+      <div className="relative z-10 mt-4 flex justify-center">
+        <span className="rounded-full border border-kio-line bg-kio-bg px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-kio-muted transition-[border-color,color,background-color] duration-300 group-hover:border-[#3b82f6]/30 group-hover:bg-[#3b82f6]/08 group-hover:text-[#60a5fa]">
+          {member.tag}
+        </span>
+      </div>
     </motion.div>
   );
 }
 
 export function TeamMosaic() {
-  const rm = useReducedMotion();
-
   return (
     <section className="section-pad relative overflow-hidden bg-kio-bg">
-      {/* Ambient blobs */}
-      <motion.div
-        className="pointer-events-none absolute -left-48 top-10 h-[520px] w-[520px] rounded-full opacity-[0.055]"
-        style={{ background: "radial-gradient(circle, #3b82f6, transparent 70%)" }}
-        animate={rm ? {} : { x: [0, 35, 0], y: [0, 22, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="pointer-events-none absolute -right-48 bottom-10 h-[520px] w-[520px] rounded-full opacity-[0.055]"
-        style={{ background: "radial-gradient(circle, #06b6d4, transparent 70%)" }}
-        animate={rm ? {} : { x: [0, -35, 0], y: [0, -22, 0] }}
-        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-      />
-
       <div className="container-kio relative z-10">
-        {/* Heading */}
-        <RevealOnScroll className="mb-16 text-center">
+
+        <RevealOnScroll className="mb-14 text-center">
           <span className="section-label">Our Team</span>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
             The faces behind{" "}
@@ -235,20 +97,12 @@ export function TeamMosaic() {
           </p>
         </RevealOnScroll>
 
-        {/* Grid */}
-        <motion.div
-          variants={staggerParent}
-          initial={rm ? "show" : "hidden"}
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4"
-        >
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {TEAM.map((member, i) => (
-            <AvatarCard key={i} member={member} idx={i} rm={rm} />
+            <AvatarCard key={i} member={member} idx={i} />
           ))}
-        </motion.div>
+        </div>
 
-        {/* Footer note */}
         <RevealOnScroll className="mt-10 text-center">
           <p className="text-sm text-kio-muted">
             And{" "}
@@ -256,6 +110,7 @@ export function TeamMosaic() {
             agents ready to staff your property around the clock.
           </p>
         </RevealOnScroll>
+
       </div>
     </section>
   );

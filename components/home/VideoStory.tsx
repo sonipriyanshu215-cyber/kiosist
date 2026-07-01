@@ -256,7 +256,7 @@ export function VideoStory() {
           <RevealOnScroll className="mb-10 text-center">
             <span className="section-label">See It In Action</span>
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-              KioClerk — the 60-second demo
+              KIOSIST — the 60-second demo
             </h2>
           </RevealOnScroll>
           <div className="mx-auto flex aspect-video max-w-4xl items-center justify-center rounded-3xl border border-kio-accent/20 bg-kio-bg-soft">
@@ -278,7 +278,7 @@ export function VideoStory() {
           <span className="section-label">See It In Action</span>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
             Watch how{" "}
-            <span className="text-gradient">KioClerk</span> works
+            <span className="text-color-cycle">KIOSIST</span> works
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-kio-muted">
             A virtual agent handles a real hotel check-in at 2 AM — from thousands of miles away,

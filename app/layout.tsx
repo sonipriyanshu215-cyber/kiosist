@@ -7,6 +7,7 @@ import { Footer } from "@/components/global/Footer";
 import { FloatingCTA } from "@/components/global/FloatingCTA";
 import { SmoothScroll } from "@/components/global/SmoothScroll";
 import { ParticleRingDynamic } from "@/components/global/ParticleRingDynamic";
+import { AmbientGlow } from "@/components/global/AmbientGlow";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           {/* Fixed-position canvas — inside ThemeProvider so it can read useTheme() */}
           <ParticleRingDynamic />
+          <AmbientGlow />
           <div className="relative z-[1]">
             <SmoothScroll>
               <Nav />

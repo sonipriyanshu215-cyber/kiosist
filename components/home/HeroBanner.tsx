@@ -236,24 +236,6 @@ export function HeroBanner() {
         ))}
       </div>
 
-      {/* ── Background blob 1 — upper right ── */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[-100px] top-[-100px] h-[600px] w-[600px] rounded-full"
-        style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--kio-accent) 30%, transparent) 0%, transparent 70%)" }}
-        animate={rm ? {} : { scale: [1, 1.12, 1], x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* ── Background blob 2 — lower left ── */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-[50px] left-[-80px] h-[400px] w-[400px] rounded-full"
-        style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--kio-accent2) 20%, transparent) 0%, transparent 70%)" }}
-        animate={rm ? {} : { scale: [1, 1.2, 1], x: [0, -20, 0], y: [0, 30, 0] }}
-        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      />
-
       {/* ── Pulsing ring in center ── */}
       {!rm && (
         <motion.div

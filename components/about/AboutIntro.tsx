@@ -62,7 +62,6 @@ const SERVICES = [
   },
 ];
 
-
 export function AboutIntro() {
   const rm = useReducedMotion();
 
@@ -71,8 +70,8 @@ export function AboutIntro() {
       {/* ── Mobile image banner (hidden on lg) ── */}
       <div className="relative h-56 w-full overflow-hidden lg:hidden">
         <Image
-          src="/img/about/office.webp"
-          alt="Kiosist team at work"
+          src="/img/about/agent-workstation.webp"
+          alt="Kiosist front desk agent working across dual monitors and a tablet"
           fill
           className="object-cover object-center"
           sizes="(min-width: 1024px) 0px, 100vw"
@@ -82,39 +81,15 @@ export function AboutIntro() {
           style={{ background: "linear-gradient(to bottom, transparent 30%, #0d1117 100%)" }} />
       </div>
 
-      {/* ── Hero ── */}
-      <section className="relative min-h-screen overflow-hidden">
+      {/* ── Hero — two clean panels: text left, photo right ── */}
+      <section className="relative min-h-screen overflow-hidden lg:flex">
 
-        {/* Full-bleed photo — sits behind everything */}
-        <div className="absolute inset-0 hidden lg:block">
-          <Image
-            src="/img/about/office.webp"
-            alt="Kiosist team at work"
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 1023px) 0px, 100vw"
-            priority
-          />
-          {/* Left vignette */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to right, #0d1117 0%, #0d1117 30%, rgba(13,17,23,0.85) 50%, rgba(13,17,23,0.5) 68%, transparent 85%)" }} />
-          {/* Top fade */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to bottom, #0d1117 0%, rgba(13,17,23,0.7) 15%, transparent 40%)" }} />
-          {/* Bottom fade */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to top, #0d1117 0%, rgba(13,17,23,0.75) 20%, transparent 50%)" }} />
-          {/* Right edge fade */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to left, #0d1117 0%, transparent 20%)" }} />
-        </div>
-
-        {/* ── Left: content (sits on top of full-bleed image) ── */}
+        {/* ── Left panel: content ── */}
         <motion.div
           initial={{ opacity: 0, x: -28 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex min-h-[70vh] flex-col justify-center px-6 pb-16 pt-10 lg:min-h-screen lg:w-[52%] lg:pt-32 lg:px-14 xl:px-20"
+          className="relative z-10 flex min-h-[70vh] flex-col justify-center bg-black px-6 pb-16 pt-10 lg:min-h-screen lg:w-1/2 lg:pt-32 lg:px-14 xl:px-20"
         >
           {/* Badge */}
           <div className="mb-7 inline-flex items-center gap-2 self-start rounded-full border border-kio-accent/30 bg-kio-accent/10 px-4 py-1.5">
@@ -144,7 +119,7 @@ export function AboutIntro() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 rounded-2xl border border-kio-line bg-kio-bg-soft/60 p-5 backdrop-blur-md"
+            className="mt-9 rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm"
           >
             <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-kio-accent">
               What We Do
@@ -161,6 +136,34 @@ export function AboutIntro() {
               ))}
             </div>
           </motion.div>
+        </motion.div>
+
+        {/* ── Right panel: photo ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 28 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="relative hidden min-h-screen lg:block lg:w-1/2"
+        >
+          <Image
+            src="/img/about/agent-workstation.webp"
+            alt="Kiosist front desk agents working across dual monitors and a tablet"
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 1023px) 0px, 50vw"
+            priority
+          />
+          {/* Light overall tint for mood, keeps all three people visible */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.22)]" />
+          {/* Seam blend into the text panel — matches the panel's pure black so the two bleed together with no visible line */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to right, #000 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.55) 16%, rgba(0,0,0,0.2) 26%, transparent 40%)" }} />
+          {/* Top fade — keeps the navbar readable over the photo */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 18%)" }} />
+          {/* Bottom fade for depth */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 25%)" }} />
         </motion.div>
       </section>
     </div>

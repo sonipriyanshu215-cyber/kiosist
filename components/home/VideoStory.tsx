@@ -277,11 +277,9 @@ export function VideoStory() {
         <RevealOnScroll className="mb-12 text-center">
           <span className="section-label">See It In Action</span>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
-            Watch how{" "}
-            <span className="text-color-cycle">KIOSIST</span> works
+            2 AM. No Front Desk. <span className="text-color-cycle">No Problem.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-kio-muted">
-            <span className="font-semibold text-kio-ink">2 AM. No Front Desk. No Problem.</span><br />
             A virtual agent checks in a real guest, from thousands of miles away — in under 60 seconds.
           </p>
         </RevealOnScroll>

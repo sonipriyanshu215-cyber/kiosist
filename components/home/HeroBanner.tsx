@@ -290,7 +290,7 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(1.9rem,5vw,3.8rem)] font-black leading-[1.3] text-kio-ink"
+            className="text-[clamp(1.5rem,2.6vw,2.4rem)] font-black leading-[1.3] text-kio-ink"
           >
             {/* Line 1 */}
             <span className="block">Kiosist Delivers Hospitality</span>

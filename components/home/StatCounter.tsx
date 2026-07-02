@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 const STATS = [
-  { to: 300000, suffix: "+", label: "Guests Attended", indian: true },
+  { to: 3000000, suffix: "+", label: "Guests Attended", indian: true },
   { to: 150,    suffix: "+", label: "Workforce"       },
   { to: 45,     suffix: "+", label: "Brands"          },
   { to: 100,    suffix: "+", label: "Hotels Onboard"  },
@@ -50,7 +50,7 @@ export function StatCounter() {
       </div>
       <div className="mx-auto grid max-w-container grid-cols-2 gap-4 px-6 md:grid-cols-5 md:px-10 lg:px-16">
         {(STATS as { to: number; suffix: string; label: string; indian?: boolean }[]).map((s, i) => (
-          <div key={s.label} className={`group relative overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-5 text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg${i === STATS.length - 1 && STATS.length % 2 !== 0 ? " col-span-2 md:col-span-1" : ""}`}>
+          <div key={s.label} className={`group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-5 text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg${i === STATS.length - 1 && STATS.length % 2 !== 0 ? " col-span-2 md:col-span-1" : ""}`}>
             <div
               className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/12 to-transparent"
               style={{ animation: `scan-beam ${3.5 + i * 0.6}s ease-in-out infinite`, animationDelay: `${i * 0.7}s` }}

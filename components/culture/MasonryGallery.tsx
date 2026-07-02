@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SafeImage } from "@/components/primitives/SafeImage";
 import { motion, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { ImageIcon } from "lucide-react";
 import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
@@ -24,9 +25,10 @@ const GALLERY = [
   { src: "/img/culture/event-1.webp", alt: "Company event" },
 ];
 
-export function MasonryGallery() {
+export function MasonryGallery({ existingAssets = [] }: { existingAssets?: string[] }) {
   const [index, setIndex] = useState(-1);
   const reducedMotion = useReducedMotion();
+  const existing = new Set(existingAssets);
 
   return (
     <section className="section-pad bg-kio-bg">
@@ -51,7 +53,9 @@ export function MasonryGallery() {
           viewport={{ once: true }}
           className="columns-2 gap-4 sm:columns-3 lg:columns-4"
         >
-          {GALLERY.map((img, i) => (
+          {GALLERY.map((img, i) => {
+            const hasPhoto = existing.has(img.src.split("/").pop()!);
+            return (
             <motion.div
               key={img.src}
               variants={staggerChild}
@@ -62,24 +66,39 @@ export function MasonryGallery() {
             >
               <motion.div
                 variants={hoverLift}
-                className="group relative cursor-zoom-in overflow-hidden rounded-2xl"
-                onClick={() => setIndex(i)}
+                className={`group relative overflow-hidden rounded-2xl ${hasPhoto ? "cursor-zoom-in" : ""}`}
+                onClick={hasPhoto ? () => setIndex(i) : undefined}
               >
-                <SafeImage
-                  src={img.src}
-                  alt={img.alt}
-                  width={400}
-                  height={300}
-                  className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                />
+                {hasPhoto ? (
+                  <SafeImage
+                    src={img.src}
+                    alt={img.alt}
+                    width={400}
+                    height={300}
+                    className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                ) : (
+                  <div
+                    aria-label={img.alt}
+                    role="img"
+                    className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-gradient-to-br from-kio-bg-soft to-kio-bg"
+                  >
+                    <div
+                      className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-kio-accent/10 to-transparent animate-scan-beam-slow"
+                      style={{ animationDelay: `${i * 0.4}s` }}
+                    />
+                    <ImageIcon className="relative h-6 w-6 text-kio-muted/30" strokeWidth={1.5} />
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-kio-primary/0 transition-colors duration-300 group-hover:bg-kio-primary/20" />
                 <div className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-kio-primary/80 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
                   <p className="text-xs font-medium text-white">{img.alt}</p>
                 </div>
               </motion.div>
             </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
 
         <Lightbox

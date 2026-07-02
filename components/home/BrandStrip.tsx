@@ -55,19 +55,12 @@ export function BrandStrip() {
 
       {/* Tagline above heading */}
       <div className="mb-10 text-center">
+        <span className="section-label">Our Hotel Partners</span>
         <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-kio-ink">
           Trusted by Hotels.{" "}
           <span className="text-color-cycle">Loved by Guests.</span>{" "}
           Across USA.
         </p>
-      </div>
-
-      {/* Heading */}
-      <div className="mb-12 text-center">
-        <span className="section-label">Our Hotel Partners</span>
-        <h2 className="mt-4 text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold leading-snug text-kio-ink">
-          Trusted by hotel brands<br className="hidden sm:block" /> across the USA
-        </h2>
       </div>
 
       {/* Left fade mask */}

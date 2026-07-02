@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { MasonryGallery } from "@/components/culture/MasonryGallery";
 import { EventsTimeline } from "@/components/culture/EventsTimeline";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import { listExistingAssets } from "@/lib/publicAssets";
 
 export const metadata: Metadata = {
   title: "Culture & Events | Kiosist",
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default function Culture() {
+  const existingCultureAssets = listExistingAssets("img/culture");
+
   return (
     <>
       <section className="section-pad bg-kio-primary pt-36">
@@ -32,8 +35,8 @@ export default function Culture() {
         </div>
       </section>
 
-      <MasonryGallery />
-      <EventsTimeline />
+      <MasonryGallery existingAssets={existingCultureAssets} />
+      <EventsTimeline existingAssets={existingCultureAssets} />
     </>
   );
 }

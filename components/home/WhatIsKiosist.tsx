@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 export function WhatIsKiosist() {
   const rm = useReducedMotion();
 
   return (
-    <section className="section-pad relative overflow-hidden">
-      {/* Ambient glow top-left */}
+    <section className="relative overflow-hidden">
+      {/* Ambient glow top-left — scoped so it never wraps a sticky/scroll element */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute -left-40 top-0 h-[600px] w-[600px] rounded-full"
@@ -26,155 +25,92 @@ export function WhatIsKiosist() {
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       />
 
-      <div className="relative z-10 w-full">
-        {/* Heading */}
-        <RevealOnScroll className="container-kio mx-auto mb-12 text-center">
-          <span className="section-label">Our Story</span>
-        </RevealOnScroll>
+      {/* ── Mobile image banner (hidden on lg) ── */}
+      <div className="relative h-64 w-full overflow-hidden lg:hidden">
+        <Image
+          src="/img/about/kiosist-team.jpeg"
+          alt="The Kiosist team at their office in India"
+          fill
+          className="object-cover object-[center_35%]"
+          sizes="100vw"
+        />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, transparent 30%, #000 100%)" }} />
+      </div>
 
-        {/* Stacked layout: image centered, text below */}
-        <div className="flex flex-col items-center gap-12">
+      {/* ── Two clean panels: text left, team photo right ── */}
+      <div className="relative z-10 lg:flex lg:min-h-[720px]">
 
-          {/* Image — centered */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-            className="relative mx-auto"
-            style={{ width: "1100px", maxWidth: "100%" }}
-          >
-            {/* Outer glow ring */}
-            <motion.div
-              aria-hidden="true"
-              className="absolute -inset-3 rounded-3xl"
-              style={{ background: "linear-gradient(135deg, rgba(59,130,246,.18), rgba(6,182,212,.12), transparent)" }}
-              animate={rm ? {} : { opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            />
+        {/* Left panel: content */}
+        <motion.div
+          initial={{ opacity: 0, x: -28 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 flex flex-col justify-center bg-black px-6 py-14 lg:w-[38%] lg:px-14 xl:px-16"
+        >
+          <span className="section-label self-start">Our Story</span>
 
-            {/* Corner accent lines */}
-            <div aria-hidden="true" className="absolute -left-1 -top-1 h-12 w-12 rounded-tl-3xl border-l-2 border-t-2 border-kio-accent/50" />
-            <div aria-hidden="true" className="absolute -bottom-1 -right-1 h-12 w-12 rounded-br-3xl border-b-2 border-r-2 border-kio-accent2/50" />
+          <h3 className="text-[clamp(1.8rem,3.2vw,2.6rem)] font-extrabold leading-snug text-kio-ink">
+            Welcome to <span className="text-color-cycle">Kiosist</span>
+          </h3>
 
-            {/* Image */}
-            <motion.div
-              className="relative overflow-hidden rounded-2xl"
-              style={{ width: "1100px", maxWidth: "100%", height: "500px" }}
-              whileHover="hovered"
-              initial="idle"
-            >
-              <motion.div
-                className="absolute inset-0"
-                variants={{
-                  idle:    { scale: 1 },
-                  hovered: { scale: 1.05 },
-                }}
-                transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
-              >
-                <Image
-                  src="/img/about/kiosist-team.jpeg"
-                  alt="The Kiosist team at their office in India"
-                  fill
-                  className="object-cover object-[center_35%]"
-                  sizes="1100px"
-                />
-              </motion.div>
+          <p className="mt-2 text-[clamp(1rem,1.8vw,1.25rem)] font-semibold italic text-kio-muted">
+            Where Every Hello Becomes a Story.
+          </p>
 
-              {/* Dark overlay — lifts on hover */}
-              <motion.div
-                className="absolute inset-0"
-                variants={{
-                  idle:    { background: "linear-gradient(to top, rgba(13,17,23,0.55) 0%, rgba(13,17,23,0.10) 50%, transparent 100%)" },
-                  hovered: { background: "linear-gradient(to top, rgba(13,17,23,0.30) 0%, rgba(13,17,23,0.05) 50%, transparent 100%)" },
-                }}
-                transition={{ duration: 0.4 }}
-              />
+          <div
+            aria-hidden="true"
+            className="my-6 h-px w-full max-w-[280px] rounded-full"
+            style={{ background: "linear-gradient(90deg, var(--kio-accent), var(--kio-accent2), transparent)" }}
+          />
 
-              {/* Blue tint overlay — brightens on hover */}
-              <motion.div
-                className="absolute inset-0"
-                style={{ mixBlendMode: "screen" }}
-                variants={{
-                  idle:    { backgroundColor: "rgba(59,130,246,0.06)" },
-                  hovered: { backgroundColor: "rgba(59,130,246,0.14)" },
-                }}
-                transition={{ duration: 0.4 }}
-              />
+          <p className="text-[1rem] leading-[1.9] text-kio-muted">
+            Our Front Desk Executives power guest experiences for hotels across the USA, turning &ldquo;just checking in&rdquo; into &ldquo;I can&apos;t wait to come back.&rdquo;
+          </p>
+          <p className="mt-5 text-[1rem] leading-[1.9] text-kio-muted">
+            We&apos;re the first face, the first voice, the first impression a guest gets — and in hospitality, that&apos;s everything.
+          </p>
+        </motion.div>
 
-              {/* Border glow on hover */}
-              <motion.div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 rounded-2xl"
-                variants={{
-                  idle:    { boxShadow: "inset 0 0 0 1px rgba(59,130,246,0)" },
-                  hovered: { boxShadow: "inset 0 0 0 1.5px rgba(59,130,246,0.5)" },
-                }}
-                transition={{ duration: 0.35 }}
-              />
+        {/* Right panel: full-bleed team photo */}
+        <motion.div
+          initial={{ opacity: 0, x: 28 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="relative hidden lg:block lg:w-[62%]"
+        >
+          <Image
+            src="/img/about/kiosist-team.jpeg"
+            alt="The Kiosist team at their office in India"
+            fill
+            className="object-cover object-[center_35%]"
+            sizes="(max-width: 1023px) 0px, 62vw"
+          />
 
-              {/* Bottom label badge */}
-              <div className="absolute bottom-4 left-4 right-4">
-                <div
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-white"
-                  style={{ background: "rgba(13,17,23,0.75)", backdropFilter: "blur(12px)", border: "1px solid rgba(59,130,246,0.25)" }}
-                >
-                  <span className="h-2 w-2 rounded-full bg-kio-accent animate-pulse" />
-                  Kiosist HQ — Surat, India
-                </div>
-              </div>
-            </motion.div>
+          {/* Light overall tint for mood */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.22)]" />
 
-            {/* Scan beam */}
-            {!rm && (
-              <motion.div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 rounded-2xl overflow-hidden"
-                style={{ mixBlendMode: "screen" }}
-              >
-                <motion.div
-                  className="absolute inset-y-0 w-1/3"
-                  style={{ background: "linear-gradient(to right, transparent, rgba(59,130,246,0.06), transparent)" }}
-                  animate={{ x: ["-100%", "400%"] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 2 }}
-                />
-              </motion.div>
-            )}
-          </motion.div>
+          {/* Seam blend into the text panel — matches the panel's pure black so the two bleed together */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to right, #000 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.55) 16%, rgba(0,0,0,0.2) 26%, transparent 40%)" }} />
 
-          {/* Text — full width below image */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1], delay: 0.15 }}
-            className="mx-auto max-w-[820px] text-center"
-          >
-            {/* Title */}
-            <h3 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold leading-snug text-kio-ink">
-              Welcome to <span className="text-color-cycle">Kiosist</span>
-            </h3>
+          {/* Bottom fade for depth */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 25%)" }} />
 
-            {/* Sub-title */}
-            <p className="mt-2 text-[clamp(1rem,1.8vw,1.25rem)] font-semibold italic text-kio-muted">
-              Where Every Hello Becomes a Story.
-            </p>
-
-            {/* Divider */}
+          {/* HQ badge */}
+          <div className="absolute bottom-6 right-6">
             <div
-              aria-hidden="true"
-              className="my-6 h-px w-full rounded-full"
-              style={{ background: "linear-gradient(90deg, var(--kio-accent), var(--kio-accent2), transparent)" }}
-            />
-
-            <p className="text-[1rem] leading-[1.95] text-kio-muted md:text-[1.05rem]">
-              Our Front Desk Executives power guest experiences for hotels across the USA, turning &ldquo;just checking in&rdquo; into &ldquo;I can&apos;t wait to come back.&rdquo;
-            </p>
-            <p className="mt-5 text-[1rem] leading-[1.95] text-kio-muted md:text-[1.05rem]">
-              We&apos;re the first face, the first voice, the first impression a guest gets — and in hospitality, that&apos;s everything.
-            </p>
-          </motion.div>
-        </div>
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-white"
+              style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(12px)", border: "1px solid rgba(59,130,246,0.25)" }}
+            >
+              <span className="h-2 w-2 rounded-full bg-kio-accent animate-pulse" />
+              Kiosist HQ — Surat, India
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

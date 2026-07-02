@@ -98,34 +98,6 @@ export function MissionBlock() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: "center" }}
           />
-
-          {/* Three stat chips */}
-          <motion.div
-            className="mt-10 flex flex-wrap justify-center gap-4"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.6 } } }}
-          >
-            {[
-              { n: "24/7", l: "Coverage" },
-              { n: "< 30s", l: "Response Time" },
-              { n: "100+", l: "Hotels Onboard" },
-            ].map(({ n, l }) => (
-              <motion.div
-                key={l}
-                variants={{
-                  hidden: { opacity: 0, y: 12 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
-                }}
-                whileHover={rm ? {} : { scale: 1.05, y: -2 }}
-                className="rounded-full border border-kio-accent/25 bg-kio-accent/10 px-5 py-2 text-center backdrop-blur-sm"
-              >
-                <span className="block text-xl font-bold text-kio-accent">{n}</span>
-                <span className="text-xs text-white/60">{l}</span>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
       </div>
     </section>

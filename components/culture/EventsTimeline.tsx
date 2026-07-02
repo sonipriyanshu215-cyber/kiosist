@@ -2,7 +2,7 @@
 
 import { SafeImage } from "@/components/primitives/SafeImage";
 import { motion, useReducedMotion } from "framer-motion";
-import { MapPin, Calendar } from "lucide-react";
+import { MapPin, Calendar, ImageIcon } from "lucide-react";
 import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
@@ -31,8 +31,9 @@ const EVENTS = [
   },
 ];
 
-export function EventsTimeline() {
+export function EventsTimeline({ existingAssets = [] }: { existingAssets?: string[] }) {
   const reducedMotion = useReducedMotion();
+  const existing = new Set(existingAssets);
 
   return (
     <section className="section-pad bg-kio-bg-soft">
@@ -104,13 +105,27 @@ export function EventsTimeline() {
                 {/* Photo */}
                 <div className={i % 2 === 0 ? "md:pl-12" : "md:pr-12 md:[direction:ltr]"}>
                   <div className="h-56 overflow-hidden rounded-2xl">
-                    <SafeImage
-                      src={event.photo}
-                      alt={event.name}
-                      width={600}
-                      height={320}
-                      className="h-full w-full object-cover"
-                    />
+                    {existing.has(event.photo.split("/").pop()!) ? (
+                      <SafeImage
+                        src={event.photo}
+                        alt={event.name}
+                        width={600}
+                        height={320}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        aria-label={event.name}
+                        role="img"
+                        className="relative flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-br from-kio-bg-soft to-kio-bg"
+                      >
+                        <div
+                          className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-kio-accent/10 to-transparent animate-scan-beam-slow"
+                          style={{ animationDelay: `${i * 0.5}s` }}
+                        />
+                        <ImageIcon className="relative h-7 w-7 text-kio-muted/30" strokeWidth={1.5} />
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>

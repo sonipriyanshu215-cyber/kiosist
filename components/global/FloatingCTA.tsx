@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import { CalendarClock } from "lucide-react";
 import { DemoModal } from "@/components/global/DemoModal";
 
 export function FloatingCTA() {
@@ -10,7 +11,7 @@ export function FloatingCTA() {
 
   return (
     <>
-      <div className="fixed bottom-8 right-8 z-50">
+      <div className="fixed bottom-5 right-5 z-50 md:bottom-8 md:right-8">
         {/* Pulse ring behind button */}
         <motion.span
           aria-hidden="true"
@@ -20,10 +21,10 @@ export function FloatingCTA() {
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* Floating button */}
+        {/* Floating button — icon-only on mobile to avoid covering page content, full pill from sm up */}
         <motion.button
           onClick={() => setOpen(true)}
-          className="relative flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-[0_0_30px_rgba(59,130,246,.5)] will-float"
+          className="relative flex items-center gap-2 rounded-full p-3.5 text-sm font-semibold text-white shadow-[0_0_30px_rgba(59,130,246,.5)] will-float sm:px-6 sm:py-3"
           style={{ background: "linear-gradient(135deg, #3b82f6, #06b6d4)" }}
           animate={reducedMotion ? {} : { y: [0, -8, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -31,12 +32,13 @@ export function FloatingCTA() {
           whileTap={{ scale: 0.97 }}
           aria-label="Book a Demo"
         >
+          <CalendarClock className="h-4 w-4 sm:hidden" />
           <motion.span
-            className="h-2 w-2 rounded-full bg-white"
+            className="hidden h-2 w-2 rounded-full bg-white sm:inline-block"
             animate={reducedMotion ? {} : { scale: [1, 1.4, 1], opacity: [1, 0.4, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           />
-          Book a Demo
+          <span className="hidden sm:inline">Book a Demo</span>
         </motion.button>
       </div>
 

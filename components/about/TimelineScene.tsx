@@ -52,7 +52,7 @@ function VerticalTimeline() {
                 {/* Dot on spine */}
                 <div
                   className="absolute left-[14px] top-4 h-3 w-3 rounded-full border-2"
-                  style={{ borderColor: color, background: "#0d1117" }}
+                  style={{ borderColor: color, background: "#0d1117", boxShadow: `0 0 12px 2px ${color}80` }}
                 />
 
                 {/* Card */}
@@ -60,7 +60,7 @@ function VerticalTimeline() {
                   className="rounded-2xl p-5 backdrop-blur-sm"
                   style={{
                     background: "linear-gradient(135deg, rgba(18,20,30,0.82), rgba(22,25,38,0.72))",
-                    boxShadow: `0 0 0 1px ${color}30`,
+                    boxShadow: `0 0 0 1px ${color}30, 0 0 32px ${color}22`,
                   }}
                 >
                   <div className="mb-3 flex items-center gap-3">
@@ -200,7 +200,7 @@ function HorizontalTimeline() {
                     })}
                     <span
                       className="relative z-10 block h-3 w-3 rounded-full border-2"
-                      style={{ borderColor: color, background: "#0d1117" }}
+                      style={{ borderColor: color, background: "#0d1117", boxShadow: `0 0 14px 3px ${color}90` }}
                     />
                   </div>
 
@@ -221,7 +221,7 @@ function HorizontalTimeline() {
                     className="absolute inset-x-0 rounded-2xl p-6 text-center backdrop-blur-sm"
                     style={{
                       background: "linear-gradient(135deg, rgba(18,20,30,0.82), rgba(22,25,38,0.72))",
-                      boxShadow:  `0 0 0 1px ${color}28`,
+                      boxShadow:  `0 0 0 1px ${color}28, 0 0 36px ${color}22`,
                       bottom: above ? "calc(50% + 2.5rem)" : undefined,
                       top:    above ? undefined : "calc(50% + 2.5rem)",
                     }}
@@ -250,18 +250,41 @@ function HorizontalTimeline() {
 
 /* ── Main export ── */
 export function TimelineScene() {
+  const rm = useReducedMotion();
+
   return (
     <section className="relative">
-      <Header />
-
-      {/* Mobile: vertical */}
-      <div className="md:hidden">
-        <VerticalTimeline />
+      {/* Ambient glow — scoped to the header only; must not wrap the sticky
+          scroll track below, since any ancestor with overflow != visible
+          breaks `position: sticky` and makes the pinned timeline jump on scroll */}
+      <div className="relative overflow-hidden">
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-40 top-20 h-[560px] w-[560px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(59,130,246,.14) 0%, transparent 70%)" }}
+          animate={rm ? {} : { scale: [1, 1.18, 1], opacity: [0.5, 0.9, 0.5] }}
+          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-40 top-20 h-[480px] w-[480px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(6,182,212,.12) 0%, transparent 70%)" }}
+          animate={rm ? {} : { scale: [1, 1.22, 1], opacity: [0.4, 0.85, 0.4] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <Header />
       </div>
 
-      {/* Desktop: horizontal scroll */}
-      <div className="hidden md:block">
-        <HorizontalTimeline />
+      <div className="relative z-10">
+        {/* Mobile: vertical */}
+        <div className="md:hidden">
+          <VerticalTimeline />
+        </div>
+
+        {/* Desktop: horizontal scroll */}
+        <div className="hidden md:block">
+          <HorizontalTimeline />
+        </div>
       </div>
     </section>
   );

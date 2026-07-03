@@ -55,7 +55,6 @@ export function BrandStrip() {
 
       {/* Tagline above heading */}
       <div className="mb-10 text-center">
-        <span className="section-label">Our Hotel Partners</span>
         <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-kio-ink">
           Trusted by Hotels.{" "}
           <span className="text-color-cycle">Loved by Guests.</span>{" "}
@@ -71,7 +70,7 @@ export function BrandStrip() {
         style={{ background: "linear-gradient(to left, #0d1117, transparent)" }} />
 
       {/* Row 1 — scrolls left */}
-      <div className="overflow-hidden mb-6">
+      <div className="overflow-hidden mb-14">
         <div className="marquee-track flex w-max items-center gap-10 px-10">
           {[...ROW1, ...ROW1].map((logo, i) => (
             <LogoItem key={i} {...logo} />

@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
@@ -46,10 +47,10 @@ export function MissionBlock() {
       )}
 
       <div className="container-kio relative z-10">
-        <div className="mx-auto flex max-w-5xl flex-col-reverse items-center gap-10 md:flex-row md:justify-between md:gap-12">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-12">
 
-          {/* Text */}
-          <div className="text-center md:flex-1 md:text-left">
+          {/* Text column */}
+          <div className="text-center">
             <RevealOnScroll>
               {/* Animated accent label */}
               <motion.div
@@ -71,22 +72,20 @@ export function MissionBlock() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mt-4 text-3xl font-bold text-white md:text-4xl leading-snug"
+              className="mt-4 whitespace-normal text-3xl font-bold text-white md:text-4xl leading-snug lg:whitespace-nowrap lg:text-xl xl:text-[1.75rem]"
             >
               {HEADING.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  variants={rm ? {} : wordVariants}
-                  className="inline-block mr-[0.3em]"
-                >
-                  {word}
-                </motion.span>
+                <Fragment key={i}>
+                  <motion.span variants={rm ? {} : wordVariants} className="inline-block">
+                    {word}
+                  </motion.span>{" "}
+                </Fragment>
               ))}
             </motion.h2>
 
             {/* Animated accent divider */}
             <motion.div
-              className="mx-auto mt-6 h-px w-24 rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2 md:mx-0"
+              className="mx-auto mt-6 h-px w-24 rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
@@ -95,10 +94,10 @@ export function MissionBlock() {
             />
           </div>
 
-          {/* Mission miniature */}
-          <RevealOnScroll className="shrink-0">
+          {/* Mission miniature — right side */}
+          <RevealOnScroll className="flex justify-center lg:flex-1 lg:justify-end">
             <motion.div
-              className="relative h-28 w-28 md:h-36 md:w-36"
+              className="relative h-40 w-40 md:h-52 md:w-52"
               initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: true }}

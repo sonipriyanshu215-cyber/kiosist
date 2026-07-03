@@ -22,9 +22,7 @@ export default function Culture() {
       <section className="section-pad bg-kio-primary pt-36">
         <div className="container-kio text-center">
           <RevealOnScroll>
-            <p className="text-sm font-semibold uppercase tracking-widest text-kio-accent">
-              Culture & Events
-            </p>
+            <p className="section-label">Culture & Events</p>
             <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">
               The people behind the service.
             </h1>

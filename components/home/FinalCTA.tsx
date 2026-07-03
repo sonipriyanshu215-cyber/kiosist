@@ -34,16 +34,6 @@ export function FinalCTA() {
               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
             />
 
-            {/* Rotating accent ring */}
-            {!rm && (
-              <motion.div
-                aria-hidden="true"
-                className="pointer-events-none absolute right-8 top-8 h-24 w-24 rounded-full border border-kio-accent2/20"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              />
-            )}
-
             {/* Text */}
             <div className="relative z-10">
               <h2 className="text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold text-kio-ink">

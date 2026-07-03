@@ -15,7 +15,7 @@ const EVENTS = [
     month: "November",
     description:
       "Kiosist (under NexTap) participated in the annual expo, showcasing our virtual front desk solution to the hospitality community and Patidar hotel operators across the USA.",
-    photo: "/img/culture/expo-dfw-2024.webp",
+    photo: "/img/culture/expo-dfw-2024.jpg",
     tags: ["Exhibition", "USA", "Hospitality"],
   },
   {
@@ -26,7 +26,7 @@ const EVENTS = [
     month: "March",
     description:
       "Our whole team came together to celebrate a year of growth — 50 hotels, a new office, and the launch of Kiosist v2.",
-    photo: "/img/culture/celebration-2024.webp",
+    photo: "/img/culture/celebration-2024.jpg",
     tags: ["Internal", "Celebration"],
   },
 ];
@@ -39,9 +39,7 @@ export function EventsTimeline({ existingAssets = [] }: { existingAssets?: strin
     <section className="section-pad bg-kio-bg-soft">
       <div className="container-kio">
         <RevealOnScroll className="mb-14 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-kio-accent">
-            Events & Exhibitions
-          </p>
+          <p className="section-label">Events & Exhibitions</p>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
             Where we&apos;ve shown up
           </h2>

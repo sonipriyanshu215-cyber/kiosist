@@ -7,7 +7,7 @@ export function WhatIsKiosist() {
   const rm = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden pt-16 md:pt-20 lg:pt-24">
       {/* Ambient glow top-left — scoped so it never wraps a sticky/scroll element */}
       <motion.div
         aria-hidden="true"

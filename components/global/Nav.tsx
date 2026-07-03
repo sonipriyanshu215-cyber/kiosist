@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { href: "/clients",    label: "Clients" },
   { href: "/career",     label: "Career" },
   { href: "/culture",    label: "Culture" },
+  { href: "/contact",    label: "Contact Us" },
 ];
 
 function ThemeToggle() {
@@ -51,21 +52,21 @@ export function Nav() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-[72px] max-w-container items-center justify-between">
+      <div className="relative mx-auto flex h-[72px] max-w-container items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
             src="/img/kiosist-logo.png"
             alt="Kiosist"
-            width={1122}
-            height={794}
-            className="h-[150px] w-auto object-contain"
+            width={810}
+            height={227}
+            className="h-[52px] w-auto object-contain"
             priority
           />
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-8 lg:flex list-none">
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex list-none">
           {NAV_LINKS.map(({ href, label }) => {
             const active = pathname === href;
             return (
@@ -86,12 +87,6 @@ export function Nav() {
         {/* Right */}
         <div className="flex items-center gap-2.5">
           <ThemeToggle />
-          <Link
-            href="/contact"
-            className="hidden rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_20px_var(--kio-glow)] transition-all hover:opacity-90 hover:-translate-y-px lg:inline-flex"
-          >
-            Contact Us
-          </Link>
 
           {/* Mobile hamburger */}
           <button
@@ -126,13 +121,6 @@ export function Nav() {
               {label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            onClick={() => setMobileOpen(false)}
-            className="mt-2 rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2 px-5 py-3 text-center text-sm font-semibold text-white"
-          >
-            Contact Us
-          </Link>
         </div>
       </motion.div>
     </motion.header>

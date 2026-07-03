@@ -22,9 +22,7 @@ export function ValuesGrid() {
 
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mb-14 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-kio-accent">
-            Core Values
-          </p>
+          <p className="section-label">Core Values</p>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
             What guides every shift, every interaction
           </h2>

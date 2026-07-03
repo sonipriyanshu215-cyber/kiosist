@@ -304,17 +304,17 @@ export function HeroBanner() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="mt-9 flex flex-wrap gap-4"
           >
-            <Link href="/contact" className="btn-primary">
+            <Link href="/career#apply" className="btn-primary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
-              Book a Demo
+              Join Us
             </Link>
-            <Link href="/#features" className="btn-secondary">
+            <Link href="/culture" className="btn-secondary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
               </svg>
-              See Features
+              Explore Culture
             </Link>
           </motion.div>
 

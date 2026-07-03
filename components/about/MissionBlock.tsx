@@ -55,15 +55,7 @@ export function MissionBlock() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-kio-accent">
-                {/* Pulsing dot */}
-                <motion.span
-                  className="inline-block h-1.5 w-1.5 rounded-full bg-kio-accent"
-                  animate={rm ? {} : { scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                />
-                Our Mission
-              </p>
+              <p className="section-label">Our Mission</p>
             </motion.div>
           </RevealOnScroll>
 

@@ -92,26 +92,26 @@ export function AboutIntro() {
           className="relative z-10 flex min-h-[70vh] flex-col justify-center bg-black px-6 pb-16 pt-10 lg:min-h-screen lg:w-1/2 lg:pt-32 lg:px-14 xl:px-20"
         >
           {/* Badge */}
-          <div className="mb-7 inline-flex items-center gap-2 self-start rounded-full border border-kio-accent/30 bg-kio-accent/10 px-4 py-1.5">
+          <div className="mb-7 inline-flex items-center gap-2 self-start rounded-full border border-[#06b6d4]/30 bg-[#06b6d4]/10 px-4 py-1.5">
             <motion.span
-              className="h-1.5 w-1.5 rounded-full bg-kio-accent"
+              className="h-1.5 w-1.5 rounded-full bg-[#06b6d4]"
               animate={rm ? {} : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
               transition={{ duration: 1.8, repeat: Infinity }}
             />
-            <span className="text-xs font-semibold uppercase tracking-widest text-kio-accent">About Kiosist</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#22d3ee]">About Kiosist</span>
           </div>
 
           {/* Headline */}
-          <h1 className="text-[clamp(2.6rem,4.5vw,4rem)] font-black leading-[1.08] text-kio-ink">
+          <h1 className="text-[clamp(2.6rem,4.5vw,4rem)] font-black leading-[1.08] text-white">
             We are the<br />
-            <span className="text-gradient">Guest&apos;s First Hello.</span>
+            <span className="text-gradient-shimmer">Guest&apos;s First Hello.</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-5 max-w-[430px] text-[1rem] leading-[1.85] text-kio-muted">
+          <p className="mt-5 max-w-[430px] text-[1rem] leading-[1.85] text-white/60">
             From check-ins to check-outs, we create seamless stays for guests across the USA
             {" "}— right from our office in{" "}
-            <span className="font-semibold text-kio-accent">India</span>.
+            <span className="font-semibold text-[#60a5fa]">India</span>.
           </p>
 
           {/* What We Do card */}
@@ -121,50 +121,76 @@ export function AboutIntro() {
             transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="mt-9 rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm"
           >
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-kio-accent">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[#60a5fa]">
               What We Do
             </h3>
             <div className="grid grid-cols-5 gap-1">
               {SERVICES.map((s) => (
                 <div
                   key={s.label}
-                  className="flex flex-col items-center gap-2 rounded-xl p-2 text-center transition-colors hover:bg-kio-accent/5"
+                  className="flex flex-col items-center gap-2 rounded-xl p-2 text-center transition-colors hover:bg-[#3b82f6]/5"
                 >
-                  <div className="text-kio-accent [&>svg]:h-[26px] [&>svg]:w-[26px]">{s.icon}</div>
-                  <p className="text-[.62rem] leading-[1.5] text-kio-muted">{s.label}</p>
+                  <div className="text-[#60a5fa] [&>svg]:h-[26px] [&>svg]:w-[26px]">{s.icon}</div>
+                  <p className="text-[.62rem] leading-[1.5] text-white/50">{s.label}</p>
                 </div>
               ))}
             </div>
           </motion.div>
         </motion.div>
 
-        {/* ── Right panel: photo ── */}
-        <motion.div
-          initial={{ opacity: 0, x: 28 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative hidden min-h-screen lg:block lg:w-1/2"
-        >
-          <Image
-            src="/img/about/agent-workstation.webp"
-            alt="Kiosist front desk agents working across dual monitors and a tablet"
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 1023px) 0px, 50vw"
-            priority
-          />
-          {/* Light overall tint for mood, keeps all three people visible */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.22)]" />
-          {/* Seam blend into the text panel — matches the panel's pure black so the two bleed together with no visible line */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to right, #000 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.55) 16%, rgba(0,0,0,0.2) 26%, transparent 40%)" }} />
-          {/* Top fade — keeps the navbar readable over the photo */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 18%)" }} />
-          {/* Bottom fade for depth */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 25%)" }} />
-        </motion.div>
+        {/* ── Right panel: photo (soft, blurred curve seam) ── */}
+<motion.div
+  initial={{ opacity: 0, x: 28 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+  className="relative hidden min-h-screen lg:absolute lg:inset-y-0 lg:right-0 lg:z-20 lg:block lg:w-[calc(50%+4rem)]"
+  style={{
+    WebkitMaskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
+    maskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
+    WebkitMaskSize: "100% 100%",
+    maskSize: "100% 100%",
+    WebkitMaskRepeat: "no-repeat",
+    maskRepeat: "no-repeat",
+  }}
+>
+  {/* ⚠️ Delete the old <svg><defs><clipPath id="aboutHeroCurve">…</clipPath></defs></svg> block — no longer needed */}
+
+  <Image
+    src="/img/about/agent-workstation.webp"
+    alt="Kiosist front desk agents working across dual monitors and a tablet"
+    fill
+    className="object-cover object-center"
+    sizes="(max-width: 1023px) 0px, 50vw"
+    priority
+  />
+
+  {/* Light overall tint for mood, keeps all three people visible */}
+  <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.22)]" />
+
+  {/* Softer seam blend — thinner now because the mask already feathers the edge */}
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0"
+    style={{
+      background:
+        "linear-gradient(to right, #000 0%, rgba(0,0,0,0.6) 6%, rgba(0,0,0,0.25) 14%, transparent 26%)",
+    }}
+  />
+
+  {/* Top fade — keeps the navbar readable */}
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0"
+    style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 18%)" }}
+  />
+
+  {/* Bottom fade for depth */}
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0"
+    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 25%)" }}
+  />
+</motion.div>
       </section>
     </div>
   );

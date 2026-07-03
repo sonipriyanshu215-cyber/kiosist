@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { CareerHero } from "@/components/career/CareerHero";
+import { GrowthPath } from "@/components/career/GrowthPath";
 import { PerksGrid } from "@/components/career/PerksGrid";
 import { ResumeForm } from "@/components/career/ResumeForm";
 import { ReviewSlider } from "@/components/career/ReviewSlider";
 import { FAQAccordion } from "@/components/career/FAQAccordion";
-import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 export const metadata: Metadata = {
   title: "Career at Kiosist",
@@ -18,28 +19,12 @@ export const metadata: Metadata = {
 export default function Career() {
   return (
     <>
-      {/* Hero */}
-      <section className="section-pad bg-kio-primary pt-36">
-        <div className="container-kio text-center">
-          <RevealOnScroll>
-            <p className="text-sm font-semibold uppercase tracking-widest text-kio-accent">
-              Career
-            </p>
-            <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">
-              Work US hours. Grow without limits.
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-white/70">
-              No travel required. Join a team of 150+ professionals managing front desks for
-              US hotels — from right here in Surat.
-            </p>
-          </RevealOnScroll>
-        </div>
-      </section>
-
+      <CareerHero />
+      <GrowthPath />
       <PerksGrid />
       <ReviewSlider />
-      <ResumeForm />
       <FAQAccordion />
+      <ResumeForm />
     </>
   );
 }

@@ -76,14 +76,14 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
           <label htmlFor="contact-name" className="block text-sm font-medium text-kio-ink mb-1">
             Name *
           </label>
-          <input id="contact-name" {...register("name")} placeholder="Your name" className={inputClass} />
+          <input id="contact-name" {...register("name")} placeholder="Your name" className={inputClass} suppressHydrationWarning />
           {errors.name && <p className={errorClass}>{errors.name.message}</p>}
         </div>
         <div>
           <label htmlFor="contact-email" className="block text-sm font-medium text-kio-ink mb-1">
             Email *
           </label>
-          <input id="contact-email" type="email" {...register("email")} placeholder="you@example.com" className={inputClass} />
+          <input id="contact-email" type="email" {...register("email")} placeholder="you@example.com" className={inputClass} suppressHydrationWarning />
           {errors.email && <p className={errorClass}>{errors.email.message}</p>}
         </div>
       </div>
@@ -94,13 +94,13 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
             <label htmlFor="contact-phone" className="block text-sm font-medium text-kio-ink mb-1">
               Phone
             </label>
-            <input id="contact-phone" type="tel" {...register("phone")} placeholder="+1 555 000 0000" className={inputClass} />
+            <input id="contact-phone" type="tel" {...register("phone")} placeholder="+1 555 000 0000" className={inputClass} suppressHydrationWarning />
           </div>
           <div>
             <label htmlFor="contact-company" className="block text-sm font-medium text-kio-ink mb-1">
               Hotel / Company
             </label>
-            <input id="contact-company" {...register("company")} placeholder="Your hotel name" className={inputClass} />
+            <input id="contact-company" {...register("company")} placeholder="Your hotel name" className={inputClass} suppressHydrationWarning />
           </div>
         </div>
       )}
@@ -110,7 +110,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
           <label htmlFor="contact-properties" className="block text-sm font-medium text-kio-ink mb-1">
             Number of Properties
           </label>
-          <select id="contact-properties" {...register("properties")} className={inputClass}>
+          <select id="contact-properties" {...register("properties")} className={inputClass} suppressHydrationWarning>
             <option value="">Select…</option>
             <option value="1">1 property</option>
             <option value="2-5">2–5 properties</option>
@@ -130,6 +130,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
           rows={isModal ? 4 : 5}
           placeholder="Tell us about your hotel and what you need…"
           className={`${inputClass} resize-none`}
+          suppressHydrationWarning
         />
         {errors.message && <p className={errorClass}>{errors.message.message}</p>}
       </div>
@@ -139,6 +140,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
         disabled={isSubmitting}
         className="w-full rounded-full py-3.5 text-sm font-semibold text-white shadow-[0_0_20px_var(--kio-glow)] transition-all hover:opacity-90 disabled:opacity-60"
         style={{ background: "linear-gradient(135deg, var(--kio-accent), var(--kio-accent2))" }}
+        suppressHydrationWarning
       >
         {isSubmitting ? "Sending…" : "Send Message"}
       </button>

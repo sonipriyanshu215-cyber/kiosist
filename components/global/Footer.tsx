@@ -32,7 +32,7 @@ const FOOTER_COLS = [
 
 const SOCIAL = [
   {
-    href: "#",
+    href: "https://www.facebook.com/VirtualFrontDeskExperience/",
     label: "Facebook",
     svg: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -41,7 +41,7 @@ const SOCIAL = [
     ),
   },
   {
-    href: "#",
+    href: "https://www.linkedin.com/company/kiosist-pvt-ltd/?originalSubdomain=in",
     label: "LinkedIn",
     svg: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -51,7 +51,7 @@ const SOCIAL = [
     ),
   },
   {
-    href: "#",
+    href: "https://www.instagram.com/kiosist_hospitality/?hl=en",
     label: "Instagram",
     svg: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -74,9 +74,9 @@ export function Footer() {
               <Image
                 src="/img/kiosist-logo.png"
                 alt="Kiosist"
-                width={1122}
-                height={794}
-                className="h-[150px] w-auto object-contain"
+                width={810}
+                height={227}
+                className="h-[80px] w-auto object-contain"
               />
             </Link>
             <p className="mt-3.5 max-w-[280px] text-[.875rem] leading-[1.8] text-kio-muted">
@@ -126,9 +126,7 @@ export function Footer() {
           <p>
             © 2024 <span className="text-kio-accent2">Kiosist</span>. All Rights Reserved. Designed with ♥ for hospitality.
           </p>
-          <p>
-            Developed by <span className="text-kio-accent2">Instance IT Solutions®</span>
-          </p>
+         
         </div>
       </div>
     </footer>

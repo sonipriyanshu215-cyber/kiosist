@@ -112,21 +112,6 @@ function HorizontalTimeline() {
 
   return (
     <>
-      {/* Scroll hint */}
-      <div className="container-kio pb-6 text-center">
-        <div className="flex items-center justify-center gap-2 text-xs text-kio-muted/60">
-          <motion.span
-            animate={rm ? {} : { x: [0, 6, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          >↓</motion.span>
-          <span>Scroll to explore</span>
-          <motion.span
-            animate={rm ? {} : { x: [0, 6, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-          >→</motion.span>
-        </div>
-      </div>
-
       {/* Outer scroll container */}
       <div ref={outerRef} style={{ height: "400vh" }}>
         <div className="sticky top-0 h-screen overflow-hidden">

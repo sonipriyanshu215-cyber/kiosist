@@ -63,7 +63,7 @@ export function WhyGrid() {
   /* Auto-cycle features */
   useEffect(() => {
     if (rm) return;
-    const t = setInterval(() => setActive(p => (p + 1) % FEATURES.length), 3400);
+    const t = setInterval(() => setActive(p => (p + 1) % FEATURES.length), 10000);
     return () => clearInterval(t);
   }, [rm]);
 
@@ -83,7 +83,7 @@ export function WhyGrid() {
         <span className="section-label">What We Offer</span>
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Everything Hospitality<br />
-          <span className="text-gradient">Needs in One Kiosk</span>
+          <span className="text-gradient-shimmer">Needs in One Kiosk</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
           Kiosist packs the full hospitality experience into a single elegant kiosk —
@@ -294,17 +294,12 @@ export function WhyGrid() {
                     style={{ background: color }}
                     initial={{ width: "0%" }}
                     animate={{ width: "100%" }}
-                    transition={{ duration: 3.4, ease: "linear" }}
+                    transition={{ duration: 10, ease: "linear" }}
                   />
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
-
-          {/* Hint text */}
-          <p className="mt-4 text-center text-[.72rem] text-kio-muted xl:text-left">
-            Click any node to explore · auto-advances every 3s
-          </p>
         </div>
       </div>
     </section>

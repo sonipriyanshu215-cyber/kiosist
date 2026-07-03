@@ -106,9 +106,7 @@ export function CaseStudyDeck() {
     <section className="section-pad bg-kio-bg-soft">
       <div className="container-kio">
         <RevealOnScroll className="mb-14 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-kio-accent">
-            Case Studies
-          </p>
+          <p className="section-label">Case Studies</p>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
             Results our clients have seen
           </h2>

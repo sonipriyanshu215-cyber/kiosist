@@ -7,22 +7,23 @@ import dynamic from "next/dynamic";
 import { ImageIcon } from "lucide-react";
 import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import "yet-another-react-lightbox/styles.css";
 
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 
 const GALLERY = [
-  { src: "/img/culture/office-1.webp", alt: "Office space" },
-  { src: "/img/culture/team-meeting-1.webp", alt: "Team meeting" },
-  { src: "/img/culture/training-1.webp", alt: "Training session" },
-  { src: "/img/culture/celebration-1.webp", alt: "Team celebration" },
-  { src: "/img/culture/office-2.webp", alt: "Work station" },
-  { src: "/img/culture/team-meeting-2.webp", alt: "Team huddle" },
-  { src: "/img/culture/training-2.webp", alt: "Agent training" },
-  { src: "/img/culture/celebration-2.webp", alt: "Birthday celebration" },
-  { src: "/img/culture/office-3.webp", alt: "Office candid" },
-  { src: "/img/culture/team-3.webp", alt: "The team" },
-  { src: "/img/culture/training-3.webp", alt: "PMS training" },
-  { src: "/img/culture/event-1.webp", alt: "Company event" },
+  { src: "/img/culture/office-1.png", alt: "Office space" },
+  { src: "/img/culture/team-meeting-1.png", alt: "Team meeting" },
+  { src: "/img/culture/training-1.png", alt: "Training session" },
+  { src: "/img/culture/celebration-1.png", alt: "Team celebration" },
+  { src: "/img/culture/office-2.jpg", alt: "Work station" },
+  { src: "/img/culture/team-meeting-2.jpg", alt: "Team huddle" },
+  { src: "/img/culture/training-2.jpg", alt: "Agent training" },
+  { src: "/img/culture/celebration-2.jpg", alt: "Birthday celebration" },
+  { src: "/img/culture/office-3.jpg", alt: "Office candid" },
+  { src: "/img/culture/team-3.jpg", alt: "The team" },
+  { src: "/img/culture/training-3.jpg", alt: "PMS training" },
+  { src: "/img/culture/event-1.jpg", alt: "Company event" },
 ];
 
 export function MasonryGallery({ existingAssets = [] }: { existingAssets?: string[] }) {
@@ -34,15 +35,13 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
     <section className="section-pad bg-kio-bg">
       <div className="container-kio">
         <RevealOnScroll className="mb-14 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-kio-accent">
-            Our Culture
-          </p>
+          <p className="section-label">Our Culture</p>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-            Life inside Kiosist
+            More Than a Job. A Career That Welcomes the World.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-kio-muted">
-            A glimpse into our office, training sessions, celebrations, and the people who
-            make it all happen.
+            At Kiosist, every conversation creates a lasting impression. Join us and make
+            yours count.
           </p>
         </RevealOnScroll>
 

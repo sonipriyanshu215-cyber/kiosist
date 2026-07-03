@@ -9,7 +9,7 @@ const REVIEWS = [
   {
     id: "r-1",
     quote:
-      "Working at Kiosist changed my life. I used to work odd hours at a local BPO. Now I work nights helping US hotels — and I actually enjoy it.",
+      "Working at Kiosist changed my life. I used to work odd hours at a local BPO. Now I work nights helping US hotels- and I actually enjoy it.",
     author: "Priya M.",
     role: "Senior Virtual Agent",
     tenure: "2 years",
@@ -63,7 +63,7 @@ const REVIEWS = [
   {
     id: "r-7",
     quote:
-      "Every agent gets a real onboarding buddy, not just a manual. Mine walked me through my first ten calls — that support made all the difference.",
+      "Every agent gets a real onboarding buddy, not just a manual. Mine walked me through my first ten calls- that support made all the difference.",
     author: "Rushabh D.",
     role: "Quality Analyst",
     tenure: "2 years",
@@ -143,7 +143,7 @@ export function ReviewSlider() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-32"
         style={{ background: "linear-gradient(to left, var(--kio-primary), transparent)" }} />
 
-      {/* Row 1 — scrolls left */}
+      {/* Row 1- scrolls left */}
       <div className="overflow-hidden py-2">
         <div className="marquee-track flex w-max items-stretch gap-6 px-6">
           {[...ROW1, ...ROW1].map((r, i) => (
@@ -152,7 +152,7 @@ export function ReviewSlider() {
         </div>
       </div>
 
-      {/* Row 2 — scrolls right */}
+      {/* Row 2- scrolls right */}
       <div className="overflow-hidden py-2 mt-6">
         <div className="marquee-track-reverse flex w-max items-stretch gap-6 px-6">
           {[...ROW2, ...ROW2].map((r, i) => (

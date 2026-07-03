@@ -56,7 +56,7 @@ function VideoBackground({ rm, isDark }: { rm: boolean; isDark: boolean }) {
     const draw = () => {
       const w    = canvas.offsetWidth;
       const h    = canvas.offsetHeight;
-      /* Read theme each frame via ref — no animation restart on toggle */
+      /* Read theme each frame via ref- no animation restart on toggle */
       const dark = isDarkRef.current;
       /* Dark:  cool blue-steel   Light: soft indigo */
       const [pr, pg, pb] = dark ? [99,  179, 237] : [99,  102, 241];
@@ -256,7 +256,7 @@ export function VideoStory() {
           <RevealOnScroll className="mb-10 text-center">
             <span className="section-label">See It In Action</span>
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-              KIOSIST — the 60-second demo
+              KIOSIST- the 60-second demo
             </h2>
           </RevealOnScroll>
           <div className="mx-auto flex aspect-video max-w-4xl items-center justify-center rounded-3xl border border-kio-accent/20 bg-kio-bg-soft">
@@ -280,7 +280,7 @@ export function VideoStory() {
             2 AM. No Front Desk. <span className="text-color-cycle">No Problem.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-kio-muted">
-            A virtual agent checks in a real guest, from thousands of miles away — in under 60 seconds.
+            A virtual agent checks in a real guest, from thousands of miles away- in under 60 seconds.
           </p>
         </RevealOnScroll>
 
@@ -294,7 +294,7 @@ export function VideoStory() {
               animate={rm ? {} : { opacity: [0.25, 0.55, 0.25] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />
-            {/* Rotating conic border — narrow arc (~18% of circle) so it reads as a sweep, not a filled card */}
+            {/* Rotating conic border- narrow arc (~18% of circle) so it reads as a sweep, not a filled card */}
             <motion.div
               className="pointer-events-none absolute -inset-1 rounded-[32px]"
               style={{

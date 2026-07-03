@@ -47,7 +47,7 @@ export function PerksGrid() {
                   {/* Ambient spotlight behind the character */}
                   <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-kio-accent/25 blur-3xl transition-opacity duration-300 group-hover:opacity-80" />
 
-                  {/* Illustration — bleeds out above the card, floats idly, straightens on hover.
+                  {/* Illustration- bleeds out above the card, floats idly, straightens on hover.
                       Centering lives on this static wrapper: framer-motion's `animate` below sets
                       its own inline `transform` (y/rotate/scale), which would otherwise clobber a
                       Tailwind `-translate-x-1/2` placed on the same element. */}

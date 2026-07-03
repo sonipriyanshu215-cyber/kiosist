@@ -6,7 +6,7 @@ import Image from "next/image";
 import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
-/* Unique accent per card — cycles if team grows */
+/* Unique accent per card- cycles if team grows */
 const ACCENTS = [
   { from: "#3b82f6", to: "#06b6d4", glow: "rgba(59,130,246,0.38)" },
   { from: "#8b5cf6", to: "#6366f1", glow: "rgba(139,92,246,0.38)" },
@@ -128,7 +128,7 @@ function AvatarCard({
               transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Inner circle — image or initials */}
+            {/* Inner circle- image or initials */}
             <div
               className="relative z-10 h-full w-full overflow-hidden rounded-full"
               style={{

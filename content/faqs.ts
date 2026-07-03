@@ -15,7 +15,7 @@ export const faqs: FAQ[] = [
     id: "f-2",
     question: "Do I need to work USA time zones from India?",
     answer:
-      "Yes. Our core service runs during US business hours and overnight — which means Indian evening and night shifts. All shifts include overtime compensation and night allowances.",
+      "Yes. Our core service runs during US business hours and overnight- which means Indian evening and night shifts. All shifts include overtime compensation and night allowances.",
   },
   {
     id: "f-3",

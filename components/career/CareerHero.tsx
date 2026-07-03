@@ -16,7 +16,7 @@ import {
   Award,
 } from "lucide-react";
 
-/* Pentagon-ring coordinates (percent of container) — hand-tuned so the
+/* Pentagon-ring coordinates (percent of container)- hand-tuned so the
    5 cards sit evenly around the hub without a trig helper at runtime. */
 const HUB_CARDS = [
   { icon: Users, num: "150+", label: "Team Members", x: 50, y: 9, color: "var(--kio-accent)" },
@@ -111,7 +111,7 @@ export function CareerHero() {
       {/* ── Main 3-column dashboard ── */}
       <div className="relative z-10 mx-auto max-w-[1520px] px-6 md:px-10 xl:px-14">
         <div className="flex flex-col gap-16 xl:grid xl:grid-cols-[1.15fr_1fr_0.7fr] xl:items-center xl:gap-10">
-          {/* ═══════════ LEFT — pitch + search (40%) ═══════════ */}
+          {/* ═══════════ LEFT- pitch + search (40%) ═══════════ */}
           <div>
             {/* Headline */}
             <motion.h1
@@ -134,7 +134,7 @@ export function CareerHero() {
               className="mt-6 max-w-[520px] text-[1.02rem] leading-[1.85] text-kio-muted"
             >
               No travel required. Join a team of 150+ professionals managing front desks for
-              US hotels — from right here in{" "}
+              US hotels- from right here in{" "}
               <span className="font-semibold text-kio-accent">Surat</span>.
             </motion.p>
 
@@ -160,7 +160,7 @@ export function CareerHero() {
             </motion.div>
           </div>
 
-          {/* ═══════════ CENTER — Career Growth Dashboard (35%) ═══════════ */}
+          {/* ═══════════ CENTER- Career Growth Dashboard (35%) ═══════════ */}
           <motion.div
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -198,7 +198,7 @@ export function CareerHero() {
                 ))}
               </svg>
 
-              {/* central glowing hub — each animated layer sits inside a
+              {/* central glowing hub- each animated layer sits inside a
                   static centering wrapper (see stat-card comment above) */}
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div
@@ -243,7 +243,7 @@ export function CareerHero() {
                 </div>
               </div>
 
-              {/* floating stat cards — centering transform lives on this static
+              {/* floating stat cards- centering transform lives on this static
                   wrapper; framer-motion's own `animate` sets its own inline
                   `transform` (y/scale) on the child, which would otherwise
                   clobber a Tailwind translate-x/y-1/2 placed on the same element */}
@@ -306,7 +306,7 @@ export function CareerHero() {
             </div>
           </motion.div>
 
-          {/* ═══════════ RIGHT — hiring journey + CTA (25%) ═══════════ */}
+          {/* ═══════════ RIGHT- hiring journey + CTA (25%) ═══════════ */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

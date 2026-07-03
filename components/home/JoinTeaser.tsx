@@ -10,7 +10,7 @@ export function JoinTeaser() {
           <RevealOnScroll>
             <p className="section-label">Join the Team</p>
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-              Build your career in US hospitality — from Surat.
+              Build your career in US hospitality- from Surat.
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-kio-muted">
               No degree required. Just excellent English, a drive to serve, and the determination

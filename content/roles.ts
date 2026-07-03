@@ -6,7 +6,7 @@ export type CareerStage = {
   icon: "headset" | "trending-up" | "users" | "graduation-cap";
 };
 
-/* The growth path every agent walks — referenced in the FAQ ("What is the
+/* The growth path every agent walks- referenced in the FAQ ("What is the
    growth path?") and mirrored here as the visual career ladder. `short`
    powers the cycling headline word in the career hero, so it must stay
    readable at a glance (2–3 words). */
@@ -22,7 +22,7 @@ export const careerPath: CareerStage[] = [
     id: "stage-2",
     title: "Senior Virtual Agent",
     short: "Senior Agent",
-    blurb: "Handle escalations and complex guest requests with growing autonomy — and higher incentives.",
+    blurb: "Handle escalations and complex guest requests with growing autonomy- and higher incentives.",
     icon: "trending-up",
   },
   {

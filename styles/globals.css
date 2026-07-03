@@ -5,7 +5,7 @@
 /* ── DARK THEME (default) ── */
 :root,
 [data-theme="dark"] {
-  --kio-bg:        rgba(18,20,30,0.42);      /* grey-tinted, transparent — canvas shows through */
+  --kio-bg:        rgba(18,20,30,0.42);      /* grey-tinted, transparent- canvas shows through */
   --kio-bg-soft:   rgba(22,25,38,0.50);
   --kio-cream:     rgba(20,24,40,0.48);
   --kio-line:      rgba(255,255,255,.09);
@@ -55,7 +55,7 @@
   }
 
   body {
-    background-color: #0d1117; /* dark grey — particle ring canvas sits behind */
+    background-color: #0d1117; /* dark grey- particle ring canvas sits behind */
     color: var(--kio-ink);
     font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -117,7 +117,7 @@
     border-radius: 50%;
   }
 
-  /* Gradient text — dark: white→cyan→blue; light: navy→blue */
+  /* Gradient text- dark: white→cyan→blue; light: navy→blue */
   .text-gradient {
     background: linear-gradient(135deg, #fff 0%, var(--kio-accent2) 50%, var(--kio-accent) 100%);
     -webkit-background-clip: text;

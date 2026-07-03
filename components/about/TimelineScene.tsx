@@ -17,7 +17,7 @@ function Header() {
         Five Years. One Front Desk. <span className="text-color-cycle">Everywhere.</span>
       </h2>
       <p className="mt-4 text-kio-muted">
-        From one idea in Surat to 100+ hotels across the USA — here&apos;s how we got here.
+        From one idea in Surat to 100+ hotels across the USA- here&apos;s how we got here.
       </p>
     </div>
   );
@@ -239,7 +239,7 @@ export function TimelineScene() {
 
   return (
     <section className="relative">
-      {/* Ambient glow — scoped to the header only; must not wrap the sticky
+      {/* Ambient glow- scoped to the header only; must not wrap the sticky
           scroll track below, since any ancestor with overflow != visible
           breaks `position: sticky` and makes the pinned timeline jump on scroll */}
       <div className="relative overflow-hidden">

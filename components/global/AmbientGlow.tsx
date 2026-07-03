@@ -17,7 +17,7 @@ type Blob = {
   delay: number;
 };
 
-/* Floating glow blobs — pulse between small and large while drifting
+/* Floating glow blobs- pulse between small and large while drifting
    around their corner, shared across every page as the animated backdrop. */
 const BLOBS: Blob[] = [
   { color: "accent",  size: 600, top: "-100px",   right: "-100px", x: 40,  y: -30, scaleMin: 0.85, scaleMax: 1.2,  duration: 10, delay: 0   },

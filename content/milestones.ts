@@ -22,7 +22,7 @@ export const milestones: Milestone[] = [
     id: "m-2022",
     year: "2022",
     title: "First US Hotel Goes Live",
-    body: "We deploy Kiosist at our first US property. 24/7 virtual front-desk coverage powered from India — a first for the industry.",
+    body: "We deploy Kiosist at our first US property. 24/7 virtual front-desk coverage powered from India- a first for the industry.",
   },
   {
     id: "m-2023",
@@ -40,6 +40,6 @@ export const milestones: Milestone[] = [
     id: "m-2025",
     year: "2025",
     title: "100+ Hotels & Expanding",
-    body: "Over 100 hotels onboard across 70+ locations in the USA, serving 3M+ guests. New verticals — motels, extended stays, and boutique hotels — join the platform.",
+    body: "Over 100 hotels onboard across 70+ locations in the USA, serving 3M+ guests. New verticals- motels, extended stays, and boutique hotels- join the platform.",
   },
 ];

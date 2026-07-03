@@ -49,7 +49,7 @@ export default function Contact() {
               Let&apos;s talk about your hotel.
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-white/70">
-              Whether you have one property or twenty — we&apos;d love to show you what
+              Whether you have one property or twenty- we&apos;d love to show you what
               Kiosist can do for your front desk.
             </p>
           </RevealOnScroll>

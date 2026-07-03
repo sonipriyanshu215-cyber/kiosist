@@ -27,7 +27,7 @@ const INFO_CARDS = [
   {
     icon: "🏨",
     title: "Designed for Hotels",
-    body: "Built from the ground up for the hospitality industry, Kiosist understands the nuances of hotel operations — from PMS integration to room key encoding and payment processing.",
+    body: "Built from the ground up for the hospitality industry, Kiosist understands the nuances of hotel operations- from PMS integration to room key encoding and payment processing.",
   },
   {
     icon: "💡",
@@ -76,8 +76,8 @@ export function AboutTeaser() {
           </p>
           <p className="mt-4 text-[.95rem] leading-[1.9] text-kio-muted">
             We believe great hospitality doesn&apos;t have to mean high overhead. Kiosist
-            allows your staff to focus on what matters most — personal, memorable guest
-            interactions — while the kiosk handles the administrative workload seamlessly.
+            allows your staff to focus on what matters most- personal, memorable guest
+            interactions- while the kiosk handles the administrative workload seamlessly.
           </p>
 
           {/* Checks */}

@@ -8,7 +8,7 @@ const FEATURES = [
   {
     icon: "🔑",
     title: "Express Check-In & Check-Out",
-    body: "Guests complete check-in in under 60 seconds. Scan ID, confirm booking, collect room key — all without any staff involvement.",
+    body: "Guests complete check-in in under 60 seconds. Scan ID, confirm booking, collect room key- all without any staff involvement.",
   },
   {
     icon: "💳",
@@ -18,12 +18,12 @@ const FEATURES = [
   {
     icon: "🛎️",
     title: "In-Stay Services",
-    body: "Guests can request housekeeping, room service, extra amenities, or local recommendations right from the kiosk — any time of day.",
+    body: "Guests can request housekeeping, room service, extra amenities, or local recommendations right from the kiosk- any time of day.",
   },
   {
     icon: "📊",
     title: "Real-Time Dashboard",
-    body: "Management gets live analytics — occupancy rates, check-in queues, service requests, and revenue reports — all in one view.",
+    body: "Management gets live analytics- occupancy rates, check-in queues, service requests, and revenue reports- all in one view.",
   },
   {
     icon: "🌐",
@@ -41,9 +41,9 @@ const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"
 
 /* All geometry is expressed as % of the square container so the layout
    scales automatically on every viewport. */
-const ORBIT_R  = 40;   // orbit radius  — % of container
-const NODE_S   = 13;   // feature node  — % of container
-const HUB_S    = 22;   // center hub    — % of container
+const ORBIT_R  = 40;   // orbit radius - % of container
+const NODE_S   = 13;   // feature node - % of container
+const HUB_S    = 22;   // center hub   - % of container
 
 function nodePct(i: number, n: number) {
   const rad = ((i / n) * 360 - 90) * (Math.PI / 180);
@@ -86,7 +86,7 @@ export function WhyGrid() {
           <span className="text-gradient-shimmer">Needs in One Kiosk</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
-          Kiosist packs the full hospitality experience into a single elegant kiosk —
+          Kiosist packs the full hospitality experience into a single elegant kiosk-
           no juggling software, no bottlenecks, no compromise.
         </p>
       </RevealOnScroll>
@@ -124,7 +124,7 @@ export function WhyGrid() {
             {FEATURES.map((_, i) => {
               const { cx: nx, cy: ny } = nodePct(i, FEATURES.length);
               return i === active ? (
-                /* Active — animated marching dashes in feature colour */
+                /* Active- animated marching dashes in feature colour */
                 <motion.line
                   key={i}
                   x1="50" y1="50" x2={nx} y2={ny}
@@ -137,7 +137,7 @@ export function WhyGrid() {
                   opacity={0.85}
                 />
               ) : (
-                /* Inactive — faint static dashes */
+                /* Inactive- faint static dashes */
                 <line
                   key={i}
                   x1="50" y1="50" x2={nx} y2={ny}

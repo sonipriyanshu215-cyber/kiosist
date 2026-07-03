@@ -20,7 +20,7 @@ export default function Terms() {
 
           <h2 className="mt-8 text-xl font-bold text-kio-ink">1. Use of Content</h2>
           <p>
-            All content on this website — text, images, graphics, and code — is the intellectual
+            All content on this website- text, images, graphics, and code- is the intellectual
             property of Kiosist Pvt. Ltd. unless otherwise noted. Reproduction without written
             permission is prohibited.
           </p>

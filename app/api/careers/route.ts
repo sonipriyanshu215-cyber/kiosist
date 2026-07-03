@@ -35,7 +35,7 @@ export async function POST(req: Request) {
       await resend.emails.send({
         from: "Kiosist Careers <no-reply@kiosist.com>",
         to: TO_EMAIL,
-        subject: `New Career Application — ${name} (${role})`,
+        subject: `New Career Application- ${name} (${role})`,
         html: `
           <h2>New Career Application</h2>
           <table>

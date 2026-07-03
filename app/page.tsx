@@ -8,11 +8,11 @@ import { WhatIsKiosist }       from "@/components/home/WhatIsKiosist";
 import { FinalCTA }            from "@/components/home/FinalCTA";
 
 export const metadata: Metadata = {
-  title: "Kiosist — Smart Hotel Self-Service Kiosks",
+  title: "Kiosist- Smart Hotel Self-Service Kiosks",
   description:
-    "Kiosist transforms your hotel lobby with intelligent self-service kiosks — cutting operational costs while elevating every guest touchpoint.",
+    "Kiosist transforms your hotel lobby with intelligent self-service kiosks- cutting operational costs while elevating every guest touchpoint.",
   openGraph: {
-    title: "Kiosist — Smart Hotel Self-Service Kiosks",
+    title: "Kiosist- Smart Hotel Self-Service Kiosks",
     description: "Intelligent self-service kiosk solutions for modern hotels.",
     images: [{ url: "/og/home.jpg", width: 1200, height: 630 }],
   },

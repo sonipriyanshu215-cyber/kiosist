@@ -12,7 +12,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 // Free, no-token dark basemap (CARTO Dark Matter via MapLibre)
 const MAP_STYLE = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 
-// Continental US bounds — Alaska/Hawaii will be off-screen at this view
+// Continental US bounds- Alaska/Hawaii will be off-screen at this view
 const USA_BOUNDS: [[number, number], [number, number]] = [
   [-127, 22], // SW
   [-64, 51],  // NE
@@ -85,10 +85,10 @@ export function USAClientMap({ clients }: USAClientMapProps) {
           className="relative overflow-hidden rounded-3xl border border-[#3b82f6]/12"
           style={{ background: "linear-gradient(180deg,#060a18 0%,#08101e 100%)" }}
         >
-          {/* Radar overlays — pointer-events-none so the map stays pannable/clickable underneath */}
+          {/* Radar overlays- pointer-events-none so the map stays pannable/clickable underneath */}
           <RadarSweep />
 
-          {/* Map — isolated on its own GPU layer so the WebGL canvas doesn't repaint/flicker
+          {/* Map- isolated on its own GPU layer so the WebGL canvas doesn't repaint/flicker
               while the page scrolls past the rounded, clipped ancestor above */}
           <div
             className="relative z-[5] h-[400px] w-full sm:h-[460px] md:h-[540px] lg:h-[640px]"
@@ -133,7 +133,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
                 </Marker>
               ))}
 
-              {/* Logo popup — pops up above the pin for the selected location */}
+              {/* Logo popup- pops up above the pin for the selected location */}
               {active?.logoUrl && (
                 <Popup
                   key={active.id}
@@ -218,7 +218,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
                           &ldquo;{active.testimonial.quote}&rdquo;
                         </p>
                         <p className="mt-1.5 text-xs font-semibold text-white/60">
-                          — {active.testimonial.author}
+                         - {active.testimonial.author}
                         </p>
                       </div>
                     )}

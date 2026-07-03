@@ -36,7 +36,7 @@ export function GrowthPath() {
             One seat today. <span className="text-color-cycle">Four paths forward.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-kio-muted">
-            We promote from within — most of our team leads started right where you&apos;re
+            We promote from within- most of our team leads started right where you&apos;re
             starting: on the front desk.
           </p>
         </RevealOnScroll>

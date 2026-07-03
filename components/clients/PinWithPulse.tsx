@@ -17,7 +17,7 @@ export function PinWithPulse({ delay = 0, active = false }: PinWithPulseProps) {
       viewBox="-18 -18 36 36"
       style={{ overflow: "visible", display: "block" }}
     >
-      {/* Outer pulsing ring — uses scale on <g> instead of animating SVG `r` attr */}
+      {/* Outer pulsing ring- uses scale on <g> instead of animating SVG `r` attr */}
       <motion.g
         animate={
           reducedMotion

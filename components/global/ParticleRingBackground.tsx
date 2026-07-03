@@ -18,7 +18,7 @@ function WaveLines({ isDark }: { isDark: boolean }) {
   const isDarkRef = useRef(isDark);
   useEffect(() => { isDarkRef.current = isDark; }, [isDark]);
 
-  /* Initialise geometry once — positions are updated every frame in useFrame */
+  /* Initialise geometry once- positions are updated every frame in useFrame */
   const [positions, colors] = useMemo(() => {
     const pos  = new Float32Array(TOTAL * 3);
     const cols = new Float32Array(TOTAL * 3);
@@ -59,7 +59,7 @@ function WaveLines({ isDark }: { isDark: boolean }) {
         /*
          * Standing waves: sin(spatial) × cos(time)
          * The spatial pattern is fixed in place; only the amplitude
-         * oscillates over time — exactly like a water surface.
+         * oscillates over time- exactly like a water surface.
          * Multiple overlapping frequencies create realistic interference.
          */
         const w1 = Math.sin(px * 5.0 + lx * 2.0) * Math.cos(t * 0.55);

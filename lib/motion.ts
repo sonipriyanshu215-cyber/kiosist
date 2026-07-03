@@ -1,6 +1,6 @@
 import type { Variants } from "framer-motion";
 
-// M1 — Reveal: viewport-triggered fade-up for headings, paragraphs, cards
+// M1- Reveal: viewport-triggered fade-up for headings, paragraphs, cards
 export const reveal: Variants = {
   hidden: { opacity: 0, y: 32 },
   show: {
@@ -10,7 +10,7 @@ export const reveal: Variants = {
   },
 };
 
-// M2 — Stagger reveal: parent container drives staggered children
+// M2- Stagger reveal: parent container drives staggered children
 export const staggerParent: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
@@ -25,7 +25,7 @@ export const staggerChild: Variants = {
   },
 };
 
-// M3 — Float: continuous idle loop for hero illustrations and icons
+// M3- Float: continuous idle loop for hero illustrations and icons
 export const float = {
   animate: {
     y: [0, -10, 0],
@@ -49,10 +49,10 @@ export const floatWithRotate = (amp = 12, rotateDeg = 6, duration = 5) => ({
   },
 });
 
-// M4 — Parallax: scroll-linked — implement per-component with useTransform
+// M4- Parallax: scroll-linked- implement per-component with useTransform
 // See HeroBanner.tsx for reference implementation
 
-// M5 — Hover lift: card/button hover feedback
+// M5- Hover lift: card/button hover feedback
 export const hoverLift: Variants = {
   rest: { y: 0, scale: 1, transition: { duration: 0.24, ease: "easeOut" } },
   hover: { y: -6, scale: 1.02, transition: { duration: 0.24, ease: "easeOut" } },
@@ -63,7 +63,7 @@ export const hoverLiftSubtle: Variants = {
   hover: { y: -3, scale: 1.01, transition: { duration: 0.2, ease: "easeOut" } },
 };
 
-// M6 — Pulse: CTA buttons and live indicators
+// M6- Pulse: CTA buttons and live indicators
 export const pulse = {
   animate: {
     scale: [1, 1.06, 1],
@@ -80,7 +80,7 @@ export const pulseRing = {
   },
 };
 
-// M7 — Page transition: route change overlay
+// M7- Page transition: route change overlay
 export const pageTransitionIn: Variants = {
   initial: { opacity: 0, y: 12 },
   animate: {
@@ -95,7 +95,7 @@ export const pageTransitionIn: Variants = {
   },
 };
 
-// M8 — Scrub-pin scene: GSAP ScrollTrigger — see TimelineScene.tsx
+// M8- Scrub-pin scene: GSAP ScrollTrigger- see TimelineScene.tsx
 
 // Utility: fade-in only (no Y shift) for image overlays, backgrounds
 export const fadeIn: Variants = {

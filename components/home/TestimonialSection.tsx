@@ -39,7 +39,7 @@ export function TestimonialSection() {
           ⭐⭐⭐⭐⭐
         </motion.div>
 
-        {/* Opening quote — animated */}
+        {/* Opening quote- animated */}
         <motion.span
           aria-hidden="true"
           className="mb-2 block font-serif text-[5rem] leading-[0.5] text-kio-accent"
@@ -54,7 +54,7 @@ export function TestimonialSection() {
 
         <blockquote className="text-[clamp(1.1rem,2.5vw,1.5rem)] font-medium italic leading-[1.7] text-kio-ink">
           Kiosist has helped us greatly. It&apos;s saving the hotel thousands of dollars each
-          month — and we haven&apos;t compromised the personalized guest experience one bit.
+          month- and we haven&apos;t compromised the personalized guest experience one bit.
           I&apos;d recommend this solution to every hotel proprietor.
         </blockquote>
 

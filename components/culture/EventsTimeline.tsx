@@ -25,7 +25,7 @@ const EVENTS = [
     year: "2024",
     month: "March",
     description:
-      "Our whole team came together to celebrate a year of growth — 50 hotels, a new office, and the launch of Kiosist v2.",
+      "Our whole team came together to celebrate a year of growth- 50 hotels, a new office, and the launch of Kiosist v2.",
     photo: "/img/culture/celebration-2024.jpg",
     tags: ["Internal", "Celebration"],
   },

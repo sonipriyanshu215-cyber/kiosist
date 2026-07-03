@@ -35,11 +35,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kiosist.com"),
   title: {
-    default: "Kiosist — Your 24/7 Virtual Front Desk",
+    default: "Kiosist- Your 24/7 Virtual Front Desk",
     template: "%s | Kiosist",
   },
   description:
-    "Kiosist provides 24/7 virtual front desk staffing for hotels across the USA — reducing costs, improving guest satisfaction, and never missing a check-in.",
+    "Kiosist provides 24/7 virtual front desk staffing for hotels across the USA- reducing costs, improving guest satisfaction, and never missing a check-in.",
   keywords: ["virtual front desk", "hotel staffing", "Kiosist", "24/7 hotel management"],
   authors: [{ name: "Kiosist Pvt. Ltd." }],
   creator: "Kiosist",
@@ -48,14 +48,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://kiosist.com",
     siteName: "Kiosist",
-    title: "Kiosist — Your 24/7 Virtual Front Desk",
+    title: "Kiosist- Your 24/7 Virtual Front Desk",
     description:
       "24/7 virtual front desk staffing for US hotels. Reduce costs, elevate guest experience.",
     images: [{ url: "/og/home.jpg", width: 1200, height: 630, alt: "Kiosist" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kiosist — Your 24/7 Virtual Front Desk",
+    title: "Kiosist- Your 24/7 Virtual Front Desk",
     description: "24/7 virtual front desk staffing for US hotels.",
     images: ["/og/home.jpg"],
   },
@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body suppressHydrationWarning>
         <ThemeProvider>
-          {/* Fixed-position canvas — inside ThemeProvider so it can read useTheme() */}
+          {/* Fixed-position canvas- inside ThemeProvider so it can read useTheme() */}
           <ParticleRingDynamic />
           <AmbientGlow />
           <div className="relative z-[1]">

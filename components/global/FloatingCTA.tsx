@@ -9,7 +9,7 @@ export function FloatingCTA() {
 
   return (
     <div className="fixed bottom-5 right-5 z-50 md:bottom-8 md:right-8">
-      {/* Floating wrapper — image and its glow move together */}
+      {/* Floating wrapper- image and its glow move together */}
       <motion.div
         className="relative w-[100px] sm:w-[130px]"
         animate={reducedMotion ? {} : { y: [0, -10, 0] }}

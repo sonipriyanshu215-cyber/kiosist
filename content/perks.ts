@@ -27,19 +27,19 @@ export const perks: Perk[] = [
   {
     id: "p-4",
     title: "Performance Incentives",
-    body: "Your results are visible and rewarded — monthly and quarterly performance bonuses.",
+    body: "Your results are visible and rewarded- monthly and quarterly performance bonuses.",
     image: "/img/career/perks/performance-incentives-centered.webp",
   },
   {
     id: "p-5",
     title: "Free Training",
-    body: "Continuous learning — PMS systems, hospitality soft skills, English fluency, and leadership.",
+    body: "Continuous learning- PMS systems, hospitality soft skills, English fluency, and leadership.",
     image: "/img/career/perks/free-training-centered.webp",
   },
   {
     id: "p-6",
     title: "Team Meals & Celebrations",
-    body: "Birthdays, milestones, festivals — we celebrate together with food, fun, and recognition.",
+    body: "Birthdays, milestones, festivals- we celebrate together with food, fun, and recognition.",
     image: "/img/career/perks/celebration-centered.webp",
   },
 ];

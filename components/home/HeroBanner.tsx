@@ -139,7 +139,7 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Thumbnail strip — bottom-right */}
+        {/* Thumbnail strip- bottom-right */}
         <div className="absolute bottom-4 right-4 z-20 flex items-center gap-2">
           {SLIDES.map((s, i) => (
             <button
@@ -159,7 +159,7 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
           ))}
         </div>
 
-        {/* Progress bar — pauses on hover */}
+        {/* Progress bar- pauses on hover */}
         {!rm && (
           <div className="absolute bottom-0 left-0 right-0 z-20 h-[2px] bg-white/10">
             <motion.div
@@ -277,7 +277,7 @@ export function HeroBanner() {
             {/* Line 1 */}
             <span className="block whitespace-nowrap">Kiosist Delivers Hospitality</span>
 
-            {/* Line 2 — Powered by [word] on one line, no layout shift */}
+            {/* Line 2- Powered by [word] on one line, no layout shift */}
             <span className="block mt-1 whitespace-nowrap">
               <span className="text-kio-muted/60 font-semibold">Powered by </span>
               <span className="inline-block" style={{ minWidth: "7em" }}>

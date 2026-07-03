@@ -8,7 +8,7 @@ export function WhatIsKiosist() {
 
   return (
     <section className="relative overflow-hidden pt-16 md:pt-20 lg:pt-24">
-      {/* Ambient glow top-left — scoped so it never wraps a sticky/scroll element */}
+      {/* Ambient glow top-left- scoped so it never wraps a sticky/scroll element */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute -left-40 top-0 h-[600px] w-[600px] rounded-full"
@@ -69,7 +69,7 @@ export function WhatIsKiosist() {
             Our Front Desk Executives power guest experiences for hotels across the USA, turning &ldquo;just checking in&rdquo; into &ldquo;I can&apos;t wait to come back.&rdquo;
           </p>
           <p className="mt-5 text-[1rem] leading-[1.9] text-kio-muted">
-            We&apos;re the first face, the first voice, the first impression a guest gets — and in hospitality, that&apos;s everything.
+            We&apos;re the first face, the first voice, the first impression a guest gets- and in hospitality, that&apos;s everything.
           </p>
         </motion.div>
 
@@ -92,7 +92,7 @@ export function WhatIsKiosist() {
           {/* Light overall tint for mood */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.22)]" />
 
-          {/* Seam blend into the text panel — matches the panel's pure black so the two bleed together */}
+          {/* Seam blend into the text panel- matches the panel's pure black so the two bleed together */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0"
             style={{ background: "linear-gradient(to right, #000 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.55) 16%, rgba(0,0,0,0.2) 26%, transparent 40%)" }} />
 
@@ -107,7 +107,7 @@ export function WhatIsKiosist() {
               style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(12px)", border: "1px solid rgba(59,130,246,0.25)" }}
             >
               <span className="h-2 w-2 rounded-full bg-kio-accent animate-pulse" />
-              Kiosist HQ — Surat, India
+              Kiosist HQ- Surat, India
             </div>
           </div>
         </motion.div>

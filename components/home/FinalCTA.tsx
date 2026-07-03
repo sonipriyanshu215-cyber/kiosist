@@ -17,7 +17,7 @@ export function FinalCTA() {
               background: "linear-gradient(135deg, rgba(59,130,246,.15) 0%, rgba(6,182,212,.1) 100%)",
             }}
           >
-            {/* Animated glow orb — top right */}
+            {/* Animated glow orb- top right */}
             <motion.div
               aria-hidden="true"
               className="pointer-events-none absolute right-[-80px] top-[-80px] h-[300px] w-[300px] rounded-full"
@@ -25,7 +25,7 @@ export function FinalCTA() {
               animate={rm ? {} : { scale: [1, 1.2, 1], x: [0, -20, 0] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             />
-            {/* Animated glow orb — bottom left */}
+            {/* Animated glow orb- bottom left */}
             <motion.div
               aria-hidden="true"
               className="pointer-events-none absolute bottom-[-60px] left-[-60px] h-[220px] w-[220px] rounded-full"

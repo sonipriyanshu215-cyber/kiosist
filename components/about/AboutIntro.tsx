@@ -81,7 +81,7 @@ export function AboutIntro() {
           style={{ background: "linear-gradient(to bottom, transparent 30%, #0d1117 100%)" }} />
       </div>
 
-      {/* ── Hero — two clean panels: text left, photo right ── */}
+      {/* ── Hero- two clean panels: text left, photo right ── */}
       <section className="relative min-h-screen overflow-hidden lg:flex">
 
         {/* ── Left panel: content ── */}
@@ -153,7 +153,7 @@ export function AboutIntro() {
     maskRepeat: "no-repeat",
   }}
 >
-  {/* ⚠️ Delete the old <svg><defs><clipPath id="aboutHeroCurve">…</clipPath></defs></svg> block — no longer needed */}
+  {/* ⚠️ Delete the old <svg><defs><clipPath id="aboutHeroCurve">…</clipPath></defs></svg> block- no longer needed */}
 
   <Image
     src="/img/about/agent-workstation.webp"
@@ -167,7 +167,7 @@ export function AboutIntro() {
   {/* Light overall tint for mood, keeps all three people visible */}
   <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.22)]" />
 
-  {/* Softer seam blend — thinner now because the mask already feathers the edge */}
+  {/* Softer seam blend- thinner now because the mask already feathers the edge */}
   <div
     aria-hidden="true"
     className="pointer-events-none absolute inset-0"
@@ -177,7 +177,7 @@ export function AboutIntro() {
     }}
   />
 
-  {/* Top fade — keeps the navbar readable */}
+  {/* Top fade- keeps the navbar readable */}
   <div
     aria-hidden="true"
     className="pointer-events-none absolute inset-0"

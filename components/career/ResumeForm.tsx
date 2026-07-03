@@ -99,7 +99,7 @@ export function ResumeForm() {
               Join the <span className="text-gradient">Kiosist</span> team
             </h2>
             <p className="mx-auto mt-3 max-w-md text-kio-muted">
-              Four short steps. No cover letter required — just tell us about you.
+              Four short steps. No cover letter required- just tell us about you.
             </p>
           </RevealOnScroll>
 

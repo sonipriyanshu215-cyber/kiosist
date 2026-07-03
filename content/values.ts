@@ -21,7 +21,7 @@ export const values: Value[] = [
   {
     id: "v-3",
     title: "Operational Rigor",
-    body: "Checklists, SLAs, and escalation paths — we build structure so nothing falls through the cracks.",
+    body: "Checklists, SLAs, and escalation paths- we build structure so nothing falls through the cracks.",
     image: "/img/about/perks/operational-rigor.webp",
   },
   {

@@ -45,7 +45,7 @@ export default function Contact() {
         <div className="container-kio text-center">
           <RevealOnScroll>
             <p className="section-label">Contact Us</p>
-            <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">
+            <h1 className="mt-3 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
               Let&apos;s talk about your hotel.
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-white/70">

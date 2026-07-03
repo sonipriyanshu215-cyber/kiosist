@@ -74,9 +74,9 @@ export function Footer() {
               <Image
                 src="/img/kiosist-logo.png"
                 alt="Kiosist"
-                width={810}
-                height={227}
-                className="h-[80px] w-auto object-contain"
+                width={1545}
+                height={435}
+                className="h-[150px] w-auto object-contain"
               />
             </Link>
             <p className="mt-3.5 max-w-[280px] text-[.875rem] leading-[1.8] text-kio-muted">

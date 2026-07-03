@@ -71,13 +71,10 @@ export function USAClientMap({ clients }: USAClientMapProps) {
       <div className="container-kio">
 
         <RevealOnScroll className="mb-10 text-center">
-          <p className="section-label">Nationwide Coverage</p>
-          <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
-            Live in Hotels Across the USA
+          <p className="section-label">OUR HOTEL NETWORK</p>
+          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+            <span className="text-gradient-shimmer">Trusted by Hotel Brands Across the USA</span>
           </h2>
-          <p className="mt-3 text-white/50">
-            Tap any pin to see the property and hear from the team running it.
-          </p>
         </RevealOnScroll>
 
         {/* ── Map with radar overlay ── */}

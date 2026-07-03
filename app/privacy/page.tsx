@@ -9,7 +9,7 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-kio-bg pt-32 pb-20">
       <div className="container-kio max-w-3xl">
-        <h1 className="text-3xl font-bold text-kio-ink">Privacy Policy</h1>
+        <h1 className="text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">Privacy Policy</h1>
         <p className="mt-2 text-sm text-kio-muted">Last updated: June 2026</p>
 
         <div className="prose prose-kio mt-10 max-w-none text-kio-muted">

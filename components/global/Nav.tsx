@@ -58,8 +58,8 @@ export function Nav() {
           <Image
             src="/img/kiosist-logo.png"
             alt="Kiosist"
-            width={810}
-            height={227}
+            width={1545}
+            height={435}
             className="h-[52px] w-auto object-contain"
             priority
           />

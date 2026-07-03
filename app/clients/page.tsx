@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { clients } from "@/content/clients";
 import { USAClientMap } from "@/components/clients/USAClientMap";
-import { BrandStrip } from "@/components/home/BrandStrip";
 import { CaseStudyDeck } from "@/components/clients/CaseStudyDeck";
-import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const metadata: Metadata = {
   title: "Our Clients",
@@ -21,9 +19,7 @@ export default function Clients() {
       <div className="pt-20">
         <USAClientMap clients={clients} />
       </div>
-      <BrandStrip />
       <CaseStudyDeck />
-      <FinalCTA />
     </>
   );
 }

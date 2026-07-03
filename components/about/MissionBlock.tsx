@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
@@ -45,51 +46,85 @@ export function MissionBlock() {
       )}
 
       <div className="container-kio relative z-10">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto flex max-w-5xl flex-col-reverse items-center gap-10 md:flex-row md:justify-between md:gap-12">
 
-          <RevealOnScroll>
-            {/* Animated accent label */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+          {/* Text */}
+          <div className="text-center md:flex-1 md:text-left">
+            <RevealOnScroll>
+              {/* Animated accent label */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <p className="section-label">Our Mission</p>
+              </motion.div>
+            </RevealOnScroll>
+
+            {/* Word-by-word heading reveal */}
+            <motion.h2
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
+              }}
+              initial="hidden"
+              whileInView="show"
               viewport={{ once: true }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-4 text-3xl font-bold text-white md:text-4xl leading-snug"
             >
-              <p className="section-label">Our Mission</p>
+              {HEADING.split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  variants={rm ? {} : wordVariants}
+                  className="inline-block mr-[0.3em]"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.h2>
+
+            {/* Animated accent divider */}
+            <motion.div
+              className="mx-auto mt-6 h-px w-24 rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2 md:mx-0"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "center" }}
+            />
+          </div>
+
+          {/* Mission miniature */}
+          <RevealOnScroll className="shrink-0">
+            <motion.div
+              className="relative h-28 w-28 md:h-36 md:w-36"
+              initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <motion.div
+                className="pointer-events-none absolute inset-0 rounded-full opacity-40 blur-xl"
+                style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 70%)" }}
+                animate={rm ? {} : { scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                animate={rm ? {} : { y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Image
+                  src="/img/about/mission.png"
+                  alt="Mission — target hit atop a mountain, flanked by a flag and compass"
+                  width={777}
+                  height={702}
+                  className="relative h-full w-full object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)]"
+                  priority
+                />
+              </motion.div>
             </motion.div>
           </RevealOnScroll>
-
-          {/* Word-by-word heading reveal */}
-          <motion.h2
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
-            }}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="mt-4 text-3xl font-bold text-white md:text-4xl leading-snug"
-          >
-            {HEADING.split(" ").map((word, i) => (
-              <motion.span
-                key={i}
-                variants={rm ? {} : wordVariants}
-                className="inline-block mr-[0.3em]"
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.h2>
-
-          {/* Animated accent divider */}
-          <motion.div
-            className="mx-auto mt-6 h-px w-24 rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: "center" }}
-          />
         </div>
       </div>
     </section>

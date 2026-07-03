@@ -272,13 +272,13 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(1.5rem,2.6vw,2.4rem)] font-black leading-[1.3] text-kio-ink"
+            className="text-2xl font-black leading-[1.3] text-kio-ink sm:text-3xl md:text-4xl lg:text-2xl xl:text-4xl"
           >
             {/* Line 1 */}
-            <span className="block">Kiosist Delivers Hospitality</span>
+            <span className="block whitespace-nowrap">Kiosist Delivers Hospitality</span>
 
             {/* Line 2 — Powered by [word] on one line, no layout shift */}
-            <span className="block mt-1">
+            <span className="block mt-1 whitespace-nowrap">
               <span className="text-kio-muted/60 font-semibold">Powered by </span>
               <span className="inline-block" style={{ minWidth: "7em" }}>
                 <AnimatePresence mode="wait">

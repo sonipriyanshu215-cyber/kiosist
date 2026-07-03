@@ -118,7 +118,7 @@ export function CareerHero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[clamp(2.5rem,4.4vw,4.1rem)] font-black leading-[1.1] tracking-tight"
+              className="text-3xl font-black leading-[1.1] tracking-tight md:text-4xl lg:text-5xl"
             >
               <span className="block bg-gradient-to-r from-kio-accent to-kio-accent2 bg-clip-text text-transparent">
                 Work US hours.

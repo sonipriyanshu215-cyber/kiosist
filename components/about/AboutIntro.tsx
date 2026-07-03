@@ -102,7 +102,7 @@ export function AboutIntro() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-[clamp(2.6rem,4.5vw,4rem)] font-black leading-[1.08] text-white">
+          <h1 className="text-3xl font-black leading-[1.08] text-white md:text-4xl lg:text-5xl">
             We are the<br />
             <span className="text-gradient-shimmer">Guest&apos;s First Hello.</span>
           </h1>

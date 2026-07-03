@@ -109,7 +109,6 @@ export function CaseStudyDeck() {
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
             Results our clients have seen
           </h2>
-          <p className="mt-3 text-kio-muted">Hover each card to see the full outcome.</p>
         </RevealOnScroll>
 
         <motion.div

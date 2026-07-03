@@ -80,7 +80,6 @@ function FlipCard({ c, idx }: { c: (typeof CASES)[0]; idx: number }) {
               <p className="text-xs text-kio-muted">{c.location}</p>
             </div>
           </div>
-          <p className="text-xs text-kio-muted">Hover to see outcome →</p>
         </div>
 
         {/* Back */}

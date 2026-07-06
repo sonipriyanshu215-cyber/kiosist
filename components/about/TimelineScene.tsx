@@ -17,7 +17,7 @@ function Header() {
         Five Years. One Front Desk. <span className="text-color-cycle">Everywhere.</span>
       </h2>
       <p className="mt-4 text-kio-muted">
-        From one idea in Surat to 100+ hotels across the USA- here&apos;s how we got here.
+        From one idea in Surat to 100+ hotels across the USA - here&apos;s how we got here.
       </p>
     </div>
   );

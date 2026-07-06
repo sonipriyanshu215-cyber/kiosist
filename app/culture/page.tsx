@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { MasonryGallery } from "@/components/culture/MasonryGallery";
 import { EventsTimeline } from "@/components/culture/EventsTimeline";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import { AnimatedCultureSlider } from "@/components/culture/AnimatedCultureSlider";
 import { listExistingAssets } from "@/lib/publicAssets";
 
 export const metadata: Metadata = {
@@ -32,6 +33,9 @@ export default function Culture() {
           </RevealOnScroll>
         </div>
       </section>
+
+      {/* Unique Animated Expanding Slider */}
+      <AnimatedCultureSlider existingAssets={existingCultureAssets} />
 
       <MasonryGallery existingAssets={existingCultureAssets} />
       <EventsTimeline existingAssets={existingCultureAssets} />

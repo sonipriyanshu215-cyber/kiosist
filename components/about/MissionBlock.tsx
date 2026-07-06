@@ -94,7 +94,7 @@ export function MissionBlock() {
             />
           </div>
 
-          {/* Mission miniature- right side */}
+          {/* Mission miniature - right side */}
           <RevealOnScroll className="flex justify-center lg:flex-1 lg:justify-end">
             <motion.div
               className="relative h-40 w-40 md:h-52 md:w-52"
@@ -115,7 +115,7 @@ export function MissionBlock() {
               >
                 <Image
                   src="/img/about/mission.png"
-                  alt="Mission- target hit atop a mountain, flanked by a flag and compass"
+                  alt="Mission - target hit atop a mountain, flanked by a flag and compass"
                   width={777}
                   height={702}
                   className="relative h-full w-full object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)]"

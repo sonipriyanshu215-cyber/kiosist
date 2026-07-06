@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AboutIntro } from "@/components/about/AboutIntro";
 import { MissionBlock } from "@/components/about/MissionBlock";
 import { ValuesGrid } from "@/components/about/ValuesGrid";
+import { FounderSpotlight } from "@/components/about/FounderSpotlight";
 import { TeamMosaic } from "@/components/home/TeamMosaic";
 import { TimelineScene } from "@/components/about/TimelineScene";
 import { FinalCTA } from "@/components/home/FinalCTA";
@@ -23,6 +24,7 @@ export default function About() {
       <TimelineScene />
       <MissionBlock />
       <ValuesGrid />
+      <FounderSpotlight />
       <TeamMosaic />
       <FinalCTA />
     </>

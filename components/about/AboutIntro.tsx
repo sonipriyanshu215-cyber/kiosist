@@ -110,7 +110,7 @@ export function AboutIntro() {
           {/* Subtitle */}
           <p className="mt-5 max-w-[430px] text-[1rem] leading-[1.85] text-white/60">
             From check-ins to check-outs, we create seamless stays for guests across the USA
-            {" "}— right from our office in{" "}
+            {" "}- right from our office in{" "}
             <span className="font-semibold text-[#60a5fa]">India</span>.
           </p>
 

@@ -6,20 +6,12 @@ const FOOTER_COLS = [
     heading: "Company",
     links: [
       { href: "/about",     label: "About Us" },
-      { href: "/#features", label: "Our Product" },
+
       { href: "/clients",   label: "Clients" },
       { href: "/career",    label: "Join Us" },
     ],
   },
-  {
-    heading: "Product",
-    links: [
-      { href: "/#features", label: "Features" },
-      { href: "/#how",      label: "How It Works" },
-      { href: "/contact",   label: "Pricing" },
-      { href: "/contact",   label: "Demo" },
-    ],
-  },
+
   {
     heading: "Contact",
     links: [
@@ -124,7 +116,7 @@ export function Footer() {
       <div className="border-t border-kio-line py-5">
         <div className="container-kio flex flex-wrap items-center justify-between gap-3 text-[.8rem] text-kio-muted">
           <p>
-            © 2024 <span className="text-kio-accent2">Kiosist</span>. All Rights Reserved. Designed with ♥ for hospitality.
+            © 2026 <span className="text-kio-accent2">Kiosist</span>. All Rights Reserved. Designed with ♥ for hospitality.
           </p>
          
         </div>

@@ -4,9 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState, useEffect } from "react";
-import { Menu, X, Sun, Moon } from "lucide-react";
-import { useTheme } from "next-themes";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/about",      label: "About" },
@@ -15,24 +14,6 @@ const NAV_LINKS = [
   { href: "/culture",    label: "Culture" },
   { href: "/contact",    label: "Contact Us" },
 ];
-
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) return <div className="h-9 w-9" />;
-
-  return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-kio-line text-kio-muted transition-all hover:border-kio-accent/40 hover:text-kio-ink"
-      aria-label="Toggle theme"
-    >
-      {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-    </button>
-  );
-}
 
 export function Nav() {
   const pathname = usePathname();
@@ -86,8 +67,6 @@ export function Nav() {
 
         {/* Right */}
         <div className="flex items-center gap-2.5">
-          <ThemeToggle />
-
           {/* Mobile hamburger */}
           <button
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-kio-line text-kio-ink lg:hidden"

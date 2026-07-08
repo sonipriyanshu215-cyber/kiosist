@@ -46,12 +46,16 @@ export function FounderSpotlight() {
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           className="relative h-[440px] w-full sm:h-[520px] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[58%]"
         >
+          {/* unoptimized: Next's AVIF re-encode flattens this PNG's
+              transparent background to opaque white- serving the source
+              file directly keeps the cutout transparent. */}
           <Image
-            src="/img/team/founder.png"
-            alt="Menal Dalal, Founder of Kiosist"
+            src="/img/team/CEO.png"
+            alt="Henal Dalal, Founder of Kiosist"
             fill
             priority
-            className="object-contain object-right"
+            unoptimized
+            className="object-contain object-[75%_center] origin-center scale-110"
             sizes="(max-width: 1023px) 100vw, 58vw"
           />
         </motion.div>

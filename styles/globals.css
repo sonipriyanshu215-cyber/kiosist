@@ -52,6 +52,13 @@
     scroll-behavior: auto;
     /* Smooth body-background cross-fade on theme toggle */
     transition: background-color 0.45s ease;
+    /* Fluid root size: flat 16px up to a ~1280px viewport (unchanged from
+       before- mobile/tablet untouched), then grows with viewport width up
+       to 20px around 2560px+. Since Tailwind's text/spacing/sizing scale is
+       rem-based, this scales text, gaps, padding, and icon sizes together
+       proportionally on large screens instead of just leaving more empty
+       margin around fixed-size content. */
+    font-size: clamp(16px, 12px + 0.3125vw, 20px);
   }
 
   body {

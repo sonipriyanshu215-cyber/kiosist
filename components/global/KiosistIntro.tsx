@@ -31,7 +31,9 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
   // Silky flowing-thread mesh in the theme's cyan/blue- canvas-driven since
   // the organic, converging-and-fading strand look isn't practical with a
   // handful of static CSS/SVG shapes the way the previous blob+particle
-  // background was.
+  // background was. Each strand gently undulates in place over time- no
+  // slide-in/connect choreography here (that caused rendering glitches),
+  // just a steady ambient drift.
   useEffect(() => {
     const canvas = flowCanvasRef.current;
     if (!canvas) return;
@@ -85,19 +87,9 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
       const centerY = height / 2;
       const step = 6;
+      ctx.lineCap = "round";
 
       threads.forEach((th) => {
-        ctx.beginPath();
-        for (let x = -20; x <= width + 20; x += step) {
-          const edgeFade = Math.sin(Math.min(Math.max(x / width, 0), 1) * Math.PI);
-          const y =
-            centerY +
-            th.offset * height * 0.055 +
-            Math.sin(x * 0.006 * th.freq1 + th.phase + t * th.speed1) * th.amp * edgeFade +
-            Math.sin(x * 0.011 * th.freq2 + th.phase * 1.4 + t * th.speed2) * (th.amp * 0.4) * edgeFade;
-          if (x === -20) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
         const rgb = th.cyan ? "0, 243, 255" : "0, 130, 255";
         // Fades each strand to transparent at both horizontal ends so the
         // whole mesh tapers to points, like the reference image, instead of
@@ -111,6 +103,18 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
         ctx.lineWidth = th.widthPx;
         ctx.shadowColor = `rgba(${rgb}, 0.9)`;
         ctx.shadowBlur = th.baseOpacity > 0.6 ? 8 : 2;
+
+        ctx.beginPath();
+        for (let x = -20; x <= width + 20; x += step) {
+          const edgeFade = Math.sin(Math.min(Math.max(x / width, 0), 1) * Math.PI);
+          const y =
+            centerY +
+            th.offset * height * 0.055 +
+            Math.sin(x * 0.006 * th.freq1 + th.phase + t * th.speed1) * th.amp * edgeFade +
+            Math.sin(x * 0.011 * th.freq2 + th.phase * 1.4 + t * th.speed2) * (th.amp * 0.4) * edgeFade;
+          if (x === -20) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
         ctx.stroke();
       });
 
@@ -157,14 +161,13 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
       const kioskRect = kiosk.getBoundingClientRect();
       const agentRect = agent.getBoundingClientRect();
 
-      // Camera housing sits at local (172.6, 50) within the unscaled 375x500
-      // kiosk-visual box- same point the old kiosk-only beam used as its
-      // apex. Expressed as a fraction (not raw px) because kiosk-visual gets
-      // CSS-scaled down on narrower breakpoints, so its rendered rect is
-      // smaller than 375x500 there.
+      // Beam originates near the top of the kiosk-machine.png artwork (the
+      // headset/head area), expressed as a fraction of kiosk-visual's own
+      // rendered box- not raw px- since that box gets CSS-scaled down on
+      // narrower breakpoints.
       const cam = {
-        x: kioskRect.left - stageRect.left + kioskRect.width * (172.6 / 375),
-        y: kioskRect.top - stageRect.top + kioskRect.height * (50 / 500),
+        x: kioskRect.left - stageRect.left + kioskRect.width * 0.5,
+        y: kioskRect.top - stageRect.top + kioskRect.height * 0.07,
       };
       const target = {
         x: agentRect.left - stageRect.left + agentRect.width * 0.5,
@@ -285,7 +288,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           pointer-events: none;
           mix-blend-mode: screen;
           opacity: 0;
-          animation: beam-in 1s ease 2.1s forwards, beam-flicker 3.2s ease-in-out 3.1s infinite;
+          animation: beam-in 1s ease 3.2s forwards, beam-flicker 3.2s ease-in-out 4.2s infinite;
         }
 
         /* --- KIOSK --- */
@@ -301,16 +304,30 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           .kiosk-section { transform: scale(0.6); transform-origin: top center; margin-bottom: -200px; }
         }
 
-        /* Base box grew 300x400 -> 375x500 (25% up) to make the kiosk more
-           prominent; every child below that was originally hand-measured in
-           px against the 300x400 box is scaled by the same 1.25 factor so
-           it stays aligned to the kiosk-frame image underneath it. */
+        /* Kiosk-machine.png is a tall, narrow product shot (~1358x4278,
+           aspect ~0.32)- box width follows that ratio at a fixed 500px
+           height so the whole unit renders without the heavy crop a wider
+           box would force via object-cover. The old screen-scan/avatar-badge
+           overlays (tuned to the previous machine.webp's screen region) were
+           dropped rather than reused as-is: this artwork already renders its
+           own on-screen avatar/chat UI, so a separate floating badge over it
+           would just duplicate/misalign. */
         .kiosk-visual {
           position: relative;
-          width: 375px;
+          width: 160px;
           height: 500px;
+        }
+
+        /* The scale entrance lives on this inner wrapper, not on kiosk-visual
+           itself- the beam effect reads kiosk-visual's rect as a stable
+           anchor point, and a transform there would report the mid-animation
+           position instead of the settled one. */
+        .kiosk-inner {
+          position: absolute;
+          inset: 0;
           opacity: 0;
-          animation: kiosk-in 0.7s ease 0.1s forwards;
+          transform-origin: center;
+          animation: kiosk-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
         }
 
         .kiosk-frame {
@@ -324,64 +341,11 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           bottom: -18px;
           left: 50%;
           transform: translateX(-50%);
-          width: 275px;
-          height: 45px;
+          width: 130px;
+          height: 24px;
           background: radial-gradient(ellipse at center, rgba(0, 243, 255, 0.6) 0%, rgba(0, 243, 255, 0) 72%);
           filter: blur(6px);
           z-index: 1;
-        }
-
-        /* Screen bounding box (approximate, axis-aligned) used by both the
-           scanning laser and the post-reveal "digital menu" glow- measured
-           the same way as the avatar badge below. */
-        .screen-scan-zone {
-          position: absolute;
-          left: 115px;
-          top: 73px;
-          width: 120px;
-          height: 135px;
-          overflow: hidden;
-          border-radius: 4px;
-          pointer-events: none;
-          z-index: 19;
-        }
-
-        .screen-scan-line {
-          position: absolute;
-          left: 0;
-          top: -14%;
-          width: 100%;
-          height: 14px;
-          background: linear-gradient(180deg, transparent, rgba(0, 243, 255, 0.95) 50%, transparent);
-          filter: drop-shadow(0 0 6px rgba(0, 243, 255, 0.9));
-          animation: scan-sweep 0.7s ease-in-out 0.3s 1;
-        }
-
-        /* Digital avatar living on the kiosk screen before the agent steps out.
-           Screen center measured by compositing marker overlays onto actual
-           browser screenshots of the rendered kiosk panel. */
-        .screen-avatar {
-          position: absolute;
-          left: 173px;
-          top: 141px;
-          width: 58px;
-          height: 58px;
-          transform: translate(-50%, -50%);
-          border-radius: 50%;
-          overflow: hidden;
-          border: 2px solid rgba(0, 243, 255, 0.75);
-          box-shadow: 0 0 14px rgba(0, 243, 255, 0.6);
-          opacity: 0;
-          z-index: 21;
-          animation: avatar-badge 1s ease 0.85s forwards;
-        }
-
-        .screen-avatar-ring {
-          position: absolute;
-          inset: -6px;
-          border-radius: 50%;
-          border: 1px dashed rgba(0, 243, 255, 0.6);
-          animation: spin 6s linear infinite;
         }
 
         /* --- AGENT --- */
@@ -391,7 +355,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           .agent-section { transform: scale(0.8); }
           /* Kiosk sits above agent in the stacked layout, so the reveal
              travels straight down out of it instead of sideways. */
-          .agent-container { animation: step-out-mobile 1s cubic-bezier(0.22, 1, 0.36, 1) 1.15s forwards; }
+          .agent-container { animation: step-out-mobile 1s cubic-bezier(0.22, 1, 0.36, 1) 2.25s forwards; }
           @keyframes step-out-mobile {
             0% { opacity: 0; transform: translateY(-70px) scale(0.35); filter: blur(6px); }
             55% { opacity: 1; }
@@ -410,7 +374,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           width: 168px;
           aspect-ratio: 9 / 16;
           opacity: 0;
-          animation: step-out 1s cubic-bezier(0.22, 1, 0.36, 1) 1.15s forwards;
+          animation: step-out 1s cubic-bezier(0.22, 1, 0.36, 1) 2.25s forwards;
         }
 
         .agent-glow {
@@ -462,7 +426,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           cursor: pointer;
           opacity: 0;
           transition: transform 0.15s ease, background 0.15s ease;
-          animation: fade-in 0.4s ease 2s forwards;
+          animation: fade-in 0.4s ease 3.1s forwards;
         }
 
         .agent-sound-btn:hover {
@@ -488,7 +452,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           transform: translateX(-50%) scale(0.5);
           transform-origin: center bottom;
           z-index: 26;
-          animation: speech-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 1.75s forwards;
+          animation: speech-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 2.85s forwards;
         }
 
         .agent-speech::before {
@@ -524,7 +488,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           text-transform: uppercase;
           letter-spacing: 1.5px;
           opacity: 0;
-          animation: fade-up 0.7s ease 2.3s forwards;
+          animation: fade-up 0.7s ease 3.4s forwards;
         }
 
         .explore-btn:hover {
@@ -600,23 +564,9 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
         /* --- KEYFRAME ANIMATIONS --- */
         @keyframes kiosk-in {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-
-        @keyframes avatar-badge {
-          0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
-          25% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
-          40% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-          70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-          100% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
-        }
-
-        @keyframes scan-sweep {
-          0% { top: -14%; opacity: 0; }
-          15% { opacity: 1; }
-          85% { opacity: 1; }
-          100% { top: 100%; opacity: 0; }
+          0% { opacity: 0; transform: scale(0.55); }
+          60% { opacity: 1; }
+          100% { opacity: 1; transform: scale(1); }
         }
 
         @keyframes beam-in {
@@ -677,31 +627,18 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
         <div className="kiosk-section">
           <div className="kiosk-visual" ref={kioskVisualRef}>
-            <div className="kiosk-frame">
-              <Image
-                src="/img/hero/machine.webp"
-                alt="Kiosist self-check-in kiosk"
-                fill
-                priority
-                className="object-cover"
-                sizes="300px"
-              />
-            </div>
-            <div className="kiosk-glow" />
-
-            <div className="screen-scan-zone">
-              <div className="screen-scan-line" />
-            </div>
-
-            <div className="screen-avatar">
-              <div className="screen-avatar-ring" />
-              <Image
-                src="/img/hero/agent-avatar.png"
-                alt="Digital concierge avatar"
-                width={320}
-                height={320}
-                className="h-full w-full object-cover"
-              />
+            <div className="kiosk-inner">
+              <div className="kiosk-frame">
+                <Image
+                  src="/img/Kiosk-machine.png"
+                  alt="Kiosist self-check-in kiosk"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="160px"
+                />
+              </div>
+              <div className="kiosk-glow" />
             </div>
           </div>
         </div>

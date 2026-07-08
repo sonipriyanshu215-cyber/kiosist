@@ -22,9 +22,7 @@ export default function Culture() {
     <>
       {/* Unique Animated Expanding Slider */}
 
-      <div className="pt-24">
-        <AnimatedCultureSlider />
-      </div>
+      <AnimatedCultureSlider />
 
       <MasonryGallery existingAssets={existingCultureAssets} />
 

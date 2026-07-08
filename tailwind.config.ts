@@ -94,7 +94,11 @@ const config: Config = {
         "orbit":           "orbit 12s linear infinite",
       },
       maxWidth: {
-        container: "1280px",
+        // Fixed 1440px up to a 1440px viewport, then grows with the
+        // viewport (capped at 1800px) instead of hard-stopping- so very
+        // large/4K screens actually use the extra space rather than just
+        // getting wider empty gutters.
+        container: "clamp(1440px, 977px + 32.14vw, 1800px)",
       },
     },
   },

@@ -227,7 +227,7 @@ export function TeamMosaic() {
         <RevealOnScroll className="mb-16 text-center">
           <span className="section-label">Our Team</span>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
-            The faces behind{" "}
+            Faces behind{" "}
             <span className="text-gradient">the front desk</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-kio-muted">

@@ -8,7 +8,10 @@ const FOOTER_COLS = [
       { href: "/about",     label: "About Us" },
 
       { href: "/clients",   label: "Clients" },
-      { href: "/career",    label: "Join Us" },
+      { href: "/career",    label: "Carrer" },
+      { href: "/culture",   label: "Culture" },
+      { href: "/contact",   label: "Contact Us" },
+      
     ],
   },
 

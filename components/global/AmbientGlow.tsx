@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useTransform } from "framer-motion";
+import { pageScrollY } from "@/lib/pageScroll";
 
 type Blob = {
   color: "accent" | "accent2";
@@ -9,7 +10,6 @@ type Blob = {
   bottom?: string;
   left?: string;
   right?: string;
-  x: number;
   y: number;
   scaleMin: number;
   scaleMax: number;
@@ -18,11 +18,40 @@ type Blob = {
 };
 
 /* Floating glow blobs- pulse between small and large while drifting
-   around their corner, shared across every page as the animated backdrop. */
+   left/right with scroll, shared across every page as the animated backdrop. */
 const BLOBS: Blob[] = [
-  { color: "accent",  size: 600, top: "-100px",   right: "-100px", x: 40,  y: -30, scaleMin: 0.85, scaleMax: 1.2,  duration: 10, delay: 0   },
-  { color: "accent2", size: 400, bottom: "50px",   left: "-80px",  x: -35, y: 40,  scaleMin: 0.8,  scaleMax: 1.25, duration: 13, delay: 2   },
+  { color: "accent",  size: 600, top: "-100px",   right: "-100px", y: -30, scaleMin: 0.85, scaleMax: 1.2,  duration: 10, delay: 0   },
+  { color: "accent2", size: 400, bottom: "50px",   left: "-80px",  y: 40,  scaleMin: 0.8,  scaleMax: 1.25, duration: 13, delay: 2   },
 ];
+
+function GlowBlob({ blob, rm, range }: { blob: Blob; rm: boolean | null; range: number }) {
+  const scrollX = useTransform(pageScrollY, [0, 2400], [-range, range]);
+
+  return (
+    <motion.div
+      className="absolute rounded-full"
+      style={{
+        width:  blob.size,
+        height: blob.size,
+        top:    blob.top,
+        bottom: blob.bottom,
+        left:   blob.left,
+        right:  blob.right,
+        x: rm ? 0 : scrollX,
+        background: `radial-gradient(circle, color-mix(in srgb, var(--kio-${blob.color}) ${blob.color === "accent" ? 30 : 20}%, transparent) 0%, transparent 70%)`,
+      }}
+      animate={
+        rm
+          ? {}
+          : {
+              scale: [blob.scaleMin, blob.scaleMax, blob.scaleMin],
+              y: [0, blob.y, 0],
+            }
+      }
+      transition={{ duration: blob.duration, repeat: Infinity, ease: "easeInOut", delay: blob.delay }}
+    />
+  );
+}
 
 export function AmbientGlow() {
   const rm = useReducedMotion();
@@ -30,29 +59,7 @@ export function AmbientGlow() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       {BLOBS.map((b, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            width:  b.size,
-            height: b.size,
-            top:    b.top,
-            bottom: b.bottom,
-            left:   b.left,
-            right:  b.right,
-            background: `radial-gradient(circle, color-mix(in srgb, var(--kio-${b.color}) ${b.color === "accent" ? 30 : 20}%, transparent) 0%, transparent 70%)`,
-          }}
-          animate={
-            rm
-              ? {}
-              : {
-                  scale: [b.scaleMin, b.scaleMax, b.scaleMin],
-                  x: [0, b.x, 0],
-                  y: [0, b.y, 0],
-                }
-          }
-          transition={{ duration: b.duration, repeat: Infinity, ease: "easeInOut", delay: b.delay }}
-        />
+        <GlowBlob key={i} blob={b} rm={rm} range={i === 0 ? 140 : 100} />
       ))}
     </div>
   );

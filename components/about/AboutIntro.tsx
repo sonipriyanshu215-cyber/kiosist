@@ -103,7 +103,7 @@ export function AboutIntro() {
 
           {/* Headline */}
           <h1 className="text-3xl font-black leading-[1.08] text-white md:text-4xl lg:text-5xl">
-            We are the<br />
+            We are <br />
             <span className="text-gradient-shimmer">Guest&apos;s First Hello.</span>
           </h1>
 

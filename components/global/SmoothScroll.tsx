@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { pageScrollY } from "@/lib/pageScroll";
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
@@ -18,7 +19,8 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
     // Notify GSAP ScrollTrigger of scroll position on each Lenis tick
     // This makes pinned GSAP scenes work alongside Lenis smooth scroll
-    lenis.on("scroll", () => {
+    lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+      pageScrollY.set(scroll);
       // Dynamically access ScrollTrigger only if GSAP has been loaded
       const gsapInstance = (window as Window & { gsap?: { ScrollTrigger?: { update: () => void } } }).gsap;
       gsapInstance?.ScrollTrigger?.update();

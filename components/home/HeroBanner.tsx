@@ -85,11 +85,6 @@ function HeroSlider({ rm }: { rm: boolean | null }) {
 
   return (
     <div className="relative flex flex-col gap-4">
-      {/* Savings badge */}
-      <div className="absolute -top-4 right-5 z-20 rounded-full bg-gradient-to-r from-kio-success to-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-[0_4px_20px_rgba(16,185,129,.4)]">
-        💰 Save $1000s/month
-      </div>
-
       {/* Image viewport */}
       <div
         className="relative overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)]"
@@ -272,7 +267,7 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-2xl font-black leading-[1.3] text-kio-ink sm:text-3xl md:text-4xl lg:text-2xl xl:text-4xl"
+            className="text-2xl font-black leading-[1.3] text-kio-ink sm:text-4xl md:text-5xl xl:text-5xl"
           >
             {/* Line 1 */}
             <span className="block whitespace-nowrap">Kiosist Delivers Hospitality</span>

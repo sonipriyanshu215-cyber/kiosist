@@ -49,11 +49,14 @@ export function AnimatedCultureSlider() {
 
   return (
     <section
-      className="relative min-h-screen w-full overflow-hidden"
+      className="relative min-h-screen w-full overflow-hidden bg-[#02040a]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <AnimatePresence mode="wait">
+      {/* No `mode="wait"`- the incoming slide fades in while the outgoing
+          one fades out, so they overlap and the section's background is
+          never revealed mid-transition. */}
+      <AnimatePresence>
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, scale: 1.04 }}
@@ -75,8 +78,11 @@ export function AnimatedCultureSlider() {
       </AnimatePresence>
 
       {/* Tagline */}
-      <div className="absolute bottom-24 left-6 z-10 max-w-xs sm:left-10 sm:max-w-sm lg:left-16 lg:max-w-md">
-        <h2 className="text-lg font-bold leading-snug text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.85)] sm:text-xl lg:text-2xl">
+      <div className="absolute bottom-24 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center">
+        <h2
+          className="whitespace-nowrap font-bold text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
+          style={{ fontSize: "clamp(11px, 2.9vw, 24px)" }}
+        >
           Built by People. Driven by Purpose. United by Hospitality.
         </h2>
       </div>

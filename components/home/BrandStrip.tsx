@@ -56,9 +56,8 @@ export function BrandStrip() {
       {/* Tagline above heading */}
       <div className="mb-10 text-center">
         <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-kio-ink">
-          Trusted by Hotels.{" "}
-          <span className="text-color-cycle">Loved by Guests.</span>{" "}
-          Across USA.
+          Trusted by Hotel Brands.{" "}
+          <span className="text-color-cycle">Loved by Their Guests.</span>
         </p>
       </div>
 

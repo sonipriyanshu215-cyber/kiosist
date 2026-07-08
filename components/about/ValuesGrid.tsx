@@ -42,10 +42,19 @@ export function ValuesGrid() {
           initial={rm ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
-          className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-6"
         >
           {values.map((v, i) => {
             const tilt = i % 2 === 0 ? -3 : 3;
+            // Center an incomplete last row under the 3-card-wide grid above
+            // by doubling the track count (each card spans 2 of 6 sub-columns,
+            // which renders pixel-identical to a plain 3-col grid) and offsetting
+            // the first card of a short row so leftover space splits evenly.
+            const lgRemainder = values.length % 3;
+            const isFirstOfShortLgRow = lgRemainder !== 0 && i === values.length - lgRemainder;
+            const lgCenterClass = isFirstOfShortLgRow
+              ? lgRemainder === 2 ? "lg:col-start-2" : "lg:col-start-3"
+              : "";
             return (
               <motion.div
                 key={v.id}
@@ -53,7 +62,7 @@ export function ValuesGrid() {
                 initial="rest"
                 whileHover="hover"
                 animate="rest"
-                className={`pt-14 ${i === values.length - 1 && values.length % 2 !== 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}
+                className={`pt-14 lg:col-span-2 ${i === values.length - 1 && values.length % 2 !== 0 ? "sm:col-span-2" : ""} ${lgCenterClass}`}
               >
                 <motion.div
                   variants={hoverLift}

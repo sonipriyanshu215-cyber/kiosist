@@ -19,7 +19,7 @@ const ACCENTS = [
 ];
 
 const TEAM = [
-  { name: "Rahil",    role: "Founder & CEO",   img: "/img/team/ceo.webp",   tag: "Leadership", pos: "object-right" },
+  { name: "Henal Dalal",    role: "Founder & CEO",   img: "/img/team/ceo.webp",   tag: "Leadership", pos: "object-right" },
   { name: "Sarah M.", role: "Operations Lead",  img: "/img/team/t2.webp",   tag: "Operations"  },
   { name: "James K.", role: "Senior Agent",     img: "/img/team/t3.webp",   tag: "Front Desk"  },
   { name: "Maya R.",  role: "Trainer",          img: "/img/team/t4.webp",   tag: "Training"    },

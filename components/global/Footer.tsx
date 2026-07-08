@@ -58,8 +58,12 @@ const SOCIAL = [
 export function Footer() {
   return (
     <footer className="border-t border-kio-line bg-kio-bg-soft">
-      <div className="container-kio py-12">
-        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="container-kio py-9">
+        {/* Trailing 1fr spacer track absorbs the row's extra width on wide
+            screens instead of stretching Company/Contact to the far right
+            edge- shifts them left, closer to Brand, without clustering them
+            into a fixed/auto layout. */}
+        <div className="grid items-start gap-8 md:grid-cols-[1.3fr_0.85fr_0.85fr_0.9fr]">
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex items-center">
@@ -68,34 +72,34 @@ export function Footer() {
                 alt="Kiosist"
                 width={1545}
                 height={435}
-                className="h-[150px] w-auto object-contain"
+                className="h-16 w-auto object-contain"
               />
             </Link>
-            <p className="mt-3.5 max-w-[280px] text-[.875rem] leading-[1.8] text-kio-muted">
-              Smart self-service kiosk solutions for the modern hospitality industry.
-              Saving hotels thousands while elevating the guest experience.
-            </p>
-            <div className="mt-5 flex gap-3">
+            <div className="mt-4 flex gap-2.5">
               {SOCIAL.map(({ href, label, svg }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-kio-line text-kio-muted transition-all hover:border-kio-accent/40 hover:text-kio-ink hover:-translate-y-0.5"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-kio-line text-kio-muted transition-all hover:border-kio-accent/40 hover:text-kio-ink hover:-translate-y-0.5"
                 >
                   {svg}
                 </a>
               ))}
             </div>
+            <p className="mt-4 max-w-[360px] text-[.875rem] leading-[1.6] text-kio-muted">
+              Smart self-service kiosk solutions for the modern hospitality industry.
+              Saving hotels thousands while elevating the guest experience.
+            </p>
           </div>
 
           {/* Columns */}
           {FOOTER_COLS.map((col) => (
             <div key={col.heading}>
-              <h4 className="mb-4 text-[.85rem] font-bold uppercase tracking-[.05em] text-kio-muted">
+              <h4 className="mb-3 text-[.85rem] font-bold uppercase tracking-[.05em] text-kio-muted">
                 {col.heading}
               </h4>
-              <ul className="flex flex-col gap-2.5">
+              <ul className="flex flex-col gap-2">
                 {col.links.map(({ href, label }) => (
                   <li key={href + label}>
                     <Link
@@ -109,11 +113,34 @@ export function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* Map- lives in the trailing spacer column, using the space
+              that would otherwise sit empty on wide screens. Extra bottom
+              margin keeps it clear of the fixed FloatingCTA widget parked
+              in the viewport's bottom-right corner. */}
+          <a
+            href="https://maps.google.com/?q=21.1787,72.8021"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Kiosist office location in Google Maps"
+            className="mb-16 block aspect-square w-full max-w-[220px] overflow-hidden rounded-xl border border-kio-line md:justify-self-end"
+          >
+            <iframe
+              title="Kiosist office location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.5!2d72.8021!3d21.1787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEwJzQzLjMiTiA3MsKwNDgnMDcuNiJF!5e0!3m2!1sen!2sin!4v1234567890"
+              width="100%"
+              height="100%"
+              style={{ border: 0, pointerEvents: "none" }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              tabIndex={-1}
+            />
+          </a>
         </div>
       </div>
 
       {/* Bottom strip */}
-      <div className="border-t border-kio-line py-5">
+      <div className="border-t border-kio-line py-4">
         <div className="container-kio flex flex-wrap items-center justify-between gap-3 text-[.8rem] text-kio-muted">
           <p>
             © 2026 <span className="text-kio-accent2">Kiosist</span>. All Rights Reserved. Designed with ♥ for hospitality.

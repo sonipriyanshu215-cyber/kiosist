@@ -120,7 +120,7 @@ export function CareerHero() {
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="text-3xl font-black leading-[1.1] tracking-tight md:text-4xl lg:text-5xl"
             >
-              <span className="block bg-gradient-to-r from-kio-accent to-kio-accent2 bg-clip-text text-transparent">
+              <span className="text-color-cycle block">
                 Work US hours.
               </span>
               <span className="block text-white">Grow without limits.</span>

@@ -61,7 +61,7 @@ export function FounderSpotlight() {
               transparent background to opaque white- serving the source
               file directly keeps the cutout transparent. */}
           <Image
-            src="/img/team/ceo.PNG"
+            src="/img/team/ceo.png"
             alt="Henal Dalal, Founder of Kiosist"
             fill
             priority

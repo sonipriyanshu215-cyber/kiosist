@@ -11,28 +11,9 @@ export function FounderSpotlight() {
   return (
     <section className="bg-kio-primary relative overflow-hidden">
       {/* Decorative dotted wave- bottom left */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-6 left-0 w-[420px] max-w-[70%] opacity-40"
-        viewBox="0 0 420 200"
-        fill="none"
-      >
-        <path
-          d="M0 120 C 60 60, 120 180, 180 100 S 300 20, 420 90"
-          stroke="url(#founderWaveGrad)"
-          strokeWidth="1.5"
-          strokeDasharray="2 8"
-          strokeLinecap="round"
-        />
-        <defs>
-          <linearGradient id="founderWaveGrad" x1="0" y1="0" x2="420" y2="0">
-            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-      </svg>
 
-      <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-0">
+
+      <div className="relative grid gap-10 lg:min-h-[680px] lg:grid-cols-2 lg:items-center lg:gap-0">
         {/* ── Left: copy ── */}
         <div className="container-kio relative z-10 py-16 md:py-20 lg:py-28">
           <RevealOnScroll>
@@ -41,7 +22,7 @@ export function FounderSpotlight() {
 
           <RevealOnScroll delay={0.1}>
             <h2 className="mt-6 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-              Menal Dalal
+              Henal Dalal
             </h2>
             <div className="mt-6 h-px max-w-md bg-white/15" />
           </RevealOnScroll>
@@ -63,14 +44,15 @@ export function FounderSpotlight() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative h-[380px] w-full sm:h-[460px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[52%]"
+          className="relative h-[440px] w-full sm:h-[520px] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[58%]"
         >
           <Image
-            src="/img/team/ceo.webp"
+            src="/img/team/founder.png"
             alt="Menal Dalal, Founder of Kiosist"
             fill
-            className="object-cover object-right"
-            sizes="(max-width: 1023px) 100vw, 52vw"
+            priority
+            className="object-contain object-right"
+            sizes="(max-width: 1023px) 100vw, 58vw"
           />
         </motion.div>
       </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { MasonryGallery } from "@/components/culture/MasonryGallery";
 import { EventsTimeline } from "@/components/culture/EventsTimeline";
-import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+
 import { AnimatedCultureSlider } from "@/components/culture/AnimatedCultureSlider";
 import { listExistingAssets } from "@/lib/publicAssets";
 
@@ -20,25 +20,16 @@ export default function Culture() {
 
   return (
     <>
-      <section className="section-pad bg-kio-primary pt-36">
-        <div className="container-kio text-center">
-          <RevealOnScroll>
-            <p className="section-label">Culture & Events</p>
-            <h1 className="mt-3 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-              The people behind the service.
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-white/70">
-              Our culture is built on care- for our team, our clients, and the guests we serve.
-            </p>
-          </RevealOnScroll>
-        </div>
-      </section>
-
       {/* Unique Animated Expanding Slider */}
-      <AnimatedCultureSlider existingAssets={existingCultureAssets} />
+
+      <div className="pt-24">
+        <AnimatedCultureSlider />
+      </div>
 
       <MasonryGallery existingAssets={existingCultureAssets} />
+
       <EventsTimeline existingAssets={existingCultureAssets} />
     </>
   );
 }
+

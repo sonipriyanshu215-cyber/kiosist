@@ -2,100 +2,126 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react"; // Or standard SVG arrows
 
-interface AnimatedCultureSliderProps {
-  existingAssets?: string[];
-}
-
-// Default fallback items if existingAssets are missing or empty
+// Exactly 3 default slides for a clean, classic presentation
 const DEFAULT_SLIDES = [
-  { id: 1, title: "Annual Team Retreat", subtitle: "Connecting beyond the screen", image: "/img/culture/slide-1.jpg" },
-  { id: 2, title: "Hospitality Expo USA", subtitle: "Showcasing our innovations", image: "/img/culture/slide-2.jpg" },
-  { id: 3, title: "Office Hackathons", subtitle: "Building the future of service", image: "/img/culture/slide-3.jpg" },
-  { id: 4, title: "Community Outreach", subtitle: "Giving back to our neighborhoods", image: "/img/culture/slide-4.jpg" },
-  { id: 5, title: "Friday Celebrations", subtitle: "Unwinding and celebrating wins", image: "/img/culture/slide-5.jpg" },
+  {
+    id: 1,
+    title: "Annual Team Retreat",
+    subtitle: "Connecting beyond the screen",
+    image: "/img/slider/DSC08351 (1).JPG.jpeg",
+  },
+  {
+    id: 2,
+    title: "Hospitality Expo USA",
+    subtitle: "Showcasing our innovations",
+    image: "/img/slider/DSC08256.JPG.jpeg",
+  },
+  {
+    id: 3,
+    title: "Office Hackathons",
+    subtitle: "Building the future of service",
+    image: "/img/slider/DSC08314.JPG.jpeg",
+  },
 ];
 
-export function AnimatedCultureSlider({ existingAssets = [] }: AnimatedCultureSliderProps) {
-  const [activeId, setActiveId] = useState<number>(0);
+export function AnimatedCultureSlider() {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  // Map existing assets to slide structure if available, otherwise use defaults
-  const slides = existingAssets.length >= 3
-    ? existingAssets.slice(0, 5).map((path, index) => ({
-        id: index,
-        title: `Culture Moment #${index + 1}`,
-        subtitle: "Life inside Kiosist",
-        image: path.startsWith("/") ? path : `/img/culture/${path}`,
-      }))
-    : DEFAULT_SLIDES;
+  const slides = DEFAULT_SLIDES;
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
+  };
 
   return (
-    /* Updated Section Background: Blends smoothly from upper section with ambient glows */
     <section className="relative py-20 overflow-hidden bg-gradient-to-b from-transparent via-[#040917]/60 to-[#02040a]">
-      
-      {/* Background Decorative Ambient Glows (Matching upper section light effects) */}
+      {/* Background Decorative Ambient Glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden z-0">
         <div className="absolute -top-24 -left-24 h-[400px] w-[400px] rounded-full bg-cyan-600/10 blur-[120px]" />
         <div className="absolute top-1/2 right-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/3 rounded-full bg-blue-600/15 blur-[140px]" />
       </div>
 
-      {/* Main Content Container */}
-      <div className="container-kio relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 text-center md:text-left">
+      <div className="container-kio relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-10 text-center">
           <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl lg:text-4xl">
             Moments That Define Us
           </h2>
-
         </div>
 
-        {/* Slider Container */}
-        <div className="flex h-[380px] w-full flex-col gap-3 md:h-[460px] md:flex-row">
-          {slides.map((slide, index) => {
-            const isActive = activeId === index;
+        {/* Classic Slider Viewport */}
+        <div className="relative h-[420px] w-full overflow-hidden rounded-3xl border border-white/10 bg-gray-900/50 shadow-2xl md:h-[500px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 1.02 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="absolute inset-0 h-full w-full"
+            >
+              <Image
+                src={slides[currentIndex].image}
+                alt={slides[currentIndex].title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                priority
+              />
 
-            return (
-              <motion.div
-                key={slide.id}
-                onClick={() => setActiveId(index)}
-                onMouseEnter={() => setActiveId(index)}
-                layout
-                transition={{ type: "spring", stiffness: 260, damping: 25 }}
-                className={`relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-gray-900/40 shadow-xl ${
-                  isActive ? "flex-[4]" : "flex-[1]"
-                }`}
-              >
-                {/* Background Image */}
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-cover transition-transform duration-700 ease-out hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={index === 0}
-                />
+              {/* Classic Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#02040a] via-black/30 to-transparent opacity-80" />
 
-                {/* Dark Gradient Overlay for Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#02040a] via-black/30 to-transparent opacity-90 transition-opacity duration-300" />
+              {/* Slide Caption */}
+              <div className="absolute bottom-0 left-0 flex w-full flex-col justify-end p-8 text-white md:p-12">
+                <span className="text-sm font-semibold uppercase tracking-widest text-cyan-400">
+                  {slides[currentIndex].subtitle}
+                </span>
+                <h3 className="mt-2 text-2xl font-bold leading-tight md:text-4xl">
+                  {slides[currentIndex].title}
+                </h3>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-                {/* Content Details */}
-                <div className="absolute bottom-0 left-0 flex w-full flex-col justify-end p-6 text-white">
-                  <motion.p
-                    layout="position"
-                    className="text-xs font-semibold uppercase tracking-wider text-cyan-400"
-                  >
-                    {slide.subtitle}
-                  </motion.p>
-                  <motion.h3
-                    layout="position"
-                    className="mt-1 text-lg font-bold leading-tight md:text-xl lg:text-2xl"
-                  >
-                    {slide.title}
-                  </motion.h3>
-                </div>
-              </motion.div>
-            );
-          })}
+          {/* Left Arrow */}
+          <button
+            onClick={handlePrev}
+            aria-label="Previous slide"
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/15 bg-black/40 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 hover:scale-105 active:scale-95"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={handleNext}
+            aria-label="Next slide"
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/15 bg-black/40 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 hover:scale-105 active:scale-95"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </div>
+
+        {/* Navigation Indicator Dots */}
+        <div className="mt-6 flex justify-center gap-3">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                currentIndex === index ? "w-8 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]" : "w-2 bg-white/30 hover:bg-white/50"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

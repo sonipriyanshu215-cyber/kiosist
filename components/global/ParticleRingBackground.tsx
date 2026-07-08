@@ -94,7 +94,7 @@ function WaveLines({ isDark }: { isDark: boolean }) {
   );
 }
 
-export function ParticleRingBackground() {
+export function ParticleRingBackground({ style }: { style?: React.CSSProperties }) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -113,6 +113,7 @@ export function ParticleRingBackground() {
         transition:      "background-color 0.45s ease",
         zIndex:          0,
         pointerEvents:   "none",
+        ...style,
       }}
     >
       <Canvas

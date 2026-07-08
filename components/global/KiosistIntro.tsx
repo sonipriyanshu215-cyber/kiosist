@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Volume2, VolumeX } from "lucide-react";
+import { ParticleRingDynamic } from "@/components/global/ParticleRingDynamic";
 
 interface KiosistIntroProps {
   onComplete?: () => void;
@@ -16,7 +17,6 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
   // same pattern VideoStory.tsx already uses elsewhere on the site.
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const flowCanvasRef = useRef<HTMLCanvasElement>(null);
   const beamCanvasRef = useRef<HTMLCanvasElement>(null);
   const kioskVisualRef = useRef<HTMLDivElement>(null);
   const agentSectionRef = useRef<HTMLDivElement>(null);
@@ -27,107 +27,6 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
     v.muted = !v.muted;
     setMuted(v.muted);
   };
-
-  // Silky flowing-thread mesh in the theme's cyan/blue- canvas-driven since
-  // the organic, converging-and-fading strand look isn't practical with a
-  // handful of static CSS/SVG shapes the way the previous blob+particle
-  // background was. Each strand gently undulates in place over time- no
-  // slide-in/connect choreography here (that caused rendering glitches),
-  // just a steady ambient drift.
-  useEffect(() => {
-    const canvas = flowCanvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    let width = 0;
-    let height = 0;
-
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const THREAD_COUNT = 34;
-    const threads = Array.from({ length: THREAD_COUNT }, (_, i) => ({
-      offset: (i / (THREAD_COUNT - 1) - 0.5) * 2,
-      freq1: 1.5 + Math.random() * 0.7,
-      freq2: 2.6 + Math.random() * 0.9,
-      phase: Math.random() * Math.PI * 2,
-      speed1: 0.22 + Math.random() * 0.16,
-      speed2: 0.36 + Math.random() * 0.22,
-      amp: 12 + Math.random() * 18,
-      cyan: Math.random() > 0.45,
-      widthPx: 0.6 + Math.random() * 1,
-      baseOpacity: 0.08 + Math.random() * 0.22,
-    }));
-    // A few brighter "highlight" strands threaded through the mesh, echoing
-    // the bright converging lines in the reference image.
-    [0.22, 0.42, 0.58, 0.78].forEach((f) => {
-      const idx = Math.floor(f * (THREAD_COUNT - 1));
-      threads[idx].baseOpacity = 0.75;
-      threads[idx].widthPx = 1.6;
-    });
-
-    let raf = 0;
-    const startTime = performance.now();
-
-    const draw = (now: number) => {
-      const t = (now - startTime) / 1000;
-      ctx.clearRect(0, 0, width, height);
-
-      const centerY = height / 2;
-      const step = 6;
-      ctx.lineCap = "round";
-
-      threads.forEach((th) => {
-        const rgb = th.cyan ? "0, 243, 255" : "0, 130, 255";
-        // Fades each strand to transparent at both horizontal ends so the
-        // whole mesh tapers to points, like the reference image, instead of
-        // cutting off abruptly at the canvas edges.
-        const grad = ctx.createLinearGradient(0, 0, width, 0);
-        grad.addColorStop(0, `rgba(${rgb}, 0)`);
-        grad.addColorStop(0.18, `rgba(${rgb}, ${th.baseOpacity})`);
-        grad.addColorStop(0.82, `rgba(${rgb}, ${th.baseOpacity})`);
-        grad.addColorStop(1, `rgba(${rgb}, 0)`);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = th.widthPx;
-        ctx.shadowColor = `rgba(${rgb}, 0.9)`;
-        ctx.shadowBlur = th.baseOpacity > 0.6 ? 8 : 2;
-
-        ctx.beginPath();
-        for (let x = -20; x <= width + 20; x += step) {
-          const edgeFade = Math.sin(Math.min(Math.max(x / width, 0), 1) * Math.PI);
-          const y =
-            centerY +
-            th.offset * height * 0.055 +
-            Math.sin(x * 0.006 * th.freq1 + th.phase + t * th.speed1) * th.amp * edgeFade +
-            Math.sin(x * 0.011 * th.freq2 + th.phase * 1.4 + t * th.speed2) * (th.amp * 0.4) * edgeFade;
-          if (x === -20) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      });
-
-      if (!reduceMotion) raf = requestAnimationFrame(draw);
-    };
-
-    raf = requestAnimationFrame(draw);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
 
   // Light beam from the kiosk's camera to the agent's screen- drawn on a
   // separate, higher-stacked canvas (kiosk/agent visuals sit above the flow
@@ -244,7 +143,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           justify-content: center;
           gap: clamp(28px, 6vw, 90px);
           padding: 0 5vw;
-          background: radial-gradient(circle at 50% 45%, #131d31 0%, #06080d 70%);
+          background: #000000;
           color: #ffffff;
           overflow: hidden;
           z-index: 9999;
@@ -258,20 +157,6 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
         @media (max-width: 900px) {
           .intro-stage { flex-direction: column; gap: 32px; padding: 8vh 6vw; }
-        }
-
-        /* --- ANIMATED BACKGROUND --- */
-        /* Negative z-index (not 0) so this sits behind kiosk-section/agent-
-           section even though those are plain, non-positioned flex items-
-           a positioned z-index:0 sibling would otherwise paint above them. */
-        .bg-flow-canvas {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          display: block;
-          z-index: -3;
-          pointer-events: none;
         }
 
         /* Positioned (unlike the plain flex kiosk-section/agent-section), so
@@ -622,7 +507,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
       <div className={`intro-stage ${isExiting ? "exiting" : ""}`}>
 
-        <canvas ref={flowCanvasRef} className="bg-flow-canvas" />
+        <ParticleRingDynamic style={{ position: "absolute", zIndex: -3 }} />
         <canvas ref={beamCanvasRef} className="beam-canvas" />
 
         <div className="kiosk-section">

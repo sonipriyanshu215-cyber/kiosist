@@ -12,6 +12,6 @@ const ParticleRingBackground = dynamic(
   { ssr: false }
 );
 
-export function ParticleRingDynamic() {
-  return <ParticleRingBackground />;
+export function ParticleRingDynamic({ style }: { style?: React.CSSProperties }) {
+  return <ParticleRingBackground style={style} />;
 }

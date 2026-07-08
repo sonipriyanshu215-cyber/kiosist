@@ -21,7 +21,7 @@ import {
 const HUB_CARDS = [
   { icon: Users, num: "150+", label: "Team Members", x: 50, y: 9, color: "var(--kio-accent)" },
   { icon: Clock, num: "24/7", label: "Operations", x: 85, y: 34, color: "#8b5cf6" },
-  { icon: Building2, num: "50+", label: "US Hotels", x: 72, y: 88, color: "var(--kio-accent2)" },
+  { icon: Building2, num: "100+", label: "US Hotels", x: 72, y: 88, color: "var(--kio-accent2)" },
   { icon: TrendingUp, num: "4", label: "Career Levels", x: 28, y: 88, color: "var(--kio-accent)" },
   { icon: Sparkles, num: "100%", label: "Growth Opportunities", x: 15, y: 34, color: "#8b5cf6" },
 ];

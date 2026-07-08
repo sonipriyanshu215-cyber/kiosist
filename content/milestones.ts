@@ -10,7 +10,7 @@ export const milestones: Milestone[] = [
     id: "m-2020",
     year: "2020",
     title: "The Idea",
-    body: "Rahil identifies a critical gap: US hotels struggling with overnight staffing costs and inconsistent front-desk coverage.",
+    body: "Henal  identifies a critical gap: US hotels struggling with overnight staffing costs and inconsistent front-desk coverage.",
   },
   {
     id: "m-2021",

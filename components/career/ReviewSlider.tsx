@@ -27,7 +27,7 @@ const REVIEWS = [
   {
     id: "r-3",
     quote:
-      "Rahil and the leadership genuinely care. When I had a personal issue, they were flexible without any questions. That's rare.",
+      "Henal  and the leadership genuinely care. When I had a personal issue, they were flexible without any questions. That's rare.",
     author: "Anjali S.",
     role: "Operations Lead",
     tenure: "3 years",

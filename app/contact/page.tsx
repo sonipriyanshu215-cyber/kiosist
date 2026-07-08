@@ -24,16 +24,16 @@ const CONTACT_CARDS = [
   },
   {
     Icon: Phone,
-    title: "Call Sales",
-    value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    title: "contact us",
+    value: "+91 98254 00070",
+    href: "tel:+919825400070",
     detail: "Mon–Sat, 10am–7pm IST",
   },
   {
     Icon: MapPin,
     title: "Visit Us",
     value: "Parle Point, Surat",
-    href: "https://maps.google.com/?q=21.1787,72.8021",
+    href: "https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA",
     detail: "Gujarat 395007, India",
   },
 ];
@@ -108,7 +108,7 @@ export default function Contact() {
               <div className="mt-8 overflow-hidden rounded-2xl shadow-lg">
                 <iframe
                   title="Kiosist Office Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.5!2d72.8021!3d21.1787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEwJzQzLjMiTiA3MsKwNDgnMDcuNiJF!5e0!3m2!1sen!2sin!4v1234567890"
+                  src="https://www.google.com/maps?q=21.1775001,72.7962931&z=16&output=embed"
                   width="100%"
                   height="400"
                   style={{ border: 0 }}

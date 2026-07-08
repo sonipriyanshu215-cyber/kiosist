@@ -119,7 +119,7 @@ export function Footer() {
               margin keeps it clear of the fixed FloatingCTA widget parked
               in the viewport's bottom-right corner. */}
           <a
-            href="https://maps.google.com/?q=21.1787,72.8021"
+            href="https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Kiosist office location in Google Maps"
@@ -127,7 +127,7 @@ export function Footer() {
           >
             <iframe
               title="Kiosist office location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.5!2d72.8021!3d21.1787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEwJzQzLjMiTiA3MsKwNDgnMDcuNiJF!5e0!3m2!1sen!2sin!4v1234567890"
+              src="https://www.google.com/maps?q=21.1775001,72.7962931&z=16&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, pointerEvents: "none" }}

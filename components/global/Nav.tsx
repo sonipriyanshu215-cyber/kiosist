@@ -67,6 +67,14 @@ export function Nav() {
 
         {/* Right */}
         <div className="flex items-center gap-2.5">
+          {/* Join Us CTA */}
+          <Link
+            href="/career#apply"
+            className="hidden items-center rounded-full bg-kio-accent px-5 py-2 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-kio-accent2 lg:flex"
+          >
+            Join Us
+          </Link>
+
           {/* Mobile hamburger */}
           <button
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-kio-line text-kio-ink lg:hidden"
@@ -100,6 +108,13 @@ export function Nav() {
               {label}
             </Link>
           ))}
+          <Link
+            href="/career#apply"
+            onClick={() => setMobileOpen(false)}
+            className="mt-2 rounded-lg bg-kio-accent px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-kio-accent2"
+          >
+            Join Us
+          </Link>
         </div>
       </motion.div>
     </motion.header>

@@ -30,7 +30,6 @@ const AUTOPLAY_MS = 5000;
 
 export function AnimatedCultureSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [hovered, setHovered] = useState(false);
   const rm = useReducedMotion();
 
   const slides = DEFAULT_SLIDES;
@@ -39,20 +38,15 @@ export function AnimatedCultureSlider() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
   };
 
-  // Auto-advances like the home hero slider- pauses on hover/reduced-motion
-  // rather than fighting the user's intent to linger on a slide.
+  // Always auto-advances, regardless of hover or cursor movement.
   useEffect(() => {
-    if (rm || hovered) return;
+    if (rm) return;
     const id = setInterval(handleNext, AUTOPLAY_MS);
     return () => clearInterval(id);
-  }, [rm, hovered, slides.length]);
+  }, [rm, slides.length]);
 
   return (
-    <section
-      className="relative min-h-screen w-full overflow-hidden bg-[#02040a]"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#02040a]">
       {/* No `mode="wait"`- the incoming slide fades in while the outgoing
           one fades out, so they overlap and the section's background is
           never revealed mid-transition. */}
@@ -80,7 +74,7 @@ export function AnimatedCultureSlider() {
       {/* Tagline */}
       <div className="absolute bottom-24 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center">
         <h2
-          className="whitespace-nowrap font-bold text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
+          className="text-gradient whitespace-nowrap font-bold [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
           style={{ fontSize: "clamp(11px, 2.9vw, 24px)" }}
         >
           Built by People. Driven by Purpose. United by Hospitality.

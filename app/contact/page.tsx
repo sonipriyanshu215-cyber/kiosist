@@ -24,7 +24,7 @@ const CONTACT_CARDS = [
   },
   {
     Icon: Phone,
-    title: "contact us",
+    title: "Contact Us",
     value: "+91 98254 00070",
     href: "tel:+919825400070",
     detail: "Mon–Sat, 10am–7pm IST",

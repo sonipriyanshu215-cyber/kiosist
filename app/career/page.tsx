@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CareerHero } from "@/components/career/CareerHero";
-import { GrowthPath } from "@/components/career/GrowthPath";
+import { HiringProcess } from "@/components/career/HiringProcess";
 import { PerksGrid } from "@/components/career/PerksGrid";
 import { ResumeForm } from "@/components/career/ResumeForm";
 import { ReviewSlider } from "@/components/career/ReviewSlider";
@@ -20,7 +20,7 @@ export default function Career() {
   return (
     <>
       <CareerHero />
-      <GrowthPath />
+      <HiringProcess />
       <PerksGrid />
       <ReviewSlider />
       <FAQAccordion />

@@ -73,8 +73,14 @@ export function AnimatedCultureSlider() {
 
       {/* Tagline */}
       <div className="absolute bottom-24 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center">
+        <h1
+          className="font-black text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]"
+          style={{ fontSize: "clamp(28px, 6vw, 64px)" }}
+        >
+          Culture Beyond the Workspace
+        </h1>
         <h2
-          className="text-gradient whitespace-nowrap font-bold [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
+          className="text-gradient mt-3 whitespace-nowrap font-bold [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
           style={{ fontSize: "clamp(11px, 2.9vw, 24px)" }}
         >
           Built by People. Driven by Purpose. United by Hospitality.

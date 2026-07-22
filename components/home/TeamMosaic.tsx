@@ -19,15 +19,13 @@ const ACCENTS = [
 ];
 
 const TEAM = [
-  { name: "Henal Dalal",    role: "Founder & CEO",   img: "/img/team/ceo.webp",   tag: "Leadership", pos: "object-top" },
-  { name: "Sarah M.", role: "Operations Lead",  img: "/img/team/t2.webp",   tag: "Operations"  },
-  { name: "James K.", role: "Senior Agent",     img: "/img/team/t3.webp",   tag: "Front Desk"  },
-  { name: "Maya R.",  role: "Trainer",          img: "/img/team/t4.webp",   tag: "Training"    },
-  { name: "Lena T.",  role: "Agent",            img: "/img/team/t5.webp",   tag: "Front Desk"  },
-  { name: "Carlos M.",role: "Agent",            img: "/img/team/t6.webp",   tag: "Front Desk"  },
-  { name: "Priya S.", role: "Agent",            img: "/img/team/t7.webp",   tag: "Support"     },
-  { name: "Omar J.",  role: "Agent",            img: "/img/team/t8.webp",   tag: "Front Desk"  },
-];
+  { name: "Henal Dalal",    role: "Founder",                           img: "/img/team/ceo.webp",   tag: "Leadership", pos: "object-top" },
+  { name: "Vinit Patel", role: "CEO",                                  img: "/img/team/t2.webp",   tag: "Operations"  },
+  { name: "Bhavin Dalal", role: "Founder",                             img: "/img/team/t3.webp",   tag: "Front Desk"  },
+  { name: "Parshav Shah",  role: " Assitant General Manager",          img: "/img/team/t4.webp",   tag: "Training"    },
+  { name: "Sourabh Patil",  role: "Team Leader",                       img: "/img/team/t5.webp",   tag: "Front Desk"  },
+  { name: "Smeeta Rawal",role: "Team Leader",                          img: "/img/team/t6.webp",   tag: "Front Desk"  },
+  ];
 
 type TeamMember = typeof TEAM[0];
 
@@ -52,7 +50,7 @@ function AvatarCard({
   const floatDelay    = idx * 0.28;
 
   return (
-    <motion.div variants={staggerChild} className="group relative">
+    <motion.div variants={staggerChild} className="group relative mx-auto w-full max-w-[280px]">
       {/* Floating idle wrapper */}
       <motion.div
         animate={rm ? {} : { y: [0, -9, 0] }}
@@ -79,8 +77,8 @@ function AvatarCard({
 
         {/* Card body */}
         <div
-          className="relative overflow-hidden rounded-3xl border border-white/[0.07]
-                     bg-kio-bg-soft p-6 text-center"
+          className="relative aspect-square overflow-hidden rounded-3xl border border-white/[0.07]
+                     bg-kio-bg-soft p-5 text-center flex flex-col items-center justify-center"
         >
           {/* Hover tint overlay */}
           <div
@@ -102,10 +100,10 @@ function AvatarCard({
           </div>
 
           {/* ── Avatar ── */}
-          <div className="relative mx-auto mb-5 h-28 w-28">
+          <div className="relative mx-auto mb-4 h-20 w-20">
             {/* Pulsing ambient halo */}
             <motion.div
-              className="absolute -inset-4 rounded-full"
+              className="absolute -inset-3 rounded-full"
               style={{
                 background: `radial-gradient(circle, ${accent.from}28, transparent 70%)`,
               }}
@@ -142,13 +140,13 @@ function AvatarCard({
                   fill
                   className={`object-cover ${member.pos ?? ""}`}
                   onError={() => setImgErr(true)}
-                  sizes="112px"
+                  sizes="80px"
                 />
               ) : (
                 /* Stylised initials placeholder */
                 <div className="flex h-full w-full items-center justify-center">
                   <span
-                    className="select-none text-3xl font-extrabold tracking-tight"
+                    className="select-none text-xl font-extrabold tracking-tight"
                     style={{
                       background: `linear-gradient(135deg, ${accent.from}, ${accent.to})`,
                       WebkitBackgroundClip: "text",
@@ -163,7 +161,7 @@ function AvatarCard({
 
             {/* Online status dot */}
             <motion.div
-              className="absolute bottom-0.5 right-0.5 z-20 h-4 w-4 rounded-full border-2 border-kio-bg-soft bg-emerald-400"
+              className="absolute bottom-0.5 right-0.5 z-20 h-3.5 w-3.5 rounded-full border-2 border-kio-bg-soft bg-emerald-400"
               animate={rm ? {} : { scale: [1, 1.3, 1] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: idx * 0.14 }}
             />
@@ -185,7 +183,7 @@ function AvatarCard({
           <p className="relative z-10 mt-1 text-xs text-kio-muted">{member.role}</p>
 
           {/* Tag badge */}
-          <div className="relative z-10 mt-4 flex justify-center">
+          <div className="relative z-10 mt-3 flex justify-center">
             <span
               className="rounded-full px-3 py-[5px] text-[10px] font-semibold uppercase tracking-widest"
               style={{
@@ -225,7 +223,6 @@ export function TeamMosaic() {
       <div className="container-kio relative z-10">
         {/* Heading */}
         <RevealOnScroll className="mb-16 text-center">
-          <span className="section-label">Our Team</span>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
             Faces behind{" "}
             <span className="text-gradient">the front desk</span>
@@ -241,7 +238,7 @@ export function TeamMosaic() {
           initial={rm ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4"
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
           {TEAM.map((member, i) => (
             <AvatarCard key={i} member={member} idx={i} rm={rm} />

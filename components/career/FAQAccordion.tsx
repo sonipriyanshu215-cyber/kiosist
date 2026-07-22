@@ -12,7 +12,6 @@ export function FAQAccordion() {
     <section className="section-pad bg-kio-bg">
       <div className="container-kio">
         <RevealOnScroll className="mb-14 text-center">
-          <p className="section-label">FAQs</p>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
             Questions we hear often
           </h2>

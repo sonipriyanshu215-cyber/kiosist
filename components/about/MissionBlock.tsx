@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
-const HEADING = "Making World-Class Hospitality Achievable, 24/7, for Every US Hotel.";
+const HEADING = "Our Mission is to provide hassle-free, cost-effective, and unique front desk assistance, creating memorable stays for every guest who walks through the hotel door.";
 
 const wordVariants: Variants = {
   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
@@ -47,32 +47,30 @@ export function MissionBlock() {
       )}
 
       <div className="container-kio relative z-10">
+        <RevealOnScroll className="mx-auto mb-14 max-w-2xl text-center">
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-white">
+            Our Mission and <span className="text-gradient-shimmer">Vision</span>
+          </h2>
+          <p className="mt-4 text-[.95rem] leading-[1.8] text-white/70">
+            A shared purpose that drives our long term vision and the action we take
+            everyday to achieve it.
+          </p>
+        </RevealOnScroll>
+
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-12">
 
           {/* Text column */}
-          <div className="text-center">
-            <RevealOnScroll>
-              {/* Animated accent label */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <p className="section-label">Our Mission</p>
-              </motion.div>
-            </RevealOnScroll>
-
+          <div className="text-center lg:flex-1">
             {/* Word-by-word heading reveal */}
             <motion.h2
               variants={{
                 hidden: {},
-                show: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
+                show: { transition: { staggerChildren: 0.03, delayChildren: 0.15 } },
               }}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mt-4 whitespace-normal text-3xl font-bold text-white md:text-4xl leading-snug lg:whitespace-nowrap lg:text-xl xl:text-[1.75rem]"
+              className="mt-4 text-3xl font-bold text-white md:text-4xl leading-snug lg:text-2xl xl:text-3xl"
             >
               {HEADING.split(" ").map((word, i) => (
                 <Fragment key={i}>
@@ -95,11 +93,11 @@ export function MissionBlock() {
           </div>
 
           {/* Mission miniature - right side */}
-          <RevealOnScroll className="flex justify-center lg:flex-1 lg:justify-end">
+          <RevealOnScroll className="flex justify-center lg:flex-none lg:justify-end">
             <motion.div
               className="relative h-40 w-40 md:h-52 md:w-52"
-              initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
@@ -109,19 +107,14 @@ export function MissionBlock() {
                 animate={rm ? {} : { scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
-              <motion.div
-                animate={rm ? {} : { y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <Image
-                  src="/img/about/mission.png"
-                  alt="Mission - target hit atop a mountain, flanked by a flag and compass"
-                  width={777}
-                  height={702}
-                  className="relative h-full w-full object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)]"
-                  priority
-                />
-              </motion.div>
+              <Image
+                src="/img/about/mission-1.png"
+                alt="Mission - target hit atop a mountain, flanked by a flag and compass"
+                width={2000}
+                height={1889}
+                className="relative h-full w-full object-contain"
+                priority
+              />
             </motion.div>
           </RevealOnScroll>
         </div>

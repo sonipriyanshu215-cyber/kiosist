@@ -4,34 +4,20 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
-  GraduationCap,
   Users,
   Clock,
   Building2,
-  TrendingUp,
   Sparkles,
-  Send,
-  MessageSquare,
-  Rocket,
-  Award,
+  ThumbsUp,
 } from "lucide-react";
 
-/* Pentagon-ring coordinates (percent of container)- hand-tuned so the
-   5 cards sit evenly around the hub without a trig helper at runtime. */
+/* Diamond-ring coordinates (percent of container)- hand-tuned so the
+   4 cards sit evenly around the hub without a trig helper at runtime. */
 const HUB_CARDS = [
-  { icon: Users, num: "150+", label: "Team Members", x: 50, y: 9, color: "var(--kio-accent)" },
-  { icon: Clock, num: "24/7", label: "Operations", x: 85, y: 34, color: "#8b5cf6" },
-  { icon: Building2, num: "100+", label: "US Hotels", x: 72, y: 88, color: "var(--kio-accent2)" },
-  { icon: TrendingUp, num: "4", label: "Career Levels", x: 28, y: 88, color: "var(--kio-accent)" },
-  { icon: Sparkles, num: "100%", label: "Growth Opportunities", x: 15, y: 34, color: "#8b5cf6" },
-];
-
-const HIRING_STEPS = [
-  { icon: Send, label: "Apply Online" },
-  { icon: MessageSquare, label: "HR Interview" },
-  { icon: GraduationCap, label: "Paid Training" },
-  { icon: Rocket, label: "Go Live" },
-  { icon: Award, label: "Promotion" },
+  { icon: Users, num: "150+", label: "Team Members", x: 50, y: 8, color: "var(--kio-accent)" },
+  { icon: Clock, num: "24/7", label: "Operations", x: 88, y: 50, color: "#8b5cf6" },
+  { icon: Building2, num: "100+", label: "US Hotels", x: 50, y: 92, color: "var(--kio-accent2)" },
+  { icon: Sparkles, num: "100%", label: "Growth Opportunities", x: 12, y: 50, color: "#8b5cf6" },
 ];
 
 /* Hard-coded particle positions to avoid hydration mismatch */
@@ -108,10 +94,10 @@ export function CareerHero() {
         ))}
       </div>
 
-      {/* ── Main 3-column dashboard ── */}
-      <div className="relative z-10 mx-auto max-w-[1520px] px-6 md:px-10 xl:px-14">
-        <div className="flex flex-col gap-16 xl:grid xl:grid-cols-[1.15fr_1fr_0.7fr] xl:items-center xl:gap-10">
-          {/* ═══════════ LEFT- pitch + search (40%) ═══════════ */}
+      {/* ── Main 2-column dashboard ── */}
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-10 xl:px-14">
+        <div className="flex flex-col gap-16 xl:grid xl:grid-cols-[1.1fr_1fr] xl:items-center xl:gap-16">
+          {/* ═══════════ LEFT- pitch + CTA ═══════════ */}
           <div>
             {/* Headline */}
             <motion.h1
@@ -121,9 +107,9 @@ export function CareerHero() {
               className="text-3xl font-black leading-[1.1] tracking-tight md:text-4xl lg:text-5xl"
             >
               <span className="text-color-cycle block">
-                Work US hours.
+                Grow your career.
               </span>
-              <span className="block text-white">Grow without limits.</span>
+              <span className="block text-white">Work US hours, from Surat.</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -133,9 +119,9 @@ export function CareerHero() {
               transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 max-w-[520px] text-[1.02rem] leading-[1.85] text-kio-muted"
             >
-              No travel required. Join a team of 150+ professionals managing front desks for
-              US hotels- from right here in{" "}
-              <span className="font-semibold text-kio-accent">Surat</span>.
+              No travel required. Join a team of{" "}
+              <span className="font-semibold text-kio-accent">150+ professionals</span>{" "}
+              managing front desks for US hotels, with paid training and a clear path to grow.
             </motion.p>
 
             {/* CTA card */}
@@ -143,9 +129,23 @@ export function CareerHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 max-w-[420px] rounded-[24px] border border-white/10 p-6"
+              className="relative mt-8 max-w-[420px] rounded-[24px] border border-white/10 p-6"
               style={{ background: "linear-gradient(135deg, rgba(59,130,246,.28), rgba(6,182,212,.16))" }}
             >
+              {/* Thumbs-up badge- floats above the card as the hero's visual accent */}
+              <motion.div
+                aria-hidden="true"
+                className="absolute -right-4 -top-4 flex h-14 w-14 items-center justify-center rounded-full border border-white/15"
+                style={{
+                  background: "linear-gradient(135deg, rgba(18,20,30,.95), rgba(22,25,38,.9))",
+                  boxShadow: "0 0 0 1px rgba(59,130,246,.25), 0 10px 30px rgba(0,0,0,.4)",
+                }}
+                animate={rm ? {} : { y: [0, -8, 0], rotate: [-6, 6, -6] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ThumbsUp className="h-6 w-6 text-kio-accent2" fill="currentColor" fillOpacity={0.15} />
+              </motion.div>
+
               <p className="text-lg font-bold text-white">Ready to Apply?</p>
               <p className="mt-1.5 text-xs leading-relaxed text-white/70">
                 Join the team building the future of remote hospitality.
@@ -160,14 +160,14 @@ export function CareerHero() {
             </motion.div>
           </div>
 
-          {/* ═══════════ CENTER- Career Growth Dashboard (35%) ═══════════ */}
+          {/* ═══════════ RIGHT- Career Growth Dashboard ═══════════ */}
           <motion.div
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Desktop: orbiting hub */}
-            <div className="relative mx-auto hidden h-[500px] w-full max-w-[380px] xl:block">
+            <div className="relative mx-auto hidden h-[560px] w-full max-w-[460px] xl:block">
               {/* connection lines */}
               <svg
                 className="absolute inset-0 h-full w-full overflow-visible"
@@ -306,53 +306,6 @@ export function CareerHero() {
             </div>
           </motion.div>
 
-          {/* ═══════════ RIGHT- hiring journey + CTA (25%) ═══════════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="glass rounded-[24px] border border-white/10 p-6 shadow-[0_20px_60px_rgba(0,0,0,.4)]">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-kio-muted">Hiring Journey</h3>
-              <div className="mt-6 flex flex-col">
-                {HIRING_STEPS.map((step, i) => (
-                  <div key={step.label} className="relative flex gap-4 pb-8 last:pb-0">
-                    {i < HIRING_STEPS.length - 1 && (
-                      <span
-                        aria-hidden="true"
-                        className="absolute left-[19px] top-10 bottom-0 w-px"
-                        style={{ background: "linear-gradient(to bottom, rgba(59,130,246,.4), transparent)" }}
-                      />
-                    )}
-                    <motion.div
-                      className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-kio-accent/30"
-                      style={{ background: "linear-gradient(135deg, rgba(18,20,30,.95), rgba(22,25,38,.9))" }}
-                      animate={
-                        rm
-                          ? {}
-                          : {
-                              boxShadow: [
-                                "0 0 0px rgba(59,130,246,0)",
-                                "0 0 18px rgba(59,130,246,.55)",
-                                "0 0 0px rgba(59,130,246,0)",
-                              ],
-                            }
-                      }
-                      transition={{ duration: 2.6, repeat: Infinity, delay: i * 0.35, ease: "easeInOut" }}
-                    >
-                      <step.icon className="h-4 w-4 text-kio-accent2" />
-                    </motion.div>
-                    <div className="pt-1.5">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-kio-muted">
-                        Step {i + 1}
-                      </span>
-                      <p className="text-sm font-bold text-kio-ink">{step.label}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
 

@@ -37,14 +37,9 @@ export function FinalCTA() {
             {/* Text */}
             <div className="relative z-10">
               <h2 className="text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold text-kio-ink">
-                The smallest smile can become a{" "}
-                <span className="text-gradient">guest&apos;s biggest memory.</span>
+                If making guest smile is what drives you,{" "}
+                <span className="text-gradient">Kiosist is the place for you.</span>
               </h2>
-              <p className="mt-2.5 text-[.95rem] text-kio-muted">
-                If you believe that,{" "}
-                <span className="text-color-cycle font-semibold">Kiosist</span>{" "}
-                is the place for you.
-              </p>
             </div>
 
             {/* Buttons */}

@@ -49,14 +49,12 @@ export function WhatIsKiosist() {
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-10 flex flex-col justify-center bg-black px-6 py-14 lg:w-[38%] lg:px-14 xl:px-16"
         >
-          <span className="section-label self-start">Our Story</span>
-
           <h3 className="text-[clamp(1.8rem,3.2vw,2.6rem)] font-extrabold leading-snug text-kio-ink">
-            Welcome to <span className="text-color-cycle">Kiosist</span>
+            Welcome To <span className="text-color-cycle">Kiosist</span>
           </h3>
 
           <p className="mt-2 text-[clamp(1rem,1.8vw,1.25rem)] font-semibold italic text-kio-muted">
-            Where Every Hello Becomes a Story.
+            Welcome to our world-class team of Front Desk Executives where we serve multiple hotels in the USA.
           </p>
 
           <div
@@ -66,10 +64,10 @@ export function WhatIsKiosist() {
           />
 
           <p className="text-[1rem] leading-[1.9] text-kio-muted">
-            Our Front Desk Executives power guest experiences for hotels across the USA, turning &ldquo;just checking in&rdquo; into &ldquo;I can&apos;t wait to come back.&rdquo;
+            The first impression is the lasting impression! As a Front Desk Agent, you will take care of the guests from the moment they arrive through to their departure by ensuring they have a memorable experience with us.
           </p>
           <p className="mt-5 text-[1rem] leading-[1.9] text-kio-muted">
-            We&apos;re the first face, the first voice, the first impression a guest gets- and in hospitality, that&apos;s everything.
+            We always want more enthusiastic and positive Front Desk &amp; Customer Service agents.
           </p>
         </motion.div>
 

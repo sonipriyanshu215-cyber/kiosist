@@ -4,10 +4,9 @@ import { motion, useReducedMotion } from "framer-motion";
 
 interface PinWithPulseProps {
   delay?: number;
-  active?: boolean;
 }
 
-export function PinWithPulse({ delay = 0, active = false }: PinWithPulseProps) {
+export function PinWithPulse({ delay = 0 }: PinWithPulseProps) {
   const reducedMotion = useReducedMotion();
 
   return (
@@ -33,16 +32,11 @@ export function PinWithPulse({ delay = 0, active = false }: PinWithPulseProps) {
         }
         aria-hidden="true"
       >
-        <circle r={5} fill="none" stroke="#F5B82E" strokeWidth={1.5} />
+        <circle r={5} fill="none" stroke="#3b82f6" strokeWidth={1.5} />
       </motion.g>
 
       {/* Solid pin */}
-      <circle
-        r={active ? 6 : 5}
-        fill="#F5B82E"
-        opacity={active ? 1 : 0.85}
-        style={{ cursor: "pointer" }}
-      />
+      <circle r={5} fill="#3b82f6" opacity={0.85} />
     </svg>
   );
 }

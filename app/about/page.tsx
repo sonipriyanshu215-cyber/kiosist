@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { AboutIntro } from "@/components/about/AboutIntro";
 import { MissionBlock } from "@/components/about/MissionBlock";
+import { VisionBlock } from "@/components/about/VisionBlock";
 import { ValuesGrid } from "@/components/about/ValuesGrid";
-import { FounderSpotlight } from "@/components/about/FounderSpotlight";
 import { TeamMosaic } from "@/components/home/TeamMosaic";
 import { TimelineScene } from "@/components/about/TimelineScene";
 import { FinalCTA } from "@/components/home/FinalCTA";
@@ -23,8 +23,8 @@ export default function About() {
       <AboutIntro />
       <TimelineScene />
       <MissionBlock />
+      <VisionBlock />
       <ValuesGrid />
-      <FounderSpotlight />
       <TeamMosaic />
       <FinalCTA />
     </>

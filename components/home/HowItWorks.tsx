@@ -38,7 +38,6 @@ export function HowItWorks() {
 
       {/* Head */}
       <RevealOnScroll className="container-kio relative z-10 mb-16 mx-auto max-w-[560px] text-center">
-        <span className="section-label">Simple Process</span>
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Up &amp; Running in<br />
           <span className="text-gradient">3 Easy Steps</span>

@@ -13,17 +13,17 @@ const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: fals
 
 const GALLERY = [
   { src: "/img/culture/office-1.png", alt: "Office space" },
-  { src: "/img/culture/team-meeting-1.png", alt: "Team meeting" },
-  { src: "/img/culture/training-1.png", alt: "Training session" },
-  { src: "/img/culture/celebration-1.png", alt: "Team celebration" },
-  { src: "/img/culture/office-2.jpg", alt: "Work station" },
-  { src: "/img/culture/team-meeting-2.jpg", alt: "Team huddle" },
-  { src: "/img/culture/training-2.jpg", alt: "Agent training" },
-  { src: "/img/culture/celebration-2.jpg", alt: "Birthday celebration" },
-  { src: "/img/culture/office-3.jpg", alt: "Office candid" },
-  { src: "/img/culture/team-3.jpg", alt: "The team" },
-  { src: "/img/culture/training-3.jpg", alt: "PMS training" },
-  { src: "/img/culture/event-1.jpg", alt: "Company event" },
+  { src: "/img/culture/team-meeting-1.png", alt: "Office space" },
+  { src: "/img/culture/training-1.png", alt: "Training Session" },
+  { src: "/img/culture/celebration-1.png", alt: "Festival Celebration" },
+  { src: "/img/culture/office-2.jpg", alt: "Team" },
+  { src: "/img/culture/team-meeting-2.jpg", alt: "Office Outings" },
+  { src: "/img/culture/training-2.jpg", alt: "Training Session" },
+  { src: "/img/culture/celebration-2.jpg", alt: "Fun Friday" },
+  { src: "/img/culture/office-3.jpg", alt: "Fun Friday" },
+  { src: "/img/culture/team-3.jpg", alt: "Team" },
+  { src: "/img/culture/training-3.jpg", alt: "Office Outings" },
+  { src: "/img/culture/event-1.jpg", alt: "Festival Celebration" },
 ];
 
 export function MasonryGallery({ existingAssets = [] }: { existingAssets?: string[] }) {
@@ -35,7 +35,6 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
     <section className="section-pad bg-kio-bg">
       <div className="container-kio">
         <RevealOnScroll className="mb-14 text-center">
-          <p className="section-label">Our Culture</p>
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
             More Than a Job. A Career That Welcomes the World.
           </h2>

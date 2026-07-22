@@ -38,8 +38,8 @@ export function ResumeForm() {
   const STEPS = [
     { label: "Personal", fields: ["name", "email", "phone"] as const },
     { label: "Role", fields: ["role", "experience"] as const },
-    { label: "Resume", fields: [] as const },
     { label: "Message", fields: ["message"] as const },
+    { label: "Resume", fields: [] as const },
   ];
 
   async function nextStep() {
@@ -94,9 +94,8 @@ export function ResumeForm() {
       <div className="container-kio relative z-10">
         <div className="mx-auto max-w-2xl">
           <RevealOnScroll className="mb-10 text-center">
-            <span className="section-label">Apply Now</span>
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-              Join the <span className="text-gradient">Kiosist</span> team
+              Join us at <span className="text-gradient">Kiosist</span>
             </h2>
             <p className="mx-auto mt-3 max-w-md text-kio-muted">
               Four short steps. No cover letter required- just tell us about you.
@@ -291,6 +290,31 @@ export function ResumeForm() {
                       className="space-y-5"
                     >
                       <div>
+                        <label htmlFor="message" className="block text-sm font-medium text-kio-ink mb-1">
+                          Why Kiosist? (optional)
+                        </label>
+                        <textarea
+                          id="message"
+                          {...register("message")}
+                          rows={5}
+                          placeholder="Tell us what excites you about this role…"
+                          className="w-full rounded-xl border border-kio-line bg-kio-bg px-4 py-3 text-sm resize-none focus:border-kio-primary focus:outline-none focus:ring-1 focus:ring-kio-primary"
+                          suppressHydrationWarning
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 3 && (
+                    <motion.div
+                      key="step-3"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="space-y-5"
+                    >
+                      <div>
                         <label className="block text-sm font-medium text-kio-ink mb-2">
                           Upload Resume (PDF, max 5 MB)
                         </label>
@@ -343,31 +367,6 @@ export function ResumeForm() {
                       </div>
                     </motion.div>
                   )}
-
-                  {step === 3 && (
-                    <motion.div
-                      key="step-3"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className="space-y-5"
-                    >
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-kio-ink mb-1">
-                          Why Kiosist? (optional)
-                        </label>
-                        <textarea
-                          id="message"
-                          {...register("message")}
-                          rows={5}
-                          placeholder="Tell us what excites you about this role…"
-                          className="w-full rounded-xl border border-kio-line bg-kio-bg px-4 py-3 text-sm resize-none focus:border-kio-primary focus:outline-none focus:ring-1 focus:ring-kio-primary"
-                          suppressHydrationWarning
-                        />
-                      </div>
-                    </motion.div>
-                  )}
                 </AnimatePresence>
 
                 {/* Navigation */}
@@ -402,7 +401,7 @@ export function ResumeForm() {
                       className="rounded-full bg-kio-accent px-10 py-2.5 text-sm font-semibold text-kio-ink hover:bg-kio-accent/85 transition-colors"
                       suppressHydrationWarning
                     >
-                      Submit Application
+                      Apply Now
                     </button>
                   )}
                 </div>

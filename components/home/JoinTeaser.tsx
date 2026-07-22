@@ -8,7 +8,6 @@ export function JoinTeaser() {
       <div className="container-kio">
         <div className="mx-auto max-w-3xl text-center">
           <RevealOnScroll>
-            <p className="section-label">Join the Team</p>
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
               Build your career in US hospitality- from Surat.
             </h2>

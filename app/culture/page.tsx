@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { MasonryGallery } from "@/components/culture/MasonryGallery";
-import { EventsTimeline } from "@/components/culture/EventsTimeline";
 
 import { AnimatedCultureSlider } from "@/components/culture/AnimatedCultureSlider";
 import { listExistingAssets } from "@/lib/publicAssets";
@@ -25,8 +24,6 @@ export default function Culture() {
       <AnimatedCultureSlider />
 
       <MasonryGallery existingAssets={existingCultureAssets} />
-
-      <EventsTimeline existingAssets={existingCultureAssets} />
     </>
   );
 }

@@ -1,19 +1,17 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 /* ── What We Do services ── */
 const SERVICES = [
   {
-    label: "Greet & assist guests warmly",
+    label: "Manage check-in and check-out",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 11a9 9 0 0 1 18 0" />
-        <rect x="3" y="11" width="4" height="6" rx="1" />
-        <rect x="17" y="11" width="4" height="6" rx="1" />
-        <path d="M21 17v1a4 4 0 0 1-4 4h-2" />
-        <circle cx="12" cy="22" r="1" />
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <path d="M14 2v6h6" />
+        <path d="M9 15l2 2 4-4" />
       </svg>
     ),
   },
@@ -30,12 +28,10 @@ const SERVICES = [
     ),
   },
   {
-    label: "Manage check-ins & check-outs",
+    label: "Making every guest stay memorable",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <path d="M14 2v6h6" />
-        <path d="M9 15l2 2 4-4" />
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
       </svg>
     ),
   },
@@ -51,20 +47,17 @@ const SERVICES = [
     ),
   },
   {
-    label: "Ensure every guest leaves happy",
+    label: "Deliver exceptional service",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 10v12" />
-        <path d="M7 10c0-2.76 2.24-5 5-5h.34a5 5 0 0 1 4.93 4.18l1.37 9.45A2 2 0 0 1 16.66 22H9a2 2 0 0 1-2-2v-4" />
-        <path d="M7 10H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h3" />
+        <circle cx="12" cy="8" r="6" />
+        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
       </svg>
     ),
   },
 ];
 
 export function AboutIntro() {
-  const rm = useReducedMotion();
-
   return (
     <div>
       {/* ── Mobile image banner (hidden on lg) ── */}
@@ -81,70 +74,42 @@ export function AboutIntro() {
           style={{ background: "linear-gradient(to bottom, transparent 30%, #0d1117 100%)" }} />
       </div>
 
-      {/* ── Hero- two clean panels: text left, photo right ── */}
-      <section className="relative min-h-screen overflow-hidden lg:flex">
+      {/* ── Hero- two clean panels: text left, photo right, card docked at the bottom ── */}
+      <section className="relative flex min-h-screen flex-col overflow-hidden">
 
-        {/* ── Left panel: content ── */}
-        <motion.div
-          initial={{ opacity: 0, x: -28 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex min-h-[70vh] flex-col justify-center bg-black px-6 pb-16 pt-10 lg:min-h-screen lg:w-1/2 lg:pt-32 lg:px-14 xl:px-20"
-        >
-          {/* Badge */}
-          <div className="mb-7 inline-flex items-center gap-2 self-start rounded-full border border-[#06b6d4]/30 bg-[#06b6d4]/10 px-4 py-1.5">
-            <motion.span
-              className="h-1.5 w-1.5 rounded-full bg-[#06b6d4]"
-              animate={rm ? {} : { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-              transition={{ duration: 1.8, repeat: Infinity }}
-            />
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#22d3ee]">About Kiosist</span>
-          </div>
+        {/* ── Top area: text + photo panels ── */}
+        <div className="relative flex-1 lg:flex">
 
-          {/* Headline */}
-          <h1 className="text-3xl font-black leading-[1.08] text-white md:text-4xl lg:text-5xl">
-            We are <br />
-            <span className="text-gradient-shimmer">Guest&apos;s First Hello.</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="mt-5 max-w-[430px] text-[1rem] leading-[1.85] text-white/60">
-            From check-ins to check-outs, we create seamless stays for guests across the USA
-            {" "}- right from our office in{" "}
-            <span className="font-semibold text-[#60a5fa]">India</span>.
-          </p>
-
-          {/* What We Do card */}
+          {/* ── Left panel: content ── */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm"
+            initial={{ opacity: 0, x: -28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 flex min-h-[42vh] flex-col justify-center bg-black px-6 pb-10 pt-10 lg:min-h-full lg:w-1/2 lg:pt-32 lg:px-14 xl:px-20"
           >
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[#60a5fa]">
-              What We Do
-            </h3>
-            <div className="grid grid-cols-5 gap-1">
-              {SERVICES.map((s) => (
-                <div
-                  key={s.label}
-                  className="flex flex-col items-center gap-2 rounded-xl p-2 text-center transition-colors hover:bg-[#3b82f6]/5"
-                >
-                  <div className="text-[#60a5fa] [&>svg]:h-[26px] [&>svg]:w-[26px]">{s.icon}</div>
-                  <p className="text-[.62rem] leading-[1.5] text-white/50">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
+            {/* Headline */}
+            <h1 className="text-3xl font-black leading-[1.08] text-white md:text-4xl lg:text-5xl">
+              We are <br />
+              <span className="text-gradient-shimmer">Guest&apos;s First Hello.</span>
+            </h1>
 
-        {/* ── Right panel: photo (soft, blurred curve seam) ── */}
-<motion.div
-  initial={{ opacity: 0, x: 28 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-  className="relative hidden min-h-screen lg:absolute lg:inset-y-0 lg:right-0 lg:z-20 lg:block lg:w-[calc(50%+4rem)]"
-  style={{
+            {/* Subtitle */}
+            <p className="mt-5 max-w-[430px] text-[1rem] leading-[1.85] text-white/60">
+              We are the leading service provider for remotely operating front desks for hotels based in the USA
+
+
+              {" "}- right from our office in{" "}
+              <span className="font-semibold text-[#60a5fa]">India</span>.
+            </p>
+          </motion.div>
+
+          {/* ── Right panel: photo (soft, blurred curve seam) ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="relative hidden min-h-[42vh] lg:absolute lg:inset-y-0 lg:right-0 lg:z-20 lg:block lg:w-[calc(50%+4rem)]"
+            style={{
     WebkitMaskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
     maskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
     WebkitMaskSize: "100% 100%",
@@ -184,13 +149,37 @@ export function AboutIntro() {
     style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 18%)" }}
   />
 
-  {/* Bottom fade for depth */}
-  <div
-    aria-hidden="true"
-    className="pointer-events-none absolute inset-0"
-    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 25%)" }}
-  />
-</motion.div>
+          {/* Bottom fade for depth */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 25%)" }}
+          />
+          </motion.div>
+        </div>
+
+        {/* What We Do card- normal document flow, sits below the top area so it never overlaps content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-30 mx-6 mb-6 rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur-md md:mx-10 md:mb-8 md:p-7 lg:mx-14 lg:mb-10 xl:mx-20"
+        >
+          <h3 className="mb-5 text-sm font-bold uppercase tracking-wider text-[#60a5fa] md:text-base">
+            What We Do
+          </h3>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-6">
+            {SERVICES.map((s) => (
+              <div
+                key={s.label}
+                className="flex flex-col items-center gap-3 rounded-xl p-3 text-center transition-colors hover:bg-[#3b82f6]/5"
+              >
+                <div className="text-[#60a5fa] [&>svg]:h-9 [&>svg]:w-9 md:[&>svg]:h-10 md:[&>svg]:w-10">{s.icon}</div>
+                <p className="text-xs leading-[1.5] text-white/60 md:text-sm">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </section>
     </div>
   );

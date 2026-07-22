@@ -1,39 +1,40 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const FEATURES = [
   {
-    icon: "🔑",
-    title: "Express Check-In & Check-Out",
-    body: "Guests complete check-in in under 60 seconds. Scan ID, confirm booking, collect room key- all without any staff involvement.",
+    icon: "🗣️",
+    title: "Fluency in English",
+    body: "Possesses complete fluency in English, ensuring clear, persuasive, and effective communication across all business contexts, from everyday correspondence to high-level negotiations.",
   },
   {
-    icon: "💳",
-    title: "Integrated Payment Processing",
-    body: "Accept all major credit cards, contactless payments, and digital wallets. PCI-DSS compliant and fully secure.",
+    icon: "🤝",
+    title: "Strong Customer Service Skills",
+    body: "Delivers warm, attentive, and solution-oriented service that turns every guest interaction into a positive experience, even under pressure.",
   },
   {
-    icon: "🛎️",
-    title: "In-Stay Services",
-    body: "Guests can request housekeeping, room service, extra amenities, or local recommendations right from the kiosk- any time of day.",
+    icon: "🌱",
+    title: "Willingness to Learn",
+    body: "Approaches new tools, processes, and feedback with an open mind- committed to growing and improving on the job.",
   },
   {
-    icon: "📊",
-    title: "Real-Time Dashboard",
-    body: "Management gets live analytics- occupancy rates, check-in queues, service requests, and revenue reports- all in one view.",
+    icon: "💻",
+    title: "Tech Friendly",
+    body: "Comfortable navigating computers, kiosks, and property management software, quickly adapting to new digital tools as they're introduced.",
   },
   {
-    icon: "🌐",
-    title: "Multilingual Support",
-    body: "Kiosist speaks your guests' language. Support for 20+ languages means every traveler feels at home from the moment they arrive.",
+    icon: "🕒",
+    title: "Rotational Shifts",
+    body: "Available to work flexible, rotating shifts- including nights, weekends, and holidays- to keep the front desk covered around the clock.",
   },
   {
-    icon: "🔗",
-    title: "PMS Integration",
-    body: "Plug-and-play compatibility with leading property management systems. Sync reservations, room assignments, and guest data in real time.",
+    icon: "🏨",
+    title: "Prior Experience",
+    body: "Hospitality experience is needed, but freshers are also welcome to apply.",
   },
 ];
 
@@ -80,14 +81,13 @@ export function WhyGrid() {
 
       {/* Heading */}
       <RevealOnScroll className="relative z-10 container-kio mb-16 mx-auto max-w-[640px] text-center">
-        <span className="section-label">What We Offer</span>
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-          Everything Hospitality<br />
-          <span className="text-gradient-shimmer">Needs in One Kiosk</span>
+          What It Takes<br />
+          <span className="text-gradient-shimmer">to Join Our Team</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
-          Kiosist packs the full hospitality experience into a single elegant kiosk-
-          no juggling software, no bottlenecks, no compromise.
+          We&apos;re looking for people-first individuals ready to deliver exceptional
+          guest experiences- no prior kiosk experience required, just the right attitude.
         </p>
       </RevealOnScroll>
 
@@ -186,19 +186,16 @@ export function WhyGrid() {
               />
             ))}
 
-            {/* Active feature icon */}
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={active}
-                initial={{ scale: 0.4, opacity: 0, rotate: -25 }}
-                animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                exit={{ scale: 0.4, opacity: 0, rotate: 25 }}
-                transition={{ duration: 0.32, ease: [0.32, 0.72, 0, 1] }}
-                className="relative z-10 select-none text-[clamp(1.4rem,4.5%,1.9rem)]"
-              >
-                {FEATURES[active].icon}
-              </motion.span>
-            </AnimatePresence>
+            {/* Kiosist logo mark- fixed hub center, independent of the cycling feature */}
+            <div className="relative z-10 h-[42%] w-[42%] select-none">
+              <Image
+                src="/img/kiosist-logo-k.png"
+                alt="Kiosist"
+                fill
+                className="object-contain"
+                sizes="120px"
+              />
+            </div>
           </motion.div>
 
           {/* Feature nodes */}

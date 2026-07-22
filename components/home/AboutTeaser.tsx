@@ -63,7 +63,6 @@ export function AboutTeaser() {
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
         >
-          <span className="section-label">About Kiosist</span>
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Redefining the{" "}
             <span className="text-gradient">Hotel Guest Experience</span>

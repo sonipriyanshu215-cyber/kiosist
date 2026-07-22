@@ -1,16 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const CYCLING_WORDS = [
-  "People.",
-  "Care.",
+  "Innovation.",
   "Technology.",
-  "Speed.",
+  "Professionalism.",
   "Excellence.",
 ];
-import Image from "next/image";
 import Link from "next/link";
 
 /* Hard-coded particle positions to avoid hydration mismatch */
@@ -35,153 +33,41 @@ const PARTICLES = [
   { x: 82, y: 88, s: 2,   d: 7,   del: 0.4, op: 0.35 },
 ];
 
-const STAT_PILLS = [
-  { num: "3s",   lbl: "Avg Check-In" },
-  { num: "99%",  lbl: "Uptime"       },
-  { num: "24/7", lbl: "Available"    },
-];
+const HERO_VIDEO_SRC = "/video/explainer.mp4";
 
-/* ── Hero image slides ── */
-const SLIDES = [
-  { src: "/img/hero/lobby.webp",        alt: "Hotel lobby managed by Kiosist", label: "Real Hotel Lobby"    },
-  { src: "/img/hero/machine.webp",        alt: " kiosk in action",         label: "Self-Check-In Kiosk" },
-  { src: "/img/hero/agent-bubble.webp", alt: "24/7 virtual agent assisting guests", label: "24/7 Virtual Agent" },
-];
+function HeroVideo({ rm }: { rm: boolean | null }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-const slideVariants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? "100%" : "-100%",
-    opacity: 0,
-    scale: 0.96,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.65, ease: [0.32, 0.72, 0, 1] as [number,number,number,number] },
-  },
-  exit: (dir: number) => ({
-    x: dir > 0 ? "-35%" : "35%",
-    opacity: 0,
-    scale: 0.96,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.6, 1] as [number,number,number,number] },
-  }),
-};
-
-function HeroSlider({ rm }: { rm: boolean | null }) {
-  const [[idx, dir], setSlide] = useState([0, 1]);
-  const [hovered, setHovered] = useState(false);
-
+  // Ambient looping preview, no controls. Respects prefers-reduced-motion
+  // by staying paused on its first frame instead of autoplaying.
   useEffect(() => {
-    if (rm || hovered) return;
-    const id = setInterval(() => {
-      setSlide(([prev]) => [(prev + 1) % SLIDES.length, 1]);
-    }, 4500);
-    return () => clearInterval(id);
-  }, [rm, hovered]);
-
-  const goTo = (next: number) =>
-    setSlide(([prev]) => [next, next > prev ? 1 : -1]);
+    const v = videoRef.current;
+    if (!v || rm) return;
+    v.play().catch(() => {});
+  }, [rm]);
 
   return (
-    <div className="relative flex flex-col gap-4">
-      {/* Image viewport */}
-      <div
-        className="relative overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)]"
-        style={{ aspectRatio: "4/3" }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <AnimatePresence custom={dir} mode="popLayout" initial={false}>
-          <motion.div
-            key={idx}
-            custom={dir}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0 z-10"
-          >
-            {/* Image with hover zoom */}
-            <motion.div
-              className="absolute inset-0"
-              animate={{ scale: hovered ? 1.06 : 1 }}
-              transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
-            >
-              <Image
-                src={SLIDES[idx].src}
-                alt={SLIDES[idx].alt}
-                fill
-                className="object-cover"
-                priority={idx === 0}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </motion.div>
+    <div
+      className="relative overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)]"
+      style={{ aspectRatio: "16/9" }}
+    >
+      <video
+        ref={videoRef}
+        src={HERO_VIDEO_SRC}
+        className="absolute inset-0 h-full w-full object-cover"
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
 
-            {/* Bottom scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+      {/* Bottom scrim */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
 
-            {/* Caption badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.4 }}
-              className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-md"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <span className="text-xs font-medium text-white">{SLIDES[idx].label}</span>
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Thumbnail strip- bottom-right */}
-        <div className="absolute bottom-4 right-4 z-20 flex items-center gap-2">
-          {SLIDES.map((s, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Show ${s.label}`}
-              className="relative overflow-hidden rounded-lg border-2 transition-all duration-300"
-              style={{
-                width:  i === idx ? 44 : 32,
-                height: i === idx ? 32 : 22,
-                borderColor: i === idx ? "rgba(99,179,237,0.9)" : "rgba(255,255,255,0.2)",
-                opacity: i === idx ? 1 : 0.55,
-              }}
-            >
-              <Image src={s.src} alt={s.alt} fill className="object-cover" sizes="44px" priority={i === 0} />
-            </button>
-          ))}
-        </div>
-
-        {/* Progress bar- pauses on hover */}
-        {!rm && (
-          <div className="absolute bottom-0 left-0 right-0 z-20 h-[2px] bg-white/10">
-            <motion.div
-              key={`${idx}-${hovered}`}
-              className="h-full bg-kio-accent"
-              initial={{ width: "0%" }}
-              animate={{ width: hovered ? undefined : "100%" }}
-              transition={{ duration: 4.5, ease: "linear" }}
-            />
-          </div>
-        )}
-      </div>
-
-      {/* Stat pills */}
-      <div className="flex gap-3">
-        {STAT_PILLS.map(({ num, lbl }, i) => (
-          <motion.div
-            key={lbl}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 rounded-xl border border-kio-line bg-kio-bg-soft p-3 text-center"
-          >
-            <div className="text-xl font-extrabold text-gradient">{num}</div>
-            <div className="mt-0.5 text-[.68rem] text-kio-muted">{lbl}</div>
-          </motion.div>
-        ))}
+      {/* Caption badge */}
+      <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-md">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        <span className="text-xs font-medium text-white">Live Product Demo</span>
       </div>
     </div>
   );
@@ -247,35 +133,26 @@ export function HeroBanner() {
 
         {/* LEFT: copy */}
         <div>
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-kio-accent2/30 bg-kio-accent2/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-kio-accent2"
-          >
-            <motion.span
-              className="h-2 w-2 rounded-full bg-kio-accent2"
-              animate={rm ? {} : { scale: [1, 1.4, 1], opacity: [1, 0.4, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-            Hospitality Technology
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-2xl font-black leading-[1.3] text-kio-ink sm:text-4xl md:text-5xl xl:text-5xl"
+            className="text-2xl font-black leading-[1.3] text-kio-ink sm:text-5xl md:text-5xl lg:text-5xl"
           >
             {/* Line 1 */}
             <span className="block whitespace-nowrap">Kiosist Delivers Hospitality</span>
 
-            {/* Line 2- Powered by [word] on one line, no layout shift */}
-            <span className="block mt-1 whitespace-nowrap">
+            {/* Line 2- Powered by [word]. Kept nowrap from sm: up, where
+                there's enough width even for the longest cycling word
+                ("Professionalism."); left free to wrap below that so a long
+                word degrades to a second line instead of overflowing- the
+                fixed-width reservation was tuned for ~11-char words and
+                doesn't cover 16-char ones, so it's sized to content instead
+                of a hard minWidth. */}
+            <span className="block mt-1 whitespace-normal sm:whitespace-nowrap">
               <span className="text-kio-muted/60 font-semibold">Powered by </span>
-              <span className="inline-block" style={{ minWidth: "7em" }}>
+              <span className="inline-block">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={CYCLING_WORDS[wordIdx]}
@@ -299,13 +176,7 @@ export function HeroBanner() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="mt-9 flex flex-wrap gap-4"
           >
-            <Link href="/career#apply" className="btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-              Join Us
-            </Link>
-            <Link href="/culture" className="btn-secondary">
+            <Link href="/culture" className="btn-primary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
               </svg>
@@ -315,14 +186,14 @@ export function HeroBanner() {
 
         </div>
 
-        {/* RIGHT: animated image slideshow */}
+        {/* RIGHT: looping product demo video */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          <HeroSlider rm={rm} />
+          <HeroVideo rm={rm} />
         </motion.div>
       </div>
 

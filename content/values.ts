@@ -2,38 +2,32 @@ export type Value = {
   id: string;
   title: string;
   body: string;
-  image: string;
+  icon: "award" | "lightbulb" | "users" | "trending-up";
 };
 
 export const values: Value[] = [
   {
     id: "v-1",
-    title: "Guest-First Thinking",
-    body: "Every decision we make starts with one question: how does this improve the guest's experience?",
-    image: "/img/about/perks/guest.webp",
+    title: "Excellence",
+    body: "We hold ourselves to the highest standard in every guest interaction, every shift, every time.",
+    icon: "award",
   },
   {
     id: "v-2",
-    title: "Reliability Around the Clock",
-    body: "We don't take nights off. Our team is trained and equipped to handle any situation, any hour.",
-    image: "/img/about/perks/reliability.webp",
+    title: "Innovation",
+    body: "We're always refining our systems, tools, and training to serve smarter, not just harder.",
+    icon: "lightbulb",
   },
   {
     id: "v-3",
-    title: "Operational Rigor",
-    body: "Checklists, SLAs, and escalation paths - we build structure so nothing falls through the cracks.",
-    image: "/img/about/perks/operational-rigor.webp",
+    title: "Team Work",
+    body: "Agents, ops, and leadership move as one- great outcomes come from working together.",
+    icon: "users",
   },
   {
     id: "v-4",
-    title: "Cultural Fluency",
-    body: "Serving guests across the USA from Surat demands cultural sensitivity and clear communication.",
-    image: "/img/about/perks/cultural-fluency.webp",
-  },
-  {
-    id: "v-5",
-    title: "Care for Our Team",
-    body: "Happy agents make happy guests. We invest in training, wellness, and recognition for every team member.",
-    image: "/img/about/perks/care-for-our-team.webp",
+    title: "Betterment",
+    body: "We invest in growth- for our people, our process, and every guest we serve.",
+    icon: "trending-up",
   },
 ];

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ResumeForm } from "@/components/career/ResumeForm";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
-import { staggerParent, staggerChild } from "@/lib/motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -20,21 +19,19 @@ const CONTACT_CARDS = [
     title: "Email Us",
     value: "hr@kiosist.com",
     href: "mailto:hr@kiosist.com",
-    detail: "We reply within 24 hours",
   },
   {
     Icon: Phone,
     title: "Contact Us",
     value: "+91 98254 00070",
     href: "tel:+919825400070",
-    detail: "Mon–Sat, 10am–7pm IST",
   },
   {
     Icon: MapPin,
     title: "Visit Us",
-    value: "Parle Point, Surat",
+    value:
+      "Shop No. 1, Platinum Plaza, Shaheed Veer Bhagat Singh Flyover Brg, opp. V.T. Choksi College, Ambika Niketan, Athwa, Surat, Gujarat 395007",
     href: "https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA",
-    detail: "Gujarat 395007, India",
   },
 ];
 
@@ -45,7 +42,7 @@ export default function Contact() {
         <div className="container-kio text-center">
           <RevealOnScroll>
             <h1 className="mt-3 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-              Let&apos;s talk about your hotel.
+              Reach Us
             </h1>
           </RevealOnScroll>
         </div>
@@ -70,7 +67,6 @@ export default function Contact() {
                 <p className="mt-1 font-semibold text-kio-accent transition-colors group-hover:text-kio-accent2">
                   {c.value}
                 </p>
-                <p className="mt-1 text-xs text-kio-muted">{c.detail}</p>
               </a>
             ))}
           </div>
@@ -79,32 +75,6 @@ export default function Contact() {
 
       {/* Job application form */}
       <ResumeForm />
-
-      {/* Our office / Map */}
-      <section className="section-pad bg-kio-bg">
-        <div className="container-kio">
-          <div className="mx-auto max-w-2xl">
-            <RevealOnScroll>
-              <h2 className="text-2xl font-bold text-kio-ink">Our office</h2>
-              <p className="mt-2 text-kio-muted">
-                Parle Point, Surat, Gujarat 395007, India
-              </p>
-            </RevealOnScroll>
-            <div className="mt-8 overflow-hidden rounded-2xl shadow-lg">
-              <iframe
-                title="Kiosist Office Location"
-                src="https://www.google.com/maps?q=21.1775001,72.7962931&z=16&output=embed"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

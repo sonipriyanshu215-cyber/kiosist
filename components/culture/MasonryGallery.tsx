@@ -26,17 +26,29 @@ const GALLERY = [
   { src: "/img/culture/event-1.jpg", alt: "Festival Celebration" },
 ];
 
+const TABS = [
+  "All",
+  "Office space",
+  "Training Session",
+  "Team",
+  "Festival Celebration",
+  "Fun Friday",
+  "Office Outings",
+] as const;
+
 export function MasonryGallery({ existingAssets = [] }: { existingAssets?: string[] }) {
   const [index, setIndex] = useState(-1);
+  const [tab, setTab] = useState<(typeof TABS)[number]>("All");
   const reducedMotion = useReducedMotion();
   const existing = new Set(existingAssets);
+  const filtered = tab === "All" ? GALLERY : GALLERY.filter((img) => img.alt === tab);
 
   return (
     <section className="section-pad bg-kio-bg">
       <div className="container-kio">
-        <RevealOnScroll className="mb-14 text-center">
-          <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-            More Than a Job. A Career That Welcomes the World.
+        <RevealOnScroll className="mb-10 text-center">
+          <h2 className="mt-3 text-3xl font-bold text-gradient-gold md:text-4xl">
+            Kiosist Gallery
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-kio-muted">
             At Kiosist, every conversation creates a lasting impression. Join us and make
@@ -44,14 +56,33 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
           </p>
         </RevealOnScroll>
 
+        {/* Tabs */}
+        <div className="mb-10 flex flex-wrap justify-center gap-2.5">
+          {TABS.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTab(t)}
+              className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                tab === t
+                  ? "border-kio-accent bg-kio-accent/15 text-kio-accent"
+                  : "border-kio-line text-kio-muted hover:border-kio-accent/40 hover:text-kio-ink"
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+
         <motion.div
+          key={tab}
           variants={staggerParent}
           initial={reducedMotion ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
           className="columns-2 gap-4 sm:columns-3 lg:columns-4"
         >
-          {GALLERY.map((img, i) => {
+          {filtered.map((img, i) => {
             const hasPhoto = existing.has(img.src.split("/").pop()!);
             return (
             <motion.div
@@ -103,7 +134,7 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
           open={index >= 0}
           index={index}
           close={() => setIndex(-1)}
-          slides={GALLERY.map((img) => ({ src: img.src, alt: img.alt }))}
+          slides={filtered.map((img) => ({ src: img.src, alt: img.alt }))}
         />
       </div>
     </section>

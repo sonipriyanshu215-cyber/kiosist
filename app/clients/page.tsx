@@ -21,7 +21,7 @@ export default function Clients() {
         <USAClientMap clients={clients} />
       </div>
       <BrandStrip />
-      <StatCounter />
+      <StatCounter compact />
     </>
   );
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 // Exactly 3 default slides for a clean, classic presentation
 const DEFAULT_SLIDES = [
@@ -71,20 +72,24 @@ export function AnimatedCultureSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Tagline */}
+      {/* Tagline- plain div owns the centering transform (-translate-x-1/2);
+          RevealOnScroll's own y-transform would otherwise clobber it, since
+          framer-motion writes its animated transform inline. */}
       <div className="absolute bottom-24 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center">
-        <h1
-          className="font-black text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]"
-          style={{ fontSize: "clamp(28px, 6vw, 64px)" }}
-        >
-          Culture Beyond the Workspace
-        </h1>
-        <h2
-          className="text-gradient mt-3 whitespace-nowrap font-bold [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
-          style={{ fontSize: "clamp(11px, 2.9vw, 24px)" }}
-        >
-          Built by People. Driven by Purpose. United by Hospitality.
-        </h2>
+        <RevealOnScroll>
+          <h1
+            className="font-black text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]"
+            style={{ fontSize: "clamp(28px, 6vw, 64px)" }}
+          >
+            Culture Beyond the Workspace
+          </h1>
+          <h2
+            className="text-gradient mt-3 whitespace-nowrap font-bold [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
+            style={{ fontSize: "clamp(11px, 2.9vw, 24px)" }}
+          >
+            Built by People. Driven by Purpose. United by Hospitality.
+          </h2>
+        </RevealOnScroll>
       </div>
 
       {/* Navigation Indicator Dots */}

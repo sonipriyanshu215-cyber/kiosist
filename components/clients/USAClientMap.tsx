@@ -101,7 +101,12 @@ export function USAClientMap({ clients }: USAClientMapProps) {
                   latitude={c.coordinates[1]}
                   anchor="center"
                 >
-                  <PinWithPulse delay={i * 0.12} />
+                  <div className="relative">
+                    <PinWithPulse delay={i * 0.12} />
+                    <span className="absolute left-1/2 top-full mt-0.5 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#060a18]/85 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm ring-1 ring-[#3b82f6]/30">
+                      {c.state}
+                    </span>
+                  </div>
                 </Marker>
               ))}
             </Map>

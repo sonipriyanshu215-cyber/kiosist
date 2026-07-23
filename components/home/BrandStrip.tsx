@@ -1,5 +1,7 @@
 "use client";
 
+import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+
 const ROW1 = [
   { src: "/img/logos/Americas_Best_Value_Inn_Logo.png", alt: "Americas Best Value Inn & Suites" },
   { src: "/img/logos/Baymont Logo.png",                 alt: "Baymont by Wyndham"              },
@@ -54,12 +56,11 @@ export function BrandStrip() {
     <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
 
       {/* Tagline above heading */}
-      <div className="mb-10 text-center">
-        <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-kio-ink">
-          Trusted by Hotel Brands.{" "}
-          <span className="text-color-cycle">Loved by Their Guests.</span>
+      <RevealOnScroll className="mb-10 text-center">
+        <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-gradient-gold">
+          Trusted by Hotel Brands.
         </p>
-      </div>
+      </RevealOnScroll>
 
       {/* Left fade mask */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32"
@@ -68,23 +69,25 @@ export function BrandStrip() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32"
         style={{ background: "linear-gradient(to left, #0d1117, transparent)" }} />
 
-      {/* Row 1 - scrolls left */}
-      <div className="overflow-hidden mb-14">
-        <div className="marquee-track flex w-max items-center gap-10 px-10">
-          {[...ROW1, ...ROW1].map((logo, i) => (
-            <LogoItem key={i} {...logo} />
-          ))}
+      <RevealOnScroll delay={0.12}>
+        {/* Row 1 - scrolls left */}
+        <div className="overflow-hidden mb-14">
+          <div className="marquee-track flex w-max items-center gap-10 px-10">
+            {[...ROW1, ...ROW1].map((logo, i) => (
+              <LogoItem key={i} {...logo} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Row 2 - scrolls right */}
-      <div className="overflow-hidden">
-        <div className="marquee-track-reverse flex w-max items-center gap-10 px-10">
-          {[...ROW2, ...ROW2].map((logo, i) => (
-            <LogoItem key={i} {...logo} />
-          ))}
+        {/* Row 2 - scrolls right */}
+        <div className="overflow-hidden">
+          <div className="marquee-track-reverse flex w-max items-center gap-10 px-10">
+            {[...ROW2, ...ROW2].map((logo, i) => (
+              <LogoItem key={i} {...logo} />
+            ))}
+          </div>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   );
 }

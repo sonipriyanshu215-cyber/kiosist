@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
-const HEADING = "Our Mission is to provide hassle-free, cost-effective, and unique front desk assistance, creating memorable stays for every guest who walks through the hotel door.";
+const HEADING = "To provide hassle-free, cost-effective, and unique front desk assistance, creating memorable stays for every guest who walks through the hotel doors.";
 
 const wordVariants: Variants = {
   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
@@ -52,8 +52,8 @@ export function MissionBlock() {
             Our Mission and <span className="text-gradient-shimmer">Vision</span>
           </h2>
           <p className="mt-4 text-[.95rem] leading-[1.8] text-white/70">
-            A shared purpose that drives our long term vision and the action we take
-            everyday to achieve it.
+            A shared purpose that drives our long-term vision and the actions we take
+            every day to achieve it.
           </p>
         </RevealOnScroll>
 
@@ -61,6 +61,10 @@ export function MissionBlock() {
 
           {/* Text column */}
           <div className="text-center lg:flex-1">
+            <span className="text-xs font-bold uppercase tracking-[.15em] text-kio-accent2">
+              Mission
+            </span>
+
             {/* Word-by-word heading reveal */}
             <motion.h2
               variants={{

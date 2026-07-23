@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Upload, CheckCircle, ChevronRight, ChevronLeft, Check } from "lucide-react";
 import { staggerChild } from "@/lib/motion";
@@ -92,12 +93,13 @@ export function ResumeForm() {
       />
 
       <div className="container-kio relative z-10">
-        <div className="mx-auto max-w-2xl">
-          <RevealOnScroll className="mb-10 text-center">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.75fr]">
+        <div className="mx-auto w-full max-w-2xl lg:mx-0">
+          <RevealOnScroll className="mb-10 text-center lg:text-left">
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
               Join us at <span className="text-gradient">Kiosist</span>
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-kio-muted">
+            <p className="mx-auto mt-3 max-w-md text-kio-muted lg:mx-0">
               Four short steps. No cover letter required- just tell us about you.
             </p>
           </RevealOnScroll>
@@ -408,6 +410,31 @@ export function ResumeForm() {
               </form>
             </>
           )}
+        </div>
+
+        {/* Mascot image- desktop only, mirrors the site's recurring 3D-illustrated agent */}
+        <RevealOnScroll className="hidden justify-self-center lg:flex">
+          <motion.div
+            className="relative w-full max-w-[340px]"
+            animate={rm ? {} : { y: [0, -12, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <motion.div
+              aria-hidden="true"
+              className="absolute inset-x-[10%] bottom-4 -z-10 aspect-square rounded-full opacity-40 blur-2xl"
+              style={{ background: "radial-gradient(circle, var(--kio-accent), var(--kio-accent2) 70%, transparent 100%)" }}
+              animate={rm ? {} : { scale: [1, 1.15, 1], opacity: [0.4, 0.55, 0.4] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <Image
+              src="/img/hero/concierge.png"
+              alt="A Kiosist front desk agent ready to welcome your application"
+              width={1024}
+              height={1024}
+              className="h-auto w-full drop-shadow-[0_20px_30px_rgba(0,0,0,0.25)]"
+            />
+          </motion.div>
+        </RevealOnScroll>
         </div>
       </div>
     </section>

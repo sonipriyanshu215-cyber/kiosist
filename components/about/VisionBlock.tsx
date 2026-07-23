@@ -6,7 +6,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const TEXT =
-  "Our Vision is to redfeine the the future of hospitality by combining exceptional people with innovative technology to create unforgettable guest experience .";
+  "To redefine the future of hospitality by combining exceptional people with innovative technology to create unforgettable guest experiences.";
 
 const wordVariants: Variants = {
   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
@@ -70,6 +70,10 @@ export function VisionBlock() {
 
           {/* Text column */}
           <div className="text-center lg:flex-1">
+            <span className="text-xs font-bold uppercase tracking-[.15em] text-kio-accent2">
+              Vision
+            </span>
+
             {/* Word-by-word reveal- matches MissionBlock's heading treatment */}
             <motion.p
               variants={{
@@ -79,7 +83,7 @@ export function VisionBlock() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mx-auto max-w-none text-xl font-bold leading-relaxed text-white md:text-2xl"
+              className="mx-auto mt-4 max-w-none text-xl font-bold leading-relaxed text-white md:text-2xl"
             >
               {TEXT.split(" ").map((word, i) => (
                 <Fragment key={i}>

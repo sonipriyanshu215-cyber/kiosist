@@ -21,10 +21,10 @@ const ACCENTS = [
 const TEAM = [
   { name: "Henal Dalal",    role: "Founder",                           img: "/img/team/ceo.webp",   tag: "Leadership", pos: "object-top" },
   { name: "Vinit Patel", role: "CEO",                                  img: "/img/team/t2.webp",   tag: "Operations"  },
-  { name: "Bhavin Dalal", role: "Founder",                             img: "/img/team/t3.webp",   tag: "Front Desk"  },
-  { name: "Parshav Shah",  role: " Assitant General Manager",          img: "/img/team/t4.webp",   tag: "Training"    },
+  { name: "Bhavin Dalal", role: "Founder",                             img: "/img/team/t6.webp",   tag: "Front Desk"  },
+  { name: "Parshav Shah",  role: "Assistant General Manager",          img: "/img/team/t4.webp",   tag: "Training"    },
   { name: "Sourabh Patil",  role: "Team Leader",                       img: "/img/team/t5.webp",   tag: "Front Desk"  },
-  { name: "Smeeta Rawal",role: "Team Leader",                          img: "/img/team/t6.webp",   tag: "Front Desk"  },
+  { name: "Smeeta Rawal",role: "Team Leader",                          img: "/img/team/t3.webp",   tag: "Front Desk"  },
   ];
 
 type TeamMember = typeof TEAM[0];
@@ -224,8 +224,7 @@ export function TeamMosaic() {
         {/* Heading */}
         <RevealOnScroll className="mb-16 text-center">
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
-            Faces behind{" "}
-            <span className="text-gradient">the front desk</span>
+            Meet the <span className="text-gradient">Expert</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-kio-muted">
             150+ trained virtual agents ready to represent your property, every hour of the day.

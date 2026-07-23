@@ -54,7 +54,7 @@ export function WhatIsKiosist() {
           </h3>
 
           <p className="mt-2 text-[clamp(1rem,1.8vw,1.25rem)] font-semibold italic text-kio-muted">
-            Welcome to our world-class team of Front Desk Executives where we serve multiple hotels in the USA.
+            Where Every Hello Becomes a Story.
           </p>
 
           <div

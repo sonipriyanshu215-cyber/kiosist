@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
+const SERVICE_COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"];
+
 /* ── What We Do services ── */
 const SERVICES = [
   {
-    label: "Manage check-in and check-out",
+    label: "Manage check-in & check-out",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -74,10 +76,10 @@ export function AboutIntro() {
           style={{ background: "linear-gradient(to bottom, transparent 30%, #0d1117 100%)" }} />
       </div>
 
-      {/* ── Hero- two clean panels: text left, photo right, card docked at the bottom ── */}
+      {/* ── Hero- two clean panels: text left, photo right- true full screen ── */}
       <section className="relative flex min-h-screen flex-col overflow-hidden">
 
-        {/* ── Top area: text + photo panels ── */}
+        {/* ── Text + photo panels ── */}
         <div className="relative flex-1 lg:flex">
 
           {/* ── Left panel: content ── */}
@@ -85,7 +87,7 @@ export function AboutIntro() {
             initial={{ opacity: 0, x: -28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 flex min-h-[42vh] flex-col justify-center bg-black px-6 pb-10 pt-10 lg:min-h-full lg:w-1/2 lg:pt-32 lg:px-14 xl:px-20"
+            className="relative z-10 flex min-h-[70vh] flex-col justify-center bg-black px-6 pb-16 pt-10 lg:min-h-full lg:w-1/2 lg:pt-32 lg:px-14 xl:px-20"
           >
             {/* Headline */}
             <h1 className="text-3xl font-black leading-[1.08] text-white md:text-4xl lg:text-5xl">
@@ -108,7 +110,7 @@ export function AboutIntro() {
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="relative hidden min-h-[42vh] lg:absolute lg:inset-y-0 lg:right-0 lg:z-20 lg:block lg:w-[calc(50%+4rem)]"
+            className="relative hidden min-h-[70vh] lg:absolute lg:inset-y-0 lg:right-0 lg:z-20 lg:block lg:w-[calc(50%+4rem)]"
             style={{
     WebkitMaskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
     maskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
@@ -157,27 +159,38 @@ export function AboutIntro() {
           />
           </motion.div>
         </div>
+      </section>
 
-        {/* What We Do card- normal document flow, sits below the top area so it never overlaps content */}
+      {/* ── What We Do- its own block below the full-screen hero ── */}
+      <section className="bg-black px-6 py-16 md:px-10 lg:px-14 lg:py-20 xl:px-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-30 mx-6 mb-6 rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur-md md:mx-10 md:mb-8 md:p-7 lg:mx-14 lg:mb-10 xl:mx-20"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md md:p-7"
         >
           <h3 className="mb-5 text-sm font-bold uppercase tracking-wider text-[#60a5fa] md:text-base">
             What We Do
           </h3>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-6">
-            {SERVICES.map((s) => (
-              <div
-                key={s.label}
-                className="flex flex-col items-center gap-3 rounded-xl p-3 text-center transition-colors hover:bg-[#3b82f6]/5"
-              >
-                <div className="text-[#60a5fa] [&>svg]:h-9 [&>svg]:w-9 md:[&>svg]:h-10 md:[&>svg]:w-10">{s.icon}</div>
-                <p className="text-xs leading-[1.5] text-white/60 md:text-sm">{s.label}</p>
-              </div>
-            ))}
+            {SERVICES.map((s, i) => {
+              const color = SERVICE_COLORS[i % SERVICE_COLORS.length];
+              return (
+                <div
+                  key={s.label}
+                  className="group relative flex flex-col items-center gap-3 rounded-xl p-3 text-center"
+                >
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{ background: `${color}12` }}
+                  />
+                  <div style={{ color }} className="relative [&>svg]:h-9 [&>svg]:w-9 md:[&>svg]:h-10 md:[&>svg]:w-10">{s.icon}</div>
+                  <p className="relative text-balance text-xs leading-[1.5] text-white/60 md:text-sm">{s.label}</p>
+                </div>
+              );
+            })}
           </div>
         </motion.div>
       </section>

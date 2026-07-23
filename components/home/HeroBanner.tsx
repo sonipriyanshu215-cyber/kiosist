@@ -63,12 +63,6 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
 
       {/* Bottom scrim */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-
-      {/* Caption badge */}
-      <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-md">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        <span className="text-xs font-medium text-white">Live Product Demo</span>
-      </div>
     </div>
   );
 }

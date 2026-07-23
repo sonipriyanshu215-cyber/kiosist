@@ -13,7 +13,7 @@ const REASONS = [
   {
     title: "Modern Workspace",
     body: "Work from a sleek, tech-enabled office equipped with multi-monitor setups and the latest tools to help you perform at your best.",
-    image: "/img/culture/office-1.png",
+    image: "/img/culture/team-meeting-1.png",
     color: "#06b6d4",
   },
   {
@@ -50,12 +50,9 @@ function Photo({ title, image, color, priority }: { title: string; image: string
   );
 }
 
-function Details({ title, body, color, index, total }: { title: string; body: string; color: string; index: number; total: number }) {
+function Details({ title, body }: { title: string; body: string }) {
   return (
     <div>
-      <p className="mb-4 font-mono text-xs font-bold tracking-widest" style={{ color }}>
-        {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-      </p>
       <h3 className="mb-3 text-2xl font-bold leading-snug text-kio-ink md:text-[1.7rem]">
         {title}
       </h3>
@@ -94,13 +91,13 @@ export function WhyChooseKiosist() {
               <div className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
                 {reversed ? (
                   <>
-                    <Details title={r.title} body={r.body} color={r.color} index={i} total={REASONS.length} />
+                    <Details title={r.title} body={r.body} />
                     <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
                   </>
                 ) : (
                   <>
                     <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
-                    <Details title={r.title} body={r.body} color={r.color} index={i} total={REASONS.length} />
+                    <Details title={r.title} body={r.body} />
                   </>
                 )}
               </div>

@@ -87,10 +87,10 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
       // kiosk screen it used to sit on), so "screen" blend needs richer
       // stops to read clearly rather than washing out against near-black.
       const grad = ctx.createLinearGradient(cam.x, cam.y, target.x, target.y);
-      grad.addColorStop(0, "rgba(220, 255, 255, 0.95)");
-      grad.addColorStop(0.3, "rgba(0, 230, 255, 0.65)");
-      grad.addColorStop(0.7, "rgba(0, 170, 255, 0.4)");
-      grad.addColorStop(1, "rgba(0, 130, 255, 0.05)");
+      grad.addColorStop(0, "rgba(224, 247, 255, 0.95)");
+      grad.addColorStop(0.3, "rgba(6, 182, 212, 0.65)");
+      grad.addColorStop(0.7, "rgba(59, 130, 246, 0.4)");
+      grad.addColorStop(1, "rgba(59, 130, 246, 0.05)");
 
       ctx.filter = "blur(3px)";
       ctx.fillStyle = grad;
@@ -104,8 +104,8 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
       // Soft landing glow where the beam meets the agent's screen.
       const landing = ctx.createRadialGradient(target.x, target.y, 0, target.x, target.y, 60);
-      landing.addColorStop(0, "rgba(200, 255, 255, 0.55)");
-      landing.addColorStop(1, "rgba(0, 200, 255, 0)");
+      landing.addColorStop(0, "rgba(224, 247, 255, 0.55)");
+      landing.addColorStop(1, "rgba(6, 182, 212, 0)");
       ctx.fillStyle = landing;
       ctx.beginPath();
       ctx.arc(target.x, target.y, 60, 0, Math.PI * 2);
@@ -254,7 +254,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           transform: translateX(-50%);
           width: 130px;
           height: 24px;
-          background: radial-gradient(ellipse at center, rgba(0, 243, 255, 0.6) 0%, rgba(0, 243, 255, 0) 72%);
+          background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.6) 0%, rgba(59, 130, 246, 0) 72%);
           filter: blur(6px);
           z-index: 1;
         }
@@ -341,7 +341,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           bottom: -6px;
           height: 40px;
           border-radius: 50%;
-          background: radial-gradient(ellipse, rgba(0, 243, 255, 0.55) 0%, rgba(0, 102, 255, 0.2) 60%, transparent 80%);
+          background: radial-gradient(ellipse, rgba(6, 182, 212, 0.55) 0%, rgba(59, 130, 246, 0.2) 60%, transparent 80%);
           filter: blur(10px);
           z-index: -2;
           animation: pulse-glow 2.4s ease-in-out infinite;
@@ -355,8 +355,8 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           inset: 0;
           border-radius: 16px;
           overflow: hidden;
-          border: 2px solid rgba(0, 243, 255, 0.5);
-          box-shadow: 0 0 22px rgba(0, 243, 255, 0.35), 0 14px 30px rgba(0, 0, 0, 0.5);
+          border: 2px solid rgba(59, 130, 246, 0.5);
+          box-shadow: 0 0 22px rgba(59, 130, 246, 0.35), 0 14px 30px rgba(0, 0, 0, 0.5);
         }
 
         .agent-video {
@@ -378,7 +378,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           height: 28px;
           border-radius: 50%;
           background: rgba(8, 20, 30, 0.8);
-          border: 1px solid rgba(0, 243, 255, 0.5);
+          border: 1px solid rgba(59, 130, 246, 0.5);
           color: #eafeff;
           cursor: pointer;
           opacity: 0;
@@ -388,7 +388,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
         .agent-sound-btn:hover {
           transform: scale(1.1);
-          background: rgba(0, 243, 255, 0.25);
+          background: rgba(59, 130, 246, 0.25);
         }
 
         /* Pops in above the agent once it finishes arriving, as if greeting the guest */
@@ -398,13 +398,13 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           top: -14%;
           white-space: nowrap;
           background: rgba(8, 20, 30, 0.9);
-          border: 1px solid rgba(0, 243, 255, 0.45);
+          border: 1px solid rgba(59, 130, 246, 0.45);
           color: #eafeff;
           font-size: 0.85rem;
           font-weight: 700;
           padding: 8px 16px;
           border-radius: 14px;
-          box-shadow: 0 0 18px rgba(0, 243, 255, 0.25);
+          box-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
           opacity: 0;
           transform: translateX(-50%) scale(0.5);
           transform-origin: center bottom;
@@ -422,7 +422,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           height: 0;
           border-left: 6px solid transparent;
           border-right: 6px solid transparent;
-          border-top: 7px solid rgba(0, 243, 255, 0.45);
+          border-top: 7px solid rgba(59, 130, 246, 0.45);
         }
 
         /* --- EXPLORE CTA --- */

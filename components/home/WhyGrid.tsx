@@ -3,36 +3,37 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Languages, Handshake, Sprout, Laptop, Clock, Hotel, type LucideIcon } from "lucide-react";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
-const FEATURES = [
+const FEATURES: { icon: LucideIcon; title: string; body: string }[] = [
   {
-    icon: "🗣️",
+    icon: Languages,
     title: "Fluency in English",
     body: "Possesses complete fluency in English, ensuring clear, persuasive, and effective communication across all business contexts, from everyday correspondence to high-level negotiations.",
   },
   {
-    icon: "🤝",
+    icon: Handshake,
     title: "Strong Customer Service Skills",
     body: "Delivers warm, attentive, and solution-oriented service that turns every guest interaction into a positive experience, even under pressure.",
   },
   {
-    icon: "🌱",
+    icon: Sprout,
     title: "Willingness to Learn",
     body: "Approaches new tools, processes, and feedback with an open mind- committed to growing and improving on the job.",
   },
   {
-    icon: "💻",
+    icon: Laptop,
     title: "Tech Friendly",
     body: "Comfortable navigating computers, kiosks, and property management software, quickly adapting to new digital tools as they're introduced.",
   },
   {
-    icon: "🕒",
+    icon: Clock,
     title: "Rotational Shifts",
-    body: "Available to work flexible, rotating shifts- including nights, weekends, and holidays- to keep the front desk covered around the clock.",
+    body: "Available to work flexible, rotating shifts- including nights- to keep the front desk covered around the clock.",
   },
   {
-    icon: "🏨",
+    icon: Hotel,
     title: "Prior Experience",
     body: "Hospitality experience is needed, but freshers are also welcome to apply.",
   },
@@ -69,6 +70,7 @@ export function WhyGrid() {
   }, [rm]);
 
   const color = COLORS[active];
+  const ActiveIcon = FEATURES[active].icon;
 
   return (
     <section id="features" className="section-pad relative overflow-hidden">
@@ -192,7 +194,7 @@ export function WhyGrid() {
                 src="/img/kiosist-logo-k.png"
                 alt="Kiosist"
                 fill
-                className="object-contain"
+                className="object-contain brightness-0 invert"
                 sizes="120px"
               />
             </div>
@@ -224,7 +226,11 @@ export function WhyGrid() {
                 transition={{ type: "spring", stiffness: 420, damping: 24 }}
                 onClick={() => setActive(i)}
               >
-                <span className="select-none text-[clamp(0.9rem,3.2%,1.4rem)]">{f.icon}</span>
+                <f.icon
+                  className="h-[45%] w-[45%]"
+                  style={{ color: isAct ? clr : "rgba(99,179,237,0.5)" }}
+                  strokeWidth={1.75}
+                />
               </motion.button>
             );
           })}
@@ -266,10 +272,10 @@ export function WhyGrid() {
 
               {/* Icon badge */}
               <div
-                className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl text-2xl"
+                className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
                 style={{ background: `${color}18`, border: `1px solid ${color}38` }}
               >
-                {FEATURES[active].icon}
+                <ActiveIcon className="h-7 w-7" style={{ color }} strokeWidth={1.75} />
               </div>
 
               {/* Title */}

@@ -8,7 +8,7 @@ const FOOTER_COLS = [
       { href: "/about",     label: "About Us" },
 
       { href: "/clients",   label: "Clients" },
-      { href: "/career",    label: "Carrer" },
+      { href: "/career",    label: "Career" },
       { href: "/culture",   label: "Culture" },
       { href: "/contact",   label: "Contact Us" },
       
@@ -90,10 +90,6 @@ export function Footer() {
                 </a>
               ))}
             </div>
-            <p className="mt-4 max-w-[360px] text-[.875rem] leading-[1.6] text-kio-muted">
-              Smart self-service kiosk solutions for the modern hospitality industry.
-              Saving hotels thousands while elevating the guest experience.
-            </p>
           </div>
 
           {/* Columns */}

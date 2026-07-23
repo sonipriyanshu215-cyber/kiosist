@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
+  { href: "/",            label: "Home" },
   { href: "/about",      label: "About" },
   { href: "/clients",    label: "Clients" },
   { href: "/career",     label: "Career" },

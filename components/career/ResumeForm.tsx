@@ -97,7 +97,7 @@ export function ResumeForm() {
         <div className="mx-auto w-full max-w-2xl lg:mx-0">
           <RevealOnScroll className="mb-10 text-center lg:text-left">
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-              Join us at <span className="text-gradient">Kiosist</span>
+              Want To Make Career In <span className="text-gradient">Hospitality</span>? Join Us Now.
             </h2>
             <p className="mx-auto mt-3 max-w-md text-kio-muted lg:mx-0">
               Four short steps. No cover letter required- just tell us about you.
@@ -123,7 +123,7 @@ export function ResumeForm() {
                 transition={{ delay: 0.2 }}
                 className="mt-6 text-2xl font-bold text-kio-ink"
               >
-                Application received!
+                Application Received!
               </motion.h3>
               <p className="mt-3 max-w-sm px-6 text-kio-muted">
                 We&apos;ll review your application and be in touch within 2–3 business days.

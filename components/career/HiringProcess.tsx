@@ -64,7 +64,7 @@ export function HiringProcess() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mb-16 text-center">
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-            How you <span className="text-color-cycle">get hired.</span>
+            How You <span className="text-color-cycle">Get Hired.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-kio-muted">
             Five clear steps. Most candidates go live within two weeks of applying.

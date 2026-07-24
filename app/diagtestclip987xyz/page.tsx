@@ -31,7 +31,7 @@ export default function DiagTestClip() {
             </defs>
           </svg>
           <Image
-            src="/img/about/agent-workstation.webp"
+            src="/img/about/agent-workstation-2.jpeg"
             alt="test"
             fill
             className="object-cover object-center"

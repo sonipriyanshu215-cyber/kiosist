@@ -39,7 +39,7 @@ export function HowItWorks() {
       {/* Head */}
       <RevealOnScroll className="container-kio relative z-10 mb-16 mx-auto max-w-[560px] text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-          Up &amp; Running in<br />
+          Up &amp; Running In<br />
           <span className="text-gradient">3 Easy Steps</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">

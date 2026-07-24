@@ -49,7 +49,7 @@ export function MissionBlock() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-white">
-            Our Mission and <span className="text-gradient-shimmer">Vision</span>
+            Our Mission And <span className="text-gradient-shimmer">Vision</span>
           </h2>
           <p className="mt-4 text-[.95rem] leading-[1.8] text-white/70">
             A shared purpose that drives our long-term vision and the actions we take
@@ -112,11 +112,11 @@ export function MissionBlock() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
               <Image
-                src="/img/about/mission-1.png"
+                src="/img/about/Mission.png"
                 alt="Mission - target hit atop a mountain, flanked by a flag and compass"
-                width={2000}
-                height={1889}
-                className="relative h-full w-full object-contain"
+                width={1024}
+                height={1024}
+                className="relative h-full w-full rounded-3xl object-cover"
                 priority
               />
             </motion.div>

@@ -43,9 +43,9 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 export function StatCounter({ compact = false }: { compact?: boolean }) {
   return (
     <section className={compact ? "pt-16 pb-8 md:pt-20 md:pb-10 lg:pt-24 lg:pb-12" : "section-pad"}>
-      <RevealOnScroll className="mb-10 text-center px-6">
+      <RevealOnScroll className="mb-6 text-center px-6">
         <h2 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold text-kio-ink">
-          Every Number <span className="text-color-cycle">Tells a Story.</span>
+          Every Number <span className="text-color-cycle">Tells A Story.</span>
         </h2>
       </RevealOnScroll>
       <motion.div

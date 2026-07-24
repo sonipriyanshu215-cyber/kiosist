@@ -130,8 +130,8 @@ export function ReviewSlider() {
     <section className="section-pad relative overflow-hidden bg-kio-primary">
       <div className="container-kio">
         <RevealOnScroll className="mb-12 text-center">
-          <h2 className="mt-3 text-3xl font-bold text-gradient-gold md:text-4xl">
-            Straight from the team
+          <h2 className="mt-3 font-display text-3xl font-bold text-gradient-gold md:text-4xl">
+            Straight From The Team
           </h2>
         </RevealOnScroll>
       </div>

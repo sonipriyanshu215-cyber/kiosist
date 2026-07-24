@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { Client } from "@/content/clients";
 import { PinWithPulse } from "@/components/clients/PinWithPulse";
@@ -47,6 +48,13 @@ function RadarSweep() {
 }
 
 export function USAClientMap({ clients }: USAClientMapProps) {
+  // MapLibre/react-map-gl builds its own DOM (canvas + controls) that can't
+  // be reproduced server-side- rendering it during SSR causes a hydration
+  // mismatch. Mounting it only after the client confirms hydration keeps the
+  // server and first client render identical (both show the placeholder).
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <section className="section-pad">
       <div className="container-kio">
@@ -74,42 +82,44 @@ export function USAClientMap({ clients }: USAClientMapProps) {
             className="relative z-[5] h-[400px] w-full sm:h-[460px] md:h-[540px] lg:h-[640px]"
             style={{ transform: "translateZ(0)", willChange: "transform", isolation: "isolate" }}
           >
-            <Map
-              initialViewState={{
-                bounds: USA_BOUNDS,
-                fitBoundsOptions: { padding: 24 },
-              }}
-              maxBounds={USA_BOUNDS}
-              minZoom={3}
-              maxZoom={12}
-              style={{ width: "100%", height: "100%" }}
-              mapStyle={MAP_STYLE}
-              attributionControl={false}
-              scrollZoom={false}
-              dragPan={false}
-              dragRotate={false}
-              doubleClickZoom={false}
-              touchZoomRotate={false}
-              touchPitch={false}
-              boxZoom={false}
-              keyboard={false}
-            >
-              {clients.map((c, i) => (
-                <Marker
-                  key={c.id}
-                  longitude={c.coordinates[0]}
-                  latitude={c.coordinates[1]}
-                  anchor="center"
-                >
-                  <div className="relative">
-                    <PinWithPulse delay={i * 0.12} />
-                    <span className="absolute left-1/2 top-full mt-0.5 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#060a18]/85 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm ring-1 ring-[#3b82f6]/30">
-                      {c.state}
-                    </span>
-                  </div>
-                </Marker>
-              ))}
-            </Map>
+            {mounted && (
+              <Map
+                initialViewState={{
+                  bounds: USA_BOUNDS,
+                  fitBoundsOptions: { padding: 24 },
+                }}
+                maxBounds={USA_BOUNDS}
+                minZoom={3}
+                maxZoom={12}
+                style={{ width: "100%", height: "100%" }}
+                mapStyle={MAP_STYLE}
+                attributionControl={false}
+                scrollZoom={false}
+                dragPan={false}
+                dragRotate={false}
+                doubleClickZoom={false}
+                touchZoomRotate={false}
+                touchPitch={false}
+                boxZoom={false}
+                keyboard={false}
+              >
+                {clients.map((c, i) => (
+                  <Marker
+                    key={c.id}
+                    longitude={c.coordinates[0]}
+                    latitude={c.coordinates[1]}
+                    anchor="center"
+                  >
+                    <div className="relative">
+                      <PinWithPulse delay={i * 0.12} />
+                      <span className="absolute left-1/2 top-full mt-0.5 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#060a18]/85 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm ring-1 ring-[#3b82f6]/30">
+                        {c.state}
+                      </span>
+                    </div>
+                  </Marker>
+                ))}
+              </Map>
+            )}
           </div>
 
           {/* Scan progress bar at bottom of map */}

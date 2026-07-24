@@ -40,7 +40,7 @@ export function DemoModal({ open, onClose }: DemoModalProps) {
           <motion.div
             role="dialog"
             aria-modal="true"
-            aria-label="Book a Demo"
+            aria-label="Book A Demo"
             className="fixed inset-y-0 right-0 z-[70] w-full max-w-lg overflow-y-auto bg-kio-bg shadow-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
@@ -50,7 +50,7 @@ export function DemoModal({ open, onClose }: DemoModalProps) {
             <div className="p-8">
               <div className="mb-8 flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold text-kio-ink">Book a Demo</h2>
+                  <h2 className="text-2xl font-bold text-kio-ink">Book A Demo</h2>
                   <p className="mt-1 text-sm text-kio-muted">
                     We&apos;ll be in touch within 24 hours.
                   </p>

@@ -65,10 +65,10 @@ export function AboutIntro() {
       {/* ── Mobile image banner (hidden on lg) ── */}
       <div className="relative h-56 w-full overflow-hidden lg:hidden">
         <Image
-          src="/img/about/agent-workstation.webp"
-          alt="Kiosist front desk agent working across dual monitors and a tablet"
+          src="/img/about/agent-workstation-2.jpeg"
+          alt="Kiosist front desk agents working at their stations"
           fill
-          className="object-cover object-center"
+          className="object-cover object-right"
           sizes="(min-width: 1024px) 0px, 100vw"
           priority
         />
@@ -91,7 +91,7 @@ export function AboutIntro() {
           >
             {/* Headline */}
             <h1 className="text-3xl font-black leading-[1.08] text-white md:text-4xl lg:text-5xl">
-              We are <br />
+              We Are <br />
               <span className="text-gradient-shimmer">Guest&apos;s First Hello.</span>
             </h1>
 
@@ -123,10 +123,10 @@ export function AboutIntro() {
   {/* ⚠️ Delete the old <svg><defs><clipPath id="aboutHeroCurve">…</clipPath></defs></svg> block- no longer needed */}
 
   <Image
-    src="/img/about/agent-workstation.webp"
-    alt="Kiosist front desk agents working across dual monitors and a tablet"
+    src="/img/about/agent-workstation-2.jpeg"
+    alt="Kiosist front desk agents working at their stations"
     fill
-    className="object-cover object-center"
+    className="object-cover object-right"
     sizes="(max-width: 1023px) 0px, 50vw"
     priority
   />

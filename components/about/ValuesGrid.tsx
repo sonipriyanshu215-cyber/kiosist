@@ -32,7 +32,7 @@ export function ValuesGrid() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mb-14 text-center">
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-            What guides every shift, every interaction
+            What Guides Every Shift, Every Interaction
           </h2>
           {/* Animated underline */}
           <motion.div

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Compass } from "lucide-react";
 
 const CYCLING_WORDS = [
   "Innovation.",
@@ -145,7 +146,7 @@ export function HeroBanner() {
                 doesn't cover 16-char ones, so it's sized to content instead
                 of a hard minWidth. */}
             <span className="block mt-1 whitespace-normal sm:whitespace-nowrap">
-              <span className="text-kio-muted/60 font-semibold">Powered by </span>
+              <span className="text-kio-muted/60 font-semibold">Powered By </span>
               <span className="inline-block">
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -171,9 +172,7 @@ export function HeroBanner() {
             className="mt-9 flex flex-wrap gap-4"
           >
             <Link href="/culture" className="btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-              </svg>
+              <Compass className="h-4 w-4" strokeWidth={2.5} />
               Explore Culture
             </Link>
           </motion.div>

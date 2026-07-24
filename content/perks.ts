@@ -38,7 +38,7 @@ export const perks: Perk[] = [
   },
   {
     id: "p-4",
-    title: "Double Pay on Festivals",
+    title: "Double Pay On Festivals",
     body: "Work a festival shift and get paid double- your effort doesn't go unnoticed.",
     icon: "wallet",
   },

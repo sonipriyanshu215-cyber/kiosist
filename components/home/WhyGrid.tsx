@@ -9,7 +9,7 @@ import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 const FEATURES: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Languages,
-    title: "Fluency in English",
+    title: "Fluency In English",
     body: "Possesses complete fluency in English, ensuring clear, persuasive, and effective communication across all business contexts, from everyday correspondence to high-level negotiations.",
   },
   {
@@ -19,7 +19,7 @@ const FEATURES: { icon: LucideIcon; title: string; body: string }[] = [
   },
   {
     icon: Sprout,
-    title: "Willingness to Learn",
+    title: "Willingness To Learn",
     body: "Approaches new tools, processes, and feedback with an open mind- committed to growing and improving on the job.",
   },
   {
@@ -85,7 +85,7 @@ export function WhyGrid() {
       <RevealOnScroll className="relative z-10 container-kio mb-16 mx-auto max-w-[640px] text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           What It Takes<br />
-          <span className="text-gradient-shimmer">to Join Our Team</span>
+          <span className="text-gradient-shimmer">To Join Our Team</span>
         </h2>
         <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
           We&apos;re looking for people-first individuals ready to deliver exceptional

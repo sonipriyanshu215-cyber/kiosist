@@ -9,7 +9,7 @@ export default function Terms() {
   return (
     <div className="min-h-screen bg-kio-bg pt-32 pb-20">
       <div className="container-kio max-w-3xl">
-        <h1 className="text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">Terms of Use</h1>
+        <h1 className="text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">Terms Of Use</h1>
         <p className="mt-2 text-sm text-kio-muted">Last updated: June 2026</p>
 
         <div className="prose mt-10 max-w-none text-kio-muted">
@@ -18,7 +18,7 @@ export default function Terms() {
             disagree with any part of these terms, please do not use our website.
           </p>
 
-          <h2 className="mt-8 text-xl font-bold text-kio-ink">1. Use of Content</h2>
+          <h2 className="mt-8 text-xl font-bold text-kio-ink">1. Use Of Content</h2>
           <p>
             All content on this website- text, images, graphics, and code- is the intellectual
             property of Kiosist Pvt. Ltd. unless otherwise noted. Reproduction without written
@@ -32,7 +32,7 @@ export default function Terms() {
             each client property.
           </p>
 
-          <h2 className="mt-6 text-xl font-bold text-kio-ink">3. Limitation of Liability</h2>
+          <h2 className="mt-6 text-xl font-bold text-kio-ink">3. Limitation Of Liability</h2>
           <p>
             Kiosist is not liable for any indirect, incidental, or consequential damages arising
             from use of this website or reliance on information contained herein.

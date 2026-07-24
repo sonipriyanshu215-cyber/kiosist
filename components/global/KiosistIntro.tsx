@@ -561,9 +561,9 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
 
         <div className="content-section">
           <p className="intro-tagline">
-            If you love to <span className="intro-tagline-accent">smile</span>
+            If You Love To <span className="intro-tagline-accent">Smile</span>
             <br />
-            and make others <span className="intro-tagline-accent">smile.</span>
+            And Make Others <span className="intro-tagline-accent">Smile.</span>
           </p>
 
           <button type="button" className="explore-btn" onClick={handleStart}>

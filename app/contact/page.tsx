@@ -64,7 +64,7 @@ export default function Contact() {
                   <c.Icon className="h-6 w-6" />
                 </div>
                 <h3 className="font-bold text-kio-ink">{c.title}</h3>
-                <p className="mt-1 font-semibold text-kio-accent transition-colors group-hover:text-kio-accent2">
+                <p className="mt-1 font-normal text-kio-muted transition-colors group-hover:text-kio-ink">
                   {c.value}
                 </p>
               </a>

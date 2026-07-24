@@ -13,7 +13,7 @@ export function FAQAccordion() {
       <div className="container-kio">
         <RevealOnScroll className="mb-14 text-center">
           <h2 className="mt-3 text-3xl font-bold text-gradient-gold md:text-4xl">
-            Questions we hear often
+            Questions We Hear Often
           </h2>
         </RevealOnScroll>
 

@@ -58,11 +58,11 @@ export function VisionBlock() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
               <Image
-                src="/img/about/vision .png"
-                alt="Vision - an eye formed from a lightbulb, brain, and an upward arrow"
-                width={2000}
-                height={1889}
-                className="relative h-full w-full object-contain"
+                src="/img/about/vision.png"
+                alt="Vision - an eye formed from a telescope, chart, and upward arrow"
+                width={1024}
+                height={1024}
+                className="relative h-full w-full rounded-3xl object-cover"
                 priority
               />
             </motion.div>

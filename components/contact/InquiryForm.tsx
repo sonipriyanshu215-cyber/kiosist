@@ -56,7 +56,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
         >
           <CheckCircle className="h-16 w-16 text-kio-success" />
         </motion.div>
-        <h3 className="mt-4 text-xl font-bold text-kio-ink">Message sent!</h3>
+        <h3 className="mt-4 text-xl font-bold text-kio-ink">Message Sent!</h3>
         <p className="mt-2 text-sm text-kio-muted">
           We&apos;ll be in touch within 24 hours.
         </p>

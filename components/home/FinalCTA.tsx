@@ -37,8 +37,8 @@ export function FinalCTA() {
             {/* Text */}
             <div className="relative z-10">
               <h2 className="text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold text-kio-ink">
-                If making guest smile is what drives you,{" "}
-                <span className="text-gradient">Kiosist is the place for you.</span>
+                If Making Guest Smile Is What Drives You,{" "}
+                <span className="text-gradient">Kiosist Is The Place For You.</span>
               </h2>
             </div>
 

@@ -26,7 +26,7 @@ const CHECKS = [
 const INFO_CARDS = [
   {
     icon: "🏨",
-    title: "Designed for Hotels",
+    title: "Designed For Hotels",
     body: "Built from the ground up for the hospitality industry, Kiosist understands the nuances of hotel operations- from PMS integration to room key encoding and payment processing.",
   },
   {
@@ -36,7 +36,7 @@ const INFO_CARDS = [
   },
   {
     icon: "🔒",
-    title: "Secure by Design",
+    title: "Secure By Design",
     body: "End-to-end encrypted transactions, PCI-compliant payment processing, and secure ID verification built into every interaction.",
   },
 ];

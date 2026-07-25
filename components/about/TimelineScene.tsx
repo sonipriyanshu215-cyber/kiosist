@@ -2,10 +2,10 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { Lightbulb, Building2, Hotel, TrendingUp, Users, Globe } from "lucide-react";
-import { milestones } from "@/content/milestones";
+import { Puzzle, Users, Lightbulb, Rocket, TrendingUp, Trophy } from "lucide-react";
+import { milestones, journeyYears } from "@/content/milestones";
 
-const ICONS  = [Lightbulb, Building2, Hotel, TrendingUp, Users, Globe];
+const ICONS  = [Puzzle, Users, Lightbulb, Rocket, TrendingUp, Trophy];
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"];
 
 /* ── Shared section header ── */
@@ -13,10 +13,37 @@ function Header() {
   return (
     <div className="container-kio pb-10 pt-24 text-center">
       <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-        Five Years. One Front Desk. <span className="text-color-cycle">Everywhere.</span>
+        Every Great Journey Begins <span className="text-color-cycle">With A Purpose.</span>
       </h2>
       <p className="mt-4 text-kio-muted">
-        From one idea in Surat to 100+ hotels across the USA - here&apos;s how we got here.
+        Here&apos;s how Kiosist came to life.
+      </p>
+    </div>
+  );
+}
+
+/* ── Closing tagline strip + condensed year-by-year recap ── */
+function JourneyFooter() {
+  return (
+    <div className="container-kio pb-20 pt-4">
+      <div className="mx-auto max-w-5xl rounded-2xl border border-kio-line bg-kio-bg-soft px-6 py-5 text-center text-sm font-semibold text-kio-ink sm:text-base">
+        A Journey Built On <span className="text-color-cycle">People.</span> Powered By{" "}
+        <span className="text-color-cycle">Purpose.</span> Driven By{" "}
+        <span className="text-color-cycle">Hospitality.</span>
+      </div>
+
+      <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {journeyYears.map((y) => (
+          <div key={y.year} className="rounded-xl border border-kio-line bg-kio-bg px-3 py-4 text-center">
+            <div className="text-lg font-black text-color-cycle">{y.year}</div>
+            <p className="mt-1 text-xs font-semibold text-kio-ink">{y.caption}</p>
+            <p className="mt-1 text-[11px] leading-snug text-kio-muted">{y.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <p className="mx-auto mt-8 max-w-lg text-center text-sm italic text-kio-muted">
+        Different hotels. Different guests. One promise: We&apos;re Always Here.
       </p>
     </div>
   );
@@ -270,6 +297,8 @@ export function TimelineScene() {
           <HorizontalTimeline />
         </div>
       </div>
+
+      <JourneyFooter />
     </section>
   );
 }

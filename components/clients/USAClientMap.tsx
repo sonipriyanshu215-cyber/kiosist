@@ -56,7 +56,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   useEffect(() => setMounted(true), []);
 
   return (
-    <section className="section-pad">
+    <section className="pb-16 pt-28 md:pb-20 md:pt-32 lg:pb-24 lg:pt-36">
       <div className="container-kio">
 
         <RevealOnScroll className="mb-10 text-center">

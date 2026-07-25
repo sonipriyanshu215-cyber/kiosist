@@ -6,39 +6,51 @@ import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 const REASONS = [
   {
     title: "Continuous Learning",
-    body: "We invest in your growth with ongoing training on PMS systems, hospitality soft skills, English fluency, and leadership development.",
+    body: "At Kiosist, learning never stops. Through ongoing training, coaching, and hands-on experience, you have the opportunity to continuously develop your skills and grow both personally and professionally.",
     image: "/img/culture/training-1.png",
     color: "#3b82f6",
   },
   {
     title: "Modern Workspace",
-    body: "Work from a sleek, tech-enabled office equipped with multi-monitor setups and the latest tools to help you perform at your best.",
+    body: "Work in a professional and technology-driven environment where modern tools, innovative systems, and collaborative workspaces come together to create a better way of working.",
     image: "/img/culture/team-meeting-1.png",
     color: "#06b6d4",
   },
   {
+    title: "Professional Growth",
+    body: "Build valuable experience in a structured corporate environment with opportunities to take on new responsibilities, develop your strengths, and grow your career over time.",
+    image: "/img/culture/office-3.jpg",
+    color: "#10b981",
+  },
+  {
     title: "Corporate Friendly",
-    body: "A professional yet approachable culture- structured processes and clear career paths, without the stiff, impersonal feel.",
+    body: "Work in a structured, professional environment where clear processes, teamwork, and accountability come together to create a workplace where you can build valuable experience and grow your career.",
     image: "/img/culture/office-2.jpg",
     color: "#8b5cf6",
   },
   {
     title: "Global Exposure",
-    body: "Represent Kiosist at industry events like the AAHOA Convention, connecting with hotel owners and industry leaders across the USA.",
+    body: "Be part of a team that connects with the global hospitality industry. Every year, Kiosist participates in AAHOA's annual convention in the US, where hospitality leaders, innovators, and industry professionals come together.",
     image: "/img/culture/expo-dfw-2024.jpg",
     color: "#f59e0b",
+  },
+  {
+    title: "A Team That Supports You",
+    body: "Work alongside a team that values collaboration, encourages growth, and believes that people do their best work when they feel supported.",
+    image: "/img/culture/team-3.jpg",
+    color: "#6366f1",
   },
 ];
 
 function Photo({ title, image, color, priority }: { title: string; image: string; color: string; priority: boolean }) {
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] border" style={{ borderColor: `${color}40` }}>
+    <div className="relative mx-auto aspect-[4/3] w-full max-w-[380px] overflow-hidden rounded-[28px] border" style={{ borderColor: `${color}40` }}>
       <Image
         src={image}
         alt={title}
         fill
         className="object-cover"
-        sizes="(max-width: 767px) 100vw, 50vw"
+        sizes="(max-width: 767px) 380px, 380px"
         priority={priority}
       />
       <div
@@ -73,14 +85,11 @@ export function WhyChooseKiosist() {
         style={{ background: "radial-gradient(circle, rgba(59,130,246,.1) 0%, transparent 70%)" }}
       />
 
-      {/* Heading */}
+      {/* Heading- centered, no explanation copy underneath */}
       <RevealOnScroll className="relative z-10 container-kio mb-16 mx-auto max-w-[640px] text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Why Choose <span className="text-gradient-shimmer">Kiosist</span>
         </h2>
-        <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
-          Beyond the job- a workplace that invests in your growth, every step of the way.
-        </p>
       </RevealOnScroll>
 
       <div className="container-kio relative z-10 flex flex-col gap-16 md:gap-20">

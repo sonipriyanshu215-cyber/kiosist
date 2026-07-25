@@ -1,77 +1,46 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Languages, Handshake, Sprout, Laptop, Clock, Hotel, type LucideIcon } from "lucide-react";
+import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const FEATURES: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Languages,
     title: "Fluency In English",
-    body: "Possesses complete fluency in English, ensuring clear, persuasive, and effective communication across all business contexts, from everyday correspondence to high-level negotiations.",
+    body: "Communicate clearly and confidently with guests from around the world.",
   },
   {
     icon: Handshake,
     title: "Strong Customer Service Skills",
-    body: "Delivers warm, attentive, and solution-oriented service that turns every guest interaction into a positive experience, even under pressure.",
+    body: "A passion for helping people and creating positive experiences.",
   },
   {
     icon: Sprout,
     title: "Willingness To Learn",
-    body: "Approaches new tools, processes, and feedback with an open mind- committed to growing and improving on the job.",
+    body: "Stay curious, embrace feedback, and grow with every opportunity.",
   },
   {
     icon: Laptop,
     title: "Tech Friendly",
-    body: "Comfortable navigating computers, kiosks, and property management software, quickly adapting to new digital tools as they're introduced.",
+    body: "Comfortable using technology and eager to learn new tools.",
   },
   {
     icon: Clock,
-    title: "Rotational Shifts",
-    body: "Available to work flexible, rotating shifts- including nights- to keep the front desk covered around the clock.",
+    title: "Rotational Shift",
+    body: "Flexible to work different shifts, including nights, weekends & holidays.",
   },
   {
     icon: Hotel,
     title: "Prior Experience",
-    body: "Hospitality experience is needed, but freshers are also welcome to apply.",
+    body: "Previous experience in hospitality or customer service is an advantage.",
   },
 ];
 
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"];
 
-/* All geometry is expressed as % of the square container so the layout
-   scales automatically on every viewport. */
-const ORBIT_R  = 40;   // orbit radius - % of container
-const NODE_S   = 13;   // feature node - % of container
-const HUB_S    = 22;   // center hub   - % of container
-
-function nodePct(i: number, n: number) {
-  const rad = ((i / n) * 360 - 90) * (Math.PI / 180);
-  return {
-    cx: 50 + ORBIT_R * Math.cos(rad),
-    cy: 50 + ORBIT_R * Math.sin(rad),
-  };
-}
-
-/* SVG circumference of the orbit circle in viewBox units (100 × 100) */
-const ORBIT_CIRC = 2 * Math.PI * ORBIT_R; // ≈ 251.3
-
 export function WhyGrid() {
-  const [active, setActive] = useState(0);
-  const rm = useReducedMotion();
-
-  /* Auto-cycle features */
-  useEffect(() => {
-    if (rm) return;
-    const t = setInterval(() => setActive(p => (p + 1) % FEATURES.length), 10000);
-    return () => clearInterval(t);
-  }, [rm]);
-
-  const color = COLORS[active];
-  const ActiveIcon = FEATURES[active].icon;
-
   return (
     <section id="features" className="section-pad relative overflow-hidden">
       {/* Ambient blob */}
@@ -81,229 +50,72 @@ export function WhyGrid() {
         style={{ background: "radial-gradient(circle, rgba(6,182,212,.12) 0%, transparent 70%)" }}
       />
 
-      {/* Heading */}
-      <RevealOnScroll className="relative z-10 container-kio mb-16 mx-auto max-w-[640px] text-center">
+      {/* Heading- no explanation copy underneath, per brief */}
+      <RevealOnScroll className="relative z-10 container-kio mb-14 text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-          What It Takes<br />
-          <span className="text-gradient-shimmer">To Join Our Team</span>
+          <span className="text-kio-accent">Skills</span> And <span className="text-kio-accent">Experience</span> Required
         </h2>
-        <p className="mt-4 text-[.95rem] leading-[1.8] text-kio-muted">
-          We&apos;re looking for people-first individuals ready to deliver exceptional
-          guest experiences- no prior kiosk experience required, just the right attitude.
-        </p>
       </RevealOnScroll>
 
-      {/* ── Orbital layout ── */}
-      <div className="container-kio relative z-10 flex flex-col items-center gap-12 xl:flex-row xl:items-center xl:justify-center xl:gap-20">
-
-        {/* ── Orbit ring ── */}
-        <div className="relative w-full max-w-[320px] shrink-0 aspect-square sm:max-w-[400px] xl:max-w-[480px]">
-
-          {/* SVG layer: orbit rings + connector lines */}
-          <svg
-            viewBox="0 0 100 100"
-            className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
-          >
-            {/* Decorative static rings */}
-            <circle cx="50" cy="50" r={ORBIT_R + 3}  fill="none" stroke="rgba(99,179,237,0.05)" strokeWidth="0.25" />
-            <circle cx="50" cy="50" r={ORBIT_R}       fill="none" stroke="rgba(99,179,237,0.10)" strokeWidth="0.3"  />
-            <circle cx="50" cy="50" r={ORBIT_R - 3}   fill="none" stroke="rgba(99,179,237,0.04)" strokeWidth="0.25" />
-
-            {/* Slowly flowing dashed orbit ring */}
-            <motion.circle
-              cx="50" cy="50"
-              r={ORBIT_R}
-              fill="none"
-              stroke="rgba(99,179,237,0.22)"
-              strokeWidth="0.35"
-              strokeDasharray="2.8 2.4"
-              style={{ transformOrigin: "50px 50px" }}
-              animate={rm ? {} : { strokeDashoffset: [0, -ORBIT_CIRC] }}
-              transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
-            />
-
-            {/* Connector lines */}
-            {FEATURES.map((_, i) => {
-              const { cx: nx, cy: ny } = nodePct(i, FEATURES.length);
-              return i === active ? (
-                /* Active- animated marching dashes in feature colour */
-                <motion.line
-                  key={i}
-                  x1="50" y1="50" x2={nx} y2={ny}
-                  stroke={COLORS[i]}
-                  strokeWidth="0.55"
-                  strokeDasharray="2.6 2"
-                  strokeLinecap="round"
-                  animate={{ strokeDashoffset: [10, 0] }}
-                  transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
-                  opacity={0.85}
-                />
-              ) : (
-                /* Inactive- faint static dashes */
-                <line
-                  key={i}
-                  x1="50" y1="50" x2={nx} y2={ny}
-                  stroke="rgba(99,179,237,0.12)"
-                  strokeWidth="0.25"
-                  strokeDasharray="2 2"
-                />
-              );
-            })}
-
-            {/* Small dot at each node's ring intersection */}
-            {FEATURES.map((_, i) => {
-              const { cx: nx, cy: ny } = nodePct(i, FEATURES.length);
-              return (
-                <circle
-                  key={i}
-                  cx={nx} cy={ny} r="0.7"
-                  fill={i === active ? COLORS[i] : "rgba(99,179,237,0.3)"}
-                />
-              );
-            })}
-          </svg>
-
-          {/* Center hub */}
-          <motion.div
-            className="absolute z-20 flex items-center justify-center rounded-full"
-            style={{
-              width:  `${HUB_S}%`,
-              height: `${HUB_S}%`,
-              left:   `${50 - HUB_S / 2}%`,
-              top:    `${50 - HUB_S / 2}%`,
-              background: `linear-gradient(135deg, ${color}, ${color}bb)`,
-              boxShadow: `0 0 48px ${color}55, 0 0 12px ${color}40`,
-            }}
-            animate={{ background: `linear-gradient(135deg, ${color}, ${color}bb)` }}
-            transition={{ duration: 0.4 }}
-          >
-            {/* Expanding pulse rings */}
-            {[0, 1, 2].map(j => (
-              <motion.div
-                key={j}
-                className="absolute rounded-full"
-                style={{ inset: -(j * 14 + 6), border: `1px solid ${color}`, opacity: 0 }}
-                animate={rm ? {} : { scale: [0.9, 1.18, 0.9], opacity: [0.45, 0, 0.45] }}
-                transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: j * 0.75 }}
-              />
-            ))}
-
-            {/* Kiosist logo mark- fixed hub center, independent of the cycling feature */}
-            <div className="relative z-10 h-[42%] w-[42%] select-none">
-              <Image
-                src="/img/kiosist-logo-k.png"
-                alt="Kiosist"
-                fill
-                className="object-contain brightness-0 invert"
-                sizes="120px"
-              />
+      <div className="container-kio relative z-10 grid items-stretch gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
+        {/* ── Left: What It Takes panel ── */}
+        <RevealOnScroll className="relative flex flex-col justify-center overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-8 md:p-10">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-kio-accent/10 blur-3xl"
+          />
+          <span aria-hidden="true" className="relative z-10 mb-4 flex gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-kio-accent" />
+            <span className="h-1.5 w-1.5 rounded-full bg-kio-accent/60" />
+            <span className="h-1.5 w-1.5 rounded-full bg-kio-accent/30" />
+          </span>
+          <h3 className="relative z-10 text-3xl font-black leading-tight text-kio-ink md:text-4xl">
+            What It <span className="text-gradient-shimmer">Takes</span>
+          </h3>
+          <p className="relative z-10 mt-4 max-w-sm text-[.95rem] leading-[1.8] text-kio-muted">
+            We&apos;re looking for people-first individuals ready to deliver exceptional guest experiences.
+          </p>
+          <div className="relative z-10 mt-8 flex items-center gap-3 rounded-2xl bg-kio-primary/5 p-4 ring-1 ring-kio-accent/20">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-kio-accent/15 text-kio-accent">
+              <Handshake className="h-5 w-5" strokeWidth={1.75} />
             </div>
-          </motion.div>
+            <p className="text-sm font-semibold text-kio-ink">
+              Great people. Exceptional experiences. That&apos;s what we&apos;re all about.
+            </p>
+          </div>
+        </RevealOnScroll>
 
-          {/* Feature nodes */}
+        {/* ── Right: Skills & experience card grid ── */}
+        <motion.div
+          variants={staggerParent}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {FEATURES.map((f, i) => {
-            const { cx: nx, cy: ny } = nodePct(i, FEATURES.length);
-            const isAct  = i === active;
-            const clr    = COLORS[i];
-
+            const color = COLORS[i % COLORS.length];
             return (
-              <motion.button
+              <motion.div
                 key={f.title}
-                title={f.title}
-                className="absolute z-20 flex items-center justify-center rounded-2xl"
-                style={{
-                  width:       `${NODE_S}%`,
-                  height:      `${NODE_S}%`,
-                  left:        `${nx - NODE_S / 2}%`,
-                  top:         `${ny - NODE_S / 2}%`,
-                  background:  isAct ? `${clr}22` : "rgba(10,14,26,0.72)",
-                  border:      `1px solid ${isAct ? clr : "rgba(99,179,237,0.15)"}`,
-                  boxShadow:   isAct ? `0 0 22px ${clr}55` : "none",
-                  backdropFilter: "blur(8px)",
-                  transition:  "background 0.3s, border-color 0.3s, box-shadow 0.3s",
-                }}
-                animate={{ scale: isAct ? 1.22 : 1 }}
-                transition={{ type: "spring", stiffness: 420, damping: 24 }}
-                onClick={() => setActive(i)}
+                variants={staggerChild}
+                className="group relative rounded-2xl border border-kio-line bg-kio-bg p-5 transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10"
               >
-                <f.icon
-                  className="h-[45%] w-[45%]"
-                  style={{ color: isAct ? clr : "rgba(99,179,237,0.5)" }}
-                  strokeWidth={1.75}
-                />
-              </motion.button>
+                <span className="font-mono text-xs font-bold" style={{ color }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div
+                  className="mb-4 mt-3 flex h-11 w-11 items-center justify-center rounded-xl"
+                  style={{ background: `${color}18`, border: `1px solid ${color}38` }}
+                >
+                  <f.icon className="h-5 w-5" style={{ color }} strokeWidth={1.75} />
+                </div>
+                <h4 className="text-sm font-bold text-kio-ink">{f.title}</h4>
+                <p className="mt-1.5 text-xs leading-relaxed text-kio-muted">{f.body}</p>
+              </motion.div>
             );
           })}
-        </div>
-
-        {/* ── Feature detail panel ── */}
-        <div className="w-full max-w-md">
-
-          {/* Navigation dots */}
-          <div className="mb-6 flex items-center gap-2">
-            {FEATURES.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                aria-label={FEATURES[i].title}
-                className="h-2 rounded-full transition-all duration-300"
-                style={{
-                  width:      i === active ? 28 : 8,
-                  background: i === active ? COLORS[active] : "rgba(99,179,237,0.2)",
-                }}
-              />
-            ))}
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, x: 22 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -16 }}
-              transition={{ duration: 0.36, ease: [0.32, 0.72, 0, 1] }}
-              className="rounded-2xl border bg-kio-bg p-8"
-              style={{ borderColor: `${color}2e` }}
-            >
-              {/* Counter */}
-              <p className="mb-4 font-mono text-xs font-bold tracking-widest" style={{ color }}>
-                {String(active + 1).padStart(2, "0")} / {String(FEATURES.length).padStart(2, "0")}
-              </p>
-
-              {/* Icon badge */}
-              <div
-                className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
-                style={{ background: `${color}18`, border: `1px solid ${color}38` }}
-              >
-                <ActiveIcon className="h-7 w-7" style={{ color }} strokeWidth={1.75} />
-              </div>
-
-              {/* Title */}
-              <h3 className="mb-3 text-xl font-bold leading-snug text-kio-ink">
-                {FEATURES[active].title}
-              </h3>
-
-              {/* Body */}
-              <p className="text-sm leading-[1.85] text-kio-muted">
-                {FEATURES[active].body}
-              </p>
-
-              {/* Auto-advance progress bar */}
-              {!rm && (
-                <div className="mt-6 h-px w-full overflow-hidden rounded-full bg-kio-line">
-                  <motion.div
-                    key={active}
-                    className="h-full rounded-full"
-                    style={{ background: color }}
-                    initial={{ width: "0%" }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: 10, ease: "linear" }}
-                  />
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

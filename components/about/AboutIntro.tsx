@@ -2,60 +2,29 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { MessageCircle, Clock, UserCheck, Handshake, type LucideIcon } from "lucide-react";
 
-const SERVICE_COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"];
-
-/* ── What We Do services ── */
-const SERVICES = [
+/* ── Why do people join us? ── */
+const JOIN_REASONS: { icon: LucideIcon; body: string; color: string }[] = [
   {
-    label: "Manage check-in & check-out",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <path d="M14 2v6h6" />
-        <path d="M9 15l2 2 4-4" />
-      </svg>
-    ),
+    icon: MessageCircle,
+    body: "Developing excellent communication skills by dealing directly with the guests in the U.S.",
+    color: "#3b82f6",
   },
   {
-    label: "Handle reservations & inquiries",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" />
-        <path d="M16 2v4M8 2v4M3 10h18" />
-        <circle cx="8" cy="15" r=".6" fill="currentColor" />
-        <circle cx="12" cy="15" r=".6" fill="currentColor" />
-        <circle cx="16" cy="15" r=".6" fill="currentColor" />
-      </svg>
-    ),
+    icon: Clock,
+    body: "An environment where you love to work; comfortable 8 hours shift.",
+    color: "#06b6d4",
   },
   {
-    label: "Making every guest stay memorable",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-      </svg>
-    ),
+    icon: UserCheck,
+    body: "Improve customer service skills by consistently providing a world-class customer service experience.",
+    color: "#8b5cf6",
   },
   {
-    label: "Resolve guest requests & concerns",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        <circle cx="9" cy="10" r=".6" fill="currentColor" />
-        <circle cx="12" cy="10" r=".6" fill="currentColor" />
-        <circle cx="15" cy="10" r=".6" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    label: "Deliver exceptional service",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="6" />
-        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-      </svg>
-    ),
+    icon: Handshake,
+    body: "Friendly and caring team and leadership so that you enjoy working with us.",
+    color: "#f59e0b",
   },
 ];
 
@@ -97,11 +66,7 @@ export function AboutIntro() {
 
             {/* Subtitle */}
             <p className="mt-5 max-w-[430px] text-[1rem] leading-[1.85] text-white/60">
-              We are the leading service provider for remotely operating front desks for hotels based in the USA
-
-
-              {" "}- right from our office in{" "}
-              <span className="font-semibold text-[#60a5fa]">India</span>.
+              We are the leading service provider for remotely operating front desks for hotels based in the US.
             </p>
           </motion.div>
 
@@ -168,29 +133,30 @@ export function AboutIntro() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md md:p-7"
+          className="mx-auto max-w-4xl text-center"
         >
-          <h3 className="mb-5 text-sm font-bold uppercase tracking-wider text-[#60a5fa] md:text-base">
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-white">
             What We Do
-          </h3>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-6">
-            {SERVICES.map((s, i) => {
-              const color = SERVICE_COLORS[i % SERVICE_COLORS.length];
-              return (
+          </h2>
+          <p className="mt-3 text-base font-bold md:text-lg">
+            Why do people <span className="text-[#60a5fa]">join us?</span>
+          </p>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {JOIN_REASONS.map((r) => (
+              <div
+                key={r.body}
+                className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-md"
+              >
                 <div
-                  key={s.label}
-                  className="group relative flex flex-col items-center gap-3 rounded-xl p-3 text-center"
+                  className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full"
+                  style={{ background: `${r.color}18`, border: `1px solid ${r.color}38` }}
                 >
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: `${color}12` }}
-                  />
-                  <div style={{ color }} className="relative [&>svg]:h-9 [&>svg]:w-9 md:[&>svg]:h-10 md:[&>svg]:w-10">{s.icon}</div>
-                  <p className="relative text-balance text-xs leading-[1.5] text-white/60 md:text-sm">{s.label}</p>
+                  <r.icon className="h-5 w-5" style={{ color: r.color }} strokeWidth={1.75} />
                 </div>
-              );
-            })}
+                <p className="text-sm leading-[1.7] text-white/70">{r.body}</p>
+              </div>
+            ))}
           </div>
         </motion.div>
       </section>

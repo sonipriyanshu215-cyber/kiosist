@@ -224,10 +224,10 @@ export function TeamMosaic() {
         {/* Heading */}
         <RevealOnScroll className="mb-16 text-center">
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
-            Meet The <span className="text-gradient">Expert</span>
+            Meet The <span className="text-gradient">Experts</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-none text-base text-kio-muted md:whitespace-nowrap">
-            150+ trained virtual agents ready to represent your property, every hour of the day.
+          <p className="mx-auto mt-4 max-w-2xl text-base text-kio-muted">
+            Our leadership team combines Industry Expertise, Strategic Thinking and a Passion for delivering exceptional Hospitality Solutions.
           </p>
         </RevealOnScroll>
 

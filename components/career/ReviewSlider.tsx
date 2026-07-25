@@ -2,6 +2,8 @@
 
 import { Star } from "lucide-react";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import { staggerParent, staggerChild } from "@/lib/motion";
+import { motion } from "framer-motion";
 
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#6366f1", "#14b8a6"];
 
@@ -80,9 +82,6 @@ const REVIEWS = [
   },
 ];
 
-const ROW1 = REVIEWS.slice(0, 4);
-const ROW2 = REVIEWS.slice(4, 8);
-
 function initials(name: string) {
   return name
     .split(" ")
@@ -92,13 +91,16 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-function ReviewCard({ r, colorIdx }: { r: (typeof REVIEWS)[number]; colorIdx: number }) {
+function ReviewRow({ r, colorIdx }: { r: (typeof REVIEWS)[number]; colorIdx: number }) {
   const color = COLORS[colorIdx % COLORS.length];
   return (
-    <div className="flex h-full w-[340px] shrink-0 flex-col rounded-3xl bg-white/5 p-8 backdrop-blur-sm ring-1 ring-white/10 transition-colors hover:ring-white/20">
-      <div className="flex items-center gap-4">
+    <motion.div
+      variants={staggerChild}
+      className="flex flex-col gap-4 py-7 first:pt-0 sm:flex-row sm:items-start"
+    >
+      <div className="flex shrink-0 items-center gap-4 sm:w-56">
         <div
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-bold"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold"
           style={{ background: `${color}30`, border: `1px solid ${color}60`, color }}
         >
           {initials(r.author)}
@@ -112,52 +114,39 @@ function ReviewCard({ r, colorIdx }: { r: (typeof REVIEWS)[number]; colorIdx: nu
         </div>
       </div>
 
-      <div className="mt-5 flex gap-1">
-        {Array.from({ length: r.rating }).map((_, j) => (
-          <Star key={j} className="h-4 w-4 fill-kio-accent text-kio-accent" />
-        ))}
+      <div className="flex-1">
+        <div className="mb-2 flex gap-1">
+          {Array.from({ length: r.rating }).map((_, j) => (
+            <Star key={j} className="h-3.5 w-3.5 fill-kio-accent text-kio-accent" />
+          ))}
+        </div>
+        <p className="text-[.95rem] italic leading-relaxed text-white/80">&ldquo;{r.quote}&rdquo;</p>
       </div>
-
-      <p className="mt-3 flex-1 text-[.95rem] italic leading-relaxed text-white/80">
-        &ldquo;{r.quote}&rdquo;
-      </p>
-    </div>
+    </motion.div>
   );
 }
 
 export function ReviewSlider() {
   return (
-    <section className="section-pad relative overflow-hidden bg-kio-primary">
+    <section className="section-pad bg-kio-primary">
       <div className="container-kio">
-        <RevealOnScroll className="mb-12 text-center">
+        <RevealOnScroll className="mb-4 text-center">
           <h2 className="mt-3 font-display text-3xl font-bold text-gradient-gold md:text-4xl">
             Straight From The Team
           </h2>
         </RevealOnScroll>
-      </div>
 
-      {/* Edge fade masks */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-32"
-        style={{ background: "linear-gradient(to right, var(--kio-primary), transparent)" }} />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-32"
-        style={{ background: "linear-gradient(to left, var(--kio-primary), transparent)" }} />
-
-      {/* Row 1- scrolls left */}
-      <div className="overflow-hidden py-2">
-        <div className="marquee-track flex w-max items-stretch gap-6 px-6">
-          {[...ROW1, ...ROW1].map((r, i) => (
-            <ReviewCard key={`${r.id}-${i}`} r={r} colorIdx={i} />
+        <motion.div
+          variants={staggerParent}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mx-auto max-w-4xl divide-y divide-white/10"
+        >
+          {REVIEWS.map((r, i) => (
+            <ReviewRow key={r.id} r={r} colorIdx={i} />
           ))}
-        </div>
-      </div>
-
-      {/* Row 2- scrolls right */}
-      <div className="overflow-hidden py-2 mt-6">
-        <div className="marquee-track-reverse flex w-max items-stretch gap-6 px-6">
-          {[...ROW2, ...ROW2].map((r, i) => (
-            <ReviewCard key={`${r.id}-${i}`} r={r} colorIdx={i + 4} />
-          ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

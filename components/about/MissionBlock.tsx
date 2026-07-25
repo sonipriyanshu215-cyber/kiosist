@@ -49,12 +49,8 @@ export function MissionBlock() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-white">
-            Our Mission And <span className="text-gradient-shimmer">Vision</span>
+            Our <span className="text-kio-accent">Vision</span> And Mission
           </h2>
-          <p className="mt-4 text-[.95rem] leading-[1.8] text-white/70">
-            A shared purpose that drives our long-term vision and the actions we take
-            every day to achieve it.
-          </p>
         </RevealOnScroll>
 
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-12">
@@ -62,7 +58,7 @@ export function MissionBlock() {
           {/* Text column */}
           <div className="text-center lg:flex-1">
             <span className="text-xs font-bold uppercase tracking-[.15em] text-kio-accent2">
-              Mission
+              Our Mission
             </span>
 
             {/* Word-by-word heading reveal */}
@@ -74,7 +70,7 @@ export function MissionBlock() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mt-4 text-3xl font-bold text-white md:text-4xl leading-snug lg:text-2xl xl:text-3xl"
+              className="mt-4 text-3xl font-normal text-white md:text-4xl leading-snug lg:text-3xl xl:text-4xl"
             >
               {HEADING.split(" ").map((word, i) => (
                 <Fragment key={i}>

@@ -13,42 +13,46 @@ const STATS = [
   { to: 70,     suffix: "+", label: "Locations"       },
 ];
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: false, margin: "-10%" });
+function Counter({ to, suffix = "", start }: { to: number; suffix?: string; start: boolean }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isInView) {
+    if (!start) {
       setCount(0);
       return;
     }
     let cancelled = false;
-    const start = performance.now();
-    const duration = 2200;
+    const startTime = performance.now();
+    const duration = 5200;
     const step = (t: number) => {
       if (cancelled) return;
-      const progress = Math.min((t - start) / duration, 1);
+      const progress = Math.min((t - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 4);
       setCount(Math.round(eased * to));
       if (progress < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
     return () => { cancelled = true; };
-  }, [isInView, to]);
+  }, [start, to]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return <span>{count}{suffix}</span>;
 }
 
 export function StatCounter({ compact = false }: { compact?: boolean }) {
+  const gridRef = useRef<HTMLDivElement>(null);
+  // Shared trigger so every counter starts and finishes in lockstep, rather
+  // than each one animating independently off its own scroll position.
+  const isInView = useInView(gridRef, { once: false, margin: "-10%" });
+
   return (
     <section className={compact ? "pt-16 pb-8 md:pt-20 md:pb-10 lg:pt-24 lg:pb-12" : "section-pad"}>
       <RevealOnScroll className="mb-6 text-center px-6">
         <h2 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold text-kio-ink">
-          Every Number <span className="text-color-cycle">Tells A Story.</span>
+          Our <span className="text-color-cycle">Success Story.</span>
         </h2>
       </RevealOnScroll>
       <motion.div
+        ref={gridRef}
         variants={staggerParent}
         initial="hidden"
         whileInView="show"
@@ -66,7 +70,7 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
               style={{ animation: `scan-beam ${3.5 + i * 0.6}s ease-in-out infinite`, animationDelay: `${i * 0.7}s` }}
             />
             <div className="relative text-[2.4rem] font-black leading-tight text-gradient">
-              <Counter to={s.to} suffix={s.suffix} />
+              <Counter to={s.to} suffix={s.suffix} start={isInView} />
             </div>
             <div className="relative mt-1.5 text-sm text-kio-muted">{s.label}</div>
           </motion.div>

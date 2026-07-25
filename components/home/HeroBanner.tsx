@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Compass } from "lucide-react";
+import { Compass, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import Image from "next/image";
 
 const CYCLING_WORDS = [
   "Innovation.",
@@ -36,34 +37,90 @@ const PARTICLES = [
 
 const HERO_VIDEO_SRC = "/video/explainer.mp4";
 
+const HERO_VIDEO_POSTER = "/img/hero/lobby.webp";
+
 function HeroVideo({ rm }: { rm: boolean | null }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(true);
+  const [muted, setMuted] = useState(true);
+  const [failed, setFailed] = useState(false);
 
-  // Ambient looping preview, no controls. Respects prefers-reduced-motion
-  // by staying paused on its first frame instead of autoplaying.
+  // Ambient looping preview, starts muted (required for autoplay) but the
+  // controls below let the visitor unmute or pause manually. Respects
+  // prefers-reduced-motion by staying paused on its first frame.
   useEffect(() => {
     const v = videoRef.current;
     if (!v || rm) return;
-    v.play().catch(() => {});
+    v.play().catch(() => setPlaying(false));
   }, [rm]);
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) v.play().catch(() => {});
+    else v.pause();
+  }
+
+  function toggleMute() {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  }
 
   return (
     <div
       className="relative overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)]"
       style={{ aspectRatio: "16/9" }}
     >
-      <video
-        ref={videoRef}
-        src={HERO_VIDEO_SRC}
-        className="absolute inset-0 h-full w-full object-cover"
-        muted
-        loop
-        playsInline
-        preload="metadata"
-      />
+      {failed ? (
+        /* Fallback for browsers/networks that can't play the video */
+        <Image
+          src={HERO_VIDEO_POSTER}
+          alt="Kiosist front desk agent assisting a hotel guest"
+          fill
+          className="object-cover"
+          sizes="(max-width: 1023px) 100vw, 50vw"
+        />
+      ) : (
+        <video
+          ref={videoRef}
+          src={HERO_VIDEO_SRC}
+          poster={HERO_VIDEO_POSTER}
+          className="absolute inset-0 h-full w-full object-cover"
+          muted={muted}
+          loop
+          playsInline
+          preload="metadata"
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onError={() => setFailed(true)}
+        />
+      )}
 
       {/* Bottom scrim */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+      {!failed && (
+        <div className="absolute bottom-4 right-4 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={muted ? "Unmute video" : "Mute video"}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
+          >
+            {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={togglePlay}
+            aria-label={playing ? "Pause video" : "Play video"}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
+          >
+            {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 translate-x-[1px]" />}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -74,7 +131,7 @@ export function HeroBanner() {
 
   useEffect(() => {
     if (rm) return;
-    const id = setInterval(() => setWordIdx(i => (i + 1) % CYCLING_WORDS.length), 5000);
+    const id = setInterval(() => setWordIdx(i => (i + 1) % CYCLING_WORDS.length), 2600);
     return () => clearInterval(id);
   }, [rm]);
 

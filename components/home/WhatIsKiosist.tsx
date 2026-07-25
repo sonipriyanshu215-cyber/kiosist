@@ -64,6 +64,9 @@ export function WhatIsKiosist() {
           />
 
           <p className="text-[1rem] leading-[1.9] text-kio-muted">
+            Welcome to our world-class team of Front Desk Executives where we serve multiple hotels in the US.
+          </p>
+          <p className="mt-5 text-[1rem] leading-[1.9] text-kio-muted">
             The first impression is the lasting impression! As a Front Desk Agent, you will take care of the guests from the moment they arrive through to their departure by ensuring they have a memorable experience with us.
           </p>
           <p className="mt-5 text-[1rem] leading-[1.9] text-kio-muted">

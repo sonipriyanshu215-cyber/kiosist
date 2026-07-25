@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Award, Lightbulb, Users, TrendingUp } from "lucide-react";
+import { Award, Lightbulb, Handshake, TrendingUp, Heart, RefreshCw } from "lucide-react";
 import { values, type Value } from "@/content/values";
 import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
@@ -9,11 +9,13 @@ import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 const ICONS: Record<Value["icon"], typeof Award> = {
   award: Award,
   lightbulb: Lightbulb,
-  users: Users,
+  handshake: Handshake,
   "trending-up": TrendingUp,
+  heart: Heart,
+  "refresh-cw": RefreshCw,
 };
 
-const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981"];
+const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#ec4899", "#f59e0b"];
 
 export function ValuesGrid() {
   const rm = useReducedMotion();
@@ -32,7 +34,7 @@ export function ValuesGrid() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mb-14 text-center">
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-            What Guides Every Shift, Every Interaction
+            Our <span className="text-kio-accent">Core Value</span>
           </h2>
           {/* Animated underline */}
           <motion.div
@@ -50,7 +52,7 @@ export function ValuesGrid() {
           initial={rm ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
-          className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
         >
           {values.map((v, i) => {
             const Icon = ICONS[v.icon];

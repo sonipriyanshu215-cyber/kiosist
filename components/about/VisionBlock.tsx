@@ -70,8 +70,8 @@ export function VisionBlock() {
 
           {/* Text column */}
           <div className="text-center lg:flex-1">
-            <span className="text-xs font-bold uppercase tracking-[.15em] text-kio-accent2">
-              Vision
+            <span className="text-xs font-bold uppercase tracking-[.15em] text-kio-accent">
+              Our Vision
             </span>
 
             {/* Word-by-word reveal- matches MissionBlock's heading treatment */}
@@ -83,7 +83,7 @@ export function VisionBlock() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mx-auto mt-4 max-w-none text-xl font-bold leading-relaxed text-white md:text-2xl"
+              className="mx-auto mt-4 max-w-none text-2xl font-normal leading-relaxed text-white md:text-3xl"
             >
               {TEXT.split(" ").map((word, i) => (
                 <Fragment key={i}>

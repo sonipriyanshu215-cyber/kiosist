@@ -37,8 +37,8 @@ export function ResumeForm() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const STEPS = [
-    { label: "Personal", fields: ["name", "email", "phone"] as const },
-    { label: "Role", fields: ["role", "experience"] as const },
+    { label: "Personal Details", fields: ["name", "email", "phone"] as const },
+    { label: "Job Role", fields: ["role", "experience"] as const },
     { label: "Message", fields: ["message"] as const },
     { label: "Resume", fields: [] as const },
   ];
@@ -99,9 +99,6 @@ export function ResumeForm() {
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
               Want To Make Career In <span className="text-gradient">Hospitality</span>? Join Us Now.
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-kio-muted lg:mx-0">
-              Four short steps. No cover letter required- just tell us about you.
-            </p>
           </RevealOnScroll>
 
           {submitted ? (
@@ -154,7 +151,7 @@ export function ResumeForm() {
                         {i < step ? <Check className="h-4 w-4" /> : i + 1}
                       </motion.div>
                       <span
-                        className={`text-[11px] font-medium whitespace-nowrap sm:text-xs ${
+                        className={`max-w-[64px] text-center text-[11px] font-medium leading-tight sm:max-w-none sm:whitespace-nowrap sm:text-xs ${
                           i === step ? "text-kio-accent" : "text-kio-muted"
                         }`}
                       >

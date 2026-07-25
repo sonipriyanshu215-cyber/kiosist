@@ -17,9 +17,7 @@ export const metadata: Metadata = {
 export default function Clients() {
   return (
     <>
-      <div className="pt-20">
-        <USAClientMap clients={clients} />
-      </div>
+      <USAClientMap clients={clients} />
       <BrandStrip />
       <StatCounter compact />
     </>

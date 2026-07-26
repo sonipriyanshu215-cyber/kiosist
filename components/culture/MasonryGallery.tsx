@@ -47,7 +47,7 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
     <section className="section-pad bg-kio-bg">
       <div className="container-kio">
         <RevealOnScroll className="mb-10 text-center">
-          <h2 className="mt-3 text-3xl font-bold text-gradient-gold md:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold text-color-cycle md:text-4xl">
             Kiosist Gallery
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-kio-muted">

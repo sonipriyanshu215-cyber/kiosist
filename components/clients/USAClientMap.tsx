@@ -17,6 +17,18 @@ const USA_BOUNDS: [[number, number], [number, number]] = [
   [-64, 51],  // NE
 ];
 
+// Pan/zoom limit- deliberately looser than USA_BOUNDS. If it matched
+// USA_BOUNDS exactly, fitBounds' extra padding (added on narrow viewports so
+// edge-state label pills clear the rounded/clipped container edge) would
+// have nowhere to go: it can't zoom out to create margin when that margin
+// would show area outside maxBounds, so padding silently did nothing. This
+// gives it room, revealing a sliver of ocean/Canada/Mexico instead of
+// clipping East/West Coast state labels.
+const MAX_PAN_BOUNDS: [[number, number], [number, number]] = [
+  [-142, 15],
+  [-50, 58],
+];
+
 interface USAClientMapProps {
   clients: Client[];
 }
@@ -53,13 +65,29 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   // mismatch. Mounting it only after the client confirms hydration keeps the
   // server and first client render identical (both show the placeholder).
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // Narrow viewports render the same continental-US bounds into a much
+  // narrower box, so edge states sit close enough to the rounded/clipped
+  // container edge that their label pills get cut off- both coasts (New
+  // York/Virginia in the east, California in the west), so asymmetric
+  // padding just trades clipping on one side for the other. Zooming out
+  // further (uniform padding, lower minZoom, wider maxBounds) is the only
+  // fix that helps both sides at once. minZoom also has to drop on narrow
+  // viewports- at the default 3 it was already the floor fitBounds hit, so
+  // it had no room to zoom out and honor any extra padding at all.
+  const [fitPadding, setFitPadding] = useState(24);
+  const [minZoom, setMinZoom] = useState(3);
+  useEffect(() => {
+    setMounted(true);
+    const narrow = window.innerWidth < 640;
+    setFitPadding(narrow ? 60 : 24);
+    setMinZoom(narrow ? 1 : 3);
+  }, []);
 
   return (
     <section className="pb-16 pt-28 md:pb-20 md:pt-32 lg:pb-24 lg:pt-36">
       <div className="container-kio">
 
-        <RevealOnScroll className="mb-10 text-center">
+        <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">
             <span className="text-gradient-shimmer">Powering Hospitality Across US</span>
           </h2>
@@ -86,10 +114,10 @@ export function USAClientMap({ clients }: USAClientMapProps) {
               <Map
                 initialViewState={{
                   bounds: USA_BOUNDS,
-                  fitBoundsOptions: { padding: 24 },
+                  fitBoundsOptions: { padding: fitPadding },
                 }}
-                maxBounds={USA_BOUNDS}
-                minZoom={3}
+                maxBounds={MAX_PAN_BOUNDS}
+                minZoom={minZoom}
                 maxZoom={12}
                 style={{ width: "100%", height: "100%" }}
                 mapStyle={MAP_STYLE}

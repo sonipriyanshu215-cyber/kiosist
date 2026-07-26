@@ -56,8 +56,8 @@ export function BrandStrip() {
     <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
 
       {/* Tagline above heading */}
-      <RevealOnScroll className="mb-10 text-center">
-        <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-gradient-gold">
+      <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
+        <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-color-cycle">
           Trusted by Hotel Brands.
         </p>
       </RevealOnScroll>

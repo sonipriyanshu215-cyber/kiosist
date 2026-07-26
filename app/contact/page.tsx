@@ -21,21 +21,21 @@ const QUICK_LINKS = [
     title: "Looking To Join Our Team?",
     body: "Explore opportunities to grow, learn, and build your career with Kiosist.",
     href: "/career",
-    cta: "View Careers",
+    cta: <div className="text-color-cycle">"View Careers",</div>
   },
   {
     Icon: MessageCircle,
     title: "Have A Question?",
     body: "We're always happy to connect. Send us a message and our team will get back to you.",
     href: "#message",
-    cta: "Get In Touch",
+    cta: <div className="text-color-cycle">"Get In Touch",</div>
   },
   {
     Icon: Users,
     title: "Want To Connect?",
     body: "Have something to share or want to start a conversation? We're just a message away.",
     href: "mailto:hr@kiosist.com",
-    cta: "Contact Us",
+    cta: <div className="text-color-cycle">"Contact Us"</div>,
   },
 ];
 
@@ -66,16 +66,14 @@ const CONTACT_INFO = [
 export default function Contact() {
   return (
     <>
-      <section className="section-pad bg-kio-primary pt-36">
+      <section className="bg-kio-primary pb-16 pt-28 md:pb-20 md:pt-32 lg:pb-24 lg:pt-36">
         <div className="container-kio">
           <div className="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-2">
             {/* ── Left: copy + quick links ── */}
             <RevealOnScroll>
-              <span className="text-xs font-bold uppercase tracking-[.2em] text-kio-accent2">
-                Contact Us
-              </span>
+             
               <h1 className="mt-3 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                Let&apos;s Start A <span className="text-gradient-gold">Conversation.</span>
+                Let&apos;s Start A <span className="text-color-cycle">Conversation.</span>
               </h1>
               <p className="mt-5 max-w-md text-white/70">
                 Whether you have a question, want to explore opportunities, or simply want to
@@ -83,7 +81,7 @@ export default function Contact() {
               </p>
               <p className="mt-6 max-w-md text-sm italic text-white/50">
                 Every great conversation starts with a simple hello.{" "}
-                <span className="font-semibold not-italic text-kio-accent2">
+                <span className="font-semibold not-italic text-color-cycle">
                   Let&apos;s start yours.
                 </span>
               </p>
@@ -124,7 +122,7 @@ export default function Contact() {
             {/* ── Right: send message form ── */}
             <div id="message" className="scroll-mt-24">
               <RevealOnScroll delay={0.1} className="rounded-3xl border border-white/10 bg-kio-bg p-8">
-                <h2 className="text-lg font-bold text-kio-ink">Send Us A Message</h2>
+                <h2 className="text-lg font-bold text-color-cycle">Send Us A Message</h2>
                 <div className="mt-6">
                   <InquiryForm />
                 </div>
@@ -168,7 +166,7 @@ export default function Contact() {
           {/* Career CTA banner */}
           <div className="mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl bg-kio-primary px-8 py-7 text-center sm:flex-row sm:text-left">
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-kio-accent2">
+              <p className="text-xs font-bold uppercase tracking-widest text-color-cycle">
                 Looking For A Career?
               </p>
               <p className="mt-1 text-white">

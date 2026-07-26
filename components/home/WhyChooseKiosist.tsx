@@ -18,20 +18,20 @@ const REASONS = [
   },
   {
     title: "Professional Growth",
-    body: "Build valuable experience in a structured corporate environment with opportunities to take on new responsibilities, develop your strengths, and grow your career over time.",
-    image: "/img/culture/office-3.jpg",
+    body: "Every milestone counts here. Take on new responsibilities, sharpen your strengths, and get recognized for the work you put in as your career moves forward.",
+    image: "/img/culture/expo-dfw-2024.jpg",
     color: "#10b981",
   },
   {
     title: "Corporate Friendly",
-    body: "Work in a structured, professional environment where clear processes, teamwork, and accountability come together to create a workplace where you can build valuable experience and grow your career.",
+    body: "Clear processes, defined roles, and real accountability- so you always know what's expected and how your work fits into the bigger picture.",
     image: "/img/culture/office-2.jpg",
     color: "#8b5cf6",
   },
   {
     title: "Global Exposure",
     body: "Be part of a team that connects with the global hospitality industry. Every year, Kiosist participates in AAHOA's annual convention in the US, where hospitality leaders, innovators, and industry professionals come together.",
-    image: "/img/culture/expo-dfw-2024.jpg",
+    image: "/img/culture/office-3.jpg",
     color: "#f59e0b",
   },
   {
@@ -44,13 +44,13 @@ const REASONS = [
 
 function Photo({ title, image, color, priority }: { title: string; image: string; color: string; priority: boolean }) {
   return (
-    <div className="relative mx-auto aspect-[4/3] w-full max-w-[380px] overflow-hidden rounded-[28px] border" style={{ borderColor: `${color}40` }}>
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] border" style={{ borderColor: `${color}40` }}>
       <Image
         src={image}
         alt={title}
         fill
         className="object-cover"
-        sizes="(max-width: 767px) 380px, 380px"
+        sizes="50vw"
         priority={priority}
       />
       <div
@@ -65,10 +65,10 @@ function Photo({ title, image, color, priority }: { title: string; image: string
 function Details({ title, body }: { title: string; body: string }) {
   return (
     <div>
-      <h3 className="mb-3 text-2xl font-bold leading-snug text-kio-ink md:text-[1.7rem]">
+      <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.75rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
         {title}
       </h3>
-      <p className="max-w-md text-[1rem] leading-[1.85] text-kio-muted">
+      <p className="max-w-md text-[clamp(0.55rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">
         {body}
       </p>
     </div>
@@ -86,33 +86,35 @@ export function WhyChooseKiosist() {
       />
 
       {/* Heading- centered, no explanation copy underneath */}
-      <RevealOnScroll className="relative z-10 container-kio mb-16 mx-auto max-w-[640px] text-center">
+      <RevealOnScroll className="relative z-10 container-kio mb-14 md:mb-16 lg:mb-20 mx-auto max-w-[640px] text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Why Choose <span className="text-gradient-shimmer">Kiosist</span>
         </h2>
       </RevealOnScroll>
 
-      <div className="container-kio relative z-10 flex flex-col gap-16 md:gap-20">
-        {REASONS.map((r, i) => {
-          const reversed = i % 2 === 1;
-          return (
-            <RevealOnScroll key={r.title} className="w-full">
-              <div className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
-                {reversed ? (
-                  <>
-                    <Details title={r.title} body={r.body} />
-                    <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
-                  </>
-                ) : (
-                  <>
-                    <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
-                    <Details title={r.title} body={r.body} />
-                  </>
-                )}
-              </div>
-            </RevealOnScroll>
-          );
-        })}
+      <div className="container-kio relative z-10">
+        <div className="mx-auto flex max-w-5xl flex-col gap-[clamp(12px,3vw,56px)]">
+          {REASONS.map((r, i) => {
+            const reversed = i % 2 === 1;
+            return (
+              <RevealOnScroll key={r.title} className="w-full">
+                <div className="grid grid-cols-2 items-center gap-[clamp(6px,2.5vw,56px)]">
+                  {reversed ? (
+                    <>
+                      <Details title={r.title} body={r.body} />
+                      <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
+                    </>
+                  ) : (
+                    <>
+                      <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
+                      <Details title={r.title} body={r.body} />
+                    </>
+                  )}
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

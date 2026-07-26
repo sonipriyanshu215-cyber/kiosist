@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { HeroBanner }          from "@/components/home/HeroBanner";
-import { StatCounter }         from "@/components/home/StatCounter";
-import { WhyGrid }             from "@/components/home/WhyGrid";
-import { WhatIsKiosist }       from "@/components/home/WhatIsKiosist";
-import { WhyChooseKiosist }    from "@/components/home/WhyChooseKiosist";
-import { FinalCTA }            from "@/components/home/FinalCTA";
+import { HeroBanner } from "@/components/home/HeroBanner";
+import { WhatIsKiosist } from "@/components/home/WhatIsKiosist";
+import { StatCounter } from "@/components/home/StatCounter";
+import { WhyGrid } from "@/components/home/WhyGrid";
+import { WhyChooseKiosist } from "@/components/home/WhyChooseKiosist";
+import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const metadata: Metadata = {
   title: "Kiosist- Smart Hotel Self-Service Kiosks",
@@ -19,13 +19,17 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
+    <div className="relative">
+      <div
+        className="bg-grid pointer-events-none absolute inset-0"
+        aria-hidden="true"
+      />
       <HeroBanner />
       <WhatIsKiosist />
       <StatCounter />
       <WhyGrid />
       <WhyChooseKiosist />
       <FinalCTA />
-    </>
+    </div>
   );
 }

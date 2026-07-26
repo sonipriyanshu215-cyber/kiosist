@@ -19,7 +19,7 @@ export default function Clients() {
     <>
       <USAClientMap clients={clients} />
       <BrandStrip />
-      <StatCounter compact />
+      <StatCounter />
     </>
   );
 }

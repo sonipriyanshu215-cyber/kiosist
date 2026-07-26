@@ -34,7 +34,7 @@ export function ValuesGrid() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mb-14 text-center">
           <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-            Our <span className="text-kio-accent">Core Value</span>
+            Our <span className="text-color-cycle">Core Value</span>
           </h2>
           {/* Animated underline */}
           <motion.div

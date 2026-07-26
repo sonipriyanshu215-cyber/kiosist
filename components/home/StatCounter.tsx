@@ -45,9 +45,9 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
   const isInView = useInView(gridRef, { once: false, margin: "-10%" });
 
   return (
-    <section className={compact ? "pt-16 pb-8 md:pt-20 md:pb-10 lg:pt-24 lg:pb-12" : "section-pad"}>
-      <RevealOnScroll className="mb-6 text-center px-6">
-        <h2 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold text-kio-ink">
+    <section className={compact ? "pt-32 pb-10 md:pt-24 md:pb-16 lg:pt-12 lg:pb-24" : "pt-10 pb-8 md:pt-12 md:pb-10 lg:pt-14 lg:pb-12"}>
+      <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center px-6">
+        <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Our <span className="text-color-cycle">Success Story.</span>
         </h2>
       </RevealOnScroll>
@@ -57,22 +57,22 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="mx-auto grid max-w-container grid-cols-2 gap-4 px-6 md:grid-cols-5 md:px-10 lg:px-16"
+        className="mx-auto grid max-w-container grid-cols-5 gap-[clamp(4px,1.5vw,16px)] px-6 md:px-10 lg:px-16"
       >
         {STATS.map((s, i) => (
           <motion.div
             key={s.label}
             variants={staggerChild}
-            className={`group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-5 text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg${i === STATS.length - 1 && STATS.length % 2 !== 0 ? " col-span-2 md:col-span-1" : ""}`}
+            className="group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-[clamp(4px,2vw,20px)] text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg"
           >
             <div
               className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/12 to-transparent"
               style={{ animation: `scan-beam ${3.5 + i * 0.6}s ease-in-out infinite`, animationDelay: `${i * 0.7}s` }}
             />
-            <div className="relative text-[2.4rem] font-black leading-tight text-gradient">
+            <div className="relative text-[clamp(0.7rem,4.2vw,2.4rem)] font-black leading-tight text-gradient">
               <Counter to={s.to} suffix={s.suffix} start={isInView} />
             </div>
-            <div className="relative mt-1.5 text-sm text-kio-muted">{s.label}</div>
+            <div className="relative mt-1.5 text-[clamp(0.4rem,1.4vw,0.875rem)] text-kio-muted">{s.label}</div>
           </motion.div>
         ))}
       </motion.div>

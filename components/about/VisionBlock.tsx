@@ -70,7 +70,7 @@ export function VisionBlock() {
 
           {/* Text column */}
           <div className="text-center lg:flex-1">
-            <span className="text-xs font-bold uppercase tracking-[.15em] text-kio-accent">
+            <span className="text-xs font-bold uppercase tracking-[.15em] text-color-cycle">
               Our Vision
             </span>
 

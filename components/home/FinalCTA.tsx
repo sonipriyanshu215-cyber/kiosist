@@ -8,13 +8,13 @@ export function FinalCTA() {
   const rm = useReducedMotion();
 
   return (
-    <section className="bg-kio-bg-soft py-16 md:py-20 lg:py-24 px-6">
+    <section className="bg-kio-bg-soft py-12 md:py-16 lg:py-20 px-6">
       <div className="mx-auto max-w-container">
         <RevealOnScroll>
           <div
-            className="relative overflow-hidden rounded-3xl border border-kio-accent/25 p-8 md:p-[60px_48px] md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-10"
+            className="relative grid grid-cols-[1fr_auto] items-center gap-[clamp(8px,3vw,40px)] overflow-hidden rounded-3xl border border-kio-accent/25 p-[clamp(12px,4.5vw,60px)]"
             style={{
-              background: "linear-gradient(135deg, rgba(59,130,246,.15) 0%, rgba(6,182,212,.1) 100%)",
+              background: "linear-gradient(135deg, rgba(59,130,246,.32) 0%, rgba(6,182,212,.24) 100%)",
             }}
           >
             {/* Animated glow orb- top right */}
@@ -36,21 +36,21 @@ export function FinalCTA() {
 
             {/* Text */}
             <div className="relative z-10">
-              <h2 className="text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold text-kio-ink">
+              <h2 className="text-[clamp(0.6rem,3.2vw,2rem)] font-extrabold text-kio-ink">
                 If Making Guest Smile Is What Drives You,{" "}
-                <span className="text-gradient">Kiosist Is The Place For You.</span>
+                <span className="text-color-cycle">Kiosist Is The Place For You.</span>
               </h2>
             </div>
 
             {/* Buttons */}
-            <div className="relative z-10 mt-8 flex shrink-0 flex-wrap gap-3 md:mt-0">
+            <div className="relative z-10 flex shrink-0 flex-wrap gap-3">
               <div className="relative">
                 {!rm && (
                   <motion.span
                     aria-hidden="true"
                     className="absolute inset-0 rounded-full"
                     style={{ background: "linear-gradient(135deg, var(--kio-accent), var(--kio-accent2))" }}
-                    animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
+                    animate={{ scale: [1, 1.35, 1], opacity: [1, 0.5, 1] }}
                     transition={{ duration: 2.2, repeat: Infinity }}
                   />
                 )}

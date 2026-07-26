@@ -97,7 +97,7 @@ export function ResumeForm() {
         <div className="mx-auto w-full max-w-2xl lg:mx-0">
           <RevealOnScroll className="mb-10 text-center lg:text-left">
             <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
-              Want To Make Career In <span className="text-gradient">Hospitality</span>? Join Us Now.
+              Want To Make Career In <span className="text-color-cycle">Hospitality</span>? Join Us Now.
             </h2>
           </RevealOnScroll>
 

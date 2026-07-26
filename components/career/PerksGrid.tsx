@@ -42,8 +42,8 @@ export function PerksGrid() {
   return (
     <section className="section-pad bg-kio-cream">
       <div className="container-kio">
-        <RevealOnScroll className="mb-14 text-center">
-          <h2 className="mt-3 font-display text-3xl font-bold text-gradient-gold md:text-4xl">
+        <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
+          <h2 className="mt-3 font-display text-3xl font-bold text-color-cycle md:text-4xl">
             Benefits Of Working At Kiosist
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-kio-muted">

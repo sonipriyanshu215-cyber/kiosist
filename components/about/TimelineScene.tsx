@@ -11,7 +11,7 @@ const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"
 /* ── Shared section header ── */
 function Header() {
   return (
-    <div className="container-kio pb-10 pt-24 text-center">
+    <div className="container-kio pb-10 pt-12 text-center">
       <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
         Every Great Journey Begins <span className="text-color-cycle">With A Purpose.</span>
       </h2>

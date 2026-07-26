@@ -70,7 +70,7 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
 
   return (
     <div
-      className="relative overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)]"
+      className="relative overflow-hidden rounded-[clamp(10px,3vw,24px)] shadow-[0_30px_80px_rgba(0,0,0,.55)]"
       style={{ aspectRatio: "16/9" }}
     >
       {failed ? (
@@ -80,7 +80,7 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
           alt="Kiosist front desk agent assisting a hotel guest"
           fill
           className="object-cover"
-          sizes="(max-width: 1023px) 100vw, 50vw"
+          sizes="50vw"
         />
       ) : (
         <video
@@ -102,22 +102,22 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
 
       {!failed && (
-        <div className="absolute bottom-4 right-4 flex items-center gap-2">
+        <div className="absolute bottom-[clamp(4px,2vw,16px)] right-[clamp(4px,2vw,16px)] flex items-center gap-[clamp(3px,1vw,8px)]">
           <button
             type="button"
             onClick={toggleMute}
             aria-label={muted ? "Unmute video" : "Mute video"}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
+            className="flex h-[clamp(18px,5vw,40px)] w-[clamp(18px,5vw,40px)] items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
           >
-            {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+            {muted ? <VolumeX className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)]" /> : <Volume2 className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)]" />}
           </button>
           <button
             type="button"
             onClick={togglePlay}
             aria-label={playing ? "Pause video" : "Play video"}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
+            className="flex h-[clamp(18px,5vw,40px)] w-[clamp(18px,5vw,40px)] items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
           >
-            {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 translate-x-[1px]" />}
+            {playing ? <Pause className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)]" /> : <Play className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)] translate-x-[1px]" />}
           </button>
         </div>
       )}
@@ -136,7 +136,7 @@ export function HeroBanner() {
   }, [rm]);
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-20 pt-[120px]">
+    <section className="relative flex min-h-[100vh] items-center overflow-hidden px-6 pb-10 pt-[50px] lg:min-h-[95vh]">
 
       {/* ── Background: animated grid ── */}
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-100" aria-hidden="true" />
@@ -181,7 +181,11 @@ export function HeroBanner() {
       )}
 
       {/* ── Content ── */}
-      <div className="relative z-10 mx-auto grid w-full max-w-container items-center gap-16 lg:grid-cols-2">
+      {/* Always 2 columns, even on the narrowest phones- text and video stay
+          side by side at every width (same alignment as desktop) instead of
+          restacking, sized down via fluid clamp()s rather than breakpoints
+          so they shrink continuously to fit. */}
+      <div className="relative z-10 mx-auto grid w-full max-w-container grid-cols-2 items-center gap-3 sm:gap-8 lg:gap-16">
 
         {/* LEFT: copy */}
         <div>
@@ -190,19 +194,16 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-2xl font-black leading-[1.3] text-kio-ink sm:text-5xl md:text-5xl lg:text-5xl"
+            className="text-[clamp(0.95rem,4.2vw,3rem)] font-black leading-[1.3] text-kio-ink"
           >
             {/* Line 1 */}
-            <span className="block whitespace-nowrap">Kiosist Delivers Hospitality</span>
+            <span className="block">Kiosist Delivers Hospitality</span>
 
-            {/* Line 2- Powered by [word]. Kept nowrap from sm: up, where
-                there's enough width even for the longest cycling word
-                ("Professionalism."); left free to wrap below that so a long
-                word degrades to a second line instead of overflowing- the
-                fixed-width reservation was tuned for ~11-char words and
-                doesn't cover 16-char ones, so it's sized to content instead
-                of a hard minWidth. */}
-            <span className="block mt-1 whitespace-normal sm:whitespace-nowrap">
+            {/* Line 2- Powered by [word]. Wraps freely at every size now
+                that this column is permanently ~half the container (rather
+                than only below lg), so a fixed nowrap reservation sized for
+                one breakpoint would just overflow at another. */}
+            <span className="block mt-1">
               <span className="text-kio-muted/60 font-semibold">Powered By </span>
               <span className="inline-block">
                 <AnimatePresence mode="wait">
@@ -226,10 +227,10 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 flex flex-wrap gap-4"
+            className="mt-[clamp(0.75rem,3vw,2.25rem)] flex flex-wrap gap-4"
           >
             <Link href="/culture" className="btn-primary">
-              <Compass className="h-4 w-4" strokeWidth={2.5} />
+              <Compass className="h-[clamp(0.7rem,2vw,1rem)] w-[clamp(0.7rem,2vw,1rem)] shrink-0" strokeWidth={2.5} />
               Explore Culture
             </Link>
           </motion.div>

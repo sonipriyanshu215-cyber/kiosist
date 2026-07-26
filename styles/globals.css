@@ -91,7 +91,7 @@
   }
 
   .section-pad {
-    @apply py-16 md:py-20 lg:py-24;
+    @apply py-8 md:py-10 lg:py-12;
   }
 
   /* Gradient text- dark: white→cyan→blue; light: navy→blue */
@@ -227,17 +227,20 @@
     @apply rounded-2xl border border-kio-line bg-kio-bg-soft transition-all hover:border-kio-accent/40 hover:shadow-lg;
   }
 
-  /* Buttons */
+  /* Buttons- fluid clamp() sizing so every CTA site-wide shrinks
+     continuously on narrow screens (same shape/alignment, just smaller)
+     instead of staying fixed-size and cramped; the clamp() max matches the
+     old fixed values exactly, so desktop is unchanged. */
   .btn-primary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: clamp(4px, 1.5vw, 8px);
     background: linear-gradient(135deg, var(--kio-accent), var(--kio-accent2));
     color: #fff;
     text-decoration: none;
-    font-size: .95rem;
+    font-size: clamp(0.68rem, 2.6vw, .95rem);
     font-weight: 600;
-    padding: 14px 32px;
+    padding: clamp(8px, 3vw, 14px) clamp(14px, 6vw, 32px);
     border-radius: 99px;
     box-shadow: 0 0 30px var(--kio-glow);
     transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s cubic-bezier(.4,0,.2,1);
@@ -251,13 +254,13 @@
   .btn-secondary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: clamp(4px, 1.5vw, 8px);
     background: transparent;
     color: var(--kio-ink);
     text-decoration: none;
-    font-size: .95rem;
+    font-size: clamp(0.68rem, 2.6vw, .95rem);
     font-weight: 600;
-    padding: 14px 32px;
+    padding: clamp(8px, 3vw, 14px) clamp(14px, 6vw, 32px);
     border-radius: 99px;
     border: 1px solid var(--kio-line);
     transition: background .35s, border-color .35s, transform .35s;

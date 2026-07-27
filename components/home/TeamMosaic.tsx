@@ -179,9 +179,6 @@ function AvatarCard({
             {member.name}
           </h3>
 
-          {/* Role */}
-          <p className="relative z-10 mt-1 text-xs text-kio-muted">{member.role}</p>
-
           {/* Tag badge */}
           <div className="relative z-10 mt-3 flex justify-center">
             <span

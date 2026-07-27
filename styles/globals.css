@@ -278,19 +278,6 @@
   .will-float { will-change: transform; }
 }
 
-/* ── Animated grid background ── */
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
-[data-theme="light"] .bg-grid {
-  background-image:
-    linear-gradient(rgba(79,70,229,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79,70,229,.05) 1px, transparent 1px);
-}
-
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--kio-bg); }

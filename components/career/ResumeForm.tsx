@@ -93,10 +93,10 @@ export function ResumeForm() {
       />
 
       <div className="container-kio relative z-10">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.75fr]">
-        <div className="mx-auto w-full max-w-2xl lg:mx-0">
-          <RevealOnScroll className="mb-10 text-center lg:text-left">
-            <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
+        <div className="mx-auto grid grid-cols-[1.05fr_0.75fr] max-w-6xl items-center gap-[clamp(8px,3vw,48px)]">
+        <div className="w-full max-w-2xl">
+          <RevealOnScroll className="mb-[clamp(8px,2.5vw,40px)] text-left">
+            <h2 className="mt-3 text-[clamp(0.75rem,2.8vw,2.25rem)] font-bold text-kio-ink">
               Want To Make Career In <span className="text-color-cycle">Hospitality</span>? Join Us Now.
             </h2>
           </RevealOnScroll>
@@ -129,10 +129,10 @@ export function ResumeForm() {
           ) : (
             <>
               {/* Stepper */}
-              <div className="mb-10 flex items-center justify-center">
+              <div className="mb-[clamp(8px,2.5vw,40px)] flex items-center justify-center">
                 {STEPS.map((s, i) => (
                   <div key={s.label} className="flex items-center">
-                    <div className="flex flex-col items-center gap-2">
+                    <div className="flex flex-col items-center gap-[clamp(2px,0.6vw,8px)]">
                       <motion.div
                         animate={{
                           scale: i === step ? 1.08 : 1,
@@ -140,7 +140,7 @@ export function ResumeForm() {
                             i < step ? "var(--kio-success)" : i === step ? "var(--kio-accent)" : "var(--kio-line)",
                         }}
                         transition={{ duration: 0.3 }}
-                        className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-sm font-bold ${
+                        className={`flex h-[clamp(20px,5vw,40px)] w-[clamp(20px,5vw,40px)] items-center justify-center rounded-full border-2 text-[clamp(0.55rem,1.6vw,0.875rem)] font-bold ${
                           i < step
                             ? "bg-kio-success/15 text-kio-success"
                             : i === step
@@ -148,10 +148,10 @@ export function ResumeForm() {
                             : "text-kio-muted"
                         }`}
                       >
-                        {i < step ? <Check className="h-4 w-4" /> : i + 1}
+                        {i < step ? <Check className="h-[clamp(0.5rem,1.6vw,1rem)] w-[clamp(0.5rem,1.6vw,1rem)]" /> : i + 1}
                       </motion.div>
                       <span
-                        className={`max-w-[64px] text-center text-[11px] font-medium leading-tight sm:max-w-none sm:whitespace-nowrap sm:text-xs ${
+                        className={`max-w-[64px] text-center text-[clamp(0.4rem,1.2vw,0.75rem)] font-medium leading-tight ${
                           i === step ? "text-kio-accent" : "text-kio-muted"
                         }`}
                       >
@@ -159,7 +159,7 @@ export function ResumeForm() {
                       </span>
                     </div>
                     {i < STEPS.length - 1 && (
-                      <div className="mx-1.5 -mt-5 h-0.5 w-7 overflow-hidden rounded-full bg-kio-line sm:mx-3 sm:w-16">
+                      <div className="mx-[clamp(2px,1vw,12px)] -mt-5 h-0.5 w-[clamp(10px,4vw,64px)] overflow-hidden rounded-full bg-kio-line">
                         <motion.div
                           className="h-full rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
                           initial={false}
@@ -175,7 +175,7 @@ export function ResumeForm() {
 
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="relative overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-8 shadow-lg shadow-black/5"
+                className="relative overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-[clamp(8px,3vw,32px)] shadow-lg shadow-black/5"
               >
                 <AnimatePresence mode="wait">
                   {step === 0 && (
@@ -409,10 +409,10 @@ export function ResumeForm() {
           )}
         </div>
 
-        {/* Mascot image- desktop only, mirrors the site's recurring 3D-illustrated agent */}
-        <RevealOnScroll className="hidden justify-self-center lg:flex">
+        {/* Mascot image- mirrors the site's recurring 3D-illustrated agent */}
+        <RevealOnScroll className="flex justify-self-center">
           <motion.div
-            className="relative w-full max-w-[340px]"
+            className="relative w-full max-w-[clamp(80px,26vw,340px)]"
             animate={rm ? {} : { y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >

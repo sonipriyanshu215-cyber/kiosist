@@ -80,7 +80,7 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
           initial={reducedMotion ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
-          className="columns-2 gap-4 sm:columns-3 lg:columns-4"
+          className="columns-4 gap-[clamp(4px,1.6vw,16px)]"
         >
           {filtered.map((img, i) => {
             const hasPhoto = existing.has(img.src.split("/").pop()!);
@@ -91,7 +91,7 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
               initial="rest"
               whileHover="hover"
               animate="rest"
-              className="mb-4 break-inside-avoid"
+              className="mb-[clamp(4px,1.6vw,16px)] break-inside-avoid"
             >
               <motion.div
                 variants={hoverLift}

@@ -65,7 +65,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
   }
 
   const inputClass =
-    "input-field";
+    "input-field px-[clamp(8px,2.5vw,16px)] py-[clamp(6px,2vw,12px)] text-[clamp(0.68rem,1.8vw,0.875rem)]";
 
   const errorClass = "mt-1 text-xs text-kio-error";
 
@@ -73,14 +73,14 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="contact-name" className="block text-sm font-medium text-kio-ink mb-1">
+          <label htmlFor="contact-name" className="block text-[clamp(0.6rem,1.6vw,0.875rem)] font-medium text-kio-ink mb-1">
             Name *
           </label>
           <input id="contact-name" {...register("name")} placeholder="Your name" className={inputClass} suppressHydrationWarning />
           {errors.name && <p className={errorClass}>{errors.name.message}</p>}
         </div>
         <div>
-          <label htmlFor="contact-email" className="block text-sm font-medium text-kio-ink mb-1">
+          <label htmlFor="contact-email" className="block text-[clamp(0.6rem,1.6vw,0.875rem)] font-medium text-kio-ink mb-1">
             Email *
           </label>
           <input id="contact-email" type="email" {...register("email")} placeholder="you@example.com" className={inputClass} suppressHydrationWarning />
@@ -91,13 +91,13 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
       {!isModal && (
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="contact-phone" className="block text-sm font-medium text-kio-ink mb-1">
+            <label htmlFor="contact-phone" className="block text-[clamp(0.6rem,1.6vw,0.875rem)] font-medium text-kio-ink mb-1">
               Phone
             </label>
             <input id="contact-phone" type="tel" {...register("phone")} placeholder="+1 555 000 0000" className={inputClass} suppressHydrationWarning />
           </div>
           <div>
-            <label htmlFor="contact-company" className="block text-sm font-medium text-kio-ink mb-1">
+            <label htmlFor="contact-company" className="block text-[clamp(0.6rem,1.6vw,0.875rem)] font-medium text-kio-ink mb-1">
               Hotel / Company
             </label>
             <input id="contact-company" {...register("company")} placeholder="Your hotel name" className={inputClass} suppressHydrationWarning />
@@ -107,7 +107,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
 
       {!isModal && (
         <div>
-          <label htmlFor="contact-properties" className="block text-sm font-medium text-kio-ink mb-1">
+          <label htmlFor="contact-properties" className="block text-[clamp(0.6rem,1.6vw,0.875rem)] font-medium text-kio-ink mb-1">
             Number of Properties
           </label>
           <select id="contact-properties" {...register("properties")} className={inputClass} suppressHydrationWarning>
@@ -121,7 +121,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
       )}
 
       <div>
-        <label htmlFor="contact-message" className="block text-sm font-medium text-kio-ink mb-1">
+        <label htmlFor="contact-message" className="block text-[clamp(0.6rem,1.6vw,0.875rem)] font-medium text-kio-ink mb-1">
           Message *
         </label>
         <textarea
@@ -138,7 +138,7 @@ export function InquiryForm({ onSuccess, isModal = false }: InquiryFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-full py-3.5 text-sm font-semibold text-white shadow-[0_0_20px_var(--kio-glow)] transition-all hover:opacity-90 disabled:opacity-60"
+        className="w-full rounded-full py-[clamp(8px,2.6vw,14px)] text-[clamp(0.68rem,1.8vw,0.875rem)] font-semibold text-white shadow-[0_0_20px_var(--kio-glow)] transition-all hover:opacity-90 disabled:opacity-60"
         style={{ background: "linear-gradient(135deg, var(--kio-accent), var(--kio-accent2))" }}
         suppressHydrationWarning
       >

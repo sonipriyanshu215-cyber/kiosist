@@ -52,7 +52,7 @@ export function ValuesGrid() {
           initial={rm ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
-          className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-3 gap-x-[clamp(4px,1.6vw,24px)] gap-y-[clamp(6px,2.6vw,40px)]"
         >
           {values.map((v, i) => {
             const Icon = ICONS[v.icon];
@@ -61,14 +61,14 @@ export function ValuesGrid() {
               <motion.div key={v.id} variants={staggerChild} initial="rest" whileHover="hover" animate="rest">
                 <motion.div
                   variants={hoverLift}
-                  className="group relative flex h-full flex-col items-center rounded-2xl bg-kio-bg-soft px-6 py-10 text-center ring-1 ring-kio-line transition-all hover:ring-kio-accent hover:shadow-lg hover:shadow-kio-accent/10"
+                  className="group relative flex h-full flex-col items-center rounded-2xl bg-kio-bg-soft px-[clamp(4px,1.6vw,24px)] py-[clamp(8px,2.6vw,40px)] text-center ring-1 ring-kio-line transition-all hover:ring-kio-accent hover:shadow-lg hover:shadow-kio-accent/10"
                 >
                   {/* Ambient spotlight behind the icon */}
                   <div className="pointer-events-none absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/4 rounded-full bg-kio-accent/20 blur-3xl transition-opacity duration-300 group-hover:opacity-80" />
 
                   {/* Flat 2D icon badge */}
                   <motion.div
-                    className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl"
+                    className="relative z-10 flex h-[clamp(24px,6.4vw,64px)] w-[clamp(24px,6.4vw,64px)] items-center justify-center rounded-2xl"
                     style={{
                       background: `linear-gradient(135deg, ${color}22, ${color}0d)`,
                       boxShadow: `0 0 0 1px ${color}33`,
@@ -77,11 +77,11 @@ export function ValuesGrid() {
                     transition={{ duration: 4 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.08 }}
                   >
-                    <Icon className="h-7 w-7" style={{ color }} strokeWidth={1.75} />
+                    <Icon className="h-[clamp(0.7rem,2.8vw,1.75rem)] w-[clamp(0.7rem,2.8vw,1.75rem)]" style={{ color }} strokeWidth={1.75} />
                   </motion.div>
 
-                  <h3 className="relative z-10 mt-5 text-lg font-bold text-kio-ink">{v.title}</h3>
-                  <p className="relative z-10 mt-2 text-sm leading-relaxed text-kio-muted">{v.body}</p>
+                  <h3 className="relative z-10 mt-[clamp(3px,1.4vw,20px)] text-[clamp(0.55rem,1.8vw,1.125rem)] font-bold text-kio-ink">{v.title}</h3>
+                  <p className="relative z-10 mt-[clamp(2px,0.8vw,8px)] text-[clamp(0.42rem,1.4vw,0.875rem)] leading-relaxed text-kio-muted">{v.body}</p>
                 </motion.div>
               </motion.div>
             );

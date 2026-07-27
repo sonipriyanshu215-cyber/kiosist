@@ -39,12 +39,12 @@ export function VisionBlock() {
       />
 
       <div className="container-kio relative z-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-12">
+        <div className="mx-auto flex max-w-6xl flex-row items-center gap-[clamp(8px,3vw,48px)]">
 
           {/* Vision icon - left side */}
-          <RevealOnScroll className="flex justify-center lg:flex-none lg:justify-start">
+          <RevealOnScroll className="flex flex-none justify-start">
             <motion.div
-              className="relative h-40 w-40 md:h-52 md:w-52"
+              className="relative h-[clamp(56px,16vw,208px)] w-[clamp(56px,16vw,208px)]"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -69,8 +69,8 @@ export function VisionBlock() {
           </RevealOnScroll>
 
           {/* Text column */}
-          <div className="text-center lg:flex-1">
-            <span className="text-xs font-bold uppercase tracking-[.15em] text-color-cycle">
+          <div className="flex-1 text-center">
+            <span className="text-[clamp(0.45rem,1.3vw,0.75rem)] font-bold uppercase tracking-[.15em] text-color-cycle">
               Our Vision
             </span>
 
@@ -83,7 +83,7 @@ export function VisionBlock() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mx-auto mt-4 max-w-none text-2xl font-normal leading-relaxed text-white md:text-3xl"
+              className="mx-auto mt-[clamp(4px,1.5vw,16px)] max-w-none text-[clamp(0.7rem,2vw,1.375rem)] font-normal leading-relaxed text-white"
             >
               {TEXT.split(" ").map((word, i) => (
                 <Fragment key={i}>
@@ -96,7 +96,7 @@ export function VisionBlock() {
 
             {/* Animated accent divider */}
             <motion.div
-              className="mx-auto mt-6 h-px w-24 rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
+              className="mx-auto mt-[clamp(4px,1.8vw,24px)] h-px w-[clamp(40px,10vw,96px)] rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}

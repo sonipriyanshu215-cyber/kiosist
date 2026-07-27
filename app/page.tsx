@@ -20,10 +20,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="relative">
-      <div
-        className="bg-grid pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      />
       <HeroBanner />
       <WhatIsKiosist />
       <StatCounter />

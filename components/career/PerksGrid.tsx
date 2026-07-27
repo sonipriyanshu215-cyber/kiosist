@@ -56,7 +56,7 @@ export function PerksGrid() {
           initial={reducedMotion ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
-          className="grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-4 gap-x-[clamp(3px,1.6vw,24px)] gap-y-[clamp(6px,2vw,32px)]"
         >
           {perks.map((p, i) => {
             const Icon = ICONS[p.icon];
@@ -65,14 +65,14 @@ export function PerksGrid() {
               <motion.div key={p.id} variants={staggerChild} initial="rest" whileHover="hover" animate="rest">
                 <motion.div
                   variants={hoverLift}
-                  className="group relative flex h-full flex-col items-center rounded-2xl bg-kio-bg px-5 py-8 text-center ring-1 ring-kio-line transition-all hover:ring-kio-accent hover:shadow-lg hover:shadow-kio-accent/10"
+                  className="group relative flex h-full flex-col items-center rounded-2xl bg-kio-bg px-[clamp(3px,1.4vw,20px)] py-[clamp(6px,2.2vw,32px)] text-center ring-1 ring-kio-line transition-all hover:ring-kio-accent hover:shadow-lg hover:shadow-kio-accent/10"
                 >
                   {/* Ambient spotlight behind the icon */}
                   <div className="pointer-events-none absolute left-1/2 top-0 h-28 w-28 -translate-x-1/2 -translate-y-1/4 rounded-full bg-kio-accent/20 blur-3xl transition-opacity duration-300 group-hover:opacity-80" />
 
                   {/* Flat 2D icon badge */}
                   <motion.div
-                    className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl"
+                    className="relative z-10 flex h-[clamp(22px,5.6vw,56px)] w-[clamp(22px,5.6vw,56px)] items-center justify-center rounded-2xl"
                     style={{
                       background: `linear-gradient(135deg, ${color}22, ${color}0d)`,
                       boxShadow: `0 0 0 1px ${color}33`,
@@ -81,11 +81,11 @@ export function PerksGrid() {
                     transition={{ duration: 4 + (i % 4) * 0.4, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.08 }}
                   >
-                    <Icon className="h-6 w-6" style={{ color }} strokeWidth={1.75} />
+                    <Icon className="h-[clamp(0.6rem,2.4vw,1.5rem)] w-[clamp(0.6rem,2.4vw,1.5rem)]" style={{ color }} strokeWidth={1.75} />
                   </motion.div>
 
-                  <h3 className="relative z-10 mt-4 text-base font-bold text-kio-ink">{p.title}</h3>
-                  <p className="relative z-10 mt-2 text-sm leading-relaxed text-kio-muted">{p.body}</p>
+                  <h3 className="relative z-10 mt-[clamp(2px,1.6vw,16px)] text-[clamp(0.48rem,1.6vw,1rem)] font-bold text-kio-ink">{p.title}</h3>
+                  <p className="relative z-10 mt-[clamp(1px,0.8vw,8px)] text-[clamp(0.4rem,1.3vw,0.875rem)] leading-relaxed text-kio-muted">{p.body}</p>
                 </motion.div>
               </motion.div>
             );

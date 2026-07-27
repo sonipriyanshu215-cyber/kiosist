@@ -19,12 +19,12 @@ const ACCENTS = [
 ];
 
 const TEAM = [
-  { name: "Henal Dalal",    role: "Founder",                           img: "/img/team/ceo.webp",   tag: "Leadership", pos: "object-top" },
-  { name: "Bhavin Dalal", role: "Founder",                             img: "/img/team/t6.webp",   tag: "Leadership"  },
-  { name: "Vinit Patel", role: "CEO",                                  img: "/img/team/t2.webp",   tag: "Operations"  },
-  { name: "Parshav Shah",  role: "Assistant General Manager",          img: "/img/team/t8.webp",   tag: "Training"    },
-  { name: "Sourabh Patil",  role: "Team Leader",                       img: "/img/team/t5.webp",   tag: "Front Desk"  },
-  { name: "Smeeta Rawal",role: "Team Leader",                          img: "/img/team/t3.webp",   tag: "Front Desk"  },
+  { name: "Henal Dalal",                              img: "/img/team/ceo.webp",        tag: "FOUNDER", pos: "object-top" },
+  { name: "Bhavin Dalal",                              img: "/img/team/t6.webp",        tag: "FOUNDER"  },
+  { name: "Vinit Patel",                                   img: "/img/team/t2.webp",    tag: "CEO"  },
+  { name: "Parshav Shah",             img: "/img/team/t8.webp",                         tag: "Assistant General Manager"    },
+  { name: "Sourabh Patil",                          img: "/img/team/t5.webp",           tag: "Team Leader"  },
+  { name: "Smeet Rawal",                          img: "/img/team/t3.webp",             tag: "Team Leader"  },
   ];
 
 type TeamMember = typeof TEAM[0];

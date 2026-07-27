@@ -138,9 +138,6 @@ export function HeroBanner() {
   return (
     <section className="relative flex min-h-[100vh] items-center overflow-hidden px-6 pb-10 pt-[50px] lg:min-h-[95vh]">
 
-      {/* ── Background: animated grid ── */}
-      <div className="bg-grid pointer-events-none absolute inset-0 opacity-100" aria-hidden="true" />
-
       {/* ── Background: floating particles ── */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         {PARTICLES.map((p, i) => (
@@ -199,11 +196,15 @@ export function HeroBanner() {
             {/* Line 1 */}
             <span className="block">Kiosist Delivers Hospitality</span>
 
-            {/* Line 2- Powered by [word]. Wraps freely at every size now
-                that this column is permanently ~half the container (rather
-                than only below lg), so a fixed nowrap reservation sized for
-                one breakpoint would just overflow at another. */}
-            <span className="block mt-1">
+            {/* Line 2- Powered by [word]. Forced to a single line (nowrap)-
+                "Professionalism." is the longest cycling word, and letting
+                it wrap onto its own third line (while the shorter words
+                stay on one line) made the hero's height visibly jump each
+                time it cycled in. "Powered By Professionalism." is about
+                the same length as line 1 ("Kiosist Delivers Hospitality"),
+                which already fits on one line at this font size, so the
+                longest word fits here too without needing a smaller font. */}
+            <span className="block mt-1 whitespace-nowrap text-[clamp(0.5rem,2.75vw,3rem)] lg:text-[clamp(1.6rem,3vw,2.5rem)]">
               <span className="text-kio-muted/60 font-semibold">Powered By </span>
               <span className="inline-block">
                 <AnimatePresence mode="wait">

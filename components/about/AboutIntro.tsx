@@ -155,7 +155,7 @@ export function AboutIntro() {
           className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md md:p-7"
         >
           <h3 className="mb-[clamp(8px,2vw,20px)] text-[clamp(0.5rem,1.6vw,1rem)] font-bold uppercase tracking-wider text-[#60a5fa]">
-            What We Do- Why Do People Join Us?
+            What We Do ?
           </h3>
           <div className="grid grid-cols-5 gap-[clamp(2px,1.5vw,24px)]">
             {SERVICES.map((s, i) => {

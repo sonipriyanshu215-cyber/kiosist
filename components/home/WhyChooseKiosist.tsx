@@ -44,7 +44,7 @@ const REASONS = [
 
 function Photo({ title, image, color, priority }: { title: string; image: string; color: string; priority: boolean }) {
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] border" style={{ borderColor: `${color}40` }}>
+    <div className="relative h-full min-h-[440px] w-full overflow-hidden rounded-[28px] border" style={{ borderColor: `${color}40` }}>
       <Image
         src={image}
         alt={title}
@@ -62,9 +62,12 @@ function Photo({ title, image, color, priority }: { title: string; image: string
   );
 }
 
-function Details({ title, body }: { title: string; body: string }) {
+function Details({ title, body, color }: { title: string; body: string; color: string }) {
   return (
-    <div>
+    <div
+      className="flex h-full min-h-[440px] flex-col justify-center rounded-2xl bg-kio-bg p-[clamp(10px,2.5vw,32px)] ring-1 ring-kio-line transition-colors hover:ring-[var(--hover-ring)]"
+      style={{ "--hover-ring": `${color}60` } as React.CSSProperties}
+    >
       <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.75rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
         {title}
       </h3>
@@ -93,27 +96,51 @@ export function WhyChooseKiosist() {
       </RevealOnScroll>
 
       <div className="container-kio relative z-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-[clamp(12px,3vw,56px)]">
-          {REASONS.map((r, i) => {
-            const reversed = i % 2 === 1;
-            return (
-              <RevealOnScroll key={r.title} className="w-full">
-                <div className="grid grid-cols-2 items-center gap-[clamp(6px,2.5vw,56px)]">
-                  {reversed ? (
-                    <>
-                      <Details title={r.title} body={r.body} />
-                      <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
-                    </>
-                  ) : (
-                    <>
-                      <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
-                      <Details title={r.title} body={r.body} />
-                    </>
-                  )}
-                </div>
-              </RevealOnScroll>
-            );
-          })}
+        <div className="relative mx-auto max-w-5xl">
+          {/* Timeline spine- runs through the row of dots, same motif as
+              the old events-timeline layout this section is modeled on */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-0 bottom-0 hidden w-px -translate-x-1/2 bg-kio-line md:block"
+          />
+
+          <div className="flex flex-col gap-[clamp(24px,6vw,64px)]">
+            {REASONS.map((r, i) => {
+              const reversed = i % 2 === 1;
+              return (
+                <RevealOnScroll key={r.title} className="w-full">
+                  <div className="relative grid grid-cols-1 items-stretch gap-[clamp(10px,3vw,32px)] md:grid-cols-2 md:gap-0">
+                    {/* Dot- marks this row on the center spine */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1/2 top-1/2 z-10 hidden h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 md:block"
+                      style={{ borderColor: r.color, background: "var(--kio-bg)" }}
+                    />
+
+                    {reversed ? (
+                      <>
+                        <div className="md:pr-12">
+                          <Details title={r.title} body={r.body} color={r.color} />
+                        </div>
+                        <div className="md:pl-12 md:w-[calc(100%+2.5rem)] lg:w-[calc(100%+5rem)]">
+                          <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="md:pr-12 md:-ml-10 md:w-[calc(100%+2.5rem)] lg:-ml-20 lg:w-[calc(100%+5rem)]">
+                          <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
+                        </div>
+                        <div className="md:pl-12">
+                          <Details title={r.title} body={r.body} color={r.color} />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

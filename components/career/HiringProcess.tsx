@@ -63,12 +63,9 @@ export function HiringProcess() {
 
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mb-16 text-center">
-          <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl">
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Our <span className="text-color-cycle">Hiring Process.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-kio-muted">
-            Five clear steps. Most candidates go live within two weeks of applying.
-          </p>
         </RevealOnScroll>
 
         {/* Vertical timeline- same layout at every breakpoint */}

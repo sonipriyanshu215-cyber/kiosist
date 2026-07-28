@@ -53,12 +53,12 @@ function LogoItem({ src, alt }: { src: string; alt: string }) {
 
 export function BrandStrip() {
   return (
-    <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden pt-8 pb-3 md:pt-10 md:pb-4 lg:pt-12 lg:pb-5">
 
       {/* Tagline above heading */}
       <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
-        <p className="text-[clamp(1.1rem,2.5vw,1.6rem)] font-bold tracking-wide text-color-cycle">
-          Trusted by Hotel Brands.
+        <p className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
+          Trusted by <span className="text-color-cycle">Hotel Brands.</span>
         </p>
       </RevealOnScroll>
 

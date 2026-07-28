@@ -24,7 +24,10 @@ const TEAM = [
   { name: "Vinit Patel",                                   img: "/img/team/t2.webp",    tag: "CEO"  },
   { name: "Parshav Shah",             img: "/img/team/t8.webp",                         tag: "Assistant General Manager"    },
   { name: "Sourabh Patil",                          img: "/img/team/t5.webp",           tag: "Team Leader"  },
-  { name: "Smeet Rawal",                          img: "/img/team/t3.webp",             tag: "Team Leader"  },
+  // t3.webp shows a woman- wrong for Smeet (male). No correct photo of him is
+  // available yet, so this intentionally-missing path falls back to the
+  // initials placeholder below rather than displaying a mismatched photo.
+  { name: "Smeet Rawal",                          img: "/img/team/smeet.webp",          tag: "Team Leader"  },
   ];
 
 type TeamMember = typeof TEAM[0];
@@ -100,7 +103,7 @@ function AvatarCard({
           </div>
 
           {/* ── Avatar ── */}
-          <div className="relative mx-auto mb-4 h-20 w-20">
+          <div className="relative mx-auto mb-4 h-28 w-28">
             {/* Pulsing ambient halo */}
             <motion.div
               className="absolute -inset-3 rounded-full"
@@ -140,7 +143,7 @@ function AvatarCard({
                   fill
                   className={`object-cover ${member.pos ?? ""}`}
                   onError={() => setImgErr(true)}
-                  sizes="80px"
+                  sizes="112px"
                 />
               ) : (
                 /* Stylised initials placeholder */
@@ -220,7 +223,7 @@ export function TeamMosaic() {
       <div className="container-kio relative z-10">
         {/* Heading */}
         <RevealOnScroll className="mb-16 text-center">
-          <h2 className="mt-3 text-3xl font-bold text-kio-ink md:text-4xl lg:text-5xl">
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Meet The <span className="text-color-cycle">Experts</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-kio-muted">

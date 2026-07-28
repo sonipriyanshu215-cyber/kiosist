@@ -48,8 +48,8 @@ export function MissionBlock() {
 
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mx-auto mb-14 max-w-2xl text-center">
-          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-color-cycle">
-            Our Vision And Mission
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
+            Our Vision <span className="text-color-cycle">And Mission</span>
           </h2>
         </RevealOnScroll>
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Play } from "lucide-react";
 import { ParticleRingDynamic } from "@/components/global/ParticleRingDynamic";
 
 interface KiosistIntroProps {
@@ -12,10 +12,14 @@ interface KiosistIntroProps {
 export function KiosistIntro({ onComplete }: KiosistIntroProps) {
   const [isExiting, setIsExiting] = useState(false);
   const [finished, setFinished] = useState(false);
-  // Browsers block autoplay-with-sound on first visit, so it starts muted
-  // (required for autoplay to work at all) with a tap-to-unmute affordance-
-  // same pattern VideoStory.tsx already uses elsewhere on the site.
+  // The clip no longer autoplays- autoplay forced it in muted, and by the
+  // time a visitor tapped unmute they'd already missed however much had
+  // played, so they only ever caught the tail end of the sentence rather
+  // than the whole line. Now it stays paused and muted until the visitor
+  // explicitly presses Play, at which point it starts from frame 0 WITH
+  // sound- a real user gesture, so browsers allow unmuted playback.
   const [muted, setMuted] = useState(true);
+  const [started, setStarted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const beamCanvasRef = useRef<HTMLCanvasElement>(null);
   const kioskVisualRef = useRef<HTMLDivElement>(null);
@@ -26,6 +30,16 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
     if (!v) return;
     v.muted = !v.muted;
     setMuted(v.muted);
+  };
+
+  const handlePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.currentTime = 0;
+    v.muted = false;
+    v.play();
+    setMuted(false);
+    setStarted(true);
   };
 
   // Light beam from the kiosk's camera to the agent's screen- drawn on a
@@ -391,6 +405,49 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           background: rgba(59, 130, 246, 0.25);
         }
 
+        /* Darkens the paused first frame so the play button reads clearly
+           against it, and signals "not playing yet" at a glance. */
+        .agent-video-scrim {
+          position: absolute;
+          inset: 0;
+          z-index: 20;
+          background: rgba(5, 7, 13, 0.45);
+          border-radius: 16px;
+        }
+
+        /* Large, unmissable- this is the only way the clip starts, since
+           autoplay was removed so the full sentence plays with sound from
+           frame 0 instead of joining muted mid-way. */
+        .agent-play-btn {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 25;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, var(--kio-accent), var(--kio-accent2));
+          color: #fff;
+          border: 2px solid rgba(255, 255, 255, 0.85);
+          cursor: pointer;
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.55), 0 8px 24px rgba(0, 0, 0, 0.45);
+          animation: play-btn-pulse 2.2s ease-in-out infinite;
+        }
+
+        .agent-play-btn:hover {
+          transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        @keyframes play-btn-pulse {
+          0%   { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.55), 0 8px 24px rgba(0, 0, 0, 0.45); }
+          70%  { box-shadow: 0 0 0 14px rgba(59, 130, 246, 0), 0 8px 24px rgba(0, 0, 0, 0.45); }
+          100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0), 0 8px 24px rgba(0, 0, 0, 0.45); }
+        }
+
         /* Pops in above the agent once it finishes arriving, as if greeting the guest */
         .agent-speech {
           position: absolute;
@@ -540,20 +597,35 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
                   ref={videoRef}
                   className="agent-video"
                   src="/video/animated.mp4"
-                  autoPlay
-                  loop
-                  muted={muted}
+                  preload="auto"
                   playsInline
+                  muted={muted}
+                  onEnded={() => setStarted(false)}
                 />
+                {!started && (
+                  <>
+                    <div className="agent-video-scrim" />
+                    <button
+                      type="button"
+                      className="agent-play-btn"
+                      onClick={handlePlay}
+                      aria-label="Play welcome video with sound"
+                    >
+                      <Play size={22} fill="currentColor" />
+                    </button>
+                  </>
+                )}
               </div>
-              <button
-                type="button"
-                className="agent-sound-btn"
-                onClick={toggleMute}
-                aria-label={muted ? "Unmute" : "Mute"}
-              >
-                {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
-              </button>
+              {started && (
+                <button
+                  type="button"
+                  className="agent-sound-btn"
+                  onClick={toggleMute}
+                  aria-label={muted ? "Unmute" : "Mute"}
+                >
+                  {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                </button>
+              )}
               <div className="agent-speech">Welcome! 👋</div>
             </div>
           </div>

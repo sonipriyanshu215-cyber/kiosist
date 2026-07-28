@@ -84,12 +84,12 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   }, []);
 
   return (
-    <section className="pb-16 pt-28 md:pb-20 md:pt-32 lg:pb-24 lg:pt-36">
+    <section className="pb-8 pt-20 md:pb-10 md:pt-24 lg:pb-12 lg:pt-28">
       <div className="container-kio">
 
-        <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
-          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-            <span className="text-gradient-shimmer">Powering Hospitality Across US</span>
+        <RevealOnScroll className="mb-6 md:mb-8 lg:mb-10 text-center">
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
+            Powering <span className="text-color-cycle">Hospitality Across US</span>
           </h2>
         </RevealOnScroll>
 
@@ -107,7 +107,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
           {/* Map- isolated on its own GPU layer so the WebGL canvas doesn't repaint/flicker
               while the page scrolls past the rounded, clipped ancestor above */}
           <div
-            className="relative z-[5] h-[400px] w-full sm:h-[460px] md:h-[540px] lg:h-[640px]"
+            className="relative z-[5] h-[clamp(300px,58vh,620px)] w-full"
             style={{ transform: "translateZ(0)", willChange: "transform", isolation: "isolate" }}
           >
             {mounted && (

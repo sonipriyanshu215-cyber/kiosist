@@ -16,7 +16,7 @@ import {
   DoorClosed,
 } from "lucide-react";
 import { perks, type Perk } from "@/content/perks";
-import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
+import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const ICONS: Record<Perk["icon"], typeof CalendarCheck> = {
@@ -43,12 +43,9 @@ export function PerksGrid() {
     <section className="section-pad bg-kio-cream">
       <div className="container-kio">
         <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
-          <h2 className="mt-3 font-display text-3xl font-bold text-color-cycle md:text-4xl">
-            Benefits Of Working At Kiosist
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
+            Benefits Of Working <span className="text-color-cycle">At Kiosist</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-kio-muted">
-            We take care of our people so they can take care of our clients.
-          </p>
         </RevealOnScroll>
 
         <motion.div
@@ -56,37 +53,28 @@ export function PerksGrid() {
           initial={reducedMotion ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-4 gap-x-[clamp(3px,1.6vw,24px)] gap-y-[clamp(6px,2vw,32px)]"
+          className="mx-auto grid max-w-4xl grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {perks.map((p, i) => {
             const Icon = ICONS[p.icon];
             const color = COLORS[i % COLORS.length];
             return (
-              <motion.div key={p.id} variants={staggerChild} initial="rest" whileHover="hover" animate="rest">
+              <motion.div key={p.id} variants={staggerChild} className="group flex items-center gap-3.5">
+                {/* Illuminated icon badge- solid glowing fill, not a faint tint */}
                 <motion.div
-                  variants={hoverLift}
-                  className="group relative flex h-full flex-col items-center rounded-2xl bg-kio-bg px-[clamp(3px,1.4vw,20px)] py-[clamp(6px,2.2vw,32px)] text-center ring-1 ring-kio-line transition-all hover:ring-kio-accent hover:shadow-lg hover:shadow-kio-accent/10"
+                  className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+                  style={{
+                    background: `linear-gradient(135deg, ${color}, ${color}99)`,
+                    boxShadow: `0 0 0 1px ${color}55, 0 0 18px ${color}70, 0 0 4px ${color}90`,
+                  }}
+                  animate={reducedMotion ? {} : { y: [0, -5, 0] }}
+                  transition={{ duration: 4 + (i % 4) * 0.4, repeat: Infinity, ease: "easeInOut" }}
+                  whileHover={{ scale: 1.1 }}
                 >
-                  {/* Ambient spotlight behind the icon */}
-                  <div className="pointer-events-none absolute left-1/2 top-0 h-28 w-28 -translate-x-1/2 -translate-y-1/4 rounded-full bg-kio-accent/20 blur-3xl transition-opacity duration-300 group-hover:opacity-80" />
-
-                  {/* Flat 2D icon badge */}
-                  <motion.div
-                    className="relative z-10 flex h-[clamp(22px,5.6vw,56px)] w-[clamp(22px,5.6vw,56px)] items-center justify-center rounded-2xl"
-                    style={{
-                      background: `linear-gradient(135deg, ${color}22, ${color}0d)`,
-                      boxShadow: `0 0 0 1px ${color}33`,
-                    }}
-                    animate={reducedMotion ? {} : { y: [0, -6, 0] }}
-                    transition={{ duration: 4 + (i % 4) * 0.4, repeat: Infinity, ease: "easeInOut" }}
-                    whileHover={{ scale: 1.08 }}
-                  >
-                    <Icon className="h-[clamp(0.6rem,2.4vw,1.5rem)] w-[clamp(0.6rem,2.4vw,1.5rem)]" style={{ color }} strokeWidth={1.75} />
-                  </motion.div>
-
-                  <h3 className="relative z-10 mt-[clamp(2px,1.6vw,16px)] text-[clamp(0.48rem,1.6vw,1rem)] font-bold text-kio-ink">{p.title}</h3>
-                  <p className="relative z-10 mt-[clamp(1px,0.8vw,8px)] text-[clamp(0.4rem,1.3vw,0.875rem)] leading-relaxed text-kio-muted">{p.body}</p>
+                  <Icon className="h-5 w-5 text-white" strokeWidth={2} />
                 </motion.div>
+
+                <h3 className="text-[.95rem] font-bold text-kio-ink">{p.title}</h3>
               </motion.div>
             );
           })}

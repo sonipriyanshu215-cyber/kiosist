@@ -89,17 +89,6 @@ export function WhatIsKiosist() {
           {/* Bottom fade for depth */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0"
             style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 25%)" }} />
-
-          {/* HQ badge */}
-          <div className="absolute bottom-[clamp(6px,2vw,24px)] right-[clamp(6px,2vw,24px)]">
-            <div
-              className="inline-flex items-center gap-[clamp(3px,1vw,8px)] rounded-full px-[clamp(6px,2vw,16px)] py-[clamp(3px,1vw,8px)] text-[clamp(0.45rem,1.6vw,0.75rem)] font-semibold text-white"
-              style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(12px)", border: "1px solid rgba(59,130,246,0.25)" }}
-            >
-              <span className="h-[clamp(3px,1vw,8px)] w-[clamp(3px,1vw,8px)] shrink-0 rounded-full bg-kio-accent animate-pulse" />
-              Kiosist HQ- Surat, India
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>

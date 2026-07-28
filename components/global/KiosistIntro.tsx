@@ -596,7 +596,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
                 <video
                   ref={videoRef}
                   className="agent-video"
-                  src="/video/animated.mp4"
+                  src="/video/animated-2.mp4"
                   preload="auto"
                   playsInline
                   muted={muted}

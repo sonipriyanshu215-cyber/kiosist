@@ -102,6 +102,7 @@ export function AnimatedCultureSlider() {
             className={`h-2 rounded-full transition-all duration-300 ${
               currentIndex === index ? "w-8 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]" : "w-2 bg-white/30 hover:bg-white/50"
             }`}
+            suppressHydrationWarning
           />
         ))}
       </div>

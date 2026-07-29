@@ -9,73 +9,69 @@ const REVIEWS = [
   {
     id: "r-1",
     quote:
-      "Working at Kiosist changed my life. I used to work odd hours at a local BPO. Now I work nights helping US hotels- and I actually enjoy it.",
-    author: "Priya M.",
-    role: "Senior Virtual Agent",
-    tenure: "2 years",
+      "Working at Kiosist has been an interesting experience—in the best way possible! The work environment is great, with plenty of opportunities to grow (as long as you're willing to put in the effort). The pay scale? Won't disappoint you.",
+    author: "Hetvi Mistry",
+    meta: "1 review",
+    timeAgo: "a year ago",
     rating: 5,
   },
   {
     id: "r-2",
     quote:
-      "The training here is unlike anything else. In 3 weeks I learned more about hotel operations than I did in a year at my previous job.",
-    author: "Harsh P.",
-    role: "Trainer",
-    tenure: "1.5 years",
+      "A front desk operating company plays a crucial role in shaping first impressions and ensuring smooth daily operations. With professionalism, efficiency, and a customer-first approach, it enhances guest experiences.",
+    author: "Ayush Maisuriya",
+    meta: "6 reviews",
+    timeAgo: "a year ago",
     rating: 5,
   },
   {
     id: "r-3",
     quote:
-      "Henal  and the leadership genuinely care. When I had a personal issue, they were flexible without any questions. That's rare.",
-    author: "Anjali S.",
-    role: "Operations Lead",
-    tenure: "3 years",
+      "Best Experience: From start to finish, my interaction with Kiosist was nothing short of outstanding. The team's professionalism, prompt communication, and attention to detail exceeded my expectations.",
+    author: "Raj Ali",
+    meta: "2 reviews · 1 photo",
+    timeAgo: "2 years ago",
     rating: 5,
   },
   {
     id: "r-4",
     quote:
-      "I came in knowing zero about hotels. The team-lead programme helped me grow faster than I thought possible. I'm now training new joiners.",
-    author: "Kiran B.",
-    role: "Team Lead",
-    tenure: "2.5 years",
+      "I am having an excellent experience with the Company and it's evident that their commitment to excellence starts from the top. From my initial inquiry to the final delivery, the entire process was seamless.",
+    author: "Manzil Dhruv",
+    meta: "4 reviews",
+    timeAgo: "2 years ago",
     rating: 5,
   },
   {
     id: "r-5",
-    quote:
-      "Night shifts sounded rough at first, but the shift allowance and cab pickup made it a non-issue. Now it's just... my normal workday.",
-    author: "Devansh K.",
-    role: "Front Desk Executive",
-    tenure: "1 year",
+    quote: "Smiles and laughs are definitely not for sadistic people.",
+    author: "Ajit Shukla",
+    meta: "1 review",
+    timeAgo: "a year ago",
     rating: 5,
   },
   {
     id: "r-6",
-    quote:
-      "I handle guest calls for three different hotel brands and no two days feel the same. The variety keeps me sharp and genuinely engaged.",
-    author: "Neha T.",
-    role: "Front Desk Executive",
-    tenure: "1.5 years",
+    quote: "It's a good place to work.",
+    author: "Jahir Manjiyani",
+    meta: "Local Guide · 20 reviews",
+    timeAgo: "2 months ago",
     rating: 5,
   },
   {
     id: "r-7",
-    quote:
-      "Every agent gets a real onboarding buddy, not just a manual. Mine walked me through my first ten calls- that support made all the difference.",
-    author: "Rushabh D.",
-    role: "Quality Analyst",
-    tenure: "2 years",
+    quote: "Best working experience! International support centre- good exposure.",
+    author: "Iamsagarkavaa",
+    meta: "Local Guide · 65 reviews",
+    timeAgo: "2 months ago",
     rating: 5,
   },
   {
     id: "r-8",
-    quote:
-      "I joined as a fresher straight out of college. Two years later I'm running the hiring process for the same seat I once interviewed for.",
-    author: "Foram J.",
-    role: "HR & Talent Lead",
-    tenure: "2 years",
+    quote: "Amazing Corporate office.",
+    author: "Irbaaz Kapadia",
+    meta: "Local Guide · 10 reviews",
+    timeAgo: "2 years ago",
     rating: 5,
   },
 ];
@@ -92,7 +88,7 @@ function initials(name: string) {
 function ReviewCard({ r, colorIdx }: { r: (typeof REVIEWS)[number]; colorIdx: number }) {
   const color = COLORS[colorIdx % COLORS.length];
   return (
-    <div className="flex h-full w-[340px] shrink-0 flex-col rounded-3xl bg-white/5 p-8 backdrop-blur-sm ring-1 ring-white/10 transition-colors hover:ring-white/20">
+    <div className="flex w-[340px] shrink-0 flex-col rounded-3xl bg-white/5 p-8 backdrop-blur-sm ring-1 ring-white/10 transition-colors hover:ring-white/20">
       <div className="flex items-center gap-4">
         <div
           className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-bold"
@@ -103,9 +99,9 @@ function ReviewCard({ r, colorIdx }: { r: (typeof REVIEWS)[number]; colorIdx: nu
         <div>
           <p className="font-semibold text-white">{r.author}</p>
           <p className="text-sm font-medium" style={{ color }}>
-            {r.role}
+            {r.meta}
           </p>
-          <p className="text-xs text-white/50">{r.tenure} at Kiosist</p>
+          <p className="text-xs text-white/50">{r.timeAgo} on Google</p>
         </div>
       </div>
 
@@ -128,7 +124,7 @@ export function ReviewSlider() {
       <div className="container-kio">
         <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Straight From <span className="text-color-cycle">The Team</span>
+            Our People & <span className="text-color-cycle">Their Experience With Kiosist</span>
           </h2>
         </RevealOnScroll>
       </div>

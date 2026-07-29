@@ -596,7 +596,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
                 <video
                   ref={videoRef}
                   className="agent-video"
-                  src="/video/animated-2.mp4"
+                  src="/video/ANIMATED-3.mp4"
                   preload="auto"
                   playsInline
                   muted={muted}
@@ -610,6 +610,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
                       className="agent-play-btn"
                       onClick={handlePlay}
                       aria-label="Play welcome video with sound"
+                      suppressHydrationWarning
                     >
                       <Play size={22} fill="currentColor" />
                     </button>
@@ -622,6 +623,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
                   className="agent-sound-btn"
                   onClick={toggleMute}
                   aria-label={muted ? "Unmute" : "Mute"}
+                  suppressHydrationWarning
                 >
                   {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
                 </button>
@@ -638,7 +640,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
             And Make Others <span className="intro-tagline-accent">Smile.</span>
           </p>
 
-          <button type="button" className="explore-btn" onClick={handleStart}>
+          <button type="button" className="explore-btn" onClick={handleStart} suppressHydrationWarning>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>

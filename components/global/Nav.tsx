@@ -81,6 +81,7 @@ export function Nav() {
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-kio-line text-kio-ink lg:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            suppressHydrationWarning
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>

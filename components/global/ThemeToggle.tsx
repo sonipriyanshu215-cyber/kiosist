@@ -16,6 +16,7 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="rounded-full p-2 text-kio-muted transition-colors hover:bg-kio-bg-soft hover:text-kio-ink"
       aria-label="Toggle theme"
+      suppressHydrationWarning
     >
       {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </button>

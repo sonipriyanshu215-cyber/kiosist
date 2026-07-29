@@ -34,6 +34,7 @@ export function FAQAccordion() {
                   onClick={() => setOpen(isOpen ? null : faq.id)}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   aria-expanded={isOpen}
+                  suppressHydrationWarning
                 >
                   <span className={`font-semibold transition-colors ${isOpen ? "text-kio-accent" : "text-kio-ink"}`}>
                     {faq.question}

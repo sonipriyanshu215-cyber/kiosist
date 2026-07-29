@@ -68,6 +68,7 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
                   ? "border-kio-accent bg-kio-accent/15 text-kio-accent"
                   : "border-kio-line text-kio-muted hover:border-kio-accent/40 hover:text-kio-ink"
               }`}
+              suppressHydrationWarning
             >
               {t}
             </button>

@@ -57,9 +57,9 @@ export function BrandStrip() {
 
       {/* Tagline above heading */}
       <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
-        <p className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
+        <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Trusted by <span className="text-color-cycle">Hotel Brands.</span>
-        </p>
+        </h2>
       </RevealOnScroll>
 
       {/* Left fade mask */}

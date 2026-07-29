@@ -84,7 +84,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   }, []);
 
   return (
-    <section className="pb-8 pt-20 md:pb-10 md:pt-24 lg:pb-12 lg:pt-28">
+    <section className="pb-0 pt-20 md:pt-24 lg:pt-28">
       <div className="container-kio">
 
         <RevealOnScroll className="mb-6 md:mb-8 lg:mb-10 text-center">
@@ -107,7 +107,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
           {/* Map- isolated on its own GPU layer so the WebGL canvas doesn't repaint/flicker
               while the page scrolls past the rounded, clipped ancestor above */}
           <div
-            className="relative z-[5] h-[clamp(300px,58vh,620px)] w-full"
+            className="relative z-[5] h-[clamp(420px,85vh,940px)] w-full"
             style={{ transform: "translateZ(0)", willChange: "transform", isolation: "isolate" }}
           >
             {mounted && (

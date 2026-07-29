@@ -17,16 +17,13 @@ const CONTACT_INFO = [
   {
     Icon: MapPin,
     title: "Our Office",
-    lines: [
-      "Shop No. 1, Platinum Plaza, Shaheed Veer Bhagat Singh Flyover Brg,",
-      "opp. V.T. Choksi College, Ambika Niketan, Athwa, Surat, Gujarat 395007",
-    ],
+    lines: ["Shop No. 1, Platinum Plaza, opp. V.T. CHOKSI COLLEGE, Athwa, Surat, Gujarat 395007"],
     href: "https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA",
   },
   {
     Icon: Phone,
     title: "Give Us A Call",
-    lines: ["+91 98254 00070", "Available 24 hours"],
+    lines: ["+91 98254 00070"],
     href: "tel:+919825400070",
   },
   {
@@ -60,14 +57,14 @@ export default function Contact() {
                 </span>
               </p>
 
-              <div className="mt-[clamp(8px,3vw,40px)] grid grid-cols-3 items-start gap-[clamp(3px,1.4vw,16px)]">
+              <div className="mt-[clamp(8px,3vw,40px)] grid grid-cols-3 gap-[clamp(3px,1.4vw,16px)]">
                 {CONTACT_INFO.map((c) => (
                   <a
                     key={c.title}
                     href={c.href}
                     target={c.href.startsWith("http") ? "_blank" : undefined}
                     rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="group rounded-2xl border border-white/10 bg-white/[0.04] p-[clamp(3px,1.6vw,20px)] transition-colors hover:border-kio-accent/40"
+                    className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-[clamp(3px,1.6vw,20px)] transition-colors hover:border-kio-accent/40"
                   >
                     <div className="mb-[clamp(2px,1.2vw,12px)] flex h-[clamp(18px,4vw,40px)] w-[clamp(18px,4vw,40px)] items-center justify-center rounded-full bg-kio-accent/15 text-kio-accent">
                       <c.Icon className="h-[clamp(0.55rem,2vw,1.25rem)] w-[clamp(0.55rem,2vw,1.25rem)]" />

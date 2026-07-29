@@ -108,6 +108,7 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
             onClick={toggleMute}
             aria-label={muted ? "Unmute video" : "Mute video"}
             className="flex h-[clamp(18px,5vw,40px)] w-[clamp(18px,5vw,40px)] items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
+            suppressHydrationWarning
           >
             {muted ? <VolumeX className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)]" /> : <Volume2 className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)]" />}
           </button>
@@ -116,6 +117,7 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
             onClick={togglePlay}
             aria-label={playing ? "Pause video" : "Play video"}
             className="flex h-[clamp(18px,5vw,40px)] w-[clamp(18px,5vw,40px)] items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
+            suppressHydrationWarning
           >
             {playing ? <Pause className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)]" /> : <Play className="h-[clamp(0.55rem,1.8vw,1rem)] w-[clamp(0.55rem,1.8vw,1rem)] translate-x-[1px]" />}
           </button>

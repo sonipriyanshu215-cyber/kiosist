@@ -59,6 +59,7 @@ export function DemoModal({ open, onClose }: DemoModalProps) {
                   onClick={onClose}
                   className="rounded-full p-2 text-kio-muted hover:bg-kio-bg-soft hover:text-kio-ink transition-colors"
                   aria-label="Close"
+                  suppressHydrationWarning
                 >
                   <X className="h-5 w-5" />
                 </button>

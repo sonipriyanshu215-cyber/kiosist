@@ -27,7 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     return (
-      <button ref={ref} className={cn(base, variants[variant], sizes[size], className)} {...props}>
+      <button ref={ref} className={cn(base, variants[variant], sizes[size], className)} suppressHydrationWarning {...props}>
         {children}
       </button>
     );

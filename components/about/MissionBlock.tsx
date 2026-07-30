@@ -25,15 +25,15 @@ export function MissionBlock() {
 
       {/* Animated background blobs */}
       <motion.div
-        className="pointer-events-none absolute -left-40 top-1/2 h-[480px] w-[480px] -translate-y-1/2 rounded-full opacity-[0.12]"
+        className="pointer-events-none absolute -right-40 top-1/2 h-[480px] w-[480px] -translate-y-1/2 rounded-full opacity-[0.12]"
         style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 70%)" }}
-        animate={rm ? {} : { scale: [1, 1.15, 1], x: [0, 24, 0] }}
+        animate={rm ? {} : { scale: [1, 1.15, 1], x: [0, -24, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="pointer-events-none absolute -right-40 top-1/2 h-[360px] w-[360px] -translate-y-1/2 rounded-full opacity-[0.09]"
+        className="pointer-events-none absolute -left-40 top-1/2 h-[360px] w-[360px] -translate-y-1/2 rounded-full opacity-[0.09]"
         style={{ background: "radial-gradient(circle, var(--kio-accent2), transparent 70%)" }}
-        animate={rm ? {} : { scale: [1, 1.2, 1], x: [0, -20, 0] }}
+        animate={rm ? {} : { scale: [1, 1.2, 1], x: [0, 20, 0] }}
         transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
       />
 
@@ -49,11 +49,37 @@ export function MissionBlock() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Our Vision <span className="text-color-cycle">And Mission</span>
+            Our  <span className="text-color-cycle">Vision And Mission</span>
           </h2>
         </RevealOnScroll>
 
         <div className="mx-auto flex max-w-6xl flex-row items-center gap-[clamp(8px,3vw,48px)]">
+
+          {/* Mission miniature - left side */}
+          <RevealOnScroll className="flex flex-none justify-start">
+            <motion.div
+              className="relative h-[clamp(56px,16vw,208px)] w-[clamp(56px,16vw,208px)]"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <motion.div
+                className="pointer-events-none absolute inset-0 rounded-full opacity-40 blur-xl"
+                style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 70%)" }}
+                animate={rm ? {} : { scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <Image
+                src="/img/about/Mission.png"
+                alt="Mission - target hit atop a mountain, flanked by a flag and compass"
+                width={1024}
+                height={1024}
+                className="relative h-full w-full rounded-3xl object-cover"
+                priority
+              />
+            </motion.div>
+          </RevealOnScroll>
 
           {/* Text column */}
           <div className="flex-1 text-center">
@@ -91,32 +117,6 @@ export function MissionBlock() {
               style={{ transformOrigin: "center" }}
             />
           </div>
-
-          {/* Mission miniature - right side */}
-          <RevealOnScroll className="flex flex-none justify-end">
-            <motion.div
-              className="relative h-[clamp(56px,16vw,208px)] w-[clamp(56px,16vw,208px)]"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <motion.div
-                className="pointer-events-none absolute inset-0 rounded-full opacity-40 blur-xl"
-                style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 70%)" }}
-                animate={rm ? {} : { scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <Image
-                src="/img/about/Mission.png"
-                alt="Mission - target hit atop a mountain, flanked by a flag and compass"
-                width={1024}
-                height={1024}
-                className="relative h-full w-full rounded-3xl object-cover"
-                priority
-              />
-            </motion.div>
-          </RevealOnScroll>
         </div>
       </div>
     </section>

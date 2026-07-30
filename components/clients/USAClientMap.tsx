@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import type { Client } from "@/content/clients";
 import { PinWithPulse } from "@/components/clients/PinWithPulse";
@@ -76,18 +76,46 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   // it had no room to zoom out and honor any extra padding at all.
   const [fitPadding, setFitPadding] = useState(24);
   const [minZoom, setMinZoom] = useState(3);
+  // Measured (not guessed) so the map is exactly as tall as the space left
+  // under the fixed nav + heading- as large as it can be while still fitting
+  // fully in the first viewport, on any screen size.
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mapHeight, setMapHeight] = useState<number | null>(null);
   useEffect(() => {
     setMounted(true);
     const narrow = window.innerWidth < 640;
     setFitPadding(narrow ? 60 : 24);
     setMinZoom(narrow ? 1 : 3);
+
+    const measure = () => {
+      if (!cardRef.current) return;
+      const docTop = cardRef.current.getBoundingClientRect().top + window.scrollY;
+      const available = window.innerHeight - docTop - 6; // 6px bottom breathing room
+      // The continental US bbox has a fixed ~1.78:1 (width:height) shape. If the
+      // card is given more height than that shape needs at its current width,
+      // fitBounds fills the extra room with real geography beyond the bbox
+      // (ocean south of Florida, Canada up north) instead of cropping- which
+      // reads as a big empty band. Capping height to what the width actually
+      // calls for keeps the map filled edge-to-edge with no dead space, while
+      // `available` still guarantees it fits the viewport.
+      const width = cardRef.current.clientWidth;
+      const idealForWidth = width / 1.78;
+      const target = Math.min(available, idealForWidth);
+      // 360 is a soft floor for usability on tiny windows- it can still lose
+      // to `available` above, because a slightly-short map beats one whose
+      // bottom edge is cropped by the viewport.
+      setMapHeight(Math.min(Math.max(target, 360), 940));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
   return (
-    <section className="pb-0 pt-20 md:pt-24 lg:pt-28">
+    <section className="pb-0 pt-[76px]">
       <div className="container-kio">
 
-        <RevealOnScroll className="mb-6 md:mb-8 lg:mb-10 text-center">
+        <RevealOnScroll className="mb-3 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Powering <span className="text-color-cycle">Hospitality Across US</span>
           </h2>
@@ -95,11 +123,15 @@ export function USAClientMap({ clients }: USAClientMapProps) {
 
         {/* ── Map with radar overlay ── */}
         <motion.div
+          ref={cardRef}
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, ease: [0.16,1,0.3,1] }}
-          className="relative overflow-hidden rounded-3xl border border-[#3b82f6]/12"
-          style={{ background: "linear-gradient(180deg,#060a18 0%,#08101e 100%)" }}
+          className="relative w-full overflow-hidden rounded-3xl border border-[#3b82f6]/12"
+          style={{
+            background: "linear-gradient(180deg,#060a18 0%,#08101e 100%)",
+            height: mapHeight ? `${mapHeight}px` : "clamp(360px, 85vh, 940px)",
+          }}
         >
           {/* Radar overlays- pointer-events-none so the map stays pannable underneath */}
           <RadarSweep />
@@ -107,8 +139,12 @@ export function USAClientMap({ clients }: USAClientMapProps) {
           {/* Map- isolated on its own GPU layer so the WebGL canvas doesn't repaint/flicker
               while the page scrolls past the rounded, clipped ancestor above */}
           <div
-            className="relative z-[5] h-[clamp(420px,85vh,940px)] w-full"
-            style={{ transform: "translateZ(0)", willChange: "transform", isolation: "isolate" }}
+            className="relative z-[5] h-full w-full"
+            style={{
+              transform: "translateZ(0)",
+              willChange: "transform",
+              isolation: "isolate",
+            }}
           >
             {mounted && (
               <Map
@@ -140,7 +176,12 @@ export function USAClientMap({ clients }: USAClientMapProps) {
                   >
                     <div className="relative">
                       <PinWithPulse delay={i * 0.12} />
-                      <span className="absolute left-1/2 top-full mt-0.5 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#060a18]/85 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm ring-1 ring-[#3b82f6]/30">
+                      <span
+                        className="absolute left-1/2 top-full whitespace-nowrap rounded-full bg-[#060a18]/85 px-1.5 py-0.5 text-[9px] font-semibold text-white shadow-sm ring-1 ring-[#3b82f6]/30"
+                        style={{
+                          transform: `translate(calc(-50% + ${c.labelOffset?.x ?? 0}px), ${2 + (c.labelOffset?.y ?? 0)}px)`,
+                        }}
+                      >
                         {c.state}
                       </span>
                     </div>

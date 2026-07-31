@@ -118,9 +118,9 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
       ) : (
         <>
           {/* Stepper */}
-          <div className="mb-[clamp(8px,2.5vw,40px)] flex items-center justify-center">
+          <div className="mb-[clamp(8px,2.5vw,40px)] flex items-start justify-center">
             {STEPS.map((s, i) => (
-              <div key={s.label} className="flex items-center">
+              <div key={s.label} className="flex items-start">
                 <div className="flex flex-col items-center gap-[clamp(2px,0.6vw,8px)]">
                   <motion.div
                     animate={{
@@ -129,7 +129,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                         i < step ? "var(--kio-success)" : i === step ? "var(--kio-accent)" : "var(--kio-line)",
                     }}
                     transition={{ duration: 0.3 }}
-                    className={`flex h-[clamp(20px,5vw,40px)] w-[clamp(20px,5vw,40px)] items-center justify-center rounded-full border-2 text-[clamp(0.55rem,1.6vw,0.875rem)] font-bold ${
+                    className={`flex h-[clamp(20px,5vw,40px)] w-[clamp(20px,5vw,40px)] items-center justify-center rounded-full border-2 text-[clamp(0.55rem,1.6vw,0.875rem)] font-bold leading-none tabular-nums ${
                       i < step
                         ? "bg-kio-success/15 text-kio-success"
                         : i === step
@@ -148,7 +148,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                   </span>
                 </div>
                 {i < STEPS.length - 1 && (
-                  <div className="mx-[clamp(2px,1vw,12px)] -mt-5 h-0.5 w-[clamp(10px,4vw,64px)] overflow-hidden rounded-full bg-kio-line">
+                  <div className="mx-[clamp(2px,1vw,12px)] mt-[calc(clamp(10px,2.5vw,20px)-1px)] h-0.5 w-[clamp(10px,4vw,64px)] overflow-hidden rounded-full bg-kio-line">
                     <motion.div
                       className="h-full rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
                       initial={false}

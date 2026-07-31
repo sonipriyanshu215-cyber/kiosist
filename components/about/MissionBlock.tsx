@@ -57,7 +57,7 @@ export function MissionBlock() {
 
           {/* Text column */}
           <div className="flex-1 text-left">
-            <span className="text-[clamp(0.45rem,1.3vw,0.75rem)] font-bold uppercase tracking-[.15em] text-color-cycle">
+            <span className="text-[clamp(1rem,2.2vw,1.5rem)] font-bold uppercase tracking-[.15em] text-color-cycle">
               Our Mission
             </span>
 
@@ -70,7 +70,7 @@ export function MissionBlock() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mt-[clamp(4px,1.5vw,16px)] text-[clamp(0.75rem,2vw,1.375rem)] font-normal leading-relaxed text-white"
+              className="mt-[clamp(4px,1.5vw,16px)] text-[clamp(0.7rem,1.5vw,1rem)] font-normal leading-relaxed text-white"
             >
               {HEADING.split(" ").map((word, i) => (
                 <Fragment key={i}>

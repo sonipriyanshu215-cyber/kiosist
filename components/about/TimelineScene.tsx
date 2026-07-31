@@ -117,10 +117,6 @@ function JourneyFooter() {
           ))}
         </div>
       </div>
-
-      <p className="mx-auto mt-5 max-w-lg text-center text-sm italic text-kio-muted">
-        Different hotels. Different guests. One promise: We&apos;re Always Here.
-      </p>
     </div>
   );
 }

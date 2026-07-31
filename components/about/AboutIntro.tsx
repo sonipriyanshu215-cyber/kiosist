@@ -2,13 +2,16 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { staggerParent, staggerChild } from "@/lib/motion";
+import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const SERVICE_COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"];
 
 /* ── What We Do services ── */
 const SERVICES = [
   {
-    label: "Manage check-in & check-out",
+    title: "Manage Check-In & Check-Out",
+    body: "Smooth, contactless arrivals and departures handled remotely, every time.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -18,7 +21,8 @@ const SERVICES = [
     ),
   },
   {
-    label: "Handle reservations & inquiries",
+    title: "Handle Reservations & Inquiries",
+    body: "Booking questions, availability, and guest inquiries answered promptly.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -30,7 +34,8 @@ const SERVICES = [
     ),
   },
   {
-    label: "Making every guest stay memorable",
+    title: "Making Every Guest Stay Memorable",
+    body: "Personal touches that turn a simple stay into a story worth sharing.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
@@ -38,7 +43,8 @@ const SERVICES = [
     ),
   },
   {
-    label: "Resolve guest requests & concerns",
+    title: "Resolve Guest Requests & Concerns",
+    body: "Real-time support that resolves issues before they become complaints.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -49,7 +55,8 @@ const SERVICES = [
     ),
   },
   {
-    label: "Deliver exceptional service",
+    title: "Deliver Exceptional Service",
+    body: "Consistent, high-standard hospitality delivered around the clock.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="6" />
@@ -145,45 +152,58 @@ export function AboutIntro() {
         </div>
       </section>
 
-      {/* ── What We Do- its own block below the full-screen hero ── */}
-      <section className="bg-black px-6 py-16 md:px-10 lg:px-14 lg:py-20 xl:px-20">
+      {/* ── What We Do- its own block below the full-screen hero, card
+          style matches WhyGrid's skills/experience grid (icon badge
+          straddling the card's top edge, bold title, muted body). ── */}
+      <section className="section-pad relative overflow-hidden bg-black">
+        {/* Ambient blob */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[-200px] top-1/2 h-[560px] w-[560px] -translate-y-1/2 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(59,130,246,.12) 0%, transparent 70%)" }}
+        />
+
+        <RevealOnScroll className="relative z-10 container-kio mb-14 md:mb-16 lg:mb-20 text-center">
+          <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
+            What <span className="text-color-cycle">We Do</span>
+          </h2>
+        </RevealOnScroll>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={staggerParent}
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6 md:p-9 lg:p-11"
+          className="container-kio relative z-10 flex flex-wrap justify-center gap-x-[clamp(8px,3vw,32px)] gap-y-[clamp(20px,5.5vw,40px)]"
         >
-          <h3 className="mb-[clamp(12px,2.5vw,28px)] text-[clamp(0.5rem,1.6vw,1rem)] font-bold uppercase tracking-wider text-[#60a5fa]">
-            What We Do ?
-          </h3>
-          {/* Auto-fit grid- the browser decides how many columns actually
-              fit at the current width (down to the 150px minimum each), so
-              items reflow from 5-across on desktop to fewer per row on
-              tighter viewports instead of a fixed column count forcing
-              cramped, wrapping text at every size. */}
-          <div
-            className="grid justify-items-center gap-x-[clamp(12px,3vw,32px)] gap-y-[clamp(20px,4vw,40px)]"
-            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}
-          >
-            {SERVICES.map((s, i) => {
-              const color = SERVICE_COLORS[i % SERVICE_COLORS.length];
-              return (
+          {SERVICES.map((s, i) => {
+            const color = SERVICE_COLORS[i % SERVICE_COLORS.length];
+            return (
+              <motion.div
+                key={s.title}
+                variants={staggerChild}
+                className="group relative w-full rounded-2xl border border-kio-line bg-kio-bg p-[clamp(10px,2.5vw,20px)] pt-[clamp(32px,9vw,64px)] transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:w-[calc(50%-clamp(8px,3vw,32px)/2)] lg:w-[calc(33.3333%-clamp(8px,3vw,32px)*2/3)]"
+              >
+                {/* Icon badge- centered above the box, straddling its top
+                    edge, same dark circular lockup as WhyGrid's cards */}
                 <div
-                  key={s.label}
-                  className="group relative flex w-full max-w-[220px] flex-col items-center gap-[clamp(6px,1.6vw,16px)] rounded-xl p-[clamp(2px,1.2vw,12px)] text-center"
+                  className="absolute left-1/2 top-0 z-10 flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(18,20,30,.95), rgba(22,25,38,.9))",
+                    boxShadow: `0 0 0 1px ${color}40, 0 10px 30px rgba(0,0,0,.4)`,
+                  }}
                 >
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: `${color}12` }}
-                  />
-                  <div style={{ color }} className="relative [&>svg]:h-[clamp(1rem,4vw,2.75rem)] [&>svg]:w-[clamp(1rem,4vw,2.75rem)]">{s.icon}</div>
-                  <p className="relative text-[clamp(0.4rem,1.3vw,0.8rem)] leading-[1.4] text-white/60">{s.label}</p>
+                  <div style={{ color }} className="[&>svg]:h-[clamp(0.9rem,2.6vw,1.5rem)] [&>svg]:w-[clamp(0.9rem,2.6vw,1.5rem)]">
+                    {s.icon}
+                  </div>
                 </div>
-              );
-            })}
-          </div>
+                <h4 className="text-[clamp(0.7rem,1.8vw,1rem)] font-bold text-kio-ink">{s.title}</h4>
+                <p className="mt-[clamp(4px,1vw,8px)] text-[clamp(0.55rem,1.4vw,0.85rem)] leading-relaxed text-kio-muted">
+                  {s.body}
+                </p>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </section>
     </div>

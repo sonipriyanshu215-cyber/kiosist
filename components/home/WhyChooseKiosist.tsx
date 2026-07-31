@@ -65,13 +65,13 @@ function Photo({ title, image, color, priority }: { title: string; image: string
 function Details({ title, body, color }: { title: string; body: string; color: string }) {
   return (
     <div
-      className="flex h-full min-h-[440px] flex-col justify-center rounded-2xl bg-kio-bg p-[clamp(10px,2.5vw,32px)] ring-1 ring-kio-line transition-colors hover:ring-[var(--hover-ring)]"
+      className="flex h-full min-h-[440px] flex-col justify-center rounded-2xl bg-kio-bg p-[clamp(20px,5vw,32px)] ring-1 ring-kio-line transition-colors hover:ring-[var(--hover-ring)]"
       style={{ "--hover-ring": `${color}60` } as React.CSSProperties}
     >
-      <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.75rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
+      <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.95rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
         {title}
       </h3>
-      <p className="max-w-md text-[clamp(0.55rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">
+      <p className="max-w-md text-[clamp(0.75rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">
         {body}
       </p>
     </div>
@@ -114,7 +114,9 @@ export function WhyChooseKiosist() {
                       desktop via `order` (md:+ only) instead of swapping DOM
                       order would otherwise pair two Details (or two Photo)
                       boxes back to back whenever a "reversed" row followed
-                      a normal one. */}
+                      a normal one. Both boxes share the same min-h-[440px]
+                      so the pair is always equal-sized and edge-aligned,
+                      whether stacked (mobile) or side-by-side (desktop). */}
                   <div className="relative grid grid-cols-1 items-stretch gap-[clamp(10px,3vw,32px)] md:grid-cols-2 md:gap-0">
                     <div
                       className={
@@ -125,7 +127,13 @@ export function WhyChooseKiosist() {
                     >
                       <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
                     </div>
-                    <div className={reversed ? "md:order-1 md:pr-12" : "md:pl-12"}>
+                    <div
+                      className={
+                        reversed
+                          ? "md:order-1 md:pr-12 md:-ml-10 md:w-[calc(100%+2.5rem)] lg:-ml-20 lg:w-[calc(100%+5rem)]"
+                          : "md:pl-12 md:w-[calc(100%+2.5rem)] lg:w-[calc(100%+5rem)]"
+                      }
+                    >
                       <Details title={r.title} body={r.body} color={r.color} />
                     </div>
                   </div>

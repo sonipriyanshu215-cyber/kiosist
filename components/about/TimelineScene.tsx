@@ -14,7 +14,7 @@ function Header() {
   return (
     <div className="container-kio pb-6 pt-8 text-center">
       <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-        Every Great <span className="text-color-cycle">Journey Begins With A Purpose.</span>
+        Every Great <span className="text-color-cycle">Journey Begins With A Purpose</span>
       </h2>
       <p className="mt-4 text-kio-muted">
         Here&apos;s how Kiosist came to life.
@@ -35,7 +35,7 @@ function JourneyGrid() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="relative grid grid-cols-2 items-start gap-x-3 gap-y-10 sm:grid-cols-3 xl:flex xl:gap-x-2"
+        className="relative grid grid-cols-2 items-stretch gap-x-3 gap-y-10 sm:grid-cols-3 xl:flex xl:gap-x-2"
       >
       {milestones.map((m, i) => {
         const Icon  = ICONS[i] ?? Lightbulb;
@@ -93,7 +93,14 @@ function JourneyFooter() {
       </div>
 
       <div className="relative mx-auto mt-6 max-w-5xl">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {/* Spine- runs through the row of year dots, same motif used
+            elsewhere on the site for step-by-step timelines */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 top-[9px] hidden h-px bg-kio-line sm:block"
+        />
+
+        <div className="grid grid-cols-2 items-stretch gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {journeyYears.map((y, i) => (
             <div key={y.year} className="relative flex flex-col items-center text-center">
               <span
@@ -101,7 +108,7 @@ function JourneyFooter() {
                 className="relative z-10 mb-3 hidden h-[18px] w-[18px] rounded-full border-2 sm:block"
                 style={{ borderColor: COLORS[i % COLORS.length], background: "var(--kio-bg)" }}
               />
-              <div className="w-full rounded-xl border border-kio-line bg-kio-bg px-3 py-4">
+              <div className="flex h-full w-full flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-4">
                 <div className="text-color-cycle text-lg font-black">{y.year}</div>
                 <p className="mt-1 text-xs font-semibold text-kio-ink">{y.caption}</p>
                 <p className="mt-1 text-[11px] leading-snug text-kio-muted">{y.body}</p>

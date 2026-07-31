@@ -637,7 +637,7 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
           <p className="intro-tagline">
             If You Love To <span className="intro-tagline-accent">Smile</span>
             <br />
-            And Make Others <span className="intro-tagline-accent">Smile.</span>
+            And Make Others <span className="intro-tagline-accent">Smile</span>
           </p>
 
           <button type="button" className="explore-btn" onClick={handleStart} suppressHydrationWarning>

@@ -44,7 +44,7 @@ export default function Contact() {
             <RevealOnScroll>
 
               <h1 className="mt-3 text-[clamp(0.85rem,3.4vw,3rem)] font-bold text-white">
-                Let&apos;s Start A <span className="text-color-cycle">Conversation.</span>
+                Let&apos;s Start A <span className="text-color-cycle">Conversation</span>
               </h1>
               <p className="mt-[clamp(4px,1.8vw,20px)] max-w-md text-[clamp(0.55rem,1.8vw,1rem)] text-white/70">
                 Whether you have a question, want to explore opportunities, or simply want to
@@ -64,7 +64,7 @@ export default function Contact() {
                     href={c.href}
                     target={c.href.startsWith("http") ? "_blank" : undefined}
                     rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-[clamp(3px,1.6vw,20px)] transition-colors hover:border-kio-accent/40"
+                    className="group flex h-full flex-col items-center text-center rounded-2xl border border-white/10 bg-white/[0.04] p-[clamp(3px,1.6vw,20px)] transition-colors hover:border-kio-accent/40"
                   >
                     <div className="mb-[clamp(2px,1.2vw,12px)] flex h-[clamp(18px,4vw,40px)] w-[clamp(18px,4vw,40px)] items-center justify-center rounded-full bg-kio-accent/15 text-kio-accent">
                       <c.Icon className="h-[clamp(0.55rem,2vw,1.25rem)] w-[clamp(0.55rem,2vw,1.25rem)]" />

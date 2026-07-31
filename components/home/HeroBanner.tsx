@@ -6,10 +6,10 @@ import { Compass, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
 
 const CYCLING_WORDS = [
-  "Innovation.",
-  "Technology.",
-  "Professionalism.",
-  "Excellence.",
+  "Innovation",
+  "Technology",
+  "Professionalism",
+  "Excellence",
 ];
 import Link from "next/link";
 
@@ -199,10 +199,10 @@ export function HeroBanner() {
             <span className="block">Kiosist Delivers Hospitality</span>
 
             {/* Line 2- Powered by [word]. Forced to a single line (nowrap)-
-                "Professionalism." is the longest cycling word, and letting
+                "Professionalism" is the longest cycling word, and letting
                 it wrap onto its own third line (while the shorter words
                 stay on one line) made the hero's height visibly jump each
-                time it cycled in. "Powered By Professionalism." is about
+                time it cycled in. "Powered By Professionalism" is about
                 the same length as line 1 ("Kiosist Delivers Hospitality"),
                 which already fits on one line at this font size, so the
                 longest word fits here too without needing a smaller font. */}

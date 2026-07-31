@@ -86,7 +86,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
     <div className="w-full max-w-2xl">
       <RevealOnScroll className="mb-[clamp(8px,2.5vw,40px)] text-left">
         <h2 className="mt-3 text-[clamp(0.75rem,2.8vw,2.25rem)] font-bold text-kio-ink">
-          Want To Make Career In <span className="text-color-cycle">Hospitality</span>? Join Us Now.
+          Want To Make Career In <span className="text-color-cycle">Hospitality</span>? Join Us Now
         </h2>
       </RevealOnScroll>
 

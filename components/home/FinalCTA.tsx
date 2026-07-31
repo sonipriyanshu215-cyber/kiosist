@@ -38,7 +38,7 @@ export function FinalCTA() {
             <div className="relative z-10">
               <h2 className="text-[clamp(0.6rem,3.2vw,2rem)] font-extrabold text-kio-ink">
                 If Making Guest Smile Is What Drives You,{" "}
-                <span className="text-color-cycle">Kiosist Is The Place For You.</span>
+                <span className="text-color-cycle">Kiosist Is The Place For You</span>
               </h2>
             </div>
 

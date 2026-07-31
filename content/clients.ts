@@ -45,7 +45,6 @@ export const clients: Client[] = [
     city: "Indianapolis",
     state: "Indiana",
     coordinates: [-86.1581, 39.7684],
-    labelOffset: { x: -14, y: -58 },
     logoUrl: "/img/logos/Days Inn.png",
   },
   {
@@ -55,7 +54,6 @@ export const clients: Client[] = [
     city: "Louisville",
     state: "Kentucky",
     coordinates: [-85.7585, 38.2527],
-    labelOffset: { x: -14, y: 8 },
   },
   {
     id: "sc-001",
@@ -64,7 +62,6 @@ export const clients: Client[] = [
     city: "Columbia",
     state: "South Carolina",
     coordinates: [-81.0348, 34.0007],
-    labelOffset: { x: 20, y: -6 },
   },
   {
     id: "ia-001",
@@ -81,7 +78,6 @@ export const clients: Client[] = [
     city: "Columbus",
     state: "Ohio",
     coordinates: [-82.9988, 39.9612],
-    labelOffset: { x: 14, y: -58 },
     logoUrl: "/img/logos/gilman-logo-days-inn.png",
   },
   {
@@ -100,7 +96,6 @@ export const clients: Client[] = [
     city: "Richmond",
     state: "Virginia",
     coordinates: [-77.436, 37.5407],
-    labelOffset: { x: 48, y: -4 },
   },
   {
     id: "wv-001",
@@ -109,7 +104,6 @@ export const clients: Client[] = [
     city: "Charleston",
     state: "West Virginia",
     coordinates: [-81.6326, 38.3498],
-    labelOffset: { x: -10, y: 8 },
   },
   {
     id: "va-002",
@@ -134,7 +128,6 @@ export const clients: Client[] = [
     city: "Birmingham",
     state: "Alabama",
     coordinates: [-86.8025, 33.5186],
-    labelOffset: { x: -20, y: 0 },
   },
   {
     id: "ga-001",
@@ -143,7 +136,6 @@ export const clients: Client[] = [
     city: "Atlanta",
     state: "Georgia",
     coordinates: [-84.388, 33.749],
-    labelOffset: { x: 0, y: 14 },
     logoUrl: "/img/logos/Americas_Best_Value_Inn_Logo.png",
     testimonial: {
       quote:
@@ -159,6 +151,46 @@ export const clients: Client[] = [
     city: "New York City",
     state: "New York",
     coordinates: [-74.006, 40.7128],
+  },
+  {
+    id: "mn-001",
+    brand: "Kiosist Partner Hotel",
+    property: "Kiosist Partner Hotel",
+    city: "Minneapolis",
+    state: "Minnesota",
+    coordinates: [-93.265, 44.9778],
+  },
+  {
+    id: "mo-001",
+    brand: "Kiosist Partner Hotel",
+    property: "Kiosist Partner Hotel",
+    city: "Kansas City",
+    state: "Missouri",
+    coordinates: [-94.5786, 39.0997],
+  },
+  {
+    id: "co-001",
+    brand: "Kiosist Partner Hotel",
+    property: "Kiosist Partner Hotel",
+    city: "Denver",
+    state: "Colorado",
+    coordinates: [-104.9903, 39.7392],
+  },
+  {
+    id: "wa-001",
+    brand: "Kiosist Partner Hotel",
+    property: "Kiosist Partner Hotel",
+    city: "Seattle",
+    state: "Washington",
+    coordinates: [-122.3321, 47.6062],
+  },
+  {
+    id: "ne-001",
+    brand: "Kiosist Partner Hotel",
+    property: "Kiosist Partner Hotel",
+    city: "Omaha",
+    state: "Nebraska",
+    coordinates: [-95.9345, 41.2565],
   },
 ];
 

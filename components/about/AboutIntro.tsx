@@ -80,7 +80,7 @@ export function AboutIntro() {
             {/* Headline */}
             <h1 className="text-[clamp(0.85rem,4vw,3rem)] font-black leading-[1.15] text-white">
               We Are <br />
-              <span className="text-gradient-shimmer">Guest&apos;s First Hello.</span>
+              <span className="text-gradient-shimmer">Guest&apos;s First Hello</span>
             </h1>
 
             {/* Subtitle */}
@@ -152,26 +152,34 @@ export function AboutIntro() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md md:p-7"
+          className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6 md:p-9 lg:p-11"
         >
-          <h3 className="mb-[clamp(8px,2vw,20px)] text-[clamp(0.5rem,1.6vw,1rem)] font-bold uppercase tracking-wider text-[#60a5fa]">
+          <h3 className="mb-[clamp(12px,2.5vw,28px)] text-[clamp(0.5rem,1.6vw,1rem)] font-bold uppercase tracking-wider text-[#60a5fa]">
             What We Do ?
           </h3>
-          <div className="grid grid-cols-5 gap-[clamp(2px,1.5vw,24px)]">
+          {/* Auto-fit grid- the browser decides how many columns actually
+              fit at the current width (down to the 150px minimum each), so
+              items reflow from 5-across on desktop to fewer per row on
+              tighter viewports instead of a fixed column count forcing
+              cramped, wrapping text at every size. */}
+          <div
+            className="grid justify-items-center gap-x-[clamp(12px,3vw,32px)] gap-y-[clamp(20px,4vw,40px)]"
+            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}
+          >
             {SERVICES.map((s, i) => {
               const color = SERVICE_COLORS[i % SERVICE_COLORS.length];
               return (
                 <div
                   key={s.label}
-                  className="group relative flex flex-col items-center gap-[clamp(2px,1.2vw,12px)] rounded-xl p-[clamp(2px,1.2vw,12px)] text-center"
+                  className="group relative flex w-full max-w-[220px] flex-col items-center gap-[clamp(6px,1.6vw,16px)] rounded-xl p-[clamp(2px,1.2vw,12px)] text-center"
                 >
                   <div
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                     style={{ background: `${color}12` }}
                   />
-                  <div style={{ color }} className="relative [&>svg]:h-[clamp(0.85rem,3.6vw,2.5rem)] [&>svg]:w-[clamp(0.85rem,3.6vw,2.5rem)]">{s.icon}</div>
-                  <p className="relative text-balance text-[clamp(0.38rem,1.3vw,0.875rem)] leading-[1.4] text-white/60">{s.label}</p>
+                  <div style={{ color }} className="relative [&>svg]:h-[clamp(1rem,4vw,2.75rem)] [&>svg]:w-[clamp(1rem,4vw,2.75rem)]">{s.icon}</div>
+                  <p className="relative text-[clamp(0.4rem,1.3vw,0.8rem)] leading-[1.4] text-white/60">{s.label}</p>
                 </div>
               );
             })}

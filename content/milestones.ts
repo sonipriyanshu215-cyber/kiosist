@@ -46,8 +46,7 @@ export const milestones: Milestone[] = [
 
 export const journeyYears = [
   { year: "2019", caption: "The idea was born.", body: "Kiosist began its journey." },
-  { year: "2020", caption: "First hotel onboarded.", body: "A team of 3 took the first step." },
-  { year: "2021", caption: "Laying the foundation.", body: "More hotels. More team members." },
+  { year: "2020-2021", caption: "Onboarded our first hotel.", body: "A team of 3 took the first step- then more hotels and team members followed." },
   { year: "2022-2023", caption: "Scaling with trust.", body: "Strengthening systems, processes & technology." },
   { year: "2024-2025", caption: "Growing together.", body: "Expanding partnerships. Delivering excellence." },
   { year: "2026", caption: "The journey continues…", body: "The best is yet to come!" },

@@ -25,15 +25,15 @@ export function MissionBlock() {
 
       {/* Animated background blobs */}
       <motion.div
-        className="pointer-events-none absolute -right-40 top-1/2 h-[480px] w-[480px] -translate-y-1/2 rounded-full opacity-[0.12]"
+        className="pointer-events-none absolute -left-40 top-1/2 h-[480px] w-[480px] -translate-y-1/2 rounded-full opacity-[0.12]"
         style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 70%)" }}
-        animate={rm ? {} : { scale: [1, 1.15, 1], x: [0, -24, 0] }}
+        animate={rm ? {} : { scale: [1, 1.15, 1], x: [0, 24, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="pointer-events-none absolute -left-40 top-1/2 h-[360px] w-[360px] -translate-y-1/2 rounded-full opacity-[0.09]"
+        className="pointer-events-none absolute -right-40 top-1/2 h-[360px] w-[360px] -translate-y-1/2 rounded-full opacity-[0.09]"
         style={{ background: "radial-gradient(circle, var(--kio-accent2), transparent 70%)" }}
-        animate={rm ? {} : { scale: [1, 1.2, 1], x: [0, 20, 0] }}
+        animate={rm ? {} : { scale: [1, 1.2, 1], x: [0, -20, 0] }}
         transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
       />
 
@@ -49,14 +49,51 @@ export function MissionBlock() {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Our  <span className="text-color-cycle">Vision And Mission</span>
+            Our <span className="text-color-cycle">Vision</span> And <span className="text-color-cycle">Mission</span>
           </h2>
         </RevealOnScroll>
 
         <div className="mx-auto flex max-w-6xl flex-row items-center gap-[clamp(8px,3vw,48px)]">
 
-          {/* Mission miniature - left side */}
-          <RevealOnScroll className="flex flex-none justify-start">
+          {/* Text column */}
+          <div className="flex-1 text-left">
+            <span className="text-[clamp(0.45rem,1.3vw,0.75rem)] font-bold uppercase tracking-[.15em] text-color-cycle">
+              Our Mission
+            </span>
+
+            {/* Word-by-word heading reveal */}
+            <motion.h2
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.03, delayChildren: 0.15 } },
+              }}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-[clamp(4px,1.5vw,16px)] text-[clamp(0.75rem,2vw,1.375rem)] font-normal leading-relaxed text-white"
+            >
+              {HEADING.split(" ").map((word, i) => (
+                <Fragment key={i}>
+                  <motion.span variants={rm ? {} : wordVariants} className="inline-block">
+                    {word}
+                  </motion.span>{" "}
+                </Fragment>
+              ))}
+            </motion.h2>
+
+            {/* Animated accent divider */}
+            <motion.div
+              className="mt-[clamp(4px,1.8vw,24px)] h-px w-[clamp(40px,10vw,96px)] rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "left" }}
+            />
+          </div>
+
+          {/* Mission miniature - right side */}
+          <RevealOnScroll className="flex flex-none justify-end">
             <motion.div
               className="relative h-[clamp(56px,16vw,208px)] w-[clamp(56px,16vw,208px)]"
               initial={{ opacity: 0 }}
@@ -80,43 +117,6 @@ export function MissionBlock() {
               />
             </motion.div>
           </RevealOnScroll>
-
-          {/* Text column */}
-          <div className="flex-1 text-center">
-            <span className="text-[clamp(0.45rem,1.3vw,0.75rem)] font-bold uppercase tracking-[.15em] text-color-cycle">
-              Our Mission
-            </span>
-
-            {/* Word-by-word heading reveal */}
-            <motion.h2
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.03, delayChildren: 0.15 } },
-              }}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-[clamp(4px,1.5vw,16px)] text-[clamp(0.75rem,2vw,1.375rem)] font-normal leading-snug text-white"
-            >
-              {HEADING.split(" ").map((word, i) => (
-                <Fragment key={i}>
-                  <motion.span variants={rm ? {} : wordVariants} className="inline-block">
-                    {word}
-                  </motion.span>{" "}
-                </Fragment>
-              ))}
-            </motion.h2>
-
-            {/* Animated accent divider */}
-            <motion.div
-              className="mx-auto mt-[clamp(4px,1.8vw,24px)] h-px w-[clamp(40px,10vw,96px)] rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: "center" }}
-            />
-          </div>
         </div>
       </div>
     </section>

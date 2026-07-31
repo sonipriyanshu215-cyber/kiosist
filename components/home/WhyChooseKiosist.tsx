@@ -97,8 +97,7 @@ export function WhyChooseKiosist() {
 
       <div className="container-kio relative z-10">
         <div className="relative mx-auto max-w-5xl">
-          {/* Timeline spine- runs through the row of dots, same motif as
-              the old events-timeline layout this section is modeled on */}
+          {/* Partition line- runs behind the whole column of rows */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 top-0 bottom-0 hidden w-px -translate-x-1/2 bg-kio-line md:block"
@@ -109,33 +108,26 @@ export function WhyChooseKiosist() {
               const reversed = i % 2 === 1;
               return (
                 <RevealOnScroll key={r.title} className="w-full">
+                  {/* Photo always precedes Details in DOM order so the
+                      mobile single-column stack always reads Photo, Details,
+                      Photo, Details...- alternating the visual side on
+                      desktop via `order` (md:+ only) instead of swapping DOM
+                      order would otherwise pair two Details (or two Photo)
+                      boxes back to back whenever a "reversed" row followed
+                      a normal one. */}
                   <div className="relative grid grid-cols-1 items-stretch gap-[clamp(10px,3vw,32px)] md:grid-cols-2 md:gap-0">
-                    {/* Dot- marks this row on the center spine */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-1/2 top-1/2 z-10 hidden h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 md:block"
-                      style={{ borderColor: r.color, background: "var(--kio-bg)" }}
-                    />
-
-                    {reversed ? (
-                      <>
-                        <div className="md:pr-12">
-                          <Details title={r.title} body={r.body} color={r.color} />
-                        </div>
-                        <div className="md:pl-12 md:w-[calc(100%+2.5rem)] lg:w-[calc(100%+5rem)]">
-                          <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="md:pr-12 md:-ml-10 md:w-[calc(100%+2.5rem)] lg:-ml-20 lg:w-[calc(100%+5rem)]">
-                          <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
-                        </div>
-                        <div className="md:pl-12">
-                          <Details title={r.title} body={r.body} color={r.color} />
-                        </div>
-                      </>
-                    )}
+                    <div
+                      className={
+                        reversed
+                          ? "md:order-2 md:pl-12 md:w-[calc(100%+2.5rem)] lg:w-[calc(100%+5rem)]"
+                          : "md:pr-12 md:-ml-10 md:w-[calc(100%+2.5rem)] lg:-ml-20 lg:w-[calc(100%+5rem)]"
+                      }
+                    >
+                      <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
+                    </div>
+                    <div className={reversed ? "md:order-1 md:pr-12" : "md:pl-12"}>
+                      <Details title={r.title} body={r.body} color={r.color} />
+                    </div>
                   </div>
                 </RevealOnScroll>
               );

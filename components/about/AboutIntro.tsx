@@ -182,7 +182,7 @@ export function AboutIntro() {
               <motion.div
                 key={s.title}
                 variants={staggerChild}
-                className="group relative w-full rounded-2xl border border-kio-line bg-kio-bg p-[clamp(10px,2.5vw,20px)] pt-[clamp(32px,9vw,64px)] transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:w-[calc(50%-clamp(8px,3vw,32px)/2)] lg:w-[calc(33.3333%-clamp(8px,3vw,32px)*2/3)]"
+                className="group relative w-full rounded-2xl border border-kio-line bg-kio-bg p-[clamp(10px,2.5vw,20px)] pt-[clamp(32px,9vw,64px)] text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:w-[calc(50%-clamp(8px,3vw,32px)/2)] lg:w-[calc(33.3333%-clamp(8px,3vw,32px)*2/3)]"
               >
                 {/* Icon badge- centered above the box, straddling its top
                     edge, same dark circular lockup as WhyGrid's cards */}

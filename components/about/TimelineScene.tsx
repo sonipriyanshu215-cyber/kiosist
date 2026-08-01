@@ -105,7 +105,7 @@ function JourneyFooter() {
             <div key={y.year} className="relative flex flex-col items-center text-center">
               <span
                 aria-hidden="true"
-                className="relative z-10 mb-3 hidden h-[18px] w-[18px] rounded-full border-2 sm:block"
+                className="relative z-10 mb-3 hidden h-[18px] w-[18px] shrink-0 rounded-full border-2 sm:block"
                 style={{ borderColor: COLORS[i % COLORS.length], background: "var(--kio-bg)" }}
               />
               <div className="flex h-full w-full flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-4">

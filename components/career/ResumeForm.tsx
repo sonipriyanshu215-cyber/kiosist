@@ -428,19 +428,25 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
           {/* Mascot image- mirrors the site's recurring 3D-illustrated agent */}
           <RevealOnScroll className="flex justify-self-center">
             <motion.div
-              className="relative w-full max-w-[clamp(80px,26vw,340px)]"
+              className="relative w-full max-w-[clamp(110px,22vw,250px)]"
               animate={rm ? {} : { y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <motion.div
+              {/* Glow behind the character */}
+              <motion.span
                 aria-hidden="true"
-                className="absolute inset-x-[10%] bottom-4 -z-10 aspect-square rounded-full opacity-40 blur-2xl"
-                style={{ background: "radial-gradient(circle, var(--kio-accent), var(--kio-accent2) 70%, transparent 100%)" }}
-                animate={rm ? {} : { scale: [1, 1.15, 1], opacity: [0.4, 0.55, 0.4] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-[15%] -z-200 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(6,182,212,0.65), rgba(37,99,235,0.35) 40%, transparent 75%)",
+                  filter: "blur(18px)",
+                }}
+                animate={rm ? {} : { opacity: [0.75, 0.5, 0.75] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               />
+
               <Image
-                src="/img/hero/concierge.png"
+                src="/img/hero/agent-red.png"
                 alt="A Kiosist front desk agent ready to welcome your application"
                 width={1024}
                 height={1024}

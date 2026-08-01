@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+import { GraduationCap, Laptop, TrendingUp, Building2, Globe, HeartHandshake } from "lucide-react";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const REASONS = [
@@ -9,36 +11,42 @@ const REASONS = [
     body: "At Kiosist, learning never stops. Through ongoing training, coaching, and hands-on experience, you have the opportunity to continuously develop your skills and grow both personally and professionally.",
     image: "/img/culture/training-1.png",
     color: "#3b82f6",
+    icon: GraduationCap,
   },
   {
     title: "Modern Workspace",
     body: "Work in a professional and technology-driven environment where modern tools, innovative systems, and collaborative workspaces come together to create a better way of working.",
     image: "/img/culture/team-meeting-1.png",
     color: "#06b6d4",
+    icon: Laptop,
   },
   {
     title: "Professional Growth",
     body: "Every milestone counts here. Take on new responsibilities, sharpen your strengths, and get recognized for the work you put in as your career moves forward.",
     image: "/img/culture/expo-dfw-2024.jpg",
     color: "#10b981",
+    icon: TrendingUp,
   },
   {
     title: "Corporate Friendly",
     body: "Clear processes, defined roles, and real accountability- so you always know what's expected and how your work fits into the bigger picture.",
     image: "/img/culture/office-2.jpg",
     color: "#8b5cf6",
+    icon: Building2,
   },
   {
     title: "Global Exposure",
     body: "Be part of a team that connects with the global hospitality industry. Every year, Kiosist participates in AAHOA's annual convention in the US, where hospitality leaders, innovators, and industry professionals come together.",
     image: "/img/culture/office-3.jpg",
     color: "#f59e0b",
+    icon: Globe,
   },
   {
     title: "A Team That Supports You",
     body: "Work alongside a team that values collaboration, encourages growth, and believes that people do their best work when they feel supported.",
     image: "/img/culture/team-3.jpg",
     color: "#6366f1",
+    icon: HeartHandshake,
   },
 ];
 
@@ -62,16 +70,59 @@ function Photo({ title, image, color, priority }: { title: string; image: string
   );
 }
 
-function Details({ title, body, color }: { title: string; body: string; color: string }) {
+function Details({
+  title,
+  body,
+  color,
+  icon: Icon,
+}: {
+  title: string;
+  body: string;
+  color: string;
+  icon: typeof GraduationCap;
+}) {
+  const rm = useReducedMotion();
+
   return (
     <div
-      className="flex h-full min-h-[440px] flex-col justify-center rounded-2xl bg-kio-bg p-[clamp(20px,5vw,32px)] ring-1 ring-kio-line transition-colors hover:ring-[var(--hover-ring)]"
+      className="relative flex h-full min-h-[440px] flex-col justify-center overflow-hidden rounded-2xl bg-kio-bg p-[clamp(20px,5vw,32px)] ring-1 ring-kio-line transition-colors hover:ring-[var(--hover-ring)]"
       style={{ "--hover-ring": `${color}60` } as React.CSSProperties}
     >
-      <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.95rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
+      {/* Oversized ghost icon, floats slowly in the background for depth */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-6 -top-6"
+        animate={rm ? {} : { y: [0, -14, 0], rotate: [0, 6, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Icon
+          className="h-[clamp(140px,20vw,240px)] w-[clamp(140px,20vw,240px)]"
+          style={{ color, opacity: 0.08 }}
+          strokeWidth={1.25}
+        />
+      </motion.div>
+
+      {/* Icon badge- floats gently above the title */}
+      <motion.div
+        className="relative z-10 mb-[clamp(10px,2.4vw,20px)] flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] items-center justify-center rounded-2xl"
+        style={{
+          background: `linear-gradient(135deg, ${color}22, ${color}0d)`,
+          boxShadow: `0 0 0 1px ${color}33`,
+        }}
+        animate={rm ? {} : { y: [0, -8, 0] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Icon
+          className="h-[clamp(1rem,2.8vw,1.75rem)] w-[clamp(1rem,2.8vw,1.75rem)]"
+          style={{ color }}
+          strokeWidth={1.75}
+        />
+      </motion.div>
+
+      <h3 className="relative z-10 mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.95rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
         {title}
       </h3>
-      <p className="max-w-md text-[clamp(0.75rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">
+      <p className="relative z-10 max-w-md text-[clamp(0.75rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">
         {body}
       </p>
     </div>
@@ -134,7 +185,7 @@ export function WhyChooseKiosist() {
                           : "md:pl-12 md:w-[calc(100%+2.5rem)] lg:w-[calc(100%+5rem)]"
                       }
                     >
-                      <Details title={r.title} body={r.body} color={r.color} />
+                      <Details title={r.title} body={r.body} color={r.color} icon={r.icon} />
                     </div>
                   </div>
                 </RevealOnScroll>

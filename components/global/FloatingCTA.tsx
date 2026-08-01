@@ -8,26 +8,30 @@ export function FloatingCTA() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 md:bottom-8 md:right-8">
+    <div className="fixed bottom-4 right-4 z-50 md:bottom-6 md:right-6">
       {/* Floating wrapper- image and its glow move together */}
       <motion.div
-        className="relative w-[100px] sm:w-[130px]"
+        className="relative w-[100px] sm:w-[120px] lg:w-[140px]"
         animate={reducedMotion ? {} : { y: [0, -10, 0] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
-        {/* Pulse glow behind the character */}
+        {/* Glow behind the character */}
         <motion.span
           aria-hidden="true"
-          className="absolute inset-x-[10%] bottom-0 -z-10 aspect-square rounded-full"
-          style={{ background: "radial-gradient(circle, #3b82f6, #06b6d4 70%, transparent 100%)", filter: "blur(6px)" }}
-          animate={reducedMotion ? {} : { scale: [1, 1.35, 1], opacity: [0.55, 0.15, 0.55] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-[15%] -z-10 rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(6,182,212,0.65), rgba(37,99,235,0.35) 40%, transparent 75%)",
+            filter: "blur(18px)",
+          }}
+          animate={reducedMotion ? {} : { opacity: [0.75, 0.5, 0.75] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
           <Link href="/contact" aria-label="Book a Demo">
             <Image
-              src="/img/hero/front-desk-agent.PNG"
+              src="/img/hero/agent-red-1.png"
               alt="Book a Demo"
               width={1024}
               height={1024}

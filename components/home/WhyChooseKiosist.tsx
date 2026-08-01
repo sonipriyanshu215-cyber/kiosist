@@ -88,20 +88,6 @@ function Details({
       className="relative flex h-full min-h-[440px] flex-col justify-center overflow-hidden rounded-2xl bg-kio-bg p-[clamp(20px,5vw,32px)] ring-1 ring-kio-line transition-colors hover:ring-[var(--hover-ring)]"
       style={{ "--hover-ring": `${color}60` } as React.CSSProperties}
     >
-      {/* Oversized ghost icon, floats slowly in the background for depth */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-6 -top-6"
-        animate={rm ? {} : { y: [0, -14, 0], rotate: [0, 6, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Icon
-          className="h-[clamp(140px,20vw,240px)] w-[clamp(140px,20vw,240px)]"
-          style={{ color, opacity: 0.08 }}
-          strokeWidth={1.25}
-        />
-      </motion.div>
-
       {/* Icon badge- floats gently above the title */}
       <motion.div
         className="relative z-10 mb-[clamp(10px,2.4vw,20px)] flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] items-center justify-center rounded-2xl"

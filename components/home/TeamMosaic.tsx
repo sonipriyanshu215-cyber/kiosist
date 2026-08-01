@@ -22,7 +22,7 @@ const TEAM = [
   { name: "Henal Dalal",                              img: "/img/team/ceo.webp",        tag: "FOUNDER", pos: "object-top" },
   { name: "Bhavin Dalal",                              img: "/img/team/t6.webp",        tag: "FOUNDER"  },
   { name: "Vinit Patel",                                   img: "/img/team/t2.webp",    tag: "CEO"  },
-  { name: "Parshav Shah",             img: "/img/team/t8.webp",                         tag: "Assistant General Manager"    },
+  { name: "Parshva Shah",             img: "/img/team/t8.webp",                         tag: "Assistant General Manager"    },
   { name: "Sourabh Patil",                          img: "/img/team/t5.webp",           tag: "Team Leader"  },
   // t3.webp shows a woman- wrong for Smeet (male). No correct photo of him is
   // available yet, so this intentionally-missing path falls back to the

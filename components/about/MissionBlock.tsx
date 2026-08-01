@@ -57,8 +57,8 @@ export function MissionBlock() {
 
           {/* Text column */}
           <div className="flex-1 text-left">
-            <span className="text-[clamp(1rem,2.2vw,1.5rem)] font-bold uppercase tracking-[.15em] text-color-cycle">
-              Our Mission
+            <span className="text-[clamp(1rem,2.2vw,1.5rem)] font-bold uppercase tracking-[.15em] ">
+              Our <span className="text-color-cycle">Mission</span> 
             </span>
 
             {/* Word-by-word heading reveal */}

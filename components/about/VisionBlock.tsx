@@ -66,16 +66,6 @@ export function VisionBlock() {
                 </Fragment>
               ))}
             </motion.p>
-
-            {/* Animated accent divider */}
-            <motion.div
-              className="mt-[clamp(4px,1.8vw,24px)] h-px w-[clamp(40px,10vw,96px)] rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: "left" }}
-            />
           </div>
 
           {/* Vision icon - right side */}

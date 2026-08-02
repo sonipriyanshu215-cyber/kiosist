@@ -161,13 +161,6 @@ function AvatarCard({
                 </div>
               )}
             </div>
-
-            {/* Online status dot */}
-            <motion.div
-              className="absolute bottom-0.5 right-0.5 z-20 h-3.5 w-3.5 rounded-full border-2 border-kio-bg-soft bg-emerald-400"
-              animate={rm ? {} : { scale: [1, 1.3, 1] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: idx * 0.14 }}
-            />
           </div>
 
           {/* Name */}

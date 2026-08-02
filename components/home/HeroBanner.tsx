@@ -91,7 +91,8 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
           muted={muted}
           loop
           playsInline
-          preload="metadata"
+          autoPlay={rm !== true}
+          preload="auto"
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
           onError={() => setFailed(true)}

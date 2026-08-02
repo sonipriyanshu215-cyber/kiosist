@@ -114,15 +114,13 @@ export function Footer() {
           ))}
 
           {/* Map- lives in the trailing spacer column, using the space
-              that would otherwise sit empty on wide screens. Extra bottom
-              margin keeps it clear of the fixed FloatingCTA widget parked
-              in the viewport's bottom-right corner. */}
+              that would otherwise sit empty on wide screens. */}
           <a
             href="https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Kiosist office location in Google Maps"
-            className="mb-16 block aspect-square w-full max-w-[220px] overflow-hidden rounded-xl border border-kio-line md:justify-self-end"
+            className="block aspect-square w-full max-w-[220px] overflow-hidden rounded-xl border border-kio-line md:justify-self-end"
           >
             <iframe
               title="Kiosist office location"

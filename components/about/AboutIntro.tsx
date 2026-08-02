@@ -10,8 +10,8 @@ const SERVICE_COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"];
 /* ── What We Do services ── */
 const SERVICES = [
   {
-    title: "Manage Check-In & Check-Out",
-    body: "Smooth, contactless arrivals and departures handled remotely, every time.",
+    title: "Manage Check-ins & Check-outs",
+    body: "Ensure every guest receives a smooth, efficient, and welcoming arrival and departure experience.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -22,7 +22,7 @@ const SERVICES = [
   },
   {
     title: "Handle Reservations & Inquiries",
-    body: "Booking questions, availability, and guest inquiries answered promptly.",
+    body: "Assist guests with bookings, modifications, and questions while providing accurate and timely information.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -34,17 +34,20 @@ const SERVICES = [
     ),
   },
   {
-    title: "Making Every Guest Stay Memorable",
-    body: "Personal touches that turn a simple stay into a story worth sharing.",
+    title: "Support Hotel Operations",
+    body: "Work closely with hotel teams to ensure smooth day-to-day operations, helping guests while supporting staff behind the scenes.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+        <path d="M3 21h18" />
+        <path d="M5 21V7l7-4 7 4v14" />
+        <path d="M9 21v-4a3 3 0 0 1 6 0v4" />
+        <path d="M9 9h1M9 13h1M14 9h1M14 13h1" />
       </svg>
     ),
   },
   {
-    title: "Resolve Guest Requests & Concerns",
-    body: "Real-time support that resolves issues before they become complaints.",
+    title: "Resolve Guest Queries & Concerns",
+    body: "Respond promptly to guest requests and resolve concerns with empathy, professionalism, and confidence.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -56,7 +59,7 @@ const SERVICES = [
   },
   {
     title: "Deliver Exceptional Service",
-    body: "Consistent, high-standard hospitality delivered around the clock.",
+    body: "Go beyond expectations by providing friendly, reliable, and memorable service in every interaction.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="6" />

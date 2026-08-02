@@ -93,11 +93,31 @@ function JourneyFooter() {
       </div>
 
       <div className="relative mx-auto mt-6 max-w-5xl">
-        {/* Spine- runs through the row of year dots, same motif used
-            elsewhere on the site for step-by-step timelines */}
+        {/* Spine- runs through the row of year dots, colored to match
+            each dot so it reads as a connected timeline instead of the
+            near-invisible hairline `bg-kio-line` gave against the dark
+            section. Only shown at lg+, the one breakpoint where the grid
+            is truly a single row of 5- at sm/md the dots wrap onto two
+            rows and a straight gradient line would cut across them. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 top-[9px] hidden h-px bg-kio-line sm:block"
+          className="pointer-events-none absolute left-0 right-0 top-[9px] hidden h-[2px] -translate-y-1/2 lg:block"
+          style={{
+            background: `linear-gradient(to right, ${journeyYears
+              .map((_, i) => `${COLORS[i % COLORS.length]} ${((i + 0.5) / journeyYears.length) * 100}%`)
+              .join(", ")})`,
+            opacity: 0.7,
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 top-[9px] hidden h-[6px] -translate-y-1/2 blur-md lg:block"
+          style={{
+            background: `linear-gradient(to right, ${journeyYears
+              .map((_, i) => `${COLORS[i % COLORS.length]} ${((i + 0.5) / journeyYears.length) * 100}%`)
+              .join(", ")})`,
+            opacity: 0.4,
+          }}
         />
 
         <div className="grid grid-cols-2 items-stretch gap-4 sm:grid-cols-3 lg:grid-cols-5">
@@ -106,7 +126,10 @@ function JourneyFooter() {
               <span
                 aria-hidden="true"
                 className="relative z-10 mb-3 hidden h-[18px] w-[18px] shrink-0 rounded-full border-2 sm:block"
-                style={{ borderColor: COLORS[i % COLORS.length], background: "var(--kio-bg)" }}
+                style={{
+                  borderColor: COLORS[i % COLORS.length],
+                  background: "linear-gradient(135deg, rgba(1, 1, 1, 0.95), rgba(6, 6, 6, 0.9))",
+                }}
               />
               <div className="flex h-full w-full flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-4">
                 <div className="text-color-cycle text-lg font-black">{y.year}</div>

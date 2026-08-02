@@ -36,15 +36,6 @@ export function ValuesGrid() {
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Our <span className="text-color-cycle">Core Values</span>
           </h2>
-          {/* Animated underline */}
-          <motion.div
-            className="mx-auto mt-3 h-0.5 w-20 rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: "center" }}
-          />
         </RevealOnScroll>
 
         <motion.div

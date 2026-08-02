@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/global/ThemeProvider";
 import { KiosistIntro } from "@/components/global/KiosistIntro";
 import { Nav } from "@/components/global/Nav";
 import { Footer } from "@/components/global/Footer";
-import { FloatingCTA } from "@/components/global/FloatingCTA";
 import { SmoothScroll } from "@/components/global/SmoothScroll";
 import { ParticleRingDynamic } from "@/components/global/ParticleRingDynamic";
 import { AmbientGlow } from "@/components/global/AmbientGlow";
@@ -81,7 +80,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Nav />
               <main>{children}</main>
               <Footer />
-              <FloatingCTA />
             </SmoothScroll>
           </div>
         </ThemeProvider>

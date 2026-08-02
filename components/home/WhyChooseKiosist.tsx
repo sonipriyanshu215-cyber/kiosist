@@ -84,13 +84,10 @@ function Details({
   const rm = useReducedMotion();
 
   return (
-    <div
-      className="relative flex h-full min-h-[440px] flex-col justify-center overflow-hidden rounded-2xl bg-kio-bg p-[clamp(20px,5vw,32px)] ring-1 ring-kio-line transition-colors hover:ring-[var(--hover-ring)]"
-      style={{ "--hover-ring": `${color}60` } as React.CSSProperties}
-    >
+    <div className="flex h-full min-h-[440px] flex-col items-center justify-center p-[clamp(20px,5vw,32px)] text-center">
       {/* Icon badge- floats gently above the title */}
       <motion.div
-        className="relative z-10 mb-[clamp(10px,2.4vw,20px)] flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] items-center justify-center rounded-2xl"
+        className="mb-[clamp(10px,2.4vw,20px)] flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] items-center justify-center rounded-2xl"
         style={{
           background: `linear-gradient(135deg, ${color}22, ${color}0d)`,
           boxShadow: `0 0 0 1px ${color}33`,
@@ -105,10 +102,10 @@ function Details({
         />
       </motion.div>
 
-      <h3 className="relative z-10 mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.95rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
+      <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.95rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
         {title}
       </h3>
-      <p className="relative z-10 max-w-md text-[clamp(0.75rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">
+      <p className="max-w-md text-[clamp(0.75rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">
         {body}
       </p>
     </div>

@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Compass, Play, Pause, Volume2, VolumeX } from "lucide-react";
-import Image from "next/image";
 
 const CYCLING_WORDS = [
   "Innovation",
@@ -36,8 +35,6 @@ const PARTICLES = [
 ];
 
 const HERO_VIDEO_SRC = "/video/explainer.mp4";
-
-const HERO_VIDEO_POSTER = "/img/hero/lobby.webp";
 
 function HeroVideo({ rm }: { rm: boolean | null }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -74,19 +71,16 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
       style={{ aspectRatio: "16/9" }}
     >
       {failed ? (
-        /* Fallback for browsers/networks that can't play the video */
-        <Image
-          src={HERO_VIDEO_POSTER}
-          alt="Kiosist front desk agent assisting a hotel guest"
-          fill
-          className="object-cover"
-          sizes="50vw"
-        />
+        /* Fallback for browsers/networks that can't play the video- an icon
+           placeholder rather than a still-frame photo, so it never depends
+           on a specific image asset staying in sync with the video file. */
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-kio-bg-soft to-kio-bg">
+          <Play className="h-12 w-12 text-kio-muted/40" strokeWidth={1.5} />
+        </div>
       ) : (
         <video
           ref={videoRef}
           src={HERO_VIDEO_SRC}
-          poster={HERO_VIDEO_POSTER}
           className="absolute inset-0 h-full w-full object-cover"
           muted={muted}
           loop

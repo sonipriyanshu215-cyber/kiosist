@@ -35,11 +35,9 @@ type TeamMember = typeof TEAM[0];
 function AvatarCard({
   member,
   idx,
-  rm,
 }: {
   member: TeamMember;
   idx: number;
-  rm: boolean | null;
 }) {
   const [imgErr, setImgErr] = useState(false);
   const accent = ACCENTS[idx % ACCENTS.length];
@@ -49,33 +47,21 @@ function AvatarCard({
     .join("")
     .slice(0, 2)
     .toUpperCase();
-  const floatDuration = 3.6 + (idx % 3) * 0.7;
-  const floatDelay    = idx * 0.28;
 
   return (
     <motion.div variants={staggerChild} className="group relative mx-auto w-full max-w-[280px]">
-      {/* Floating idle wrapper */}
-      <motion.div
-        animate={rm ? {} : { y: [0, -9, 0] }}
-        transition={{
-          duration: floatDuration,
-          delay: floatDelay,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+      <div
         className="relative rounded-3xl p-[1px] transition-all duration-500
                    group-hover:shadow-[0_0_44px_var(--cg)]"
         style={{ "--cg": accent.glow } as React.CSSProperties}
       >
-        {/* Animated gradient border via rotating conic ring */}
-        <motion.div
+        {/* Gradient border, revealed on hover */}
+        <div
           className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{
             background: `conic-gradient(from 0deg, ${accent.from}80, ${accent.to}80, transparent, ${accent.from}80)`,
             padding: "1px",
           }}
-          animate={rm ? {} : { rotate: 360 }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
         />
 
         {/* Card body */}
@@ -104,29 +90,20 @@ function AvatarCard({
 
           {/* ── Avatar ── */}
           <div className="relative mx-auto mb-4 h-28 w-28">
-            {/* Pulsing ambient halo */}
-            <motion.div
+            {/* Glowing halo- static, no pulse */}
+            <div
               className="absolute -inset-3 rounded-full"
               style={{
                 background: `radial-gradient(circle, ${accent.from}28, transparent 70%)`,
               }}
-              animate={rm ? {} : { scale: [1, 1.35, 1], opacity: [0.7, 0, 0.7] }}
-              transition={{
-                duration: 2.6 + idx * 0.12,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: idx * 0.18,
-              }}
             />
 
-            {/* Rotating conic ring */}
-            <motion.div
+            {/* Gradient ring- static, no rotation */}
+            <div
               className="absolute -inset-[3px] rounded-full"
               style={{
-                background: `conic-gradient(from 0deg, transparent 0%, ${accent.from} 22%, ${accent.to} 48%, transparent 68%)`,
+                background: `conic-gradient(from 0deg, ${accent.from}, ${accent.to}, ${accent.from})`,
               }}
-              animate={rm ? {} : { rotate: 360 }}
-              transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }}
             />
 
             {/* Inner circle- image or initials */}
@@ -189,7 +166,7 @@ function AvatarCard({
             </span>
           </div>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -233,7 +210,7 @@ export function TeamMosaic() {
           className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
           {TEAM.map((member, i) => (
-            <AvatarCard key={i} member={member} idx={i} rm={rm} />
+            <AvatarCard key={i} member={member} idx={i} />
           ))}
         </motion.div>
 

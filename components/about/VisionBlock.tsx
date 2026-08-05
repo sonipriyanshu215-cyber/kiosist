@@ -85,8 +85,8 @@ export function VisionBlock() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
               <Image
-                src="/img/about/vision.png"
-                alt="Vision - an eye formed from a telescope, chart, and upward arrow"
+                src="/img/about/vission-1.png"
+                alt="Vision - blub icon" 
                 width={1024}
                 height={1024}
                 className="relative h-full w-full rounded-3xl object-cover"

@@ -25,12 +25,14 @@ const TEAM = [
   { name: "Parshva Shah",             img: "/img/team/t8.webp",                         tag: "Assistant General Manager"    },
   { name: "Sourabh Patil",                          img: "/img/team/t5.webp",           tag: "Team Leader"  },
   // t3.webp shows a woman- wrong for Smeet (male). No correct photo of him is
-  // available yet, so this intentionally-missing path falls back to the
-  // initials placeholder below rather than displaying a mismatched photo.
-  { name: "Smeet Rawal",                          img: "/img/team/smeet.webp",          tag: "Team Leader"  },
+  // available yet, so `img` is left unset rather than pointing at a path that
+  // doesn't exist- that let Next's image optimizer try (and log a server-side
+  // error) on every request, even though the client-side fallback below still
+  // caught it and rendered initials.
+  { name: "Smeet Rawal",                          img: undefined,                       tag: "Team Leader"  },
   ];
 
-type TeamMember = typeof TEAM[0];
+type TeamMember = { name: string; img?: string; tag: string; pos?: string };
 
 function AvatarCard({
   member,
@@ -113,7 +115,7 @@ function AvatarCard({
                 background: `linear-gradient(135deg, ${accent.from}38, ${accent.to}28)`,
               }}
             >
-              {!imgErr ? (
+              {member.img && !imgErr ? (
                 <Image
                   src={member.img}
                   alt={member.name}

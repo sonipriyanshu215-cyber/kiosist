@@ -98,7 +98,7 @@ export function MissionBlock() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
               <Image
-                src="/img/about/Mission.png"
+                src="/img/about/mission-1.png"
                 alt="Mission - target hit atop a mountain, flanked by a flag and compass"
                 width={1024}
                 height={1024}

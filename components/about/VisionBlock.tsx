@@ -69,9 +69,9 @@ export function VisionBlock() {
           </div>
 
           {/* Vision icon - right side */}
-          <RevealOnScroll className="flex flex-none justify-end">
+          <RevealOnScroll className="flex flex-none justify-center">
             <motion.div
-              className="relative h-[clamp(56px,16vw,208px)] w-[clamp(56px,16vw,208px)]"
+              className="relative h-[clamp(40px,10vw,140px)] w-[clamp(40px,10vw,140px)]"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

@@ -39,15 +39,6 @@ export const clients: Client[] = [
     logoUrl: "/img/logos/Howard-Johnson-logo.png",
   },
   {
-    id: "in-001",
-    brand: "Days Inn",
-    property: "Days Inn by Wyndham",
-    city: "Indianapolis",
-    state: "Indiana",
-    coordinates: [-86.1581, 39.7684],
-    logoUrl: "/img/logos/Days Inn.png",
-  },
-  {
     id: "ky-001",
     brand: "Kiosist Partner Hotel",
     property: "Kiosist Partner Hotel",
@@ -70,15 +61,6 @@ export const clients: Client[] = [
     city: "Des Moines",
     state: "Iowa",
     coordinates: [-93.6091, 41.5868],
-  },
-  {
-    id: "oh-001",
-    brand: "Days Inn & Suites",
-    property: "Days Inn & Suites by Wyndham",
-    city: "Columbus",
-    state: "Ohio",
-    coordinates: [-82.9988, 39.9612],
-    logoUrl: "/img/logos/gilman-logo-days-inn.png",
   },
   {
     id: "tx-001",
@@ -104,14 +86,6 @@ export const clients: Client[] = [
     city: "Charleston",
     state: "West Virginia",
     coordinates: [-81.6326, 38.3498],
-  },
-  {
-    id: "va-002",
-    brand: "Kiosist Partner Hotel",
-    property: "Kiosist Partner Hotel",
-    city: "Franklin",
-    state: "Franklin, Virginia",
-    coordinates: [-76.9224, 36.6907],
   },
   {
     id: "la-001",
@@ -166,7 +140,7 @@ export const clients: Client[] = [
     property: "Kiosist Partner Hotel",
     city: "Kansas City",
     state: "Missouri",
-    coordinates: [-94.5786, 39.0997],
+    coordinates: [-94.5786, 38.3],
   },
   {
     id: "co-001",

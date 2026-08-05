@@ -85,11 +85,11 @@ export function VisionBlock() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
               <Image
-                src="/img/about/vission-1.png"
-                alt="Vision - blub icon" 
+                src="/img/about/vision-1.png"
+                alt="Vision - blub icon"
                 width={1024}
                 height={1024}
-                className="relative h-full w-full rounded-3xl object-cover"
+                className="relative h-full w-full rounded-3xl object-contain"
                 priority
               />
             </motion.div>

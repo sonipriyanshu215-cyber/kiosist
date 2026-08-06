@@ -116,6 +116,10 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   // reveals just that city's name, directly below its dot. Clicking it again
   // (or clicking another pin) hides it.
   const [activeId, setActiveId] = useState<string | null>(null);
+  // Hovering a pin previews its state name- separate from the click-to-reveal
+  // city label above, so mousing across the map is a lightweight way to scan
+  // state coverage without having to click each pin.
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
     <section className="pb-0 pt-[76px]">
@@ -179,13 +183,18 @@ export function USAClientMap({ clients }: USAClientMapProps) {
                   // react-map-gl positions each marker with its own CSS transform, so
                   // each one forms its own stacking context- a z-index inside one
                   // marker's subtree can never lift it above a sibling marker's dot,
-                  // only DOM order can. Rendering the active marker last (without
-                  // changing its `i`, so the pulse animation's delay stays put) is
-                  // what keeps its label from being clipped by a neighboring pin in
-                  // dense clusters.
-                  .sort((a, b) => (a.c.id === activeId ? 1 : 0) - (b.c.id === activeId ? 1 : 0))
+                  // only DOM order can. Rendering the active/hovered marker last
+                  // (without changing its `i`, so the pulse animation's delay stays
+                  // put) is what keeps its label from being clipped by a neighboring
+                  // pin in dense clusters.
+                  .sort(
+                    (a, b) =>
+                      (a.c.id === activeId || a.c.id === hoveredId ? 1 : 0) -
+                      (b.c.id === activeId || b.c.id === hoveredId ? 1 : 0)
+                  )
                   .map(({ c, i }) => {
                     const active = activeId === c.id;
+                    const hovered = hoveredId === c.id;
                     return (
                       <Marker
                         key={c.id}
@@ -199,9 +208,13 @@ export function USAClientMap({ clients }: USAClientMapProps) {
                             e.stopPropagation();
                             setActiveId((prev) => (prev === c.id ? null : c.id));
                           }}
+                          onMouseEnter={() => setHoveredId(c.id)}
+                          onMouseLeave={() =>
+                            setHoveredId((prev) => (prev === c.id ? null : prev))
+                          }
                         >
                           <PinWithPulse delay={i * 0.12} />
-                          {active && (
+                          {(active || hovered) && (
                             <span className="absolute left-1/2 top-full z-20 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#060a18]/90 px-2 py-1 text-[10px] font-semibold text-white shadow-md ring-1 ring-[#3b82f6]/40">
                               {c.city}
                             </span>

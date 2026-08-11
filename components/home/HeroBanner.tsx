@@ -36,6 +36,16 @@ const PARTICLES = [
 
 const HERO_VIDEO_SRC = "/video/explainer.mp4";
 
+/* Inline SVG poster, shown until the video decodes its first frame- a
+   bare <video> paints an opaque black surface (not the CSS background
+   behind it) while buffering, so on a slow mobile connection the 26MB
+   source can leave a solid black box for several seconds without this.
+   Matches the from-kio-bg-soft/to-kio-bg gradient used elsewhere on
+   this card, approximated as opaque hex since <video poster> can't read
+   CSS variables. */
+const HERO_VIDEO_POSTER =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='9'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23161a26'/%3E%3Cstop offset='1' stop-color='%230b0c11'/%3E%3C/linearGradient%3E%3Crect width='16' height='9' fill='url(%23g)'/%3E%3C/svg%3E";
+
 function HeroVideo({ rm }: { rm: boolean | null }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
@@ -81,6 +91,7 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
         <video
           ref={videoRef}
           src={HERO_VIDEO_SRC}
+          poster={HERO_VIDEO_POSTER}
           className="absolute inset-0 h-full w-full object-cover"
           muted={muted}
           loop

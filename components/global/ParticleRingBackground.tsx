@@ -105,10 +105,7 @@ export function ParticleRingBackground({ style }: { style?: React.CSSProperties 
       aria-hidden="true"
       style={{
         position:        "fixed",
-        top:             0,
-        left:            0,
-        width:           "100vw",
-        height:          "100vh",
+        inset:           0,
         backgroundColor: isDark ? "#050608" : "#eef2ff",
         transition:      "background-color 0.45s ease",
         zIndex:          0,

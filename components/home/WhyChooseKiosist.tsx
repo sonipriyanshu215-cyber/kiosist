@@ -52,7 +52,7 @@ const REASONS = [
 
 function Photo({ title, image, color, priority }: { title: string; image: string; color: string; priority: boolean }) {
   return (
-    <div className="relative h-full min-h-[440px] w-full overflow-hidden rounded-[28px] border" style={{ borderColor: `${color}40` }}>
+    <div className="relative h-[70vw] max-h-[380px] w-full overflow-hidden rounded-[28px] border md:h-full md:min-h-[440px] md:max-h-none" style={{ borderColor: `${color}40` }}>
       <Image
         src={image}
         alt={title}
@@ -84,7 +84,7 @@ function Details({
   const rm = useReducedMotion();
 
   return (
-    <div className="flex h-full min-h-[440px] flex-col items-center justify-center p-[clamp(20px,5vw,32px)] text-center">
+    <div className="flex flex-col items-center justify-center py-2 px-[clamp(20px,5vw,32px)] text-center md:h-full md:min-h-[440px] md:py-[clamp(20px,5vw,32px)]">
       {/* Icon badge- floats gently above the title */}
       <motion.div
         className="mb-[clamp(10px,2.4vw,20px)] flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] items-center justify-center rounded-2xl"

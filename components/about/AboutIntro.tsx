@@ -72,39 +72,69 @@ const SERVICES = [
 export function AboutIntro() {
   return (
     <div>
-      {/* ── Hero- two clean panels: text left, photo right- always side by
-          side (same alignment as desktop) at every width, via fluid
-          clamp()s rather than a separate stacked mobile banner. ── */}
+      {/* Mobile (< md): a real stacked hero- full-width headline block above
+          a full-width photo, sized for a phone screen instead of two
+          desktop 50/50 panels shrunk to fit. The diagonal masked seam only
+          makes sense side-by-side, so mobile gets a separate plain photo
+          block; md+ reverts to the original absolute+mask panel. */}
       <section className="relative flex flex-col overflow-hidden lg:min-h-screen">
 
         {/* ── Text + photo panels ── */}
-        <div className="relative flex flex-1">
+        <div className="relative flex flex-1 flex-col md:flex-row">
 
           {/* ── Left panel: content ── */}
           <motion.div
             initial={{ opacity: 0, x: -28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 flex min-h-[70vh] w-1/2 flex-col justify-center bg-black px-[clamp(10px,4.5vw,80px)] pb-[clamp(14px,5vw,64px)] pt-[clamp(10px,7vw,128px)] lg:min-h-full"
+            className="relative z-10 flex w-full flex-col justify-center bg-black px-6 py-14 md:min-h-[70vh] md:w-1/2 md:px-[clamp(10px,4.5vw,80px)] md:pb-[clamp(14px,5vw,64px)] md:pt-[clamp(10px,7vw,128px)] lg:min-h-full"
           >
             {/* Headline */}
-            <h1 className="text-[clamp(0.85rem,4vw,3rem)] font-black leading-[1.15] text-white">
+            <h1 className="text-[clamp(2rem,9vw,2.75rem)] font-black leading-[1.1] text-white md:text-[clamp(0.85rem,4vw,3rem)] md:leading-[1.15]">
               We Are <br />
               <span className="text-gradient-shimmer">Guest&apos;s First Hello</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-[clamp(6px,1.8vw,20px)] max-w-[430px] text-[clamp(0.55rem,1.8vw,1rem)] leading-[1.7] text-white/60">
+            <p className="mt-3 max-w-[430px] text-[clamp(0.95rem,3.6vw,1.05rem)] leading-[1.7] text-white/60 md:mt-[clamp(6px,1.8vw,20px)] md:text-[clamp(0.55rem,1.8vw,1rem)]">
               We are the leading service provider for remotely operating front desks for hotels based in the US.
             </p>
           </motion.div>
 
-          {/* ── Right panel: photo (soft, blurred curve seam) ── */}
+          {/* ── Mobile photo: plain full-width block, no mask ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 h-[78vw] max-h-[420px] w-full md:hidden"
+          >
+            <Image
+              src="/img/about/agent-workstation-2.jpeg"
+              alt="Kiosist front desk agents working at their stations"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.22)]" />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 20%)" }}
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 25%)" }}
+            />
+          </motion.div>
+
+          {/* ── Desktop photo (soft, blurred curve seam) ── */}
           <motion.div
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-y-0 right-0 z-20 min-h-[70vh] w-[calc(50%+clamp(8px,4vw,4rem))]"
+            className="absolute inset-y-0 right-0 z-20 hidden min-h-[70vh] w-[calc(50%+clamp(8px,4vw,4rem))] md:block"
             style={{
     WebkitMaskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
     maskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><defs><filter id='b' x='-10%25' y='-10%25' width='120%25' height='120%25'><feGaussianBlur stdDeviation='1.5'/></filter></defs><path d='M 7.5,0 C 7.5,20 0,35 0,50 C 0,65 7.5,80 7.5,100 L 100,100 L 100,0 Z' fill='white' filter='url(%23b)'/></svg>")`,
@@ -114,8 +144,6 @@ export function AboutIntro() {
     maskRepeat: "no-repeat",
   }}
 >
-  {/* ⚠️ Delete the old <svg><defs><clipPath id="aboutHeroCurve">…</clipPath></defs></svg> block- no longer needed */}
-
   <Image
     src="/img/about/agent-workstation-2.jpeg"
     alt="Kiosist front desk agents working at their stations"

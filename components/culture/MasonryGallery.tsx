@@ -81,7 +81,7 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
           initial={reducedMotion ? "show" : "hidden"}
           whileInView="show"
           viewport={{ once: true }}
-          className="columns-4 gap-[clamp(4px,1.6vw,16px)]"
+          className="columns-2 gap-[clamp(4px,1.6vw,16px)] sm:columns-3 lg:columns-4"
         >
           {filtered.map((img, i) => {
             const hasPhoto = existing.has(img.src.split("/").pop()!);

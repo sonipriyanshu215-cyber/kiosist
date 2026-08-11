@@ -175,11 +175,11 @@ export function HeroBanner() {
       )}
 
       {/* ── Content ── */}
-      {/* Always 2 columns, even on the narrowest phones- text and video stay
-          side by side at every width (same alignment as desktop) instead of
-          restacking, sized down via fluid clamp()s rather than breakpoints
-          so they shrink continuously to fit. */}
-      <div className="relative z-10 mx-auto grid w-full max-w-container grid-cols-2 items-center gap-3 sm:gap-8 lg:gap-16">
+      {/* Mobile (< md): a proper single-column stack- full-width headline
+          above a full-width video, sized for a phone screen in its own
+          right instead of being two half-width desktop columns shrunk to
+          fit. md+: reverts to the original 2-column side-by-side layout. */}
+      <div className="relative z-10 mx-auto grid w-full max-w-container grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-8 lg:gap-16">
 
         {/* LEFT: copy */}
         <div>
@@ -188,7 +188,7 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(0.95rem,4.2vw,3rem)] font-black leading-[1.3] text-kio-ink"
+            className="text-[clamp(1.9rem,9vw,2.75rem)] font-black leading-[1.15] text-kio-ink md:text-[clamp(0.95rem,4.2vw,3rem)] md:leading-[1.3]"
           >
             {/* Line 1 */}
             <span className="block">Kiosist Delivers Hospitality</span>
@@ -201,7 +201,7 @@ export function HeroBanner() {
                 the same length as line 1 ("Kiosist Delivers Hospitality"),
                 which already fits on one line at this font size, so the
                 longest word fits here too without needing a smaller font. */}
-            <span className="block mt-1 whitespace-nowrap text-[clamp(0.5rem,2.75vw,3rem)] lg:text-[clamp(1.6rem,3vw,2.5rem)]">
+            <span className="block mt-2 whitespace-nowrap text-[clamp(1.1rem,5.2vw,1.6rem)] md:mt-1 md:text-[clamp(0.5rem,2.75vw,3rem)] lg:text-[clamp(1.6rem,3vw,2.5rem)]">
               <span className="text-kio-muted/60 font-semibold">Powered By </span>
               <span className="inline-block">
                 <AnimatePresence mode="wait">

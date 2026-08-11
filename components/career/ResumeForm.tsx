@@ -422,13 +422,16 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
       />
 
       <div className="container-kio relative z-10">
-        <div className="mx-auto grid grid-cols-[1.05fr_0.75fr] max-w-6xl items-center gap-[clamp(8px,3vw,48px)]">
+        {/* Mobile (< md): full-width form above a smaller centered mascot,
+            instead of squeezing form fields into ~58% of the screen next
+            to the character. md+: unchanged 1.05fr/0.75fr split. */}
+        <div className="mx-auto grid grid-cols-1 gap-10 max-w-6xl md:grid-cols-[1.05fr_0.75fr] md:items-center md:gap-[clamp(8px,3vw,48px)]">
           {formBlock}
 
           {/* Mascot image- mirrors the site's recurring 3D-illustrated agent */}
           <RevealOnScroll className="flex justify-self-center">
             <motion.div
-              className="relative w-full max-w-[clamp(110px,22vw,250px)]"
+              className="relative w-full max-w-[180px] md:max-w-[clamp(110px,22vw,250px)]"
               animate={rm ? {} : { y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >

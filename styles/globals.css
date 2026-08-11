@@ -213,9 +213,14 @@
     border: 1px solid rgba(79,70,229,.15);
   }
 
-  /* Input */
+  /* Input- font-size is fluid (clamp) rather than a fixed text-sm so
+     placeholders like the phone field's "+91 98765 43210" don't get
+     clipped in narrower mobile columns (e.g. the contact page's 2-col
+     form); the clamp max matches the old fixed 14px exactly, so nothing
+     above ~440px wide changes. */
   .input-field {
-    @apply w-full rounded-xl border border-kio-line bg-kio-bg px-4 py-3 text-sm text-kio-ink transition-colors placeholder:text-kio-muted focus:border-kio-accent focus:outline-none focus:ring-2;
+    @apply w-full rounded-xl border border-kio-line bg-kio-bg px-4 py-3 text-kio-ink transition-colors placeholder:text-kio-muted focus:border-kio-accent focus:outline-none focus:ring-2;
+    font-size: clamp(0.8rem, 3.2vw, 0.875rem);
     --tw-ring-color: rgba(59,130,246,.2);
   }
   [data-theme="light"] .input-field {

@@ -35,7 +35,7 @@ function JourneyGrid() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="relative grid grid-cols-2 items-stretch gap-x-3 gap-y-10 sm:grid-cols-3 xl:flex xl:gap-x-2"
+        className="relative grid grid-cols-1 items-stretch gap-x-3 gap-y-10 sm:grid-cols-3 xl:flex xl:gap-x-2"
       >
       {milestones.map((m, i) => {
         const Icon  = ICONS[i] ?? Lightbulb;

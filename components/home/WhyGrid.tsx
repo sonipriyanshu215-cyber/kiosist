@@ -77,28 +77,29 @@ export function WhyGrid() {
         </h2>
       </RevealOnScroll>
 
-      {/* Always the 0.85fr/1.15fr two-column split (same alignment as
-          desktop), fluid clamp()s shrinking everything to fit instead of
-          restacking below lg. */}
-      <div className="container-kio relative z-10 grid grid-cols-[0.85fr_1.15fr] items-stretch gap-[clamp(8px,3vw,40px)]">
-        {/* ── Left: What It Takes panel ── */}
-        <RevealOnScroll className="relative flex flex-col justify-center overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-[clamp(10px,3vw,40px)]">
+      {/* Mobile (< md): "What It Takes" full-width on top, skills as a
+          2-column grid below- both sized for a phone row in their own
+          right instead of squeezing the desktop 0.85fr/1.15fr split and
+          3-column grid down to fit. md+: reverts to the original split. */}
+      <div className="container-kio relative z-10 grid grid-cols-1 gap-8 md:grid-cols-[0.85fr_1.15fr] md:items-stretch md:gap-[clamp(8px,3vw,40px)]">
+        {/* ── "What It Takes" panel ── */}
+        <RevealOnScroll className="relative flex flex-col justify-center overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-6 md:p-[clamp(10px,3vw,40px)]">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-kio-accent/10 blur-3xl"
           />
-          <h3 className="relative z-10 text-[clamp(0.95rem,3.2vw,2.25rem)] font-black leading-tight text-kio-ink">
+          <h3 className="relative z-10 text-[clamp(1.5rem,7vw,2rem)] font-black leading-tight text-kio-ink md:text-[clamp(0.95rem,3.2vw,2.25rem)]">
             What It <br />
             <span className="text-color-cycle">Takes</span>
           </h3>
-          <p className="relative z-10 mt-[clamp(4px,1.5vw,16px)] max-w-sm text-[clamp(0.55rem,1.8vw,.95rem)] leading-[1.7] text-kio-muted">
+          <p className="relative z-10 mt-2 max-w-sm text-[clamp(0.9rem,3.6vw,1rem)] leading-[1.7] text-kio-muted md:mt-[clamp(4px,1.5vw,16px)] md:text-[clamp(0.55rem,1.8vw,.95rem)]">
             We&apos;re looking for people-first individuals ready to deliver exceptional guest experiences.
           </p>
-          <div className="relative z-10 mt-[clamp(8px,2.5vw,32px)] flex items-center gap-[clamp(4px,1.2vw,12px)] rounded-2xl bg-kio-primary/5 p-[clamp(6px,1.5vw,16px)] ring-1 ring-kio-accent/20">
-            <div className="flex h-[clamp(20px,6vw,40px)] w-[clamp(20px,6vw,40px)] shrink-0 items-center justify-center rounded-full bg-kio-accent/15 text-kio-accent">
-              <HeartHandshake className="h-[clamp(0.6rem,2.4vw,1.25rem)] w-[clamp(0.6rem,2.4vw,1.25rem)]" strokeWidth={1.75} />
+          <div className="relative z-10 mt-4 flex items-center gap-3 rounded-2xl bg-kio-primary/5 p-3 ring-1 ring-kio-accent/20 md:mt-[clamp(8px,2.5vw,32px)] md:gap-[clamp(4px,1.2vw,12px)] md:p-[clamp(6px,1.5vw,16px)]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-kio-accent/15 text-kio-accent md:h-[clamp(20px,6vw,40px)] md:w-[clamp(20px,6vw,40px)]">
+              <HeartHandshake className="h-5 w-5 md:h-[clamp(0.6rem,2.4vw,1.25rem)] md:w-[clamp(0.6rem,2.4vw,1.25rem)]" strokeWidth={1.75} />
             </div>
-            <p className="text-[clamp(0.5rem,1.6vw,0.875rem)] font-semibold text-kio-ink">
+            <p className="text-[clamp(0.85rem,3.4vw,0.95rem)] font-semibold text-kio-ink md:text-[clamp(0.5rem,1.6vw,0.875rem)]">
               Great people. Exceptional experiences.
               <br />
               <span className="font-normal text-[0.9em] text-kio-muted">
@@ -108,13 +109,13 @@ export function WhyGrid() {
           </div>
         </RevealOnScroll>
 
-        {/* ── Right: Skills & experience card grid- always 3 columns, same as desktop ── */}
+        {/* ── Skills & experience card grid ── */}
         <motion.div
           variants={staggerParent}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-3 gap-x-[clamp(4px,1.5vw,16px)] gap-y-[clamp(20px,5.5vw,40px)]"
+          className="grid grid-cols-2 gap-x-3 gap-y-8 md:grid-cols-3 md:gap-x-[clamp(4px,1.5vw,16px)] md:gap-y-[clamp(20px,5.5vw,40px)]"
         >
           {FEATURES.map((f, i) => {
             const color = COLORS[i % COLORS.length];
@@ -122,26 +123,26 @@ export function WhyGrid() {
               <motion.div
                 key={f.title}
                 variants={staggerChild}
-                className="group relative rounded-2xl border border-kio-line bg-kio-bg p-[clamp(6px,2vw,20px)] pt-[clamp(32px,9vw,64px)] transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10"
+                className="group relative rounded-2xl border border-kio-line bg-kio-bg p-3 pt-9 transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 md:p-[clamp(6px,2vw,20px)] md:pt-[clamp(32px,9vw,64px)]"
               >
                 {/* Icon badge- centered above the box, straddling its top
                     edge (half outside/half inside), same dark circular
                     lockup as CareerHero's "Ready to Apply?" badge */}
                 <div
-                  className="absolute left-1/2 top-0 z-10 flex h-[clamp(24px,6.5vw,56px)] w-[clamp(24px,6.5vw,56px)] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15"
+                  className="absolute left-1/2 top-0 z-10 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 md:h-[clamp(24px,6.5vw,56px)] md:w-[clamp(24px,6.5vw,56px)]"
                   style={{
                     background: "linear-gradient(135deg, rgba(18,20,30,.95), rgba(22,25,38,.9))",
                     boxShadow: `0 0 0 1px ${color}40, 0 10px 30px rgba(0,0,0,.4)`,
                   }}
                 >
                   <f.icon
-                    className="h-[clamp(0.6rem,2.4vw,1.5rem)] w-[clamp(0.6rem,2.4vw,1.5rem)]"
+                    className="h-4 w-4 md:h-[clamp(0.6rem,2.4vw,1.5rem)] md:w-[clamp(0.6rem,2.4vw,1.5rem)]"
                     style={{ color }}
                     strokeWidth={1.75}
                   />
                 </div>
-                <h4 className="text-[clamp(0.5rem,1.6vw,0.875rem)] font-bold text-kio-ink">{f.title}</h4>
-                <p className="mt-[clamp(2px,0.6vw,6px)] text-[clamp(0.42rem,1.3vw,0.75rem)] leading-relaxed text-kio-muted">{f.body}</p>
+                <h4 className="text-[clamp(0.8rem,3.2vw,0.95rem)] font-bold text-kio-ink md:text-[clamp(0.5rem,1.6vw,0.875rem)]">{f.title}</h4>
+                <p className="mt-1 text-[clamp(0.68rem,2.6vw,0.78rem)] leading-relaxed text-kio-muted md:mt-[clamp(2px,0.6vw,6px)] md:text-[clamp(0.42rem,1.3vw,0.75rem)]">{f.body}</p>
               </motion.div>
             );
           })}

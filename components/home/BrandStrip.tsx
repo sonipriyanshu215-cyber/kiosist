@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const ROW1 = [
@@ -26,13 +27,21 @@ const ROW2 = [
 
 function LogoItem({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="group flex h-16 w-44 shrink-0 items-center justify-center">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+    <div className="group relative flex h-16 w-44 shrink-0 items-center justify-center">
+      {/* next/image instead of a raw <img>- these source files are
+          unoptimized exports (some 300-800KB for a 176x64 display slot,
+          ~2.6MB total across the strip), which on a real phone over a
+          weak connection left this whole section rendering as blank
+          space for a long stretch while everything downloaded with no
+          placeholder. next/image resizes, converts to avif/webp, and
+          serves a properly small file instead. */}
+      <Image
         src={src}
         alt={alt}
+        fill
         draggable={false}
-        className="h-full w-full select-none object-contain"
+        sizes="176px"
+        className="select-none object-contain"
         style={{
           filter:     "grayscale(1) brightness(0.55)",
           opacity:    0.65,

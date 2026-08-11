@@ -66,16 +66,17 @@ export function Footer() {
             screens instead of stretching Company/Contact to the far right
             edge- shifts them left, closer to Brand, without clustering them
             into a fixed/auto layout. */}
-        <div className="grid items-start gap-8 md:grid-cols-[1.3fr_0.85fr_0.85fr_0.9fr]">
-          {/* Brand */}
-          <div>
+        <div className="grid grid-cols-2 items-start gap-x-6 gap-y-7 md:grid-cols-[1.3fr_0.85fr_0.85fr_0.9fr] md:gap-8">
+          {/* Brand- spans both mobile columns since the logo+socials
+              row shouldn't share space with Company/Contact */}
+          <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-flex items-center">
               <Image
                 src="/img/kiosist-logo.png"
                 alt="Kiosist"
                 width={1545}
                 height={435}
-                className="h-16 w-auto object-contain"
+                className="h-10 w-auto object-contain md:h-16"
               />
             </Link>
             <div className="mt-4 flex gap-2.5">
@@ -114,13 +115,15 @@ export function Footer() {
           ))}
 
           {/* Map- lives in the trailing spacer column, using the space
-              that would otherwise sit empty on wide screens. */}
+              that would otherwise sit empty on wide screens. Smaller and
+              spans both mobile columns- at full 220px it was one of the
+              largest single blocks in the whole footer stack. */}
           <a
             href="https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Kiosist office location in Google Maps"
-            className="block aspect-square w-full max-w-[220px] overflow-hidden rounded-xl border border-kio-line md:justify-self-end"
+            className="col-span-2 block aspect-square w-full max-w-[150px] overflow-hidden rounded-xl border border-kio-line md:col-span-1 md:max-w-[220px] md:justify-self-end"
           >
             <iframe
               title="Kiosist office location"

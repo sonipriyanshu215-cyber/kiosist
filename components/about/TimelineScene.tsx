@@ -35,7 +35,7 @@ function JourneyGrid() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="relative grid grid-cols-1 items-stretch gap-x-3 gap-y-10 sm:grid-cols-3 xl:flex xl:gap-x-2"
+        className="relative grid grid-cols-1 items-stretch gap-x-3 gap-y-0 sm:gap-y-10 sm:grid-cols-3 xl:flex xl:gap-x-2"
       >
       {milestones.map((m, i) => {
         const Icon  = ICONS[i] ?? Lightbulb;
@@ -45,7 +45,7 @@ function JourneyGrid() {
           <Fragment key={m.id}>
             <motion.div
               variants={staggerChild}
-              className="group relative flex min-w-0 min-h-[17rem] flex-col justify-start rounded-2xl border border-kio-line bg-kio-bg p-5 pt-16 text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 xl:flex-1"
+              className="group relative flex min-w-0 flex-col justify-start rounded-2xl border border-kio-line bg-kio-bg p-5 pt-16 text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:min-h-[17rem] xl:flex-1"
             >
               {/* Icon badge- centered above the card, half outside/half
                   inside, same lockup as the skills-grid cards elsewhere
@@ -66,13 +66,28 @@ function JourneyGrid() {
               </p>
             </motion.div>
 
-            {/* Connector- only reads sensibly once every card sits in a
-                single row, so it's hidden below the breakpoint where
-                cards wrap onto their own lines */}
             {i < milestones.length - 1 && (
-              <div aria-hidden="true" className="z-10 hidden shrink-0 self-center xl:flex xl:items-center xl:justify-center">
-                <ArrowRight className="h-4 w-4 text-kio-muted/50" />
-              </div>
+              <>
+                {/* Mobile: a short vertical line between each stacked
+                    card, colored as a gradient into the next step's
+                    color, so the stack actually reads as a timeline
+                    instead of a list of disconnected boxes. Only true
+                    while cards are a single column- once they wrap onto
+                    a 3-col grid at sm a straight line no longer lines up
+                    with the next card. */}
+                <div aria-hidden="true" className="z-10 flex h-9 shrink-0 items-center justify-center sm:hidden">
+                  <div
+                    className="h-full w-[2px] rounded-full"
+                    style={{ background: `linear-gradient(to bottom, ${color}, ${COLORS[(i + 1) % COLORS.length]})` }}
+                  />
+                </div>
+
+                {/* Desktop: horizontal arrow- only reads sensibly once
+                    every card sits in a single row */}
+                <div aria-hidden="true" className="z-10 hidden shrink-0 self-center xl:flex xl:items-center xl:justify-center">
+                  <ArrowRight className="h-4 w-4 text-kio-muted/50" />
+                </div>
+              </>
             )}
           </Fragment>
         );
@@ -120,23 +135,42 @@ function JourneyFooter() {
           }}
         />
 
-        <div className="grid grid-cols-2 items-stretch gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {/* Mobile (< sm): a single-column stack instead of a 2-up grid-
+            5 years wrapped 2/2/1, leaving the last card stranded alone
+            on its own row, and each pair only matched height via
+            `items-stretch` rather than hugging its own content. A
+            connecting line between each dot makes it read as one
+            continuous timeline instead of a card list. sm+: unchanged
+            multi-column grid with the dot row (and, at lg+, the spine
+            above). */}
+        <div className="grid grid-cols-1 items-stretch gap-0 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
           {journeyYears.map((y, i) => (
-            <div key={y.year} className="relative flex flex-col items-center text-center">
-              <span
-                aria-hidden="true"
-                className="relative z-10 mb-3 hidden h-[18px] w-[18px] shrink-0 rounded-full border-2 sm:block"
-                style={{
-                  borderColor: COLORS[i % COLORS.length],
-                  background: "linear-gradient(135deg, rgba(1, 1, 1, 0.95), rgba(6, 6, 6, 0.9))",
-                }}
-              />
-              <div className="flex h-full w-full flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-4">
-                <div className="text-color-cycle text-lg font-black">{y.year}</div>
-                <p className="mt-1 text-xs font-semibold text-kio-ink">{y.caption}</p>
-                <p className="mt-1 text-[11px] leading-snug text-kio-muted">{y.body}</p>
+            <Fragment key={y.year}>
+              <div className="relative flex min-w-0 w-full flex-col items-center text-center">
+                <span
+                  aria-hidden="true"
+                  className="relative z-10 mb-3 h-[18px] w-[18px] shrink-0 rounded-full border-2"
+                  style={{
+                    borderColor: COLORS[i % COLORS.length],
+                    background: "linear-gradient(135deg, rgba(1, 1, 1, 0.95), rgba(6, 6, 6, 0.9))",
+                  }}
+                />
+                <div className="flex h-full w-full flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-4">
+                  <div className="text-color-cycle text-lg font-black">{y.year}</div>
+                  <p className="mt-1 text-xs font-semibold text-kio-ink">{y.caption}</p>
+                  <p className="mt-1 text-[11px] leading-snug text-kio-muted">{y.body}</p>
+                </div>
               </div>
-            </div>
+
+              {i < journeyYears.length - 1 && (
+                <div aria-hidden="true" className="flex h-7 shrink-0 items-center justify-center sm:hidden">
+                  <div
+                    className="h-full w-[2px] rounded-full"
+                    style={{ background: `linear-gradient(to bottom, ${COLORS[i % COLORS.length]}, ${COLORS[(i + 1) % COLORS.length]})` }}
+                  />
+                </div>
+              )}
+            </Fragment>
           ))}
         </div>
       </div>

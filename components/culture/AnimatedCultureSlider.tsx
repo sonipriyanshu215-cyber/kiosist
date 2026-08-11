@@ -84,7 +84,7 @@ export function AnimatedCultureSlider() {
             Culture Beyond The Workspace
           </h1>
           <h2
-            className="text-color-cycle mt-3 whitespace-nowrap font-bold [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
+            className="text-color-cycle mt-3 font-bold [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]"
             style={{ fontSize: "clamp(11px, 2.9vw, 24px)" }}
           >
             Built By People. Driven By Purpose. United By Hospitality

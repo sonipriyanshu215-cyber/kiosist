@@ -44,7 +44,9 @@ export function PerksGrid() {
       <div className="container-kio">
         <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Benefits Of Working <span className="text-color-cycle">At Kiosist</span>
+            Benefits Of Working{" "}
+            <br className="sm:hidden" />
+            <span className="text-color-cycle">At Kiosist</span>
           </h2>
         </RevealOnScroll>
 

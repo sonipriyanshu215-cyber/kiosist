@@ -219,7 +219,7 @@
      form); the clamp max matches the old fixed 14px exactly, so nothing
      above ~440px wide changes. */
   .input-field {
-    @apply w-full rounded-xl border border-kio-line bg-kio-bg px-4 py-3 text-kio-ink transition-colors placeholder:text-kio-muted focus:border-kio-accent focus:outline-none focus:ring-2;
+    @apply w-full rounded-xl border border-kio-line bg-kio-bg px-3.5 py-2.5 text-kio-ink transition-colors placeholder:text-kio-muted focus:border-kio-accent focus:outline-none focus:ring-2 sm:px-4 sm:py-3;
     font-size: clamp(0.8rem, 3.2vw, 0.875rem);
     --tw-ring-color: rgba(59,130,246,.2);
   }

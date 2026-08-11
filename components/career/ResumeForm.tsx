@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -84,7 +84,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
 
   const formBlock = (
     <div className="w-full max-w-2xl">
-      <RevealOnScroll className="mb-[clamp(8px,2.5vw,40px)] text-left">
+      <RevealOnScroll className="mb-[clamp(8px,2.5vw,40px)] text-center md:text-left">
         <h2 className="mt-3 text-[clamp(0.75rem,2.8vw,2.25rem)] font-bold text-kio-ink">
           Want To Make Career In <span className="text-color-cycle">Hospitality</span>? Join Us Now
         </h2>
@@ -117,11 +117,16 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
         </motion.div>
       ) : (
         <>
-          {/* Stepper */}
-          <div className="mb-[clamp(8px,2.5vw,40px)] flex items-start justify-center">
+          {/* Stepper- mobile only: connector lines are flex-1 so the row
+              spans the full card width (edges lining up with the
+              heading and form below) instead of a fixed-width group
+              floating centered with empty margins on both sides. md+:
+              reverts to the original fixed-width capped lines,
+              centered- unchanged from before. */}
+          <div className="mb-[clamp(8px,2.5vw,40px)] flex w-full items-start md:justify-center">
             {STEPS.map((s, i) => (
-              <div key={s.label} className="flex items-start">
-                <div className="flex flex-col items-center gap-[clamp(2px,0.6vw,8px)]">
+              <Fragment key={s.label}>
+                <div className="flex shrink-0 flex-col items-center gap-[clamp(2px,0.6vw,8px)]">
                   <motion.div
                     animate={{
                       scale: i === step ? 1.08 : 1,
@@ -129,7 +134,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                         i < step ? "var(--kio-success)" : i === step ? "var(--kio-accent)" : "var(--kio-line)",
                     }}
                     transition={{ duration: 0.3 }}
-                    className={`flex h-[clamp(20px,5vw,40px)] w-[clamp(20px,5vw,40px)] items-center justify-center rounded-full border-2 text-[clamp(0.55rem,1.6vw,0.875rem)] font-bold leading-none tabular-nums ${
+                    className={`flex h-[clamp(16px,4.5vw,40px)] w-[clamp(16px,4.5vw,40px)] items-center justify-center rounded-full border-2 text-[clamp(0.5rem,1.6vw,0.875rem)] font-bold leading-none tabular-nums ${
                       i < step
                         ? "bg-kio-success/15 text-kio-success"
                         : i === step
@@ -148,7 +153,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                   </span>
                 </div>
                 {i < STEPS.length - 1 && (
-                  <div className="mx-[clamp(2px,1vw,12px)] mt-[calc(clamp(10px,2.5vw,20px)-1px)] h-0.5 w-[clamp(10px,4vw,64px)] overflow-hidden rounded-full bg-kio-line">
+                  <div className="mx-[clamp(2px,1vw,8px)] mt-[calc(clamp(8px,2.25vw,20px)-1px)] h-0.5 min-w-[8px] flex-1 overflow-hidden rounded-full bg-kio-line md:mx-[clamp(2px,1vw,12px)] md:w-[clamp(8px,3vw,64px)] md:flex-none">
                     <motion.div
                       className="h-full rounded-full bg-gradient-to-r from-kio-accent to-kio-accent2"
                       initial={false}
@@ -158,7 +163,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                     />
                   </div>
                 )}
-              </div>
+              </Fragment>
             ))}
           </div>
 
@@ -174,7 +179,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-5"
+                  className="space-y-3.5 sm:space-y-5"
                 >
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-kio-ink mb-1">
@@ -227,7 +232,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-5"
+                  className="space-y-3.5 sm:space-y-5"
                 >
                   <div>
                     <label htmlFor="role" className="block text-sm font-medium text-kio-ink mb-1">
@@ -275,7 +280,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-5"
+                  className="space-y-3.5 sm:space-y-5"
                 >
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-kio-ink mb-1">
@@ -300,7 +305,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-5"
+                  className="space-y-3.5 sm:space-y-5"
                 >
                   <div>
                     <label className="block text-sm font-medium text-kio-ink mb-2">
@@ -358,7 +363,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
             </AnimatePresence>
 
             {/* Navigation */}
-            <div className="mt-8 flex justify-between">
+            <div className="mt-5 flex justify-between sm:mt-8">
               {step > 0 ? (
                 <button
                   type="button"

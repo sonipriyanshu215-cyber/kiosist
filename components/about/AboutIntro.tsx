@@ -87,7 +87,7 @@ export function AboutIntro() {
             initial={{ opacity: 0, x: -28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 flex w-full flex-col justify-center bg-black px-6 py-14 md:min-h-[70vh] md:w-1/2 md:px-[clamp(10px,4.5vw,80px)] md:pb-[clamp(14px,5vw,64px)] md:pt-[clamp(10px,7vw,128px)] lg:min-h-full"
+            className="relative z-10 flex w-full flex-col justify-center bg-black px-6 pb-14 pt-28 md:min-h-[70vh] md:w-1/2 md:px-[clamp(10px,4.5vw,80px)] md:pb-[clamp(14px,5vw,64px)] md:pt-[clamp(10px,7vw,128px)] lg:min-h-full"
           >
             {/* Headline */}
             <h1 className="text-[clamp(2rem,9vw,2.75rem)] font-black leading-[1.1] text-white md:text-[clamp(0.85rem,4vw,3rem)] md:leading-[1.15]">

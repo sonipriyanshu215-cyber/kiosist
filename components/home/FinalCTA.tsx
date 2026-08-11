@@ -12,7 +12,7 @@ export function FinalCTA() {
       <div className="mx-auto max-w-container">
         <RevealOnScroll>
           <div
-            className="relative grid grid-cols-[1fr_auto] items-center gap-[clamp(8px,3vw,40px)] overflow-hidden rounded-3xl border border-kio-accent/25 p-[clamp(12px,4.5vw,60px)]"
+            className="relative grid grid-cols-1 items-center gap-[clamp(8px,3vw,40px)] overflow-hidden rounded-3xl border border-kio-accent/25 p-[clamp(12px,4.5vw,60px)] md:grid-cols-[1fr_auto]"
             style={{
               background: "linear-gradient(135deg, rgba(59,130,246,.32) 0%, rgba(6,182,212,.24) 100%)",
             }}
@@ -36,8 +36,9 @@ export function FinalCTA() {
 
             {/* Text */}
             <div className="relative z-10">
-              <h2 className="text-[clamp(0.6rem,3.2vw,2rem)] font-extrabold text-kio-ink">
-                If Making Guest Smile Is What Drives You,{" "}
+              <h2 className="text-[clamp(1.35rem,5.5vw,2rem)] font-extrabold text-kio-ink">
+                If Making Guest Smile Is What Drives You,
+                <br className="md:hidden" />{" "}
                 <span className="text-color-cycle">Kiosist Is The Place For You</span>
               </h2>
             </div>

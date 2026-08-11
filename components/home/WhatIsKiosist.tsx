@@ -70,7 +70,7 @@ export function WhatIsKiosist() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative h-[78vw] max-h-[420px] w-full md:h-auto md:w-[62%]"
+          className="relative h-[78vw] max-h-[420px] w-full md:h-auto md:max-h-none md:w-[62%]"
         >
           <Image
             src="/img/about/kiosist-team.jpeg"

@@ -433,8 +433,9 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
         <div className="mx-auto grid grid-cols-1 gap-10 max-w-6xl md:grid-cols-[1.05fr_0.75fr] md:items-center md:gap-[clamp(8px,3vw,48px)]">
           {formBlock}
 
-          {/* Mascot image- mirrors the site's recurring 3D-illustrated agent */}
-          <RevealOnScroll className="flex justify-self-center">
+          {/* Mascot image- mirrors the site's recurring 3D-illustrated agent.
+              Hidden on mobile (kept desktop-only) per explicit request. */}
+          <RevealOnScroll className="hidden md:flex md:justify-self-center">
             <motion.div
               className="relative w-full max-w-[180px] md:max-w-[clamp(110px,22vw,250px)]"
               animate={rm ? {} : { y: [0, -12, 0] }}

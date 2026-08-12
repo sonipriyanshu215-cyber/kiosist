@@ -2,7 +2,7 @@
 
 import { Fragment } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Puzzle, Users, Lightbulb, Rocket, TrendingUp, Trophy } from "lucide-react";
+import { ArrowRight, ArrowDown, Puzzle, Users, Lightbulb, Rocket, TrendingUp, Trophy } from "lucide-react";
 import { milestones, journeyYears } from "@/content/milestones";
 import { staggerParent, staggerChild } from "@/lib/motion";
 
@@ -45,7 +45,7 @@ function JourneyGrid() {
           <Fragment key={m.id}>
             <motion.div
               variants={staggerChild}
-              className="group relative flex min-w-0 flex-col justify-start rounded-2xl border border-kio-line bg-kio-bg p-5 pt-16 text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:min-h-[17rem] xl:flex-1"
+              className="group relative flex min-w-0 flex-col justify-start rounded-2xl border border-kio-line bg-kio-bg p-4 pt-14 text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:min-h-[17rem] sm:p-5 sm:pt-16 xl:flex-1"
             >
               {/* Icon badge- centered above the card, half outside/half
                   inside, same lockup as the skills-grid cards elsewhere
@@ -68,18 +68,21 @@ function JourneyGrid() {
 
             {i < milestones.length - 1 && (
               <>
-                {/* Mobile: a short vertical line between each stacked
-                    card, colored as a gradient into the next step's
-                    color, so the stack actually reads as a timeline
-                    instead of a list of disconnected boxes. Only true
-                    while cards are a single column- once they wrap onto
-                    a 3-col grid at sm a straight line no longer lines up
-                    with the next card. */}
-                <div aria-hidden="true" className="z-10 flex h-9 shrink-0 items-center justify-center sm:hidden">
-                  <div
-                    className="h-full w-[2px] rounded-full"
-                    style={{ background: `linear-gradient(to bottom, ${color}, ${COLORS[(i + 1) % COLORS.length]})` }}
-                  />
+                {/* Mobile: a downward arrow between each stacked card so
+                    the stack reads as a timeline instead of a list of
+                    disconnected boxes. Only true while cards are a single
+                    column- once they wrap onto a 3-col grid at sm a
+                    vertical arrow no longer lines up with the next card.
+                    Taller than the old connecting-line version and
+                    top-aligned (not centered)- the next card's icon badge
+                    absolutely overlaps upward into the bottom ~22px of this
+                    gap (see the badge's own -translate-y-1/2 above), so the
+                    arrow has to sit above that zone, in the gap's free top
+                    portion, or the badge paints over it. z-20 (above the
+                    badge's z-10) as a safety margin against any residual
+                    overlap. */}
+                <div aria-hidden="true" className="z-20 flex h-10 shrink-0 items-start justify-center sm:hidden">
+                  <ArrowDown className="h-4 w-4 text-white" />
                 </div>
 
                 {/* Desktop: horizontal arrow- only reads sensibly once
@@ -149,13 +152,21 @@ function JourneyFooter() {
               <div className="relative flex min-w-0 w-full flex-col items-center text-center">
                 <span
                   aria-hidden="true"
-                  className="relative z-10 mb-3 h-[18px] w-[18px] shrink-0 rounded-full border-2"
+                  className="relative z-10 h-[18px] w-[18px] shrink-0 rounded-full border-2 sm:mb-2"
                   style={{
                     borderColor: COLORS[i % COLORS.length],
                     background: "linear-gradient(135deg, rgba(1, 1, 1, 0.95), rgba(6, 6, 6, 0.9))",
                   }}
                 />
-                <div className="flex h-full w-full flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-4">
+                {/* Stem connecting the dot down into its own card below- the
+                    dot already gets a line from the connector above (except
+                    the very first dot, which has nothing above it to connect
+                    to), but without this it dead-ends into a bare margin on
+                    its way down, reading as an incomplete/one-sided
+                    connection. sm:hidden to match the connector- untouched
+                    at sm+, where this gap is a plain margin as before. */}
+                <div aria-hidden="true" className="h-2 w-[2px] shrink-0 sm:hidden" style={{ background: COLORS[i % COLORS.length] }} />
+                <div className="flex w-[85%] flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-3 sm:h-full sm:w-full">
                   <div className="text-color-cycle text-lg font-black">{y.year}</div>
                   <p className="mt-1 text-xs font-semibold text-kio-ink">{y.caption}</p>
                   <p className="mt-1 text-[11px] leading-snug text-kio-muted">{y.body}</p>
@@ -163,9 +174,20 @@ function JourneyFooter() {
               </div>
 
               {i < journeyYears.length - 1 && (
-                <div aria-hidden="true" className="flex h-7 shrink-0 items-center justify-center sm:hidden">
+                <div aria-hidden="true" className="relative flex h-6 shrink-0 items-center justify-center sm:hidden">
+                  {/* Extends 9px (the dot's own radius) past the connector
+                      box's bottom edge, into the next dot's vertical
+                      center- otherwise the line just touches the dot's
+                      top tangent, which reads as stopping short of it
+                      rather than connecting through it. Matches the lg+
+                      desktop spine, which is deliberately positioned at
+                      `top-[9px]` for the same reason- centered through
+                      each dot, not touching its edge. Dot sits at z-10,
+                      above this line, so it still reads as a bead on a
+                      continuous wire rather than the line overlapping on
+                      top of it. */}
                   <div
-                    className="h-full w-[2px] rounded-full"
+                    className="absolute left-1/2 top-0 h-[calc(100%+9px)] w-[2px] -translate-x-1/2 rounded-full"
                     style={{ background: `linear-gradient(to bottom, ${COLORS[i % COLORS.length]}, ${COLORS[(i + 1) % COLORS.length]})` }}
                   />
                 </div>

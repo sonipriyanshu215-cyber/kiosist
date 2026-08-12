@@ -53,44 +53,11 @@ export function MissionBlock() {
           </h2>
         </RevealOnScroll>
 
-        <div className="mx-auto flex max-w-6xl flex-row items-center gap-[clamp(8px,3vw,48px)]">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center md:flex-row md:items-center md:gap-[clamp(8px,3vw,48px)] md:text-left">
 
-          {/* Text column */}
-          <div className="flex-1 text-left">
-            <span className="text-[clamp(1rem,2.2vw,1.5rem)] font-bold uppercase tracking-[.15em] ">
-              Our <span className="text-color-cycle">Mission</span> 
-            </span>
-
-            {/* Word-by-word heading reveal */}
-            <motion.h2
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.03, delayChildren: 0.15 } },
-              }}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-[clamp(4px,1.5vw,16px)] text-[clamp(0.7rem,1.5vw,1rem)] font-normal leading-relaxed text-white"
-            >
-              {HEADING.split(" ").map((word, i) => (
-                <Fragment key={i}>
-                  <motion.span variants={rm ? {} : wordVariants} className="inline-block">
-                    {word}
-                  </motion.span>{" "}
-                </Fragment>
-              ))}
-            </motion.h2>
-          </div>
-
-          {/* Mission miniature - right side */}
-          <RevealOnScroll className="flex flex-none justify-center">
-            <motion.div
-              className="relative h-[clamp(40px,10vw,140px)] w-[clamp(40px,10vw,140px)]"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            >
+          {/* Mission miniature - above the text on mobile, right side at md+ */}
+          <RevealOnScroll className="order-first flex flex-none justify-center md:order-last">
+            <div className="relative h-24 w-24 md:h-[clamp(40px,10vw,140px)] md:w-[clamp(40px,10vw,140px)]">
               <motion.div
                 className="pointer-events-none absolute inset-0 rounded-full opacity-40 blur-xl"
                 style={{ background: "radial-gradient(circle, var(--kio-accent), transparent 70%)" }}
@@ -105,8 +72,35 @@ export function MissionBlock() {
                 className="relative h-full w-full rounded-3xl object-contain"
                 priority
               />
-            </motion.div>
+            </div>
           </RevealOnScroll>
+
+          {/* Text column */}
+          <div className="flex-1">
+            <span className="text-[clamp(1rem,2.2vw,1.5rem)] font-bold uppercase tracking-[.15em] ">
+              Our <span className="text-color-cycle">Mission</span>
+            </span>
+
+            {/* Word-by-word heading reveal */}
+            <motion.h2
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.03, delayChildren: 0.15 } },
+              }}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-[clamp(4px,1.5vw,16px)] text-sm font-normal leading-relaxed text-white md:text-[clamp(0.7rem,1.5vw,1rem)]"
+            >
+              {HEADING.split(" ").map((word, i) => (
+                <Fragment key={i}>
+                  <motion.span variants={rm ? {} : wordVariants} className="inline-block">
+                    {word}
+                  </motion.span>{" "}
+                </Fragment>
+              ))}
+            </motion.h2>
+          </div>
         </div>
       </div>
     </section>

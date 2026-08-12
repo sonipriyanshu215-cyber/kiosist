@@ -77,8 +77,7 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
 
   return (
     <div
-      className="relative overflow-hidden rounded-[clamp(10px,3vw,24px)] shadow-[0_30px_80px_rgba(0,0,0,.55)]"
-      style={{ aspectRatio: "16/9" }}
+      className="relative aspect-[4/3] overflow-hidden rounded-[clamp(10px,3vw,24px)] shadow-[0_30px_80px_rgba(0,0,0,.55)] md:aspect-[16/9]"
     >
       {failed ? (
         /* Fallback for browsers/networks that can't play the video- an icon
@@ -144,7 +143,7 @@ export function HeroBanner() {
   }, [rm]);
 
   return (
-    <section className="relative flex min-h-[100vh] items-center overflow-hidden px-6 pb-10 pt-[50px] lg:min-h-[95vh]">
+    <section className="relative flex min-h-0 items-center overflow-hidden px-6 pb-8 pt-24 md:min-h-[100vh] md:pb-10 md:pt-[50px] lg:min-h-[95vh]">
 
       {/* ── Background: floating particles ── */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

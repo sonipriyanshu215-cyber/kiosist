@@ -57,13 +57,13 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="mx-auto grid max-w-container grid-cols-5 gap-[clamp(4px,1.5vw,16px)] px-6 md:px-10 lg:px-16"
+        className="mx-auto flex max-w-container flex-wrap justify-center gap-3 px-6 md:grid md:grid-cols-5 md:gap-[clamp(4px,1.5vw,16px)] md:px-10 lg:px-16"
       >
         {STATS.map((s, i) => (
           <motion.div
             key={s.label}
             variants={staggerChild}
-            className="group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-[clamp(4px,2vw,20px)] text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg"
+            className="group relative flex basis-[calc(33.333%-8px)] flex-col items-center justify-center overflow-hidden rounded-2xl border border-kio-line bg-kio-bg-soft p-[clamp(4px,2vw,20px)] text-center backdrop-blur-sm transition-all duration-300 hover:border-kio-accent/30 hover:bg-kio-bg md:basis-auto"
           >
             <div
               className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/12 to-transparent"

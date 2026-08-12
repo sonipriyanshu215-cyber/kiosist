@@ -65,7 +65,7 @@ export function BrandStrip() {
     <section className="relative overflow-hidden pt-8 pb-3 md:pt-10 md:pb-4 lg:pt-12 lg:pb-5">
 
       {/* Tagline above heading */}
-      <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
+      <RevealOnScroll className="mb-6 md:mb-16 lg:mb-20 text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Trusted by <span className="text-color-cycle">Hotel Brands</span>
         </h2>
@@ -80,7 +80,7 @@ export function BrandStrip() {
 
       <RevealOnScroll delay={0.12}>
         {/* Row 1 - scrolls left */}
-        <div className="overflow-hidden mb-14">
+        <div className="overflow-hidden mb-4 md:mb-14">
           <div className="marquee-track flex w-max items-center gap-10 px-10">
             {[...ROW1, ...ROW1].map((logo, i) => (
               <LogoItem key={i} {...logo} />

@@ -103,8 +103,12 @@ export function USAClientMap({ clients }: USAClientMapProps) {
       const target = Math.min(available, idealForWidth);
       // 360 is a soft floor for usability on tiny windows- it can still lose
       // to `available` above, because a slightly-short map beats one whose
-      // bottom edge is cropped by the viewport.
-      setMapHeight(Math.min(Math.max(target, 360), 940));
+      // bottom edge is cropped by the viewport. On narrow (phone-width)
+      // viewports that floor is taller than the 1.78:1 shape calls for,
+      // which forced the map into a near-square instead of a rectangle- a
+      // lower floor there lets `idealForWidth` win and keep the true ratio.
+      const floor = narrow ? 200 : 360;
+      setMapHeight(Math.min(Math.max(target, floor), 940));
     };
     measure();
     window.addEventListener("resize", measure);
@@ -122,10 +126,10 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section className="pb-0 pt-[112px] lg:pt-[76px]">
+    <section className="pb-8 pt-24 md:pb-0 md:pt-[76px]">
       <div className="container-kio">
 
-        <RevealOnScroll className="mb-3 text-center">
+        <RevealOnScroll className="mb-6 text-center md:mb-3">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Powering <span className="text-color-cycle">Hospitality Across US</span>
           </h2>

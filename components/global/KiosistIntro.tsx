@@ -171,13 +171,16 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
         }
 
         @media (max-width: 900px) {
-          /* Stacked kiosk/agent/tagline/CTA column can still exceed a short
-             viewport's height (e.g. a phone with its browser chrome eating
-             vertical space)- flex-start (not center) so any overflow spills
-             off the bottom, reachable by scrolling, rather than getting
-             center-cropped off BOTH ends by overflow, which used to hide
-             the kiosk entirely with no way to scroll back to it. */
-          .intro-stage { flex-direction: column; justify-content: flex-start; gap: clamp(14px, 3.5vh, 28px); padding: 5vh 6vw; }
+          /* Centered as a whole block (kiosk+agent, tagline, CTA together)
+             on normal phone viewports. The stacked column can still exceed
+             a short viewport's height though (e.g. a phone with its browser
+             chrome eating vertical space)- plain center would center-crop
+             overflow off BOTH ends with no way to scroll back to the kiosk,
+             which is exactly what broke before (see the mobile-sizing note
+             below). safe center centers normally but falls back to
+             start-alignment specifically when content overflows, so it's
+             centered AND still fully reachable by scrolling either way. */
+          .intro-stage { flex-direction: column; justify-content: safe center; gap: clamp(14px, 3.5vh, 28px); padding: 5vh 6vw; }
         }
 
         /* Positioned (unlike the plain flex kiosk-section/agent-section), so

@@ -122,7 +122,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section className="pb-0 pt-[76px]">
+    <section className="pb-0 pt-[112px] lg:pt-[76px]">
       <div className="container-kio">
 
         <RevealOnScroll className="mb-3 text-center">

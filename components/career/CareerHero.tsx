@@ -9,7 +9,7 @@ export function CareerHero() {
   const rm = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-screen flex-col justify-center overflow-hidden pb-16 pt-[90px]">
+    <section className="relative flex min-h-screen flex-col justify-center overflow-hidden pb-16 pt-[126px] lg:pt-[90px]">
       {/* ── Full-bleed background photo ── */}
       <div className="absolute inset-0" aria-hidden="true">
         <Image

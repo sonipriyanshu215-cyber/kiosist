@@ -60,7 +60,7 @@ const SOCIAL = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-kio-line bg-kio-bg-soft">
+    <footer className="border-t border-kio-line bg-kio-bg-soft pb-16 lg:pb-0">
       <div className="container-kio py-9">
         {/* Trailing 1fr spacer track absorbs the row's extra width on wide
             screens instead of stretching Company/Contact to the far right

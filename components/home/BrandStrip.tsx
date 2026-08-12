@@ -71,13 +71,6 @@ export function BrandStrip() {
         </h2>
       </RevealOnScroll>
 
-      {/* Left fade mask */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32"
-        style={{ background: "linear-gradient(to right, #0d1117, transparent)" }} />
-      {/* Right fade mask */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32"
-        style={{ background: "linear-gradient(to left, #0d1117, transparent)" }} />
-
       <RevealOnScroll delay={0.12}>
         {/* Row 1 - scrolls left */}
         <div className="overflow-hidden mb-4 md:mb-14">

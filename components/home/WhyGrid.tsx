@@ -62,7 +62,7 @@ const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"
 
 export function WhyGrid() {
   return (
-    <section id="features" className="pt-8 pb-4 md:pt-8 md:pb-5 lg:pt-12 lg:pb-6 relative overflow-hidden">
+    <section id="features" className="pt-4 pb-4 md:pt-8 md:pb-5 lg:pt-12 lg:pb-6 relative overflow-hidden">
       {/* Ambient blob */}
       <div
         aria-hidden="true"

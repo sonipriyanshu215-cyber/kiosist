@@ -45,7 +45,7 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
   const isInView = useInView(gridRef, { once: false, margin: "-10%" });
 
   return (
-    <section className={compact ? "pt-32 pb-10 md:pt-24 md:pb-16 lg:pt-12 lg:pb-24" : "pt-10 pb-16 md:pt-12 md:pb-20 lg:pt-14 lg:pb-24"}>
+    <section className={compact ? "pt-32 pb-10 md:pt-24 md:pb-16 lg:pt-12 lg:pb-24" : "pt-10 pb-8 md:pt-12 md:pb-20 lg:pt-14 lg:pb-24"}>
       <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center px-6">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
           Our <span className="text-color-cycle">Success Story</span>

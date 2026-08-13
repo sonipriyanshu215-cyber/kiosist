@@ -78,7 +78,10 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   const [minZoom, setMinZoom] = useState(3);
   // Measured (not guessed) so the map is exactly as tall as the space left
   // under the fixed nav + heading- as large as it can be while still fitting
-  // fully in the first viewport, on any screen size.
+  // fully in the first viewport, on any screen size. Mobile is the one
+  // exception (see the `narrow` branches below)- it's allowed to run a bit
+  // past the first fold so it can be taller; desktop keeps the original
+  // fits-in-one-viewport behavior untouched.
   const cardRef = useRef<HTMLDivElement>(null);
   const [mapHeight, setMapHeight] = useState<number | null>(null);
   useEffect(() => {
@@ -90,25 +93,29 @@ export function USAClientMap({ clients }: USAClientMapProps) {
     const measure = () => {
       if (!cardRef.current) return;
       const docTop = cardRef.current.getBoundingClientRect().top + window.scrollY;
-      const available = window.innerHeight - docTop - 6; // 6px bottom breathing room
-      // The continental US bbox has a fixed ~1.78:1 (width:height) shape. If the
-      // card is given more height than that shape needs at its current width,
-      // fitBounds fills the extra room with real geography beyond the bbox
-      // (ocean south of Florida, Canada up north) instead of cropping- which
-      // reads as a big empty band. Capping height to what the width actually
-      // calls for keeps the map filled edge-to-edge with no dead space, while
-      // `available` still guarantees it fits the viewport.
+      // Mobile gets +220 over "exactly the remaining viewport" so it can run
+      // a bit past the first fold instead of being squeezed to fit above it.
+      // Desktop keeps the original strict viewport fit.
+      const available = window.innerHeight - docTop - 6 + (narrow ? 220 : 0);
+      // The continental US bbox has a fixed ~1.78:1 (width:height) shape. If
+      // the card is given more height than that shape needs at its current
+      // width, fitBounds fills the extra room with real geography beyond the
+      // bbox (ocean south of Florida, Canada up north) instead of cropping-
+      // which reads as a big empty band. Capping height to what the width
+      // actually calls for keeps the map filled edge-to-edge with no dead
+      // space on desktop; mobile uses a taller ratio to gain extra height,
+      // trading a little of that tightness for it.
       const width = cardRef.current.clientWidth;
-      const idealForWidth = width / 1.78;
+      const idealForWidth = width / (narrow ? 1.5 : 1.78);
       const target = Math.min(available, idealForWidth);
       // 360 is a soft floor for usability on tiny windows- it can still lose
       // to `available` above, because a slightly-short map beats one whose
       // bottom edge is cropped by the viewport. On narrow (phone-width)
-      // viewports that floor is taller than the 1.78:1 shape calls for,
-      // which forced the map into a near-square instead of a rectangle- a
-      // lower floor there lets `idealForWidth` win and keep the true ratio.
+      // viewports that floor is taller than the ratio calls for, which
+      // forced the map into a near-square instead of a rectangle- a lower
+      // floor there lets `idealForWidth` win and keep the true ratio.
       const floor = narrow ? 200 : 360;
-      setMapHeight(Math.min(Math.max(target, floor), 940));
+      setMapHeight(Math.min(Math.max(target, floor), narrow ? 1100 : 600));
     };
     measure();
     window.addEventListener("resize", measure);
@@ -128,23 +135,24 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   return (
     <section className="pb-8 pt-24 md:pb-0 md:pt-[76px]">
       <div className="container-kio">
-        <RevealOnScroll className="mb-6 text-center md:mb-3">
+        <RevealOnScroll className="mb-6 text-center md:mb-10">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Powering <span className="text-color-cycle">Hospitality Across US</span>
           </h2>
         </RevealOnScroll>
       </div>
 
-      {/* ── Map with radar overlay- full-bleed (no container-kio side
-          padding) so it runs edge-to-edge; its height is measured off
-          this wider width, so it comes out taller too (see the
-          width/1.78 ratio logic above). ── */}
+      {/* ── Map with radar overlay- full-bleed on mobile (no side padding,
+          runs edge-to-edge, height measured off that wider width per the
+          ratio logic above). Desktop gets 10% side padding, so it reads as
+          a contained, rounded box instead of a full-bleed strip. ── */}
+      <div className="md:px-[10%]">
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, ease: [0.16,1,0.3,1] }}
-        className="relative w-full overflow-hidden border-y border-[#3b82f6]/12"
+        className="relative w-full overflow-hidden border-y border-[#3b82f6]/12 md:rounded-3xl md:border"
         style={{
           background: "linear-gradient(180deg,#060a18 0%,#08101e 100%)",
           height: mapHeight ? `${mapHeight}px` : "clamp(360px, 85vh, 940px)",
@@ -245,6 +253,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
             />
           </div>
         </motion.div>
+      </div>
     </section>
   );
 }

@@ -48,9 +48,26 @@ const HERO_VIDEO_POSTER =
 
 function HeroVideo({ rm }: { rm: boolean | null }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const stallTimerRef = useRef<number | null>(null);
+  const everPlayedRef = useRef(false);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
   const [failed, setFailed] = useState(false);
+  // True once a frame has actually decoded. Chromium drops the native
+  // `poster` attribute the instant play() is called even if no frame is
+  // ready yet, painting solid black instead of the poster for however long
+  // the first chunk takes to arrive- invisible on a fast local connection,
+  // but exactly the "black screen on startup" seen over a real network. A
+  // CSS-layered poster covers the <video> until this flips, sidestepping
+  // that browser quirk instead of relying on the attribute alone.
+  const [ready, setReady] = useState(false);
+
+  const clearStallTimer = () => {
+    if (stallTimerRef.current !== null) {
+      window.clearTimeout(stallTimerRef.current);
+      stallTimerRef.current = null;
+    }
+  };
 
   // Ambient looping preview, starts muted (required for autoplay) but the
   // controls below let the visitor unmute or pause manually. Respects
@@ -66,14 +83,19 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
     v.defaultMuted = true;
     v.play().catch(() => setPlaying(false));
 
-    // The source is 26MB- on a slow/blocked connection it can stall
-    // indefinitely instead of just taking "a few seconds." If it still
-    // isn't playable after a reasonable wait, fall back to the static
-    // placeholder rather than leaving a permanently black, unresponsive box.
-    const stallTimer = window.setTimeout(() => {
-      if (v.readyState < 2) setFailed(true);
-    }, 12000);
-    return () => window.clearTimeout(stallTimer);
+    // The source is 26MB- on a slow/contended connection (competing with
+    // every other asset on first page load) it can take much longer than on
+    // localhost to buffer enough to start, or stall indefinitely. Guards
+    // only the initial start, not later playback: once the clip has played
+    // at least one frame, a later `waiting` event is normal mid-stream
+    // rebuffering (the browser resumes on its own once more data arrives),
+    // not a failure- treating it as one was swapping the video out for the
+    // static fallback mid-playback, which reads as "the video stops."
+    clearStallTimer();
+    stallTimerRef.current = window.setTimeout(() => {
+      if (!everPlayedRef.current) setFailed(true);
+    }, 20000);
+    return clearStallTimer;
   }, [rm]);
 
   function togglePlay() {
@@ -102,20 +124,31 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
           <Play className="h-12 w-12 text-kio-muted/40" strokeWidth={1.5} />
         </div>
       ) : (
-        <video
-          ref={videoRef}
-          src={HERO_VIDEO_SRC}
-          poster={HERO_VIDEO_POSTER}
-          className="absolute inset-0 h-full w-full object-cover"
-          muted={muted}
-          loop
-          playsInline
-          autoPlay={rm !== true}
-          preload="auto"
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-          onError={() => setFailed(true)}
-        />
+        <>
+          <video
+            ref={videoRef}
+            src={HERO_VIDEO_SRC}
+            poster={HERO_VIDEO_POSTER}
+            className="absolute inset-0 h-full w-full object-cover"
+            muted={muted}
+            loop
+            playsInline
+            autoPlay={rm !== true}
+            preload="auto"
+            onPlay={() => { setPlaying(true); everPlayedRef.current = true; clearStallTimer(); }}
+            onPause={() => setPlaying(false)}
+            onLoadedData={() => setReady(true)}
+            onPlaying={() => { setReady(true); everPlayedRef.current = true; clearStallTimer(); }}
+            onError={() => setFailed(true)}
+          />
+          {/* CSS poster layered above the <video> itself, see the `ready`
+              comment above- covers exactly the gap the native poster
+              attribute leaves once play() has been called. */}
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute inset-0 bg-gradient-to-br from-kio-bg-soft to-kio-bg transition-opacity duration-300 ${ready ? "opacity-0" : "opacity-100"}`}
+          />
+        </>
       )}
 
       {/* Bottom scrim */}

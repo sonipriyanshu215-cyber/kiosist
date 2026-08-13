@@ -84,7 +84,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
 
   const formBlock = (
     <div className="w-full max-w-2xl">
-      <RevealOnScroll className="mb-[clamp(8px,2.5vw,40px)] text-center md:text-left">
+      <RevealOnScroll className="mb-[clamp(20px,5vw,40px)] text-center md:text-left">
         <h2 className="mt-3 text-[clamp(1.5rem,4.2vw,2.25rem)] font-extrabold leading-[1.25] text-kio-ink">
           Want To Make Career In <span className="text-color-cycle">Hospitality</span>? Join Us Now
         </h2>
@@ -123,7 +123,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
               floating centered with empty margins on both sides. md+:
               reverts to the original fixed-width capped lines,
               centered- unchanged from before. */}
-          <div className="mb-[clamp(8px,2.5vw,40px)] flex w-full items-start md:justify-center">
+          <div className="mb-[clamp(24px,6vw,40px)] flex w-full items-start md:justify-center">
             {STEPS.map((s, i) => (
               <Fragment key={s.label}>
                 <div className="flex shrink-0 flex-col items-center gap-[clamp(2px,0.6vw,8px)]">

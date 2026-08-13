@@ -61,7 +61,7 @@ function JourneyGrid() {
               </div>
 
               <h3 className="text-color-cycle text-xl font-bold xl:text-lg">{m.title}</h3>
-              <p className="mt-2 text-base leading-relaxed text-kio-muted xl:text-[15px]">
+              <p className="mt-2 text-sm leading-relaxed text-kio-muted">
                 {m.body}
               </p>
             </motion.div>
@@ -168,8 +168,8 @@ function JourneyFooter() {
                 <div aria-hidden="true" className="h-2 w-[2px] shrink-0 sm:hidden" style={{ background: COLORS[i % COLORS.length] }} />
                 <div className="flex w-[85%] flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-3 sm:h-full sm:w-full">
                   <div className="text-color-cycle text-lg font-black">{y.year}</div>
-                  <p className="mt-1 text-xs font-semibold text-kio-ink">{y.caption}</p>
-                  <p className="mt-1 text-[11px] leading-snug text-kio-muted">{y.body}</p>
+                  <p className="mt-1 text-sm font-semibold text-kio-ink">{y.caption}</p>
+                  <p className="mt-1 text-sm leading-snug text-kio-muted">{y.body}</p>
                 </div>
               </div>
 

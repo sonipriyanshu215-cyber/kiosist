@@ -115,16 +115,16 @@ export function Footer() {
           ))}
 
           {/* Map- lives in the trailing spacer column, using the space
-              that would otherwise sit empty on wide screens. Smaller on
-              mobile, where it now shares its row with the agent mascot
-              instead of spanning both columns- at full 220px it was one
-              of the largest single blocks in the whole footer stack. */}
+              that would otherwise sit empty on wide screens. Fills its
+              whole grid column (no max-w cap) as a wide rectangle rather
+              than a square, and stays pinned to the right edge so it sits
+              tight against the agent mascot next to it on mobile. */}
           <a
             href="https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Kiosist office location in Google Maps"
-            className="block aspect-square w-full max-w-[150px] overflow-hidden rounded-xl border border-kio-line md:max-w-[220px] md:justify-self-end"
+            className="block aspect-[3/2] w-full justify-self-end overflow-hidden rounded-xl border border-kio-line"
           >
             <iframe
               title="Kiosist office location"
@@ -141,8 +141,8 @@ export function Footer() {
           {/* Mascot- mobile only, sits beside the map on the right so the
               row isn't just a single small square floating alone. Desktop's
               4-column layout has no spare column for it, so it stays
-              hidden there (map keeps its existing md:justify-self-end spot). */}
-          <div className="relative aspect-square w-full max-w-[150px] justify-self-center self-center md:hidden">
+              hidden there (map keeps its existing justify-self-end spot). */}
+          <div className="relative aspect-square w-full max-w-[150px] justify-self-start self-center md:hidden">
             <Image
               src="/img/hero/agent-red.png"
               alt="A Kiosist front desk agent"

@@ -12,7 +12,7 @@ const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"
 /* ── Shared section header ── */
 function Header() {
   return (
-    <div className="container-kio pb-6 pt-8 text-center">
+    <div className="container-kio pb-9 pt-8 text-center sm:pb-6">
       <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
         Every Great <span className="text-color-cycle">Journey Begins With A Purpose</span>
       </h2>
@@ -45,7 +45,7 @@ function JourneyGrid() {
           <Fragment key={m.id}>
             <motion.div
               variants={staggerChild}
-              className="group relative flex min-w-0 flex-col justify-start rounded-2xl border border-kio-line bg-kio-bg p-4 pt-14 text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:min-h-[17rem] sm:p-5 sm:pt-16 xl:flex-1"
+              className="group relative flex min-w-0 flex-col justify-start rounded-2xl border border-kio-line bg-kio-bg p-3 pt-8 text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:min-h-[17rem] sm:p-5 sm:pt-16 xl:flex-1"
             >
               {/* Icon badge- centered above the card, half outside/half
                   inside, same lockup as the skills-grid cards elsewhere
@@ -61,7 +61,7 @@ function JourneyGrid() {
               </div>
 
               <h3 className="text-color-cycle text-xl font-bold xl:text-lg">{m.title}</h3>
-              <p className="mt-2.5 text-base leading-relaxed text-kio-muted xl:text-[15px]">
+              <p className="mt-2 text-base leading-relaxed text-kio-muted xl:text-[15px]">
                 {m.body}
               </p>
             </motion.div>
@@ -81,8 +81,8 @@ function JourneyGrid() {
                     portion, or the badge paints over it. z-20 (above the
                     badge's z-10) as a safety margin against any residual
                     overlap. */}
-                <div aria-hidden="true" className="z-20 flex h-10 shrink-0 items-start justify-center sm:hidden">
-                  <ArrowDown className="h-4 w-4 text-white" />
+                <div aria-hidden="true" className="z-20 flex h-14 shrink-0 items-start justify-center sm:hidden">
+                  <ArrowDown className="h-6 w-6 text-white" />
                 </div>
 
                 {/* Desktop: horizontal arrow- only reads sensibly once

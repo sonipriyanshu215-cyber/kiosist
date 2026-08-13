@@ -44,7 +44,7 @@ export function Nav() {
           : "bg-transparent"
       }`}
     >
-      <div className="relative mx-auto flex h-[72px] max-w-container items-center justify-between">
+      <div className="relative mx-auto flex h-[72px] max-w-container items-center justify-center lg:justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
@@ -52,7 +52,7 @@ export function Nav() {
             alt="Kiosist"
             width={1545}
             height={435}
-            className="h-9 w-auto object-contain lg:h-[52px]"
+            className="h-11 w-auto object-contain lg:h-[52px]"
             priority
           />
         </Link>

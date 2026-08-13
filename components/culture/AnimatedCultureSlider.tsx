@@ -47,7 +47,7 @@ export function AnimatedCultureSlider() {
   }, [rm, slides.length]);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#02040a]">
+    <section className="relative min-h-[58vh] w-full overflow-hidden bg-[#02040a] md:min-h-screen">
       {/* No `mode="wait"`- the incoming slide fades in while the outgoing
           one fades out, so they overlap and the section's background is
           never revealed mid-transition. */}

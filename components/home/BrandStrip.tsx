@@ -27,7 +27,7 @@ const ROW2 = [
 
 function LogoItem({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="group relative flex h-16 w-44 shrink-0 items-center justify-center">
+    <div className="group relative flex h-11 w-32 shrink-0 items-center justify-center">
       {/* next/image instead of a raw <img>- these source files are
           unoptimized exports (some 300-800KB for a 176x64 display slot,
           ~2.6MB total across the strip), which on a real phone over a
@@ -40,7 +40,7 @@ function LogoItem({ src, alt }: { src: string; alt: string }) {
         alt={alt}
         fill
         draggable={false}
-        sizes="176px"
+        sizes="128px"
         className="select-none object-contain"
         style={{
           filter:     "grayscale(1) brightness(0.55)",

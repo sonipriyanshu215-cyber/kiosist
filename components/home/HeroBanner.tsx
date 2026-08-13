@@ -58,7 +58,22 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
   useEffect(() => {
     const v = videoRef.current;
     if (!v || rm) return;
+    // Some browsers only honour autoplay if `muted` is true on the live DOM
+    // property at play()-time, not just the JSX prop- setting it imperatively
+    // here avoids a silent autoplay block that would otherwise leave the
+    // poster frame frozen with no obvious error.
+    v.muted = true;
+    v.defaultMuted = true;
     v.play().catch(() => setPlaying(false));
+
+    // The source is 26MB- on a slow/blocked connection it can stall
+    // indefinitely instead of just taking "a few seconds." If it still
+    // isn't playable after a reasonable wait, fall back to the static
+    // placeholder rather than leaving a permanently black, unresponsive box.
+    const stallTimer = window.setTimeout(() => {
+      if (v.readyState < 2) setFailed(true);
+    }, 12000);
+    return () => window.clearTimeout(stallTimer);
   }, [rm]);
 
   function togglePlay() {
@@ -104,7 +119,7 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
       )}
 
       {/* Bottom scrim */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
 
       {!failed && (
         <div className="absolute bottom-[clamp(4px,2vw,16px)] right-[clamp(4px,2vw,16px)] flex items-center gap-[clamp(3px,1vw,8px)]">
@@ -198,7 +213,7 @@ export function HeroBanner() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(1.9rem,9vw,2.75rem)] font-black leading-[1.15] text-kio-ink md:text-[clamp(0.95rem,4.2vw,3rem)] md:leading-[1.3]"
+            className="text-[clamp(1.6rem,7.5vw,2.4rem)] font-black leading-[1.15] text-kio-ink md:text-[clamp(0.95rem,4.2vw,3rem)] md:leading-[1.3]"
           >
             {/* Line 1 */}
             <span className="block">Kiosist Delivers Hospitality</span>
@@ -211,7 +226,7 @@ export function HeroBanner() {
                 the same length as line 1 ("Kiosist Delivers Hospitality"),
                 which already fits on one line at this font size, so the
                 longest word fits here too without needing a smaller font. */}
-            <span className="block mt-2 whitespace-nowrap text-[clamp(1.1rem,5.2vw,1.6rem)] md:mt-1 md:text-[clamp(0.5rem,2.75vw,3rem)] lg:text-[clamp(1.6rem,3vw,2.5rem)]">
+            <span className="block mt-2 whitespace-nowrap text-[clamp(1.3rem,6vw,1.9rem)] md:mt-1 md:text-[clamp(0.5rem,2.75vw,3rem)] lg:text-[clamp(1.6rem,3vw,2.5rem)]">
               <span className="text-kio-muted/60 font-semibold">Powered By </span>
               <span className="inline-block">
                 <AnimatePresence mode="wait">

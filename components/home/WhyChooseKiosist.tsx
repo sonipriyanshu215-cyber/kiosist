@@ -87,7 +87,7 @@ function Details({
     <div className="flex flex-col items-center justify-center py-2 px-[clamp(20px,5vw,32px)] text-center md:h-full md:min-h-[440px] md:py-[clamp(20px,5vw,32px)]">
       {/* Icon badge- floats gently above the title */}
       <motion.div
-        className="mb-[clamp(10px,2.4vw,20px)] flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] items-center justify-center rounded-2xl"
+        className="mb-[clamp(10px,2.4vw,20px)] flex h-[clamp(40px,8.4vw,68px)] w-[clamp(40px,8.4vw,68px)] items-center justify-center rounded-2xl"
         style={{
           background: `linear-gradient(135deg, ${color}22, ${color}0d)`,
           boxShadow: `0 0 0 1px ${color}33`,
@@ -96,13 +96,13 @@ function Details({
         transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
       >
         <Icon
-          className="h-[clamp(1rem,2.8vw,1.75rem)] w-[clamp(1rem,2.8vw,1.75rem)]"
+          className="h-[clamp(1.3rem,3.4vw,2.2rem)] w-[clamp(1.3rem,3.4vw,2.2rem)]"
           style={{ color }}
           strokeWidth={1.75}
         />
       </motion.div>
 
-      <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(0.95rem,3vw,1.7rem)] font-bold leading-snug text-kio-ink">
+      <h3 className="mb-[clamp(4px,1.6vw,12px)] text-[clamp(1.15rem,3.6vw,2rem)] font-bold leading-snug text-kio-ink">
         {title}
       </h3>
       <p className="max-w-md text-[clamp(0.75rem,1.8vw,1rem)] leading-[1.6] text-kio-muted">

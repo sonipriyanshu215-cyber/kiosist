@@ -218,18 +218,18 @@ export function AboutIntro() {
                 {/* Icon badge- centered above the box, straddling its top
                     edge, same dark circular lockup as WhyGrid's cards */}
                 <div
-                  className="absolute left-1/2 top-0 z-10 flex h-[clamp(32px,7vw,56px)] w-[clamp(32px,7vw,56px)] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15"
+                  className="absolute left-1/2 top-0 z-10 flex h-[clamp(40px,8.4vw,68px)] w-[clamp(40px,8.4vw,68px)] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15"
                   style={{
                     background: "linear-gradient(135deg, rgba(18,20,30,.95), rgba(22,25,38,.9))",
                     boxShadow: `0 0 0 1px ${color}40, 0 10px 30px rgba(0,0,0,.4)`,
                   }}
                 >
-                  <div style={{ color }} className="[&>svg]:h-[clamp(0.9rem,2.6vw,1.5rem)] [&>svg]:w-[clamp(0.9rem,2.6vw,1.5rem)]">
+                  <div style={{ color }} className="[&>svg]:h-[clamp(1.15rem,3.2vw,1.9rem)] [&>svg]:w-[clamp(1.15rem,3.2vw,1.9rem)]">
                     {s.icon}
                   </div>
                 </div>
-                <h4 className="text-[clamp(0.7rem,1.8vw,1rem)] font-bold text-kio-ink">{s.title}</h4>
-                <p className="mt-[clamp(4px,1vw,8px)] text-[clamp(0.55rem,1.4vw,0.85rem)] leading-relaxed text-kio-muted">
+                <h4 className="text-[clamp(0.9rem,2.6vw,1.25rem)] font-bold text-kio-ink">{s.title}</h4>
+                <p className="mt-[clamp(4px,1vw,8px)] text-[clamp(0.68rem,1.7vw,0.95rem)] leading-relaxed text-kio-muted">
                   {s.body}
                 </p>
               </motion.div>

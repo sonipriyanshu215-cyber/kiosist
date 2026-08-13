@@ -83,7 +83,7 @@ export function WhyGrid() {
           3-column grid down to fit. md+: reverts to the original split. */}
       <div className="container-kio relative z-10 grid grid-cols-1 gap-8 md:grid-cols-[0.85fr_1.15fr] md:items-stretch md:gap-[clamp(8px,3vw,40px)]">
         {/* ── "What It Takes" panel ── */}
-        <RevealOnScroll className="relative flex flex-col justify-center overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-6 md:p-[clamp(10px,3vw,40px)]">
+        <RevealOnScroll className="relative order-2 flex flex-col justify-center overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-6 md:order-1 md:p-[clamp(10px,3vw,40px)]">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-kio-accent/10 blur-3xl"
@@ -115,7 +115,7 @@ export function WhyGrid() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-2 gap-x-3 gap-y-8 md:grid-cols-3 md:gap-x-[clamp(4px,1.5vw,16px)] md:gap-y-[clamp(20px,5.5vw,40px)]"
+          className="order-1 grid grid-cols-2 gap-x-3 gap-y-8 md:order-2 md:grid-cols-3 md:gap-x-[clamp(4px,1.5vw,16px)] md:gap-y-[clamp(20px,5.5vw,40px)]"
         >
           {FEATURES.map((f, i) => {
             const color = COLORS[i % COLORS.length];
@@ -129,19 +129,19 @@ export function WhyGrid() {
                     edge (half outside/half inside), same dark circular
                     lockup as CareerHero's "Ready to Apply?" badge */}
                 <div
-                  className="absolute left-1/2 top-0 z-10 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 md:h-[clamp(24px,6.5vw,56px)] md:w-[clamp(24px,6.5vw,56px)]"
+                  className="absolute left-1/2 top-0 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 md:h-[clamp(28px,7.5vw,64px)] md:w-[clamp(28px,7.5vw,64px)]"
                   style={{
                     background: "linear-gradient(135deg, rgba(18,20,30,.95), rgba(22,25,38,.9))",
                     boxShadow: `0 0 0 1px ${color}40, 0 10px 30px rgba(0,0,0,.4)`,
                   }}
                 >
                   <f.icon
-                    className="h-4 w-4 md:h-[clamp(0.6rem,2.4vw,1.5rem)] md:w-[clamp(0.6rem,2.4vw,1.5rem)]"
+                    className="h-5 w-5 md:h-[clamp(0.8rem,3vw,1.75rem)] md:w-[clamp(0.8rem,3vw,1.75rem)]"
                     style={{ color }}
                     strokeWidth={1.75}
                   />
                 </div>
-                <h4 className="text-[clamp(0.8rem,3.2vw,0.95rem)] font-bold text-kio-ink md:text-[clamp(0.5rem,1.6vw,0.875rem)]">{f.title}</h4>
+                <h4 className="text-[clamp(0.95rem,3.8vw,1.1rem)] font-bold text-kio-ink md:text-[clamp(0.65rem,2vw,1.05rem)]">{f.title}</h4>
                 <p className="mt-1 text-[clamp(0.68rem,2.6vw,0.78rem)] leading-relaxed text-kio-muted md:mt-[clamp(2px,0.6vw,6px)] md:text-[clamp(0.42rem,1.3vw,0.75rem)]">{f.body}</p>
               </motion.div>
             );

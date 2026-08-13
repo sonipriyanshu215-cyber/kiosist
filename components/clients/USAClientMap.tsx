@@ -36,7 +36,7 @@ interface USAClientMapProps {
 /* ── Radar overlay (grid) ── */
 function RadarSweep() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden rounded-3xl">
+    <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
       {/* Scan grid */}
       <div
         className="absolute inset-0 opacity-[0.055]"
@@ -128,25 +128,28 @@ export function USAClientMap({ clients }: USAClientMapProps) {
   return (
     <section className="pb-8 pt-24 md:pb-0 md:pt-[76px]">
       <div className="container-kio">
-
         <RevealOnScroll className="mb-6 text-center md:mb-3">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Powering <span className="text-color-cycle">Hospitality Across US</span>
           </h2>
         </RevealOnScroll>
+      </div>
 
-        {/* ── Map with radar overlay ── */}
-        <motion.div
-          ref={cardRef}
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: [0.16,1,0.3,1] }}
-          className="relative w-full overflow-hidden rounded-3xl border border-[#3b82f6]/12"
-          style={{
-            background: "linear-gradient(180deg,#060a18 0%,#08101e 100%)",
-            height: mapHeight ? `${mapHeight}px` : "clamp(360px, 85vh, 940px)",
-          }}
-        >
+      {/* ── Map with radar overlay- full-bleed (no container-kio side
+          padding) so it runs edge-to-edge; its height is measured off
+          this wider width, so it comes out taller too (see the
+          width/1.78 ratio logic above). ── */}
+      <motion.div
+        ref={cardRef}
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.16,1,0.3,1] }}
+        className="relative w-full overflow-hidden border-y border-[#3b82f6]/12"
+        style={{
+          background: "linear-gradient(180deg,#060a18 0%,#08101e 100%)",
+          height: mapHeight ? `${mapHeight}px` : "clamp(360px, 85vh, 940px)",
+        }}
+      >
           {/* Radar overlays- pointer-events-none so the map stays pannable underneath */}
           <RadarSweep />
 
@@ -242,8 +245,6 @@ export function USAClientMap({ clients }: USAClientMapProps) {
             />
           </div>
         </motion.div>
-
-      </div>
     </section>
   );
 }

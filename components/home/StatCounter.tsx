@@ -46,8 +46,8 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
 
   return (
     <section className={compact ? "pt-32 pb-10 md:pt-24 md:pb-16 lg:pt-12 lg:pb-24" : "pt-10 pb-8 md:pt-12 md:pb-20 lg:pt-14 lg:pb-24"}>
-      <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center px-6">
-        <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
+      <RevealOnScroll className="mb-16 md:mb-20 lg:mb-24 text-center px-6">
+        <h2 className="text-[clamp(2.1rem,3.8vw,3.2rem)] font-extrabold leading-[1.2] text-kio-ink">
           Our <span className="text-color-cycle">Success Story</span>
         </h2>
       </RevealOnScroll>
@@ -69,10 +69,10 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
               className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/12 to-transparent"
               style={{ animation: `scan-beam ${3.5 + i * 0.6}s ease-in-out infinite`, animationDelay: `${i * 0.7}s` }}
             />
-            <div className="relative text-[clamp(0.7rem,4.2vw,2.4rem)] font-black leading-tight text-gradient">
+            <div className="relative text-[clamp(1rem,5.2vw,2.9rem)] font-black leading-tight text-gradient">
               <Counter to={s.to} suffix={s.suffix} start={isInView} />
             </div>
-            <div className="relative mt-1.5 text-[clamp(0.4rem,1.4vw,0.875rem)] text-kio-muted">{s.label}</div>
+            <div className="relative mt-1.5 text-[clamp(0.6rem,2vw,1.05rem)] text-kio-muted">{s.label}</div>
           </motion.div>
         ))}
       </motion.div>

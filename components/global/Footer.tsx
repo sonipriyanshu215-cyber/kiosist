@@ -115,15 +115,16 @@ export function Footer() {
           ))}
 
           {/* Map- lives in the trailing spacer column, using the space
-              that would otherwise sit empty on wide screens. Smaller and
-              spans both mobile columns- at full 220px it was one of the
-              largest single blocks in the whole footer stack. */}
+              that would otherwise sit empty on wide screens. Smaller on
+              mobile, where it now shares its row with the agent mascot
+              instead of spanning both columns- at full 220px it was one
+              of the largest single blocks in the whole footer stack. */}
           <a
             href="https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Kiosist office location in Google Maps"
-            className="col-span-2 block aspect-square w-full max-w-[150px] overflow-hidden rounded-xl border border-kio-line md:col-span-1 md:max-w-[220px] md:justify-self-end"
+            className="block aspect-square w-full max-w-[150px] overflow-hidden rounded-xl border border-kio-line md:max-w-[220px] md:justify-self-end"
           >
             <iframe
               title="Kiosist office location"
@@ -136,6 +137,19 @@ export function Footer() {
               tabIndex={-1}
             />
           </a>
+
+          {/* Mascot- mobile only, sits beside the map on the right so the
+              row isn't just a single small square floating alone. Desktop's
+              4-column layout has no spare column for it, so it stays
+              hidden there (map keeps its existing md:justify-self-end spot). */}
+          <div className="relative aspect-square w-full max-w-[150px] justify-self-center self-center md:hidden">
+            <Image
+              src="/img/hero/agent-red.png"
+              alt="A Kiosist front desk agent"
+              fill
+              className="object-contain object-center"
+            />
+          </div>
         </div>
       </div>
 

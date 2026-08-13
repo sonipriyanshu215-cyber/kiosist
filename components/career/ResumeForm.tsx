@@ -85,7 +85,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
   const formBlock = (
     <div className="w-full max-w-2xl">
       <RevealOnScroll className="mb-[clamp(20px,5vw,40px)] text-center md:text-left">
-        <h2 className="mt-3 text-[clamp(1.5rem,4.2vw,2.25rem)] font-extrabold leading-[1.25] text-kio-ink">
+        <h2 className="text-[clamp(1.5rem,4.2vw,2.25rem)] font-extrabold leading-[1.25] text-kio-ink">
           Want To Make Career In <span className="text-color-cycle">Hospitality</span>? Join Us Now
         </h2>
       </RevealOnScroll>
@@ -409,7 +409,7 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
   }
 
   return (
-    <section id="apply" className="section-pad relative overflow-hidden bg-kio-bg scroll-mt-24">
+    <section id="apply" className="pt-2 pb-8 md:py-10 lg:py-12 relative overflow-hidden bg-kio-bg scroll-mt-24">
       {/* Ambient glow orbs */}
       <motion.div
         aria-hidden="true"

@@ -116,9 +116,11 @@ export function Footer() {
 
           {/* Map- lives in the trailing spacer column, using the space
               that would otherwise sit empty on wide screens. Fills its
-              whole grid column (no max-w cap) as a wide rectangle rather
-              than a square, and stays pinned to the right edge so it sits
-              tight against the agent mascot next to it on mobile. */}
+              whole grid column (no max-w cap) on both mobile and desktop,
+              staying pinned to the right edge (justify-self-end) so it
+              sits tight against the agent mascot next to it on mobile
+              while stretching left to close the gap under the Company
+              column text. */}
           <a
             href="https://maps.app.goo.gl/F5UT1wo9Qf5RhDUaA"
             target="_blank"

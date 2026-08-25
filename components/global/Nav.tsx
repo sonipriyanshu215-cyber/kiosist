@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import { Menu, X, Phone, Info, Home, Users } from "lucide-react";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 const NAV_LINKS = [
   { href: "/",            label: "Home" },
@@ -25,7 +26,12 @@ const TAB_LINKS = [
   { href: "/career",  label: "Join",    icon: Users },
 ];
 
-export function Nav() {
+interface NavProps {
+  logoSrc?: string;
+  ctaLabel?: string;
+}
+
+export function Nav({ logoSrc = "/img/kiosist-logo.png", ctaLabel = "Join Us" }: NavProps) {
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const [scrolled, setScrolled]    = useState(false);
@@ -48,7 +54,8 @@ export function Nav() {
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
-            src="/img/kiosist-logo.png"
+            src={logoSrc}
+            unoptimized={isRemoteImageSrc(logoSrc)}
             alt="Kiosist"
             width={1545}
             height={435}
@@ -83,7 +90,7 @@ export function Nav() {
             href="/career#apply"
             className="hidden items-center rounded-full bg-kio-accent px-5 py-2 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-kio-accent2 lg:flex"
           >
-            Join Us
+            {ctaLabel}
           </Link>
         </div>
       </div>
@@ -115,7 +122,7 @@ export function Nav() {
             onClick={() => setMobileOpen(false)}
             className="mt-2 rounded-lg bg-kio-accent px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-kio-accent2"
           >
-            Join Us
+            {ctaLabel}
           </Link>
         </div>
       </motion.div>

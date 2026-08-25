@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Award, Lightbulb, Handshake, TrendingUp, Heart, RefreshCw } from "lucide-react";
-import { values, type Value } from "@/content/values";
+import { values as DEFAULT_VALUES, type Value } from "@/content/values";
 import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
@@ -17,7 +17,11 @@ const ICONS: Record<Value["icon"], typeof Award> = {
 
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#ec4899", "#f59e0b"];
 
-export function ValuesGrid() {
+interface ValuesGridProps {
+  values?: Value[];
+}
+
+export function ValuesGrid({ values = DEFAULT_VALUES }: ValuesGridProps) {
   const rm = useReducedMotion();
 
   return (

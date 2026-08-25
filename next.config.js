@@ -2,7 +2,16 @@
 const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [],
+    remotePatterns: [
+      // Supabase Storage public bucket URLs (admin-uploaded images)- covers
+      // any project ref since that's part of the hostname, e.g.
+      // https://xxxxxxxxxxxx.supabase.co/storage/v1/object/public/media/...
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],

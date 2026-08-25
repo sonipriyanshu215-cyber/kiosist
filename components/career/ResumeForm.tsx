@@ -1,14 +1,15 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Upload, CheckCircle, ChevronRight, ChevronLeft, Check } from "lucide-react";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 import { staggerChild } from "@/lib/motion";
-import { roleOptions } from "@/content/roles";
+import { roleOptions as DEFAULT_ROLE_OPTIONS } from "@/content/roles";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const schema = z.object({
@@ -28,20 +29,31 @@ interface ResumeFormProps {
   // ambient glow orbs and mascot illustration, keeping just the heading,
   // stepper and form itself.
   embedded?: boolean;
+  roleOptions?: string[];
+  mascotSrc?: string;
 }
 
-export function ResumeForm({ embedded = false }: ResumeFormProps) {
+export function ResumeForm({
+  embedded = false,
+  roleOptions = DEFAULT_ROLE_OPTIONS,
+  mascotSrc = "/img/hero/agent-red.png",
+}: ResumeFormProps) {
   const [step, setStep] = useState(0);
   const [file, setFile] = useState<File | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [advancing, setAdvancing] = useState(false);
+  // Ref, not just the `advancing` state- a second click fired before React
+  // re-renders (and disables the button) would otherwise still read the
+  // stale `advancing=false` from its own closure and slip through.
+  const advancingRef = useRef(false);
   const rm = useReducedMotion();
 
   const {
     register,
     handleSubmit,
     trigger,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const STEPS = [
@@ -52,9 +64,28 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
   ];
 
   async function nextStep() {
-    const fields = STEPS[step].fields;
-    const valid = fields.length === 0 || (await trigger(fields));
-    if (valid) setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    if (advancingRef.current) return;
+    advancingRef.current = true;
+    setAdvancing(true);
+    try {
+      const fields = STEPS[step].fields;
+      const valid = fields.length === 0 || (await trigger(fields));
+      if (valid) setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    } finally {
+      // Validation on an optional/short field (e.g. the Message step) can
+      // resolve in under a millisecond- fast enough that a real double-
+      // click's second click still lands within the gap. Worse, that
+      // second click hits whatever button now occupies this same screen
+      // position, which for the Message->Resume transition is the "Apply
+      // Now" submit button- so re-enabling right when validation finishes
+      // isn't safe. Holding the disabled state for a short beat past that
+      // gives the new step's UI a moment to actually be seen (and the new
+      // button to be intentionally clicked) before it can react to input.
+      setTimeout(() => {
+        advancingRef.current = false;
+        setAdvancing(false);
+      }, 400);
+    }
   }
 
   async function onSubmit(data: FormData) {
@@ -366,9 +397,11 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
             <div className="mt-5 flex justify-between sm:mt-8">
               {step > 0 ? (
                 <button
+                  key="back"
                   type="button"
+                  disabled={advancing}
                   onClick={() => setStep((s) => s - 1)}
-                  className="flex items-center gap-2 rounded-full border border-kio-line px-6 py-2.5 text-sm font-medium text-kio-muted hover:border-kio-accent hover:text-kio-accent transition-colors"
+                  className="flex items-center gap-2 rounded-full border border-kio-line px-6 py-2.5 text-sm font-medium text-kio-muted hover:border-kio-accent hover:text-kio-accent transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                   suppressHydrationWarning
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -380,21 +413,30 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
 
               {step < STEPS.length - 1 ? (
                 <button
+                  // Distinct key from the "Apply Now" submit button below-
+                  // they occupy the same screen position across the step
+                  // transition, so this (plus the `advancing` cooldown on
+                  // both buttons) stops a fast second click from landing on
+                  // whichever one is there by the time it's dispatched.
+                  key="next"
                   type="button"
                   onClick={nextStep}
-                  className="flex items-center gap-2 rounded-full bg-kio-primary px-8 py-2.5 text-sm font-semibold text-white hover:bg-kio-primary/85 transition-colors"
+                  disabled={advancing}
+                  className="flex items-center gap-2 rounded-full bg-kio-primary px-8 py-2.5 text-sm font-semibold text-white hover:bg-kio-primary/85 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
                   suppressHydrationWarning
                 >
-                  Next
+                  {advancing ? "Please wait…" : "Next"}
                   <ChevronRight className="h-4 w-4" />
                 </button>
               ) : (
                 <button
+                  key="submit"
                   type="submit"
-                  className="rounded-full bg-kio-accent px-10 py-2.5 text-sm font-semibold text-kio-ink hover:bg-kio-accent/85 transition-colors"
+                  disabled={advancing || isSubmitting}
+                  className="rounded-full bg-kio-accent px-10 py-2.5 text-sm font-semibold text-kio-ink hover:bg-kio-accent/85 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
                   suppressHydrationWarning
                 >
-                  Apply Now
+                  {isSubmitting ? "Submitting…" : "Apply Now"}
                 </button>
               )}
             </div>
@@ -455,7 +497,8 @@ export function ResumeForm({ embedded = false }: ResumeFormProps) {
               />
 
               <Image
-                src="/img/hero/agent-red.png"
+                src={mascotSrc}
+                unoptimized={isRemoteImageSrc(mascotSrc)}
                 alt="A Kiosist front desk agent ready to welcome your application"
                 width={1024}
                 height={1024}

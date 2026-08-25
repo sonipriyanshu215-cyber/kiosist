@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image, { type ImageProps } from "next/image";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 interface SafeImageProps extends Omit<ImageProps, "onError"> {
   placeholderClassName?: string;
@@ -42,6 +43,7 @@ export function SafeImage({
   return (
     <Image
       {...props}
+      unoptimized={typeof props.src === "string" && isRemoteImageSrc(props.src)}
       fill={fill}
       width={!fill ? width : undefined}
       height={!fill ? height : undefined}

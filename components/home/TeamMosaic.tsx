@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 /* Unique accent per card- cycles if team grows */
 const ACCENTS = [
@@ -18,16 +19,7 @@ const ACCENTS = [
   { from: "#f59e0b", to: "#06b6d4", glow: "rgba(245,158,11,0.32)" },
 ];
 
-const TEAM = [
-  { name: "Henal Dalal",                              img: "/img/team/ceo.webp",        tag: "FOUNDER", pos: "object-top" },
-  { name: "Bhavin Dalal",                              img: "/img/team/t6.webp",        tag: "FOUNDER"  },
-  { name: "Vinit Patel",                                   img: "/img/team/t2.webp",    tag: "CEO"  },
-  { name: "Parshva Shah",                                 img: "/img/team/t8.webp",                         tag: "Assistant General Manager"    },
-  { name: "Sourabh Patil",                          img: "/img/team/t5.webp",           tag: "Team Leader"  },
-  { name: "Smeet Rawal",                          img: "/img/team/t9.webp",                       tag: "Team Leader"  },
-  ];
-
-type TeamMember = { name: string; img?: string; tag: string; pos?: string };
+import { team as DEFAULT_TEAM, type TeamMember } from "@/content/team";
 
 function AvatarCard({
   member,
@@ -113,6 +105,7 @@ function AvatarCard({
               {member.img && !imgErr ? (
                 <Image
                   src={member.img}
+                  unoptimized={isRemoteImageSrc(member.img)}
                   alt={member.name}
                   fill
                   className={`object-cover ${member.pos ?? ""}`}
@@ -168,7 +161,11 @@ function AvatarCard({
   );
 }
 
-export function TeamMosaic() {
+interface TeamMosaicProps {
+  team?: TeamMember[];
+}
+
+export function TeamMosaic({ team = DEFAULT_TEAM }: TeamMosaicProps) {
   const rm = useReducedMotion();
 
   return (
@@ -206,7 +203,7 @@ export function TeamMosaic() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {TEAM.map((member, i) => (
+          {team.map((member, i) => (
             <AvatarCard key={i} member={member} idx={i} />
           ))}
         </motion.div>

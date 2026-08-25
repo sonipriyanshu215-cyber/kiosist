@@ -4,44 +4,25 @@ import { useState } from "react";
 import { SafeImage } from "@/components/primitives/SafeImage";
 import { motion, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { ImageIcon } from "lucide-react";
 import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import { cultureGallery as DEFAULT_GALLERY, type GalleryImage } from "@/content/cultureGallery";
+import { GALLERY_CATEGORIES } from "@/lib/cms/gallery-categories";
 import "yet-another-react-lightbox/styles.css";
 
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 
-const GALLERY = [
-  { src: "/img/culture/office-1.png", alt: "Office space" },
-  { src: "/img/culture/team-meeting-1.png", alt: "Office space" },
-  { src: "/img/culture/training-1.png", alt: "Training Session" },
-  { src: "/img/culture/celebration-1.png", alt: "Festival Celebration" },
-  { src: "/img/culture/office-2.jpg", alt: "Team" },
-  { src: "/img/culture/team-meeting-2.jpg", alt: "Office Outings" },
-  { src: "/img/culture/training-2.jpg", alt: "Training Session" },
-  { src: "/img/culture/celebration-2.jpg", alt: "Fun Friday" },
-  { src: "/img/culture/office-3.jpg", alt: "Fun Friday" },
-  { src: "/img/culture/team-3.jpg", alt: "Team" },
-  { src: "/img/culture/training-3.jpg", alt: "Office Outings" },
-  { src: "/img/culture/event-1.jpg", alt: "Festival Celebration" },
-];
+const TABS = ["All", ...GALLERY_CATEGORIES] as const;
 
-const TABS = [
-  "All",
-  "Office space",
-  "Training Session",
-  "Team",
-  "Festival Celebration",
-  "Fun Friday",
-  "Office Outings",
-] as const;
+interface MasonryGalleryProps {
+  gallery?: GalleryImage[];
+}
 
-export function MasonryGallery({ existingAssets = [] }: { existingAssets?: string[] }) {
+export function MasonryGallery({ gallery = DEFAULT_GALLERY }: MasonryGalleryProps) {
   const [index, setIndex] = useState(-1);
   const [tab, setTab] = useState<(typeof TABS)[number]>("All");
   const reducedMotion = useReducedMotion();
-  const existing = new Set(existingAssets);
-  const filtered = tab === "All" ? GALLERY : GALLERY.filter((img) => img.alt === tab);
+  const filtered = tab === "All" ? gallery : gallery.filter((img) => img.alt === tab);
 
   return (
     <section className="section-pad bg-kio-bg">
@@ -83,9 +64,7 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
           viewport={{ once: true }}
           className="columns-2 gap-[clamp(4px,1.6vw,16px)] sm:columns-3 lg:columns-4"
         >
-          {filtered.map((img, i) => {
-            const hasPhoto = existing.has(img.src.split("/").pop()!);
-            return (
+          {filtered.map((img, i) => (
             <motion.div
               key={img.src}
               variants={staggerChild}
@@ -96,39 +75,24 @@ export function MasonryGallery({ existingAssets = [] }: { existingAssets?: strin
             >
               <motion.div
                 variants={hoverLift}
-                className={`group relative overflow-hidden rounded-2xl ${hasPhoto ? "cursor-zoom-in" : ""}`}
-                onClick={hasPhoto ? () => setIndex(i) : undefined}
+                className="group relative cursor-zoom-in overflow-hidden rounded-2xl"
+                onClick={() => setIndex(i)}
               >
-                {hasPhoto ? (
-                  <SafeImage
-                    src={img.src}
-                    alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  />
-                ) : (
-                  <div
-                    aria-label={img.alt}
-                    role="img"
-                    className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-gradient-to-br from-kio-bg-soft to-kio-bg"
-                  >
-                    <div
-                      className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-kio-accent/10 to-transparent animate-scan-beam-slow"
-                      style={{ animationDelay: `${i * 0.4}s` }}
-                    />
-                    <ImageIcon className="relative h-6 w-6 text-kio-muted/30" strokeWidth={1.5} />
-                  </div>
-                )}
+                <SafeImage
+                  src={img.src}
+                  alt={img.alt}
+                  width={400}
+                  height={300}
+                  className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
                 <div className="absolute inset-0 bg-kio-primary/0 transition-colors duration-300 group-hover:bg-kio-primary/20" />
                 <div className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-kio-primary/80 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
                   <p className="text-xs font-medium text-white">{img.alt}</p>
                 </div>
               </motion.div>
             </motion.div>
-            );
-          })}
+          ))}
         </motion.div>
 
         <Lightbox

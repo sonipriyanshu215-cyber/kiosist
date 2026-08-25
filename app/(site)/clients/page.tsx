@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { clients } from "@/content/clients";
 import { USAClientMap } from "@/components/clients/USAClientMap";
 import { BrandStrip } from "@/components/home/BrandStrip";
 import { StatCounter } from "@/components/home/StatCounter";
+import { getClients } from "@/lib/cms/collections";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Our Clients",
@@ -14,7 +16,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Clients() {
+export default async function Clients() {
+  const clients = await getClients();
+
   return (
     <>
       <USAClientMap clients={clients} />

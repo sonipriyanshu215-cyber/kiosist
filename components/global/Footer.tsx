@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 const FOOTER_COLS = [
   {
@@ -58,7 +59,11 @@ const SOCIAL = [
   },
 ];
 
-export function Footer() {
+interface FooterProps {
+  logoSrc?: string;
+}
+
+export function Footer({ logoSrc = "/img/kiosist-logo.png" }: FooterProps) {
   return (
     <footer className="border-t border-kio-line bg-kio-bg-soft pb-16 lg:pb-0">
       <div className="container-kio py-9">
@@ -72,7 +77,8 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-flex items-center">
               <Image
-                src="/img/kiosist-logo.png"
+                src={logoSrc}
+                unoptimized={isRemoteImageSrc(logoSrc)}
                 alt="Kiosist"
                 width={1545}
                 height={435}

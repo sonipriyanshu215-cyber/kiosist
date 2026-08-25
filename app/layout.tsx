@@ -2,12 +2,6 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, DM_Sans } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/components/global/ThemeProvider";
-import { KiosistIntro } from "@/components/global/KiosistIntro";
-import { Nav } from "@/components/global/Nav";
-import { Footer } from "@/components/global/Footer";
-import { SmoothScroll } from "@/components/global/SmoothScroll";
-import { ParticleRingDynamic } from "@/components/global/ParticleRingDynamic";
-import { AmbientGlow } from "@/components/global/AmbientGlow";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -70,19 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${inter.variable} ${jetbrains.variable} ${dmSans.variable}`}
     >
       <body suppressHydrationWarning>
-        <KiosistIntro />
-        <ThemeProvider>
-          {/* Fixed-position canvas- inside ThemeProvider so it can read useTheme() */}
-          <ParticleRingDynamic />
-          <AmbientGlow />
-          <div className="relative z-[1]">
-            <SmoothScroll>
-              <Nav />
-              <main>{children}</main>
-              <Footer />
-            </SmoothScroll>
-          </div>
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

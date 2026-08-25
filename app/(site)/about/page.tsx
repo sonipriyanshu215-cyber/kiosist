@@ -6,6 +6,10 @@ import { ValuesGrid } from "@/components/about/ValuesGrid";
 import { TeamMosaic } from "@/components/home/TeamMosaic";
 import { TimelineScene } from "@/components/about/TimelineScene";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { getValues, getMilestones, getJourneyYears, getTeam } from "@/lib/cms/collections";
+import { getText } from "@/lib/cms/text";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "About Kiosist",
@@ -17,15 +21,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function About() {
+export default async function About() {
+  const [values, milestones, journeyYears, team, subtitle] = await Promise.all([
+    getValues(),
+    getMilestones(),
+    getJourneyYears(),
+    getTeam(),
+    getText(
+      "about.hero.subtitle",
+      "We are the leading service provider for remotely operating front desks for hotels based in the US."
+    ),
+  ]);
+
   return (
     <>
-      <AboutIntro />
-      <TimelineScene />
+      <AboutIntro subtitle={subtitle} />
+      <TimelineScene milestones={milestones} journeyYears={journeyYears} />
       <MissionBlock />
       <VisionBlock />
-      <ValuesGrid />
-      <TeamMosaic />
+      <ValuesGrid values={values} />
+      <TeamMosaic team={team} />
       <FinalCTA />
     </>
   );

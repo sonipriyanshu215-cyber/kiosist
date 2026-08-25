@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { randomUUID } from "crypto";
+import { getSupabaseAdmin } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
   try {
@@ -16,39 +18,79 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    const supabase = getSupabaseAdmin();
+    if (!supabase) {
+      return NextResponse.json({ error: "Server is not configured to accept applications" }, { status: 500 });
+    }
+
+    // Storing the application is the actual requirement- upload the resume
+    // (if any) before the insert so resume_path is set atomically with it.
+    let resumePath: string | null = null;
+    let resumeBuffer: Buffer | null = null;
+    if (resume && resume.size > 0) {
+      if (resume.size > 5 * 1024 * 1024) {
+        return NextResponse.json({ error: "Resume exceeds 5MB limit" }, { status: 400 });
+      }
+      resumeBuffer = Buffer.from(await resume.arrayBuffer());
+      const ext = resume.name.split(".").pop() || "pdf";
+      resumePath = `${randomUUID()}.${ext}`;
+      const { error: uploadError } = await supabase.storage
+        .from("resumes")
+        .upload(resumePath, resumeBuffer, { contentType: resume.type || "application/pdf" });
+      if (uploadError) {
+        console.error("Resume upload failed:", uploadError);
+        return NextResponse.json({ error: "Server error" }, { status: 500 });
+      }
+    }
+
+    const { error: insertError } = await supabase.from("inquiries").insert({
+      type: "career",
+      name,
+      email,
+      phone: phone || null,
+      role: role || null,
+      experience: experience || null,
+      message: message || null,
+      resume_path: resumePath,
+    });
+    if (insertError) {
+      console.error("Failed to store career application:", insertError);
+      return NextResponse.json({ error: "Server error" }, { status: 500 });
+    }
+
     const RESEND_KEY = process.env.RESEND_API_KEY;
     const TO_EMAIL = process.env.HR_EMAIL ?? "hr@kiosist.com";
 
     if (RESEND_KEY) {
-      const { Resend } = await import("resend");
-      const resend = new Resend(RESEND_KEY);
+      try {
+        const { Resend } = await import("resend");
+        const resend = new Resend(RESEND_KEY);
 
-      const attachments: { filename: string; content: Buffer }[] = [];
-
-      if (resume) {
-        const buffer = Buffer.from(await resume.arrayBuffer());
-        if (buffer.length <= 5 * 1024 * 1024) {
-          attachments.push({ filename: resume.name, content: buffer });
+        const attachments: { filename: string; content: Buffer }[] = [];
+        if (resume && resumeBuffer) {
+          attachments.push({ filename: resume.name, content: resumeBuffer });
         }
-      }
 
-      await resend.emails.send({
-        from: "Kiosist Careers <no-reply@kiosist.com>",
-        to: TO_EMAIL,
-        subject: `New Career Application- ${name} (${role})`,
-        html: `
-          <h2>New Career Application</h2>
-          <table>
-            <tr><td><strong>Name:</strong></td><td>${name}</td></tr>
-            <tr><td><strong>Email:</strong></td><td>${email}</td></tr>
-            <tr><td><strong>Phone:</strong></td><td>${phone}</td></tr>
-            <tr><td><strong>Role:</strong></td><td>${role}</td></tr>
-            <tr><td><strong>Experience:</strong></td><td>${experience}</td></tr>
-            ${message ? `<tr><td><strong>Message:</strong></td><td>${message}</td></tr>` : ""}
-          </table>
-        `,
-        attachments,
-      });
+        await resend.emails.send({
+          from: "Kiosist Careers <no-reply@kiosist.com>",
+          to: TO_EMAIL,
+          subject: `New Career Application- ${name} (${role})`,
+          html: `
+            <h2>New Career Application</h2>
+            <table>
+              <tr><td><strong>Name:</strong></td><td>${name}</td></tr>
+              <tr><td><strong>Email:</strong></td><td>${email}</td></tr>
+              <tr><td><strong>Phone:</strong></td><td>${phone}</td></tr>
+              <tr><td><strong>Role:</strong></td><td>${role}</td></tr>
+              <tr><td><strong>Experience:</strong></td><td>${experience}</td></tr>
+              ${message ? `<tr><td><strong>Message:</strong></td><td>${message}</td></tr>` : ""}
+            </table>
+          `,
+          attachments,
+        });
+      } catch (emailError) {
+        console.error("Career email notification failed (application was still stored):", emailError);
+      }
     }
 
     return NextResponse.json({ success: true });

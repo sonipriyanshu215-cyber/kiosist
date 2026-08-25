@@ -3,7 +3,13 @@
 import { Fragment } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowDown, Puzzle, Users, Lightbulb, Rocket, TrendingUp, Trophy } from "lucide-react";
-import { milestones, journeyYears } from "@/content/milestones";
+import {
+  milestones as DEFAULT_MILESTONES,
+  journeyYears as DEFAULT_JOURNEY_YEARS,
+  type Milestone,
+} from "@/content/milestones";
+
+type JourneyYear = { year: string; caption: string; body: string };
 import { staggerParent, staggerChild } from "@/lib/motion";
 
 const ICONS  = [Puzzle, Users, Lightbulb, Rocket, TrendingUp, Trophy];
@@ -27,7 +33,7 @@ function Header() {
     narrower screens)- no pinned/scroll-jacked animation, everything
     reveals in place with a viewport-triggered stagger like the rest
     of the page. ── */
-function JourneyGrid() {
+function JourneyGrid({ milestones }: { milestones: Milestone[] }) {
   return (
     <div className="container-kio relative">
       <motion.div
@@ -101,7 +107,7 @@ function JourneyGrid() {
 }
 
 /* ── Closing tagline strip + condensed year-by-year recap ── */
-function JourneyFooter() {
+function JourneyFooter({ journeyYears }: { journeyYears: JourneyYear[] }) {
   return (
     <div className="container-kio pb-10 pt-8">
       <div className="mx-auto max-w-5xl rounded-2xl border border-kio-line bg-kio-bg-soft px-6 py-5 text-center text-sm font-semibold text-kio-ink sm:text-base">
@@ -201,7 +207,15 @@ function JourneyFooter() {
 }
 
 /* ── Main export ── */
-export function TimelineScene() {
+interface TimelineSceneProps {
+  milestones?: Milestone[];
+  journeyYears?: JourneyYear[];
+}
+
+export function TimelineScene({
+  milestones = DEFAULT_MILESTONES,
+  journeyYears = DEFAULT_JOURNEY_YEARS,
+}: TimelineSceneProps) {
   const rm = useReducedMotion();
 
   return (
@@ -224,8 +238,8 @@ export function TimelineScene() {
 
       <div className="relative z-10">
         <Header />
-        <JourneyGrid />
-        <JourneyFooter />
+        <JourneyGrid milestones={milestones} />
+        <JourneyFooter journeyYears={journeyYears} />
       </div>
     </section>
   );

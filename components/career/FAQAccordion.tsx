@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { faqs } from "@/content/faqs";
+import { faqs as DEFAULT_FAQS, type FAQ } from "@/content/faqs";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
-export function FAQAccordion() {
+interface FAQAccordionProps {
+  faqs?: FAQ[];
+}
+
+export function FAQAccordion({ faqs = DEFAULT_FAQS }: FAQAccordionProps) {
   const [open, setOpen] = useState<string | null>(null);
 
   return (

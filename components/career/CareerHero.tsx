@@ -4,8 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ThumbsUp } from "lucide-react";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
-export function CareerHero() {
+interface CareerHeroProps {
+  heroSrc?: string;
+  blurb?: string;
+}
+
+export function CareerHero({
+  heroSrc = "/img/career/hero2.png",
+  blurb = "Join the team building the future of remote hospitality.",
+}: CareerHeroProps) {
   const rm = useReducedMotion();
 
   return (
@@ -13,7 +22,8 @@ export function CareerHero() {
       {/* ── Full-bleed background photo ── */}
       <div className="absolute inset-0" aria-hidden="true">
         <Image
-          src="/img/career/hero2.png"
+          src={heroSrc}
+          unoptimized={isRemoteImageSrc(heroSrc)}
           alt=""
           fill
           priority
@@ -68,9 +78,7 @@ export function CareerHero() {
               </motion.div>
 
               <p className="text-lg font-bold text-white">Ready to Apply?</p>
-              <p className="mt-1.5 text-xs leading-relaxed text-white/70">
-                Join the team building the future of remote hospitality.
-              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-white/70">{blurb}</p>
               <Link
                 href="#apply"
                 className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#05070D] shadow-[0_10px_30px_rgba(255,255,255,.15)] transition-transform hover:-translate-y-0.5"

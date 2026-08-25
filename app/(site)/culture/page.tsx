@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { MasonryGallery } from "@/components/culture/MasonryGallery";
-
 import { AnimatedCultureSlider } from "@/components/culture/AnimatedCultureSlider";
-import { listExistingAssets } from "@/lib/publicAssets";
+import { getCultureGallery } from "@/lib/cms/media";
+import { cultureGallery as DEFAULT_GALLERY } from "@/content/cultureGallery";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Culture & Events | Kiosist",
@@ -14,17 +16,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Culture() {
-  const existingCultureAssets = listExistingAssets("img/culture");
+export default async function Culture() {
+  const gallery = await getCultureGallery(DEFAULT_GALLERY);
 
   return (
     <>
       {/* Unique Animated Expanding Slider */}
-
       <AnimatedCultureSlider />
 
-      <MasonryGallery existingAssets={existingCultureAssets} />
+      <MasonryGallery gallery={gallery} />
     </>
   );
 }
-

@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { ResumeForm } from "@/components/career/ResumeForm";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { getRoleOptions } from "@/lib/cms/collections";
+import { getText } from "@/lib/cms/text";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Contact Us | Kiosist",
@@ -34,7 +38,15 @@ const CONTACT_INFO = [
   },
 ];
 
-export default function Contact() {
+export default async function Contact() {
+  const [roleOptions, subtitle] = await Promise.all([
+    getRoleOptions(),
+    getText(
+      "contact.hero.subtitle",
+      "Whether you have a question, want to explore opportunities, or simply want to know more about Kiosist, we'd love to hear from you."
+    ),
+  ]);
+
   return (
     <>
       <section className="bg-kio-primary pb-16 pt-28 md:pb-20 md:pt-32 lg:pb-24 lg:pt-36">
@@ -52,8 +64,7 @@ export default function Contact() {
                 Let&apos;s Start A <span className="text-color-cycle">Conversation</span>
               </h1>
               <p className="mt-3 max-w-md text-[clamp(0.95rem,3.6vw,1.05rem)] text-white/70 md:mt-[clamp(4px,1.8vw,20px)] md:text-[clamp(0.55rem,1.8vw,1rem)]">
-                Whether you have a question, want to explore opportunities, or simply want to
-                know more about Kiosist, we&apos;d love to hear from you.
+                {subtitle}
               </p>
               <p className="mt-3 max-w-md text-[0.85rem] italic text-white/50 md:mt-[clamp(6px,2vw,24px)] md:text-[clamp(0.45rem,1.4vw,0.875rem)]">
                 Every great conversation starts with a simple hello.{" "}
@@ -91,7 +102,7 @@ export default function Contact() {
             {/* ── Right: job application form ── */}
             <div id="message" className="scroll-mt-24">
               <RevealOnScroll delay={0.1} className="rounded-3xl border border-white/10 bg-kio-bg p-[clamp(8px,3vw,32px)]">
-                <ResumeForm embedded />
+                <ResumeForm embedded roleOptions={roleOptions} />
                 <p className="mt-4 text-center text-[clamp(0.4rem,1.2vw,0.75rem)] text-kio-muted">
                   Your information is safe with us. We respect your privacy.
                 </p>

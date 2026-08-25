@@ -5,6 +5,11 @@ import { PerksGrid } from "@/components/career/PerksGrid";
 import { ResumeForm } from "@/components/career/ResumeForm";
 import { ReviewSlider } from "@/components/career/ReviewSlider";
 import { FAQAccordion } from "@/components/career/FAQAccordion";
+import { getPerks, getFaqs, getRoleOptions } from "@/lib/cms/collections";
+import { getImageUrl } from "@/lib/cms/media";
+import { getText } from "@/lib/cms/text";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Career at Kiosist",
@@ -16,15 +21,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Career() {
+export default async function Career() {
+  const [perks, faqs, roleOptions, heroSrc, mascotSrc, blurb] = await Promise.all([
+    getPerks(),
+    getFaqs(),
+    getRoleOptions(),
+    getImageUrl("career.hero", "/img/career/hero2.png"),
+    getImageUrl("career.mascot", "/img/hero/agent-red.png"),
+    getText("career.hero.blurb", "Join the team building the future of remote hospitality."),
+  ]);
+
   return (
     <>
-      <CareerHero />
+      <CareerHero heroSrc={heroSrc} blurb={blurb} />
       <HiringProcess />
-      <PerksGrid />
+      <PerksGrid perks={perks} />
       <ReviewSlider />
-      <FAQAccordion />
-      <ResumeForm />
+      <FAQAccordion faqs={faqs} />
+      <ResumeForm roleOptions={roleOptions} mascotSrc={mascotSrc} />
     </>
   );
 }

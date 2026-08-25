@@ -69,7 +69,13 @@ const SERVICES = [
   },
 ];
 
-export function AboutIntro() {
+interface AboutIntroProps {
+  subtitle?: string;
+}
+
+export function AboutIntro({
+  subtitle = "We are the leading service provider for remotely operating front desks for hotels based in the US.",
+}: AboutIntroProps) {
   return (
     <div>
       {/* Mobile (< md): a real stacked hero- full-width headline block above
@@ -97,7 +103,7 @@ export function AboutIntro() {
 
             {/* Subtitle */}
             <p className="mt-3 max-w-[430px] text-[clamp(0.95rem,3.6vw,1.05rem)] leading-[1.7] text-white/60 md:mt-[clamp(6px,1.8vw,20px)] md:text-[clamp(0.55rem,1.8vw,1rem)]">
-              We are the leading service provider for remotely operating front desks for hotels based in the US.
+              {subtitle}
             </p>
           </motion.div>
 

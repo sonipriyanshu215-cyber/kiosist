@@ -15,7 +15,7 @@ import {
   HeartPulse,
   DoorClosed,
 } from "lucide-react";
-import { perks, type Perk } from "@/content/perks";
+import { perks as DEFAULT_PERKS, type Perk } from "@/content/perks";
 import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
@@ -36,7 +36,11 @@ const ICONS: Record<Perk["icon"], typeof CalendarCheck> = {
 
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"];
 
-export function PerksGrid() {
+interface PerksGridProps {
+  perks?: Perk[];
+}
+
+export function PerksGrid({ perks = DEFAULT_PERKS }: PerksGridProps) {
   const reducedMotion = useReducedMotion();
 
   return (

@@ -269,11 +269,10 @@ export function HeroBanner() {
                     animate={{ opacity: 1, y: "0%" }}
                     exit={{    opacity: 0, y: "-30%" }}
                     transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                    /* Gradient colour-cycle on the hero word is disabled across
-                       the home page for now; plain white instead. To bring it
-                       back, restore the class: "text-color-cycle inline-block"
-                       (the .text-color-cycle rule still lives in styles/globals.css). */
-                    className="inline-block text-white"
+                    /* Solid brand blue, no glow or flicker. The old multi-hue
+                       "text-color-cycle" gradient is still defined in
+                       styles/globals.css if it's ever wanted back here. */
+                    className="inline-block text-kio-accent"
                   >
                     {CYCLING_WORDS[wordIdx]}
                   </motion.span>

@@ -1,0 +1,506 @@
+<title>Kiosist Web Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --surface-2: #eef0f8;
+    --border: #dfe2ee;
+    --ink: #161a2c;
+    --ink-2: #3d4258;
+    --muted: #6b7288;
+    --accent: #3552e0;
+    --accent-ink: #ffffff;
+    --accent-soft: rgba(53,82,224,0.08);
+    --accent-2: #0c8f9e;
+    --code-bg: #eef1fa;
+    --code-ink: #2b3157;
+    --success: #157a53;
+    --warn: #92600a;
+    --danger: #b23a2c;
+    --shadow: 0 1px 2px rgba(20,24,50,0.04), 0 8px 24px -12px rgba(20,24,50,0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a0d16;
+      --surface: #121726;
+      --surface-2: #171e33;
+      --border: rgba(255,255,255,0.09);
+      --ink: #e9ecf7;
+      --ink-2: #c2c8dd;
+      --muted: #8b93ad;
+      --accent: #7c94ff;
+      --accent-ink: #0a0d16;
+      --accent-soft: rgba(124,148,255,0.14);
+      --accent-2: #35c9d6;
+      --code-bg: #161c2e;
+      --code-ink: #cfd6f2;
+      --success: #34d399;
+      --warn: #f2b64c;
+      --danger: #f2685a;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0d16;
+    --surface: #121726;
+    --surface-2: #171e33;
+    --border: rgba(255,255,255,0.09);
+    --ink: #e9ecf7;
+    --ink-2: #c2c8dd;
+    --muted: #8b93ad;
+    --accent: #7c94ff;
+    --accent-ink: #0a0d16;
+    --accent-soft: rgba(124,148,255,0.14);
+    --accent-2: #35c9d6;
+    --code-bg: #161c2e;
+    --code-ink: #cfd6f2;
+    --success: #34d399;
+    --warn: #f2b64c;
+    --danger: #f2685a;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-2);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: "Manrope", ui-sans-serif, system-ui, sans-serif; color: var(--ink); text-wrap: balance; margin: 0; }
+  code, .mono, .mono-cell, table.data td.path, .chip.mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  a { color: var(--accent); }
+  p { max-width: 68ch; }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--accent-soft), transparent 140%);
+    padding: 2.6rem 1.75rem 2rem;
+  }
+  .masthead-inner { max-width: 1180px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .72rem; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--accent-2); font-weight: 500;
+  }
+  .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); }
+  .masthead h1 { font-size: clamp(1.7rem, 3.2vw, 2.5rem); font-weight: 800; margin-top: .6rem; letter-spacing: -0.01em; }
+  .masthead .lede { max-width: 62ch; color: var(--muted); font-size: 1rem; margin-top: .65rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
+  .chip {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .3rem .65rem; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--border);
+    font-size: .78rem; color: var(--ink-2); font-weight: 500;
+    box-shadow: var(--shadow);
+  }
+  .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Layout: sidebar + content ---------- */
+  .layout { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 216px 1fr; gap: 2.5rem; padding: 2rem 1.75rem 5rem; align-items: start; }
+  nav.toc { position: sticky; top: 1.25rem; display: flex; flex-direction: column; gap: .15rem; align-self: start; max-height: calc(100vh - 2.5rem); overflow-y: auto; }
+  nav.toc a {
+    text-decoration: none; color: var(--muted); font-size: .84rem; font-weight: 500;
+    padding: .4rem .6rem; border-radius: 8px; border-left: 2px solid transparent;
+  }
+  nav.toc a:hover { color: var(--ink); background: var(--surface-2); }
+  nav.toc a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+  nav.toc .toc-num { font-family: "IBM Plex Mono", monospace; opacity: .55; margin-right: .35rem; font-size: .78em; }
+
+  main { min-width: 0; display: flex; flex-direction: column; gap: 3rem; }
+  section { scroll-margin-top: 1.25rem; }
+  section > .section-head { display: flex; align-items: baseline; gap: .6rem; margin-bottom: 1rem; }
+  section > .section-head .idx { font-family: "IBM Plex Mono", monospace; color: var(--accent-2); font-size: .85rem; font-weight: 500; }
+  section h2 { font-size: 1.35rem; font-weight: 800; }
+  section .section-sub { color: var(--muted); font-size: .92rem; margin: -.5rem 0 1.25rem; max-width: 70ch; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.4rem; box-shadow: var(--shadow); }
+  .card + .card { margin-top: .9rem; }
+
+  /* ---------- Tables ---------- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); background: var(--surface); }
+  table.data { border-collapse: collapse; width: 100%; min-width: 640px; font-size: .87rem; }
+  table.data th {
+    text-align: left; font-family: "Manrope", sans-serif; font-weight: 700; font-size: .72rem;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+    background: var(--surface-2); padding: .65rem .9rem; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+  }
+  table.data td { padding: .65rem .9rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink-2); }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data td.path, table.data td.mono-cell { font-family: "IBM Plex Mono", monospace; font-size: .8rem; color: var(--code-ink); white-space: nowrap; }
+  table.data td strong { color: var(--ink); }
+
+  .pill { display: inline-block; padding: .12rem .5rem; border-radius: 6px; font-size: .72rem; font-weight: 600; font-family: "IBM Plex Mono", monospace; }
+  .pill.get { background: rgba(21,122,83,.12); color: var(--success); }
+  .pill.post { background: var(--accent-soft); color: var(--accent); }
+  .pill.patch { background: rgba(146,96,10,.12); color: var(--warn); }
+  .pill.delete { background: rgba(178,58,44,.12); color: var(--danger); }
+
+  /* ---------- Tech stack grid ---------- */
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .85rem; }
+  .stack-card h4 { font-size: .82rem; font-weight: 700; margin-bottom: .55rem; color: var(--accent-2); text-transform: uppercase; letter-spacing: .04em; font-family: "Manrope", sans-serif; }
+  .stack-card ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+  .stack-card li { font-size: .85rem; display: flex; justify-content: space-between; gap: .5rem; }
+  .stack-card li span.name { color: var(--ink); font-weight: 500; }
+  .stack-card li span.ver { font-family: "IBM Plex Mono", monospace; color: var(--muted); font-size: .78rem; }
+
+  /* ---------- Colour swatches ---------- */
+  .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .75rem; }
+  .swatch { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  .swatch-fill { height: 46px; }
+  .swatch-label { padding: .5rem .65rem; }
+  .swatch-label .name { font-size: .78rem; font-weight: 600; color: var(--ink); }
+  .swatch-label .hex { font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--muted); }
+
+  /* ---------- File tree ---------- */
+  .tree { font-family: "IBM Plex Mono", monospace; font-size: .81rem; line-height: 1.75; background: var(--code-bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; overflow-x: auto; color: var(--code-ink); }
+  .tree .dir { color: var(--accent); font-weight: 500; }
+  .tree .cm { color: var(--muted); }
+
+  /* ---------- Env var table code cell ---------- */
+  td.envvar { font-family: "IBM Plex Mono", monospace; font-size: .8rem; color: var(--accent-2); font-weight: 500; white-space: nowrap; }
+
+  footer.page-footer { max-width: 1180px; margin: 0 auto; padding: 0 1.75rem 3rem; color: var(--muted); font-size: .8rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+
+  @media (max-width: 880px) {
+    .layout { grid-template-columns: 1fr; padding: 1.5rem 1.1rem 4rem; gap: 1.5rem; }
+    nav.toc { position: static; flex-direction: row; overflow-x: auto; max-height: none; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+    nav.toc a { white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; }
+    nav.toc a.active { border-left-color: transparent; border-bottom-color: var(--accent); }
+    .masthead { padding: 2rem 1.1rem 1.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <span class="eyebrow">Internal reference · updated 2026-09-01</span>
+    <h1>Kiosist Web — Project Reference</h1>
+    <p class="lede">The full map of kiosist-web: every public and admin route, the Supabase schema behind them, the CMS layer that lets non-technical edits go live without a deploy, environment variables, design tokens, and the file layout that ties it together.</p>
+    <div class="meta-row">
+      <span class="chip"><b>Next.js 16</b> App Router</span>
+      <span class="chip"><b>React 19</b> · TypeScript 5</span>
+      <span class="chip"><b>Supabase</b> Postgres + Storage</span>
+      <span class="chip"><b>Tailwind CSS 3</b></span>
+      <span class="chip">English only · no i18n</span>
+      <span class="chip">8 public pages · 6 admin pages · 14 API routes</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <a href="#overview"><span class="toc-num">01</span>Overview</a>
+    <a href="#stack"><span class="toc-num">02</span>Tech stack</a>
+    <a href="#pages"><span class="toc-num">03</span>Site pages</a>
+    <a href="#admin"><span class="toc-num">04</span>Admin panel</a>
+    <a href="#api"><span class="toc-num">05</span>API routes</a>
+    <a href="#database"><span class="toc-num">06</span>Database</a>
+    <a href="#cms"><span class="toc-num">07</span>Content &amp; CMS</a>
+    <a href="#env"><span class="toc-num">08</span>Environment vars</a>
+    <a href="#design"><span class="toc-num">09</span>Design tokens</a>
+    <a href="#structure"><span class="toc-num">10</span>File structure</a>
+    <a href="#scripts"><span class="toc-num">11</span>Scripts</a>
+  </nav>
+
+  <main>
+
+    <section id="overview">
+      <div class="section-head"><span class="idx">01</span><h2>Overview</h2></div>
+      <p class="section-sub">What the site is, in one paragraph, plus the two architectural decisions that shape everything below.</p>
+      <div class="card">
+        <p style="max-width:78ch">
+          <strong style="color:var(--ink)">Kiosist</strong> is the marketing site for Kiosist Pvt. Ltd., a company providing 24/7 virtual front-desk / self-service kiosk staffing for hotels across the USA (operations based in Surat, Gujarat, India). The site is a single-language (English, <code>lang="en"</code>) Next.js App Router application with no locale routing or translation layer.
+        </p>
+        <p style="max-width:78ch; margin-top:.75rem;">
+          Two decisions recur everywhere: (1) almost every page's copy and images are <strong style="color:var(--ink)">editable from a built-in <code>/admin</code> panel</strong>, backed by Supabase, with hard-coded TypeScript defaults as a fallback so the public site keeps working even if Supabase is unreachable or unconfigured; (2) the marketing pages are heavily animated (Framer Motion, a Three.js particle background, Lenis smooth scroll), while <code>/admin</code> is a plain, fast CRUD interface with none of that.
+        </p>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="section-head"><span class="idx">02</span><h2>Tech stack &amp; languages</h2></div>
+      <p class="section-sub">Everything in <code>package.json</code>, grouped by role. Source is 100% TypeScript/TSX; styling is Tailwind utility classes over a small CSS custom-property token layer; the database schema is plain SQL (Postgres).</p>
+      <div class="stack-grid">
+        <div class="card stack-card">
+          <h4>Framework &amp; language</h4>
+          <ul>
+            <li><span class="name">Next.js</span><span class="ver">^16.2.9</span></li>
+            <li><span class="name">React / React DOM</span><span class="ver">^19.0.0</span></li>
+            <li><span class="name">TypeScript</span><span class="ver">^5.4.0</span></li>
+          </ul>
+        </div>
+        <div class="card stack-card">
+          <h4>Styling &amp; UI</h4>
+          <ul>
+            <li><span class="name">Tailwind CSS</span><span class="ver">^3.4.3</span></li>
+            <li><span class="name">next-themes</span><span class="ver">^0.4.0</span></li>
+            <li><span class="name">lucide-react</span><span class="ver">^1.0.0</span></li>
+            <li><span class="name">clsx / tailwind-merge</span><span class="ver">^2.1 / ^2.3</span></li>
+            <li><span class="name">yet-another-react-lightbox</span><span class="ver">^3.17.0</span></li>
+          </ul>
+        </div>
+        <div class="card stack-card">
+          <h4>Animation, 3D &amp; maps</h4>
+          <ul>
+            <li><span class="name">framer-motion</span><span class="ver">^12.0.0</span></li>
+            <li><span class="name">three / @react-three/fiber</span><span class="ver">^0.165 / ^9.0</span></li>
+            <li><span class="name">lenis</span> (smooth scroll)<span class="ver">^1.0.0</span></li>
+            <li><span class="name">maplibre-gl / react-map-gl</span><span class="ver">^5.24 / ^8.1</span></li>
+          </ul>
+        </div>
+        <div class="card stack-card">
+          <h4>Forms &amp; validation</h4>
+          <ul>
+            <li><span class="name">react-hook-form</span><span class="ver">^7.51.0</span></li>
+            <li><span class="name">@hookform/resolvers</span><span class="ver">^3.3.4</span></li>
+            <li><span class="name">zod</span><span class="ver">^3.23.0</span></li>
+          </ul>
+        </div>
+        <div class="card stack-card">
+          <h4>Backend, data &amp; auth</h4>
+          <ul>
+            <li><span class="name">@supabase/supabase-js</span><span class="ver">^2.112.4</span></li>
+            <li><span class="name">@supabase/ssr</span><span class="ver">^0.12.5</span></li>
+            <li><span class="name">jose</span> (session JWT)<span class="ver">^6.2.8</span></li>
+            <li><span class="name">server-only</span><span class="ver">^0.0.1</span></li>
+          </ul>
+        </div>
+        <div class="card stack-card">
+          <h4>Email &amp; tooling</h4>
+          <ul>
+            <li><span class="name">resend</span><span class="ver">^6.0.0</span></li>
+            <li><span class="name">tsx</span> (script runner)<span class="ver">^4.23.12</span></li>
+            <li><span class="name">eslint / eslint-config-next</span><span class="ver">^9 / ^16.2.9</span></li>
+            <li><span class="name">postcss / autoprefixer</span><span class="ver">^8.5 / ^10.4</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="pages">
+      <div class="section-head"><span class="idx">03</span><h2>Public site pages</h2></div>
+      <p class="section-sub">Route group <code>app/(site)</code>, wrapped by a shared layout: intro overlay, particle background, ambient glow, smooth scroll, nav and footer (logo + "Join Us" CTA label are themselves CMS-editable). Most pages use <code>revalidate = 60</code> (ISR) so admin edits appear within a minute without a redeploy.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Route</th><th>File</th><th>Purpose</th><th>Pulls from Supabase</th></tr></thead>
+          <tbody>
+            <tr><td class="path">/</td><td class="path">page.tsx</td><td>Home — hero banner, "What is Kiosist", stat counter, why-grid, why-choose-Kiosist, final CTA.</td><td class="mono-cell">— (static copy)</td></tr>
+            <tr><td class="path">/about</td><td class="path">about/page.tsx</td><td>Company story — intro, timeline of milestones, mission, vision, values grid, team mosaic.</td><td class="mono-cell">values, milestones, journey_years, team, text: about.hero.subtitle</td></tr>
+            <tr><td class="path">/career</td><td class="path">career/page.tsx</td><td>Careers — hero, hiring process, perks grid, review slider, FAQ accordion, resume application form.</td><td class="mono-cell">perks, faqs, roles, media: career.hero / career.mascot, text: career.hero.blurb</td></tr>
+            <tr><td class="path">/clients</td><td class="path">clients/page.tsx</td><td>USA map of client hotels, brand strip, stat counter.</td><td class="mono-cell">clients</td></tr>
+            <tr><td class="path">/culture</td><td class="path">culture/page.tsx</td><td>Culture &amp; events — animated slider + masonry photo gallery.</td><td class="mono-cell">media collection "culture" (falls back to content/cultureGallery.ts)</td></tr>
+            <tr><td class="path">/contact</td><td class="path">contact/page.tsx</td><td>Office address / phone / email + embedded application form (id=<code>#message</code>).</td><td class="mono-cell">roles, text: contact.hero.subtitle</td></tr>
+            <tr><td class="path">/privacy</td><td class="path">privacy/page.tsx</td><td>Privacy policy — static legal copy.</td><td class="mono-cell">— (static)</td></tr>
+            <tr><td class="path">/terms</td><td class="path">terms/page.tsx</td><td>Terms of use — static legal copy.</td><td class="mono-cell">— (static)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:.9rem;">
+        <strong style="color:var(--ink)">Also in <code>app/</code>:</strong> <code>robots.ts</code> and <code>sitemap.ts</code> generate those files dynamically from <code>NEXT_PUBLIC_SITE_URL</code>; <code>(site)/template.tsx</code> re-mounts on every route change for page-transition animation; the root <code>layout.tsx</code> loads the three fonts and sets sitewide metadata/Open Graph defaults.
+      </div>
+    </section>
+
+    <section id="admin">
+      <div class="section-head"><span class="idx">04</span><h2>Admin panel</h2></div>
+      <p class="section-sub">A password-gated CMS at <code>/admin</code> for editing everything the public site reads from Supabase, with no code changes or redeploy needed.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Route</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td class="path">/admin/login</td><td>Single-password login (checked against <code>ADMIN_PASSWORD</code>); issues a signed session cookie.</td></tr>
+            <tr><td class="path">/admin</td><td>Dashboard — new/total inquiry counts, content collection count (8), uploaded media count.</td></tr>
+            <tr><td class="path">/admin/inquiries</td><td>Table of contact + career submissions; mark read/archived, open a submitted résumé.</td></tr>
+            <tr><td class="path">/admin/content</td><td>Index of the 8 editable content collections.</td></tr>
+            <tr><td class="path">/admin/content/[collection]</td><td>Add / edit / delete / drag-reorder items within one collection.</td></tr>
+            <tr><td class="path">/admin/text</td><td>Edit the 4 registered freeform text keys (hero subtitles, nav CTA label).</td></tr>
+            <tr><td class="path">/admin/media</td><td>Replace fixed image slots (logo, career hero, career mascot) and manage reorderable photo galleries.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:.9rem;">
+        <strong style="color:var(--ink)">Auth model:</strong> <code>proxy.ts</code> (Next's Proxy/middleware layer) optimistically gates every <code>/admin/*</code> and <code>/api/admin/*</code> route except the login endpoint, redirecting unauthenticated page visits and returning 401 for API calls. Because Proxy alone isn't a full auth boundary, every admin Route Handler and the protected layout independently re-verify the session server-side via <code>requireAdminSession()</code>. Sessions are a <code>jose</code>-signed JWT cookie, keyed by the <code>SESSION_SECRET</code> env var.
+      </div>
+    </section>
+
+    <section id="api">
+      <div class="section-head"><span class="idx">05</span><h2>API routes</h2></div>
+      <p class="section-sub">14 Route Handlers under <code>app/api</code>: two public form endpoints, and twelve admin CRUD endpoints behind the same session check described above.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Method</th><th>Path</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill post">POST</span></td><td class="path">/api/contact</td><td>Validates the contact form, inserts into <code>inquiries</code> (type=contact), then best-effort emails <code>CONTACT_EMAIL</code> via Resend. DB write is required; email failure doesn't fail the request.</td></tr>
+            <tr><td><span class="pill post">POST</span></td><td class="path">/api/careers</td><td>Multipart career application. Uploads an optional résumé (≤5MB) to the <code>resumes</code> Storage bucket, inserts into <code>inquiries</code> (type=career), emails <code>HR_EMAIL</code> with the résumé attached.</td></tr>
+            <tr><td><span class="pill post">POST</span></td><td class="path">/api/admin/login</td><td>Checks <code>ADMIN_PASSWORD</code>, sets the signed session cookie.</td></tr>
+            <tr><td><span class="pill post">POST</span></td><td class="path">/api/admin/logout</td><td>Clears the session cookie.</td></tr>
+            <tr><td><span class="pill get">GET/POST</span></td><td class="path">/api/admin/content/[collection]</td><td>List / create items in a content collection.</td></tr>
+            <tr><td><span class="pill patch">PATCH/DELETE</span></td><td class="path">/api/admin/content/[collection]/[id]</td><td>Update / delete one item.</td></tr>
+            <tr><td><span class="pill post">POST</span></td><td class="path">/api/admin/content/[collection]/reorder</td><td>Bulk-update <code>sort_order</code> after a drag-reorder.</td></tr>
+            <tr><td><span class="pill get">GET</span></td><td class="path">/api/admin/inquiries</td><td>List all inquiries.</td></tr>
+            <tr><td><span class="pill patch">GET/PATCH/DELETE</span></td><td class="path">/api/admin/inquiries/[id]</td><td>Read / update status / delete one inquiry.</td></tr>
+            <tr><td><span class="pill get">GET</span></td><td class="path">/api/admin/inquiries/[id]/resume</td><td>Issues a signed URL to download a career applicant's résumé from the private <code>resumes</code> bucket.</td></tr>
+            <tr><td><span class="pill get">GET/POST</span></td><td class="path">/api/admin/text</td><td>List / upsert freeform text values.</td></tr>
+            <tr><td><span class="pill patch">PATCH</span></td><td class="path">/api/admin/text/[key]</td><td>Update one text key's value.</td></tr>
+            <tr><td><span class="pill get">GET/POST</span></td><td class="path">/api/admin/media</td><td>List media rows / upload a new image (slot or gallery item).</td></tr>
+            <tr><td><span class="pill delete">DELETE</span></td><td class="path">/api/admin/media/[id]</td><td>Delete one media row + its Storage object.</td></tr>
+            <tr><td><span class="pill post">POST</span></td><td class="path">/api/admin/media/reorder</td><td>Bulk-update gallery <code>sort_order</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="database">
+      <div class="section-head"><span class="idx">06</span><h2>Database — Supabase (Postgres)</h2></div>
+      <p class="section-sub">Defined once in <code>supabase/schema.sql</code>, run manually in the Supabase SQL editor. Four tables, all with RLS enabled and <em>zero</em> policies added on purpose — that leaves them default-deny for the anon/authenticated roles. The Next.js app never uses the anon key; every read and write goes through the service-role key on the server, which bypasses RLS entirely.</p>
+
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Table</th><th>Key columns</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td class="mono-cell"><strong>inquiries</strong></td><td class="mono-cell">id uuid pk · type (contact|career) · name · email · phone · company · properties · role · experience · message · resume_path · status (new|read|archived, default new) · created_at</td><td>Every contact-form and career-application submission.</td></tr>
+            <tr><td class="mono-cell"><strong>content_items</strong></td><td class="mono-cell">id uuid pk · collection text · data jsonb · sort_order int · updated_at</td><td>One row per item in each of the 8 editable collections (values, faqs, milestones, journey_years, perks, clients, team, roles). <code>data</code> mirrors the matching <code>content/*.ts</code> TS type.</td></tr>
+            <tr><td class="mono-cell"><strong>content_text</strong></td><td class="mono-cell">key text pk · value text · updated_at</td><td>Freeform editable strings (hero subtitles, nav CTA label), keyed by a dotted slug e.g. <code>home.hero.title</code>.</td></tr>
+            <tr><td class="mono-cell"><strong>media</strong></td><td class="mono-cell">id uuid pk · slot_key text unique (nullable) · collection text (nullable) · url · storage_path · alt_text · sort_order · created_at</td><td>Uploaded images. Exactly one of <code>slot_key</code> (a fixed swap-in-place image) or <code>collection</code> (a free add/remove/reorder gallery) is set per row.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:.9rem;">
+        <strong style="color:var(--ink)">Storage buckets</strong> (created from the Supabase dashboard, not SQL): <code>media</code> — public, serves site images via <code>*.supabase.co/storage/v1/object/public/**</code> (whitelisted in <code>next.config.js</code> image remote patterns); <code>resumes</code> — private, career-application PDFs served only via signed URL.
+      </div>
+    </section>
+
+    <section id="cms">
+      <div class="section-head"><span class="idx">07</span><h2>Content &amp; CMS layer</h2></div>
+      <p class="section-sub">The pattern that lets <code>/admin</code> edits reach the live site, and lets the site survive Supabase being down.</p>
+      <div class="card">
+        <strong style="color:var(--ink)">Collections</strong> — <code>lib/cms/collections.ts</code> exposes one typed getter per collection (<code>getValues</code>, <code>getFaqs</code>, <code>getMilestones</code>, <code>getJourneyYears</code>, <code>getPerks</code>, <code>getClients</code>, <code>getTeam</code>, <code>getRoleOptions</code>). Each calls a shared <code>getCollection()</code> that queries <code>content_items</code> filtered by collection name, ordered by <code>sort_order</code> — and falls back to the matching hard-coded default in <code>content/*.ts</code> whenever Supabase is unreachable, misconfigured, or the collection hasn't been seeded yet.
+      </div>
+      <div class="card">
+        <strong style="color:var(--ink)">Freeform text</strong> — <code>lib/cms/text-keys.ts</code> registers a small, deliberately short list of plain-text fields (headline elements with a styled/colored span stay hard-coded, since one plain string can't represent "some words in a different color"). Registered keys: <code class="mono">about.hero.subtitle</code>, <code class="mono">career.hero.blurb</code>, <code class="mono">contact.hero.subtitle</code>, <code class="mono">nav.cta.label</code>. <code>getText(key, fallback)</code> in <code>lib/cms/text.ts</code> reads <code>content_text</code> with the same fallback pattern.
+      </div>
+      <div class="card">
+        <strong style="color:var(--ink)">Media</strong> — two shapes, both in <code>lib/cms/media.ts</code>. <code>getImageUrl(slotKey, fallback)</code> reads a fixed one-image slot (registered in <code>lib/cms/slots.ts</code>: <code class="mono">logo</code>, <code class="mono">career.hero</code>, <code class="mono">career.mascot</code>) — add an entry there to make another image swappable from <code>/admin/media</code> without touching code. <code>getCultureGallery()</code> reads a free add/remove/reorder gallery collection instead (categories defined in <code>lib/cms/gallery-categories.ts</code>).
+      </div>
+    </section>
+
+    <section id="env">
+      <div class="section-head"><span class="idx">08</span><h2>Environment variables</h2></div>
+      <p class="section-sub">From <code>.env.local.example</code> — copy to <code>.env.local</code> and fill in real values (never commit the real file).</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Variable</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td class="envvar">RESEND_API_KEY</td><td>Resend API key for transactional email delivery.</td></tr>
+            <tr><td class="envvar">CONTACT_EMAIL</td><td>Inbox that receives contact-form notifications (default <code>hr@kiosist.com</code>).</td></tr>
+            <tr><td class="envvar">HR_EMAIL</td><td>Inbox that receives career-application notifications.</td></tr>
+            <tr><td class="envvar">NEXT_PUBLIC_GA_ID</td><td>Google Analytics measurement ID, read client-side in <code>lib/analytics.ts</code>.</td></tr>
+            <tr><td class="envvar">NEXT_PUBLIC_SITE_URL</td><td>Canonical site URL, used by <code>sitemap.ts</code> and Open Graph metadata.</td></tr>
+            <tr><td class="envvar">SUPABASE_URL</td><td>Supabase project URL.</td></tr>
+            <tr><td class="envvar">SUPABASE_SERVICE_ROLE_KEY</td><td>Server-only Supabase key that bypasses RLS. Never exposed to the client.</td></tr>
+            <tr><td class="envvar">ADMIN_PASSWORD</td><td>Password checked at <code>/admin/login</code>.</td></tr>
+            <tr><td class="envvar">SESSION_SECRET</td><td>32+ byte random string used to sign the admin session-cookie JWT (via <code>jose</code>).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="design">
+      <div class="section-head"><span class="idx">09</span><h2>Design tokens</h2></div>
+      <p class="section-sub">Defined as CSS custom properties in <code>styles/globals.css</code>, light and dark variants, consumed through <code>tailwind.config.ts</code> as <code>kio-*</code> color utilities.</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-fill" style="background:#3b82f6"></div><div class="swatch-label"><div class="name">kio-accent</div><div class="hex">#3b82f6</div></div></div>
+        <div class="swatch"><div class="swatch-fill" style="background:#06b6d4"></div><div class="swatch-label"><div class="name">kio-accent2</div><div class="hex">#06b6d4</div></div></div>
+        <div class="swatch"><div class="swatch-fill" style="background:#10b981"></div><div class="swatch-label"><div class="name">kio-success</div><div class="hex">#10b981</div></div></div>
+        <div class="swatch"><div class="swatch-fill" style="background:#e0533d"></div><div class="swatch-label"><div class="name">kio-error</div><div class="hex">#e0533d</div></div></div>
+        <div class="swatch"><div class="swatch-fill" style="background:#0e101c"></div><div class="swatch-label"><div class="name">kio-primary (dark)</div><div class="hex">rgba(14,16,28,.58)</div></div></div>
+        <div class="swatch"><div class="swatch-fill" style="background:#f0f4ff"></div><div class="swatch-label"><div class="name">kio-ink (dark theme)</div><div class="hex">#f0f4ff</div></div></div>
+      </div>
+      <div class="card" style="margin-top:.9rem;">
+        <strong style="color:var(--ink)">Type:</strong> body — Inter (<code>--font-body</code>); display headings — DM Sans (<code>--font-display</code>), a placeholder until Satoshi is self-hosted; monospace accents — JetBrains Mono (<code>--font-mono</code>). All three loaded via <code>next/font/google</code> in the root layout. Theme switching (<code>next-themes</code>) toggles via a <code>class</code> / <code>[data-theme="dark"]</code> strategy — matches this document's own theming approach.
+      </div>
+    </section>
+
+    <section id="structure">
+      <div class="section-head"><span class="idx">10</span><h2>File structure</h2></div>
+      <p class="section-sub">Top-level layout of the repo (build artifacts, screenshots and scratch files omitted).</p>
+      <div class="tree">app/<br>
+&nbsp;&nbsp;<span class="dir">(site)/</span>              <span class="cm"># marketing route group: home, about, career, clients, culture, contact, privacy, terms</span><br>
+&nbsp;&nbsp;<span class="dir">admin/</span>                <span class="cm"># /admin — login/ + (protected)/ dashboard, inquiries, content, text, media</span><br>
+&nbsp;&nbsp;<span class="dir">api/</span>                  <span class="cm"># route handlers — contact, careers, admin/*</span><br>
+&nbsp;&nbsp;layout.tsx              <span class="cm"># root layout: fonts, sitewide metadata, ThemeProvider</span><br>
+&nbsp;&nbsp;robots.ts, sitemap.ts<br>
+<span class="dir">components/</span><br>
+&nbsp;&nbsp;<span class="dir">home/ about/ career/ clients/ culture/ admin/</span>   <span class="cm"># per-page sections</span><br>
+&nbsp;&nbsp;<span class="dir">global/</span>               <span class="cm"># Nav, Footer, KiosistIntro, ThemeProvider, SmoothScroll, particle/ambient bg</span><br>
+&nbsp;&nbsp;<span class="dir">primitives/</span>           <span class="cm"># Button, RevealOnScroll, SafeImage</span><br>
+<span class="dir">content/</span>                 <span class="cm"># default/fallback TS data — one file per CMS collection</span><br>
+<span class="dir">lib/</span><br>
+&nbsp;&nbsp;<span class="dir">cms/</span>                  <span class="cm"># collections.ts, text.ts, media.ts, slots.ts, text-keys.ts, gallery-categories.ts, schema.ts</span><br>
+&nbsp;&nbsp;<span class="dir">supabase/</span>server.ts    <span class="cm"># service-role Supabase admin client</span><br>
+&nbsp;&nbsp;<span class="dir">admin/</span>                <span class="cm"># auth.ts, session.ts — jose-signed cookie session</span><br>
+&nbsp;&nbsp;analytics.ts, motion.ts, pageScroll.ts, publicAssets.ts, utils.ts<br>
+<span class="dir">public/</span>                  <span class="cm"># fonts, icons, img/{about,career,culture,hero,logos,slider,team}, logos, lottie, og, video</span><br>
+<span class="dir">scripts/</span>                 <span class="cm"># seed-content.ts, seed-gallery.ts, setup-buckets.ts</span><br>
+<span class="dir">styles/</span>globals.css        <span class="cm"># CSS custom-property design tokens, light + dark</span><br>
+<span class="dir">supabase/</span>schema.sql       <span class="cm"># DB schema — run once in the Supabase SQL editor</span><br>
+proxy.ts                   <span class="cm"># Next "Proxy" middleware — optimistic /admin auth gate</span></div>
+    </section>
+
+    <section id="scripts">
+      <div class="section-head"><span class="idx">11</span><h2>Scripts</h2></div>
+      <p class="section-sub">Run with npm; the two seed scripts use <code>tsx</code> to execute TypeScript directly.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Command</th><th>Runs</th><th>Does</th></tr></thead>
+          <tbody>
+            <tr><td class="mono-cell">npm run dev</td><td class="mono-cell">next dev</td><td>Local dev server.</td></tr>
+            <tr><td class="mono-cell">npm run build</td><td class="mono-cell">next build</td><td>Production build.</td></tr>
+            <tr><td class="mono-cell">npm run start</td><td class="mono-cell">next start</td><td>Serve the production build.</td></tr>
+            <tr><td class="mono-cell">npm run lint</td><td class="mono-cell">next lint</td><td>ESLint (eslint-config-next).</td></tr>
+            <tr><td class="mono-cell">npm run seed</td><td class="mono-cell">tsx scripts/seed-content.ts</td><td>Pushes the <code>content/*.ts</code> defaults into <code>content_items</code> / <code>content_text</code> so the admin panel has starting data.</td></tr>
+            <tr><td class="mono-cell">npm run seed:gallery</td><td class="mono-cell">tsx scripts/seed-gallery.ts</td><td>Seeds the culture photo gallery into <code>media</code>.</td></tr>
+            <tr><td class="mono-cell">—</td><td class="mono-cell">scripts/setup-buckets.ts</td><td>Programmatic alternative to creating the <code>media</code> (public) and <code>resumes</code> (private) Storage buckets from the dashboard.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="page-footer">
+  Kiosist Web (kiosist-web) · reference generated from the working tree at E:\kiosist · not a substitute for reading the source.
+</footer>
+
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+    var sections = links.map(function (l) { return document.getElementById(l.getAttribute('href').slice(1)); }).filter(Boolean);
+    if (!('IntersectionObserver' in window) || !sections.length) return;
+    var current = null;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          if (current) current.classList.remove('active');
+          var link = links[sections.indexOf(entry.target)];
+          if (link) { link.classList.add('active'); current = link; }
+        }
+      });
+    }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+  })();
+</script>

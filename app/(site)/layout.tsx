@@ -1,4 +1,3 @@
-import { KiosistIntro } from "@/components/global/KiosistIntro";
 import { Nav } from "@/components/global/Nav";
 import { Footer } from "@/components/global/Footer";
 import { SmoothScroll } from "@/components/global/SmoothScroll";
@@ -21,7 +20,6 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <>
-      <KiosistIntro />
       {/* Fixed-position canvas- rendered here (not the root layout) so it
           only mounts on marketing pages, not /admin. */}
       <ParticleRingDynamic />

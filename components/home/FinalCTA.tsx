@@ -39,7 +39,7 @@ export function FinalCTA() {
               <h2 className="text-[clamp(1.35rem,5.5vw,2rem)] font-extrabold text-kio-ink">
                 If Making Guest Smile Is What Drives You,
                 <br className="md:hidden" />{" "}
-                <span className="text-color-cycle">Kiosist Is The Place For You</span>
+                <span className="text-white">Kiosist Is The Place For You</span>
               </h2>
             </div>
 

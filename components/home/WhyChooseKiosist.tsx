@@ -125,7 +125,7 @@ export function WhyChooseKiosist() {
       {/* Heading- centered, no explanation copy underneath */}
       <RevealOnScroll className="relative z-10 container-kio mb-14 md:mb-16 lg:mb-20 mx-auto max-w-[640px] text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-          Why Choose <span className="text-gradient-shimmer">Kiosist</span>
+          Why Choose <span className="text-white">Kiosist</span>
         </h2>
       </RevealOnScroll>
 

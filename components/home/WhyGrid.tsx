@@ -73,7 +73,7 @@ export function WhyGrid() {
       {/* Heading- no explanation copy underneath, per brief */}
       <RevealOnScroll className="relative z-10 container-kio mb-14 md:mb-16 lg:mb-20 text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-          <span className="text-color-cycle">Skills</span> And <span className="text-color-cycle">Experience</span> Required
+          <span className="text-white">Skills</span> And <span className="text-white">Experience</span> Required
         </h2>
       </RevealOnScroll>
 
@@ -90,7 +90,7 @@ export function WhyGrid() {
           />
           <h3 className="relative z-10 text-[clamp(1.5rem,7vw,2rem)] font-black leading-tight text-kio-ink md:text-[clamp(0.95rem,3.2vw,2.25rem)]">
             What It <br />
-            <span className="text-color-cycle">Takes</span>
+            <span className="text-white">Takes</span>
           </h3>
           <p className="relative z-10 mt-2 max-w-sm text-[clamp(0.9rem,3.6vw,1rem)] leading-[1.7] text-kio-muted md:mt-[clamp(4px,1.5vw,16px)] md:text-[clamp(0.55rem,1.8vw,.95rem)]">
             We&apos;re looking for people-first individuals ready to deliver exceptional guest experiences.

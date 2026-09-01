@@ -40,7 +40,7 @@ export function WhatIsKiosist() {
           className="relative z-10 flex w-full flex-col justify-center bg-black px-6 py-8 md:w-[38%] md:px-[clamp(12px,4vw,56px)] md:py-[clamp(16px,4vw,40px)]"
         >
           <h3 className="text-[clamp(1.6rem,7vw,2.2rem)] font-extrabold leading-snug text-kio-ink md:text-[clamp(1rem,3.2vw,2.6rem)]">
-            Welcome To <span className="text-color-cycle">Kiosist</span>
+            Welcome To <span className="text-white">Kiosist</span>
           </h3>
 
           <p className="mt-2 text-[clamp(0.95rem,3.8vw,1.15rem)] font-semibold italic text-kio-muted md:text-[clamp(0.6rem,1.8vw,1.25rem)]">

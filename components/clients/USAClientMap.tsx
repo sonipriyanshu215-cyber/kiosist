@@ -137,7 +137,7 @@ export function USAClientMap({ clients }: USAClientMapProps) {
       <div className="container-kio">
         <RevealOnScroll className="mb-6 text-center md:mb-10">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Powering <span className="text-color-cycle">Hospitality Across US</span>
+            Powering <span className="text-white">Hospitality Across US</span>
           </h2>
         </RevealOnScroll>
       </div>

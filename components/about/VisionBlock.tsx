@@ -65,7 +65,7 @@ export function VisionBlock() {
           {/* Text column */}
           <div className="flex-1">
             <span className="text-[clamp(1rem,2.2vw,1.5rem)] font-bold uppercase tracking-[.15em] ">
-              Our <span className="text-color-cycle"> Vision</span>
+              Our <span className="text-white"> Vision</span>
             </span>
 
             {/* Word-by-word reveal- matches MissionBlock's heading treatment */}

@@ -29,7 +29,7 @@ export function MasonryGallery({ gallery = DEFAULT_GALLERY }: MasonryGalleryProp
       <div className="container-kio">
         <RevealOnScroll className="mb-10 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Kiosist <span className="text-color-cycle">Gallery</span>
+            Kiosist <span className="text-white">Gallery</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-kio-muted">
             At Kiosist, every conversation creates a lasting impression. Join us and make

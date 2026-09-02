@@ -20,7 +20,7 @@ function Header() {
   return (
     <div className="container-kio pb-9 pt-8 text-center sm:pb-6">
       <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-        Every Great <span className="text-color-cycle">Journey Begins With A Purpose</span>
+        Every Great <span className="text-white">Journey Begins With A Purpose</span>
       </h2>
       <p className="mt-4 text-kio-muted">
         Here&apos;s how Kiosist came to life.
@@ -48,7 +48,7 @@ function JourneyGrid({ milestones }: { milestones: Milestone[] }) {
         const color = COLORS[i % COLORS.length];
 
         return (
-          <Fragment key={m.id}>
+          <Fragment key={`${m.id}-${i}`}>
             <motion.div
               variants={staggerChild}
               className="group relative flex min-w-0 flex-col justify-start rounded-2xl border border-kio-line bg-kio-bg p-3 pt-8 text-center transition-all duration-300 hover:border-kio-accent/30 hover:shadow-lg hover:shadow-kio-accent/10 sm:min-h-[17rem] sm:p-5 sm:pt-16 xl:flex-1"
@@ -66,7 +66,7 @@ function JourneyGrid({ milestones }: { milestones: Milestone[] }) {
                 <Icon className="h-[1.15rem] w-[1.15rem]" style={{ color }} strokeWidth={1.75} />
               </div>
 
-              <h3 className="text-color-cycle text-xl font-bold xl:text-lg">{m.title}</h3>
+              <h3 className="text-white text-xl font-bold xl:text-lg">{m.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-kio-muted">
                 {m.body}
               </p>
@@ -111,9 +111,9 @@ function JourneyFooter({ journeyYears }: { journeyYears: JourneyYear[] }) {
   return (
     <div className="container-kio pb-10 pt-8">
       <div className="mx-auto max-w-5xl rounded-2xl border border-kio-line bg-kio-bg-soft px-6 py-5 text-center text-sm font-semibold text-kio-ink sm:text-base">
-        A Journey Built On <span className="text-color-cycle">People.</span> Powered By{" "}
-        <span className="text-color-cycle">Purpose.</span> Driven By{" "}
-        <span className="text-color-cycle">Hospitality.</span>
+        A Journey Built On <span className="text-white">People.</span> Powered By{" "}
+        <span className="text-white">Purpose.</span> Driven By{" "}
+        <span className="text-white">Hospitality.</span>
       </div>
 
       <div className="relative mx-auto mt-6 max-w-5xl">
@@ -154,7 +154,7 @@ function JourneyFooter({ journeyYears }: { journeyYears: JourneyYear[] }) {
             above). */}
         <div className="grid grid-cols-1 items-stretch gap-0 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
           {journeyYears.map((y, i) => (
-            <Fragment key={y.year}>
+            <Fragment key={`${y.year}-${i}`}>
               <div className="relative flex min-w-0 w-full flex-col items-center text-center">
                 <span
                   aria-hidden="true"
@@ -173,7 +173,7 @@ function JourneyFooter({ journeyYears }: { journeyYears: JourneyYear[] }) {
                     at sm+, where this gap is a plain margin as before. */}
                 <div aria-hidden="true" className="h-2 w-[2px] shrink-0 sm:hidden" style={{ background: COLORS[i % COLORS.length] }} />
                 <div className="flex w-[85%] flex-col rounded-xl border border-kio-line bg-kio-bg px-3 py-3 sm:h-full sm:w-full">
-                  <div className="text-color-cycle text-lg font-black">{y.year}</div>
+                  <div className="text-white text-lg font-black">{y.year}</div>
                   <p className="mt-1 text-sm font-semibold text-kio-ink">{y.caption}</p>
                   <p className="mt-1 text-sm leading-snug text-kio-muted">{y.body}</p>
                 </div>

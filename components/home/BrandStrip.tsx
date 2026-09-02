@@ -67,7 +67,7 @@ export function BrandStrip() {
       {/* Tagline above heading */}
       <RevealOnScroll className="mb-6 md:mb-16 lg:mb-20 text-center">
         <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-          Trusted by <span className="text-color-cycle">Hotel Brands</span>
+          Trusted by <span className="text-white">Hotel Brands</span>
         </h2>
       </RevealOnScroll>
 

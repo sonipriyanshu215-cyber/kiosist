@@ -50,7 +50,7 @@ export function CareerHero({
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="text-3xl font-black leading-[1.1] tracking-tight md:text-4xl lg:text-5xl"
           >
-            <span className="text-color-cycle block">Grow Your Career</span>
+            <span className="text-white block">Grow Your Career</span>
             <span className="block text-white">Your Next Opportunity Starts Here</span>
           </motion.h1>
 

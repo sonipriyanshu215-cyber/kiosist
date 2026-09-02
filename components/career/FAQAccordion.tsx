@@ -17,7 +17,7 @@ export function FAQAccordion({ faqs = DEFAULT_FAQS }: FAQAccordionProps) {
       <div className="container-kio">
         <RevealOnScroll className="mb-14 md:mb-16 lg:mb-20 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Questions <span className="text-color-cycle">We Hear Often</span>
+            Questions <span className="text-white">We Hear Often</span>
           </h2>
         </RevealOnScroll>
 

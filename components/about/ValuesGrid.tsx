@@ -38,7 +38,7 @@ export function ValuesGrid({ values = DEFAULT_VALUES }: ValuesGridProps) {
       <div className="container-kio relative z-10">
         <RevealOnScroll className="mb-14 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Our <span className="text-color-cycle">Core Values</span>
+            Our <span className="text-white">Core Values</span>
           </h2>
         </RevealOnScroll>
 

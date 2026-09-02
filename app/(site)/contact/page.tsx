@@ -61,14 +61,14 @@ export default async function Contact() {
             <RevealOnScroll>
 
               <h1 className="mt-3 text-[clamp(1.9rem,8vw,2.75rem)] font-bold text-white md:text-[clamp(0.85rem,3.4vw,3rem)]">
-                Let&apos;s Start A <span className="text-color-cycle">Conversation</span>
+                Let&apos;s Start A <span className="text-white">Conversation</span>
               </h1>
               <p className="mt-3 max-w-md text-[clamp(0.95rem,3.6vw,1.05rem)] text-white/70 md:mt-[clamp(4px,1.8vw,20px)] md:text-[clamp(0.55rem,1.8vw,1rem)]">
                 {subtitle}
               </p>
               <p className="mt-3 max-w-md text-[0.85rem] italic text-white/50 md:mt-[clamp(6px,2vw,24px)] md:text-[clamp(0.45rem,1.4vw,0.875rem)]">
                 Every great conversation starts with a simple hello.{" "}
-                <span className="font-semibold not-italic text-color-cycle">
+                <span className="font-semibold not-italic text-white">
                   Let&apos;s start yours.
                 </span>
               </p>

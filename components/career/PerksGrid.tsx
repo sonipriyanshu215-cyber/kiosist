@@ -50,7 +50,7 @@ export function PerksGrid({ perks = DEFAULT_PERKS }: PerksGridProps) {
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
             Benefits Of Working{" "}
             <br className="sm:hidden" />
-            <span className="text-color-cycle">At Kiosist</span>
+            <span className="text-white">At Kiosist</span>
           </h2>
         </RevealOnScroll>
 

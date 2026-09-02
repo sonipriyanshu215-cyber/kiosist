@@ -188,7 +188,7 @@ export function TeamMosaic({ team = DEFAULT_TEAM }: TeamMosaicProps) {
         {/* Heading */}
         <RevealOnScroll className="mb-16 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            Meet The <span className="text-color-cycle">Experts</span>
+            Meet The <span className="text-white">Experts</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-kio-muted">
             Our leadership team combines Industry Expertise, Strategic Thinking and a Passion for delivering exceptional Hospitality Solutions.

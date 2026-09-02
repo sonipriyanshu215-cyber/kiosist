@@ -69,7 +69,7 @@ export function StatCounter({ compact = false }: { compact?: boolean }) {
               className="pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-kio-accent/12 to-transparent"
               style={{ animation: `scan-beam ${3.5 + i * 0.6}s ease-in-out infinite`, animationDelay: `${i * 0.7}s` }}
             />
-            <div className="relative text-[clamp(1rem,5.2vw,2.9rem)] font-black leading-tight text-gradient">
+            <div className="relative text-[clamp(1rem,5.2vw,2.9rem)] font-black leading-tight text-white">
               <Counter to={s.to} suffix={s.suffix} start={isInView} />
             </div>
             <div className="relative mt-1.5 text-[clamp(0.6rem,2vw,1.05rem)] text-kio-muted">{s.label}</div>

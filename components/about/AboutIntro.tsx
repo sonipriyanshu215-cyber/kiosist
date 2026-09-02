@@ -98,7 +98,7 @@ export function AboutIntro({
             {/* Headline */}
             <h1 className="text-[clamp(2rem,9vw,2.75rem)] font-black leading-[1.1] text-white md:text-[clamp(0.85rem,4vw,3rem)] md:leading-[1.15]">
               We Are <br />
-              <span className="text-gradient-shimmer">Guest&apos;s First Hello</span>
+              <span className="text-white">Guest&apos;s First Hello</span>
             </h1>
 
             {/* Subtitle */}
@@ -202,7 +202,7 @@ export function AboutIntro({
 
         <RevealOnScroll className="relative z-10 container-kio mb-14 md:mb-16 lg:mb-20 text-center">
           <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold leading-[1.2] text-kio-ink">
-            What <span className="text-color-cycle">We Do</span>
+            What <span className="text-white">We Do</span>
           </h2>
         </RevealOnScroll>
 

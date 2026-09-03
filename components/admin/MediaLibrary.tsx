@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Upload, Trash2, Copy, Check, ChevronUp, ChevronDown } from "lucide-react";
 import { IMAGE_SLOTS } from "@/lib/cms/slots";
 import { GALLERY_CATEGORIES } from "@/lib/cms/gallery-categories";
+import { IMAGE_FILE_ACCEPT } from "@/lib/cms/image-formats";
 
 type MediaRow = {
   id: string;
@@ -56,7 +57,7 @@ function SlotRow({ slot, current, onChange }: { slot: (typeof IMAGE_SLOTS)[numbe
         <p className="font-medium text-kio-ink">{slot.label}</p>
         <p className="mt-0.5 truncate text-xs text-kio-muted">{current ? "Custom upload" : `Default (${slot.fallback})`}</p>
       </div>
-      <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={onFile} />
+      <input ref={inputRef} type="file" accept={IMAGE_FILE_ACCEPT} className="hidden" onChange={onFile} />
       <button
         onClick={() => inputRef.current?.click()}
         disabled={busy}
@@ -201,7 +202,7 @@ function GallerySection({ media, onChange }: { media: MediaRow[]; onChange: (med
               <option key={c} value={c}>{c}</option>
             ))}
           </select>
-          <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={onFile} />
+          <input ref={inputRef} type="file" accept={IMAGE_FILE_ACCEPT} className="hidden" onChange={onFile} />
           <button
             onClick={() => inputRef.current?.click()}
             disabled={busy}
@@ -291,7 +292,7 @@ export function MediaLibrary() {
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-kio-muted">General uploads</h2>
           <div>
-            <input ref={uploadInputRef} type="file" accept="image/*" className="hidden" onChange={onGeneralUpload} />
+            <input ref={uploadInputRef} type="file" accept={IMAGE_FILE_ACCEPT} className="hidden" onChange={onGeneralUpload} />
             <button
               onClick={() => uploadInputRef.current?.click()}
               disabled={busy}

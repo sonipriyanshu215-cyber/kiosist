@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
+import { ACCEPTED_IMAGE_MIME_TYPES, UNSUPPORTED_IMAGE_MESSAGE } from "@/lib/cms/image-formats";
 
 const MAX_UPLOAD_BYTES = 8 * 1024 * 1024; // 8MB
 
@@ -42,8 +43,11 @@ export async function POST(req: Request) {
   const altText = (formData.get("altText") as string | null) || null;
 
   if (!file) return NextResponse.json({ error: "Missing file" }, { status: 400 });
-  if (!file.type.startsWith("image/")) {
-    return NextResponse.json({ error: "Only image uploads are allowed" }, { status: 400 });
+  // Allowlist, not an `image/*` prefix check- HEIC/HEIF (empty or
+  // image/heic type), SVG, TIFF and BMP all pass `startsWith("image/")`
+  // but don't render across browsers. See lib/cms/image-formats.ts.
+  if (!(ACCEPTED_IMAGE_MIME_TYPES as readonly string[]).includes(file.type)) {
+    return NextResponse.json({ error: UNSUPPORTED_IMAGE_MESSAGE }, { status: 400 });
   }
   if (file.size > MAX_UPLOAD_BYTES) {
     return NextResponse.json({ error: "File exceeds 8MB limit" }, { status: 400 });

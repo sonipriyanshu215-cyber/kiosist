@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 
@@ -57,12 +58,19 @@ export async function POST(req: Request) {
     }
   }
 
+  // Every upload- slots included- gets a unique path, so replacing a slot
+  // image always produces a brand-new public URL. Reusing a fixed path
+  // (e.g. slots/logo.png) meant the URL never changed, so browsers and any
+  // CDN in front kept serving the *previous* file's bytes for as long as
+  // their cache lived- the classic "new image only shows on the PC that
+  // uploaded it" bug. A fresh URL every time sidesteps every cache layer.
   const ext = file.name.split(".").pop() || "bin";
-  const storagePath = `${slotKey ? `slots/${slotKey}` : `uploads/${randomUUID()}`}.${ext}`;
+  const prefix = slotKey ? `slots/${slotKey}` : "uploads";
+  const storagePath = `${prefix}/${randomUUID()}.${ext}`;
 
   const { error: uploadError } = await supabase.storage
     .from("media")
-    .upload(storagePath, file, { contentType: file.type, upsert: true });
+    .upload(storagePath, file, { contentType: file.type, cacheControl: "3600" });
   if (uploadError) return NextResponse.json({ error: uploadError.message }, { status: 500 });
 
   const { data: publicUrlData } = supabase.storage.from("media").getPublicUrl(storagePath);
@@ -85,5 +93,11 @@ export async function POST(req: Request) {
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  // Push the change to every device on the next request instead of waiting
+  // out each page's 60s ISR window (which some hosts don't honour at all).
+  // The logo slot lives in the shared site layout, so revalidate broadly.
+  revalidatePath("/", "layout");
+
   return NextResponse.json({ media: data });
 }

@@ -59,7 +59,15 @@ export async function POST(req: Request) {
     }
 
     const RESEND_KEY = process.env.RESEND_API_KEY;
-    const TO_EMAIL = process.env.HR_EMAIL ?? "hr@kiosist.com";
+    // Career applications notify both company inboxes in a single send. Env
+    // vars override the defaults; if both resolve to the same address the
+    // Set collapses it so Resend doesn't get a duplicate recipient.
+    const recipients = [
+      ...new Set([
+        process.env.HR_EMAIL ?? "hr@kiosist.com",
+        process.env.HIRING_EMAIL ?? "Henaldalal@kiosist.com",
+      ]),
+    ];
 
     if (RESEND_KEY) {
       try {
@@ -73,7 +81,7 @@ export async function POST(req: Request) {
 
         await resend.emails.send({
           from: "Kiosist Careers <no-reply@kiosist.com>",
-          to: TO_EMAIL,
+          to: recipients,
           subject: `New Career Application- ${name} (${role})`,
           html: `
             <h2>New Career Application</h2>

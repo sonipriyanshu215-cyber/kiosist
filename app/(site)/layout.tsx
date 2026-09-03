@@ -13,8 +13,9 @@ import { getText } from "@/lib/cms/text";
 export const revalidate = 60;
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
-  const [logoSrc, navCtaLabel] = await Promise.all([
+  const [logoSrc, footerMascotSrc, navCtaLabel] = await Promise.all([
     getImageUrl("logo", "/img/kiosist-logo.png"),
+    getImageUrl("footer.mascot", "/img/hero/agent-red.png"),
     getText("nav.cta.label", "Join Us"),
   ]);
 
@@ -28,7 +29,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         <SmoothScroll>
           <Nav logoSrc={logoSrc} ctaLabel={navCtaLabel} />
           <main>{children}</main>
-          <Footer logoSrc={logoSrc} />
+          <Footer logoSrc={logoSrc} mascotSrc={footerMascotSrc} />
         </SmoothScroll>
       </div>
     </>

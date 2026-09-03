@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 
@@ -16,5 +17,10 @@ export async function DELETE(_req: Request, ctx: RouteContext<"/api/admin/media/
 
   const { error } = await supabase.from("media").delete().eq("id", id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  // Deleting a slot reverts it to the bundled default; deleting a gallery
+  // photo drops it from the Culture page. Both must show everywhere now.
+  revalidatePath("/", "layout");
+
   return NextResponse.json({ success: true });
 }

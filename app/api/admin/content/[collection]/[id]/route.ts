@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { COLLECTION_CONFIG } from "@/lib/cms/schema";
@@ -29,6 +30,11 @@ export async function PATCH(req: Request, ctx: RouteContext<"/api/admin/content/
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  // Content edits (incl. an uploaded team photo) land on every device on
+  // the next request instead of waiting out each page's 60s ISR window.
+  revalidatePath("/", "layout");
+
   return NextResponse.json({ item: data });
 }
 
@@ -43,5 +49,8 @@ export async function DELETE(_req: Request, ctx: RouteContext<"/api/admin/conten
 
   const { error } = await supabase.from("content_items").delete().eq("id", id).eq("collection", collection);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  revalidatePath("/", "layout");
+
   return NextResponse.json({ success: true });
 }

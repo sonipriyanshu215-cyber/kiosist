@@ -2,7 +2,7 @@
 // entry describes one form field; `key` is a dot-path into the item object
 // (numeric segments index into arrays, e.g. "coordinates.0"), read/written
 // with the getPath/setPath helpers below.
-export type FieldType = "text" | "textarea" | "number" | "select";
+export type FieldType = "text" | "textarea" | "number" | "select" | "image";
 
 export type FieldDef = {
   key: string;
@@ -110,12 +110,12 @@ export const COLLECTION_CONFIG: Record<string, CollectionConfig> = {
   },
   team: {
     label: "Team",
-    description: "Leadership cards on the Home page. Paste an uploaded image's URL from Media into \"Photo URL\".",
+    description: "The \"Meet The Experts\" leadership cards on the About page. Upload each person's photo directly on their card.",
     titleField: "name",
     fields: [
       { key: "name", label: "Name", type: "text", required: true },
       { key: "tag", label: "Title / role", type: "text", required: true },
-      { key: "img", label: "Photo URL", type: "text" },
+      { key: "img", label: "Photo", type: "image" },
     ],
     emptyItem: { name: "", tag: "", img: "" },
   },

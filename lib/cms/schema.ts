@@ -110,14 +110,16 @@ export const COLLECTION_CONFIG: Record<string, CollectionConfig> = {
   },
   team: {
     label: "Team",
-    description: "The \"Meet The Experts\" leadership cards on the About page. Upload each person's photo directly on their card.",
+    description:
+      "The \"Meet The Experts\" leadership cards on the About page. Upload each person's photo directly on their card- use head-and-shoulders portraits for consistent framing. \"Photo focus\" nudges the circular crop if a face sits high or low.",
     titleField: "name",
     fields: [
       { key: "name", label: "Name", type: "text", required: true },
       { key: "tag", label: "Title / role", type: "text", required: true },
       { key: "img", label: "Photo", type: "image" },
+      { key: "pos", label: "Photo focus", type: "select", options: ["top", "center", "bottom"] },
     ],
-    emptyItem: { name: "", tag: "", img: "" },
+    emptyItem: { name: "", tag: "", img: "", pos: "top" },
   },
   roles: {
     label: "Career Roles",

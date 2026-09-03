@@ -42,19 +42,25 @@ export function CareerHero({
 
       {/* ── Main content- single column, left-aligned ── */}
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 md:px-10 xl:px-14">
-        <div className="max-w-[560px] lg:max-w-[640px] xl:max-w-[760px]">
+        <div className="max-w-[560px] lg:max-w-[620px]">
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-3xl font-black leading-[1.1] tracking-tight md:text-4xl lg:text-5xl lg:leading-[1.08] lg:text-balance xl:text-[3.5rem] 2xl:text-[4rem]"
+            className="text-4xl font-black leading-[1.05] tracking-tight text-white md:text-5xl lg:text-6xl xl:text-[4rem]"
           >
-            <span className="block text-white">Grow Your Career</span>
-            <span className="block text-white lg:mt-2">
-              Your Next Opportunity Starts Here
-            </span>
+            Grow Your Career
           </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-3 text-lg font-semibold text-white/80 md:text-xl lg:mt-4 lg:text-2xl"
+          >
+            Your Next Opportunity Starts Here
+          </motion.p>
 
           {/* CTA card, below the headline */}
           <div className="mt-8 xl:mt-10">

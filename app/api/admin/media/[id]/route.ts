@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidateSite } from "@/lib/cms/revalidate";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 
@@ -20,7 +20,7 @@ export async function DELETE(_req: Request, ctx: RouteContext<"/api/admin/media/
 
   // Deleting a slot reverts it to the bundled default; deleting a gallery
   // photo drops it from the Culture page. Both must show everywhere now.
-  revalidatePath("/", "layout");
+  revalidateSite();
 
   return NextResponse.json({ success: true });
 }

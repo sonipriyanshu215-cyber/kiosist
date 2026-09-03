@@ -3,11 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronUp, ChevronDown, Trash2, Plus, Save, Upload } from "lucide-react";
 import { COLLECTION_CONFIG, getPath, setPath, type FieldDef } from "@/lib/cms/schema";
-import {
-  ACCEPTED_IMAGE_MIME_TYPES,
-  IMAGE_FILE_ACCEPT,
-  UNSUPPORTED_IMAGE_MESSAGE,
-} from "@/lib/cms/image-formats";
+import { IMAGE_FILE_ACCEPT, imageFileError } from "@/lib/cms/image-formats";
 
 type Item = { id: string; data: unknown; sort_order: number };
 
@@ -17,7 +13,10 @@ async function uploadImage(file: File): Promise<string> {
   const formData = new FormData();
   formData.append("file", file);
   const res = await fetch("/api/admin/media", { method: "POST", body: formData });
-  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? "Upload failed");
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error ?? `Upload failed (HTTP ${res.status})`);
+  }
   return (await res.json()).media.url as string;
 }
 
@@ -29,9 +28,11 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
-    // HEIC files can slip past the `accept` filter- reject before uploading.
-    if (!(ACCEPTED_IMAGE_MIME_TYPES as readonly string[]).includes(file.type)) {
-      alert(UNSUPPORTED_IMAGE_MESSAGE);
+    // HEIC / oversized files can slip past the `accept` filter- catch them
+    // here so the admin gets a clear message without a failed round trip.
+    const preflight = imageFileError(file);
+    if (preflight) {
+      alert(preflight);
       return;
     }
     setBusy(true);

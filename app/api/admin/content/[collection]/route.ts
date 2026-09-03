@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidateSite } from "@/lib/cms/revalidate";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { COLLECTION_CONFIG } from "@/lib/cms/schema";
@@ -56,7 +56,7 @@ export async function POST(req: Request, ctx: RouteContext<"/api/admin/content/[
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  revalidatePath("/", "layout");
+  revalidateSite();
 
   return NextResponse.json({ item: data });
 }

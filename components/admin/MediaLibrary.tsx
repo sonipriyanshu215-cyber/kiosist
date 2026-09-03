@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Upload, Trash2, Copy, Check, ChevronUp, ChevronDown } from "lucide-react";
 import { IMAGE_SLOTS } from "@/lib/cms/slots";
 import { GALLERY_CATEGORIES } from "@/lib/cms/gallery-categories";
-import { IMAGE_FILE_ACCEPT } from "@/lib/cms/image-formats";
+import { IMAGE_FILE_ACCEPT, imageFileError } from "@/lib/cms/image-formats";
 
 type MediaRow = {
   id: string;
@@ -16,13 +16,19 @@ type MediaRow = {
 };
 
 async function upload(file: File, opts: { slotKey?: string; collection?: string; altText?: string }) {
+  const preflight = imageFileError(file);
+  if (preflight) throw new Error(preflight);
+
   const formData = new FormData();
   formData.append("file", file);
   if (opts.slotKey) formData.append("slotKey", opts.slotKey);
   if (opts.collection) formData.append("collection", opts.collection);
   if (opts.altText) formData.append("altText", opts.altText);
   const res = await fetch("/api/admin/media", { method: "POST", body: formData });
-  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? "Upload failed");
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error ?? `Upload failed (HTTP ${res.status})`);
+  }
   return (await res.json()).media as MediaRow;
 }
 

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 
@@ -24,6 +25,8 @@ export async function POST(req: Request, ctx: RouteContext<"/api/admin/content/[
   );
   const failed = results.find((r) => r.error);
   if (failed?.error) return NextResponse.json({ error: failed.error.message }, { status: 500 });
+
+  revalidatePath("/", "layout");
 
   return NextResponse.json({ success: true });
 }

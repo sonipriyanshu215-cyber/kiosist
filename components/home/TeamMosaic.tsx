@@ -25,8 +25,7 @@ import { team as DEFAULT_TEAM, type TeamMember } from "@/content/team";
 // Full class names are spelled out (not built by string interpolation) so
 // Tailwind's scanner keeps them in the build. Accepts the structured
 // "top"/"center"/"bottom" focus value, tolerates a legacy raw class like
-// "object-top", and defaults to top- which keeps the face in frame for a
-// typical head-and-shoulders portrait.
+// "object-top", and defaults to centered.
 const OBJECT_POSITION_CLASS: Record<string, string> = {
   top: "object-top",
   center: "object-center",
@@ -36,7 +35,7 @@ const OBJECT_POSITION_CLASS: Record<string, string> = {
   "object-bottom": "object-bottom",
 };
 function objectPositionClass(pos?: string): string {
-  return OBJECT_POSITION_CLASS[pos ?? "top"] ?? "object-top";
+  return OBJECT_POSITION_CLASS[pos ?? "center"] ?? "object-center";
 }
 
 function AvatarCard({

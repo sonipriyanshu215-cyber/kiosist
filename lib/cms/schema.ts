@@ -117,9 +117,9 @@ export const COLLECTION_CONFIG: Record<string, CollectionConfig> = {
       { key: "name", label: "Name", type: "text", required: true },
       { key: "tag", label: "Title / role", type: "text", required: true },
       { key: "img", label: "Photo", type: "image" },
-      { key: "pos", label: "Photo focus", type: "select", options: ["top", "center", "bottom"] },
+      { key: "pos", label: "Photo focus", type: "select", options: ["center", "top", "bottom"] },
     ],
-    emptyItem: { name: "", tag: "", img: "", pos: "top" },
+    emptyItem: { name: "", tag: "", img: "", pos: "center" },
   },
   roles: {
     label: "Career Roles",

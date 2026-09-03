@@ -42,25 +42,27 @@ export function CareerHero({
 
       {/* ── Main content- single column, left-aligned ── */}
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 md:px-10 xl:px-14">
-        <div className="max-w-[560px]">
+        <div className="max-w-[560px] lg:max-w-[640px] xl:max-w-[760px]">
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-3xl font-black leading-[1.1] tracking-tight md:text-4xl lg:text-5xl"
+            className="text-3xl font-black leading-[1.1] tracking-tight md:text-4xl lg:text-5xl lg:leading-[1.08] lg:text-balance xl:text-[3.5rem] 2xl:text-[4rem]"
           >
-            <span className="text-white block">Grow Your Career</span>
-            <span className="block text-white">Your Next Opportunity Starts Here</span>
+            <span className="block text-white">Grow Your Career</span>
+            <span className="block text-white lg:mt-2">
+              Your Next Opportunity Starts Here
+            </span>
           </motion.h1>
 
           {/* CTA card, below the headline */}
-          <div className="mt-8">
+          <div className="mt-8 xl:mt-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
-              className="relative rounded-[24px] border border-white/10 p-6"
+              className="relative rounded-[24px] border border-white/10 p-6 xl:p-7"
               style={{ background: "linear-gradient(135deg, rgba(59,130,246,.28), rgba(6,182,212,.16))" }}
             >
               {/* Thumbs-up badge- floats above the card as the hero's visual accent */}
@@ -77,8 +79,8 @@ export function CareerHero({
                 <ThumbsUp className="h-6 w-6 text-kio-accent2" fill="currentColor" fillOpacity={0.15} />
               </motion.div>
 
-              <p className="text-lg font-bold text-white">Ready to Apply?</p>
-              <p className="mt-1.5 text-xs leading-relaxed text-white/70">{blurb}</p>
+              <p className="text-lg font-bold text-white xl:text-xl">Ready to Apply?</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-white/70 xl:text-sm">{blurb}</p>
               <Link
                 href="#apply"
                 className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#05070D] shadow-[0_10px_30px_rgba(255,255,255,.15)] transition-transform hover:-translate-y-0.5"

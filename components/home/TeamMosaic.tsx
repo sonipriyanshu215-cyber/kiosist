@@ -21,6 +21,24 @@ const ACCENTS = [
 
 import { team as DEFAULT_TEAM, type TeamMember } from "@/content/team";
 
+// Every avatar uses the same crop anchor so uploaded headshots line up.
+// Full class names are spelled out (not built by string interpolation) so
+// Tailwind's scanner keeps them in the build. Accepts the structured
+// "top"/"center"/"bottom" focus value, tolerates a legacy raw class like
+// "object-top", and defaults to top- which keeps the face in frame for a
+// typical head-and-shoulders portrait.
+const OBJECT_POSITION_CLASS: Record<string, string> = {
+  top: "object-top",
+  center: "object-center",
+  bottom: "object-bottom",
+  "object-top": "object-top",
+  "object-center": "object-center",
+  "object-bottom": "object-bottom",
+};
+function objectPositionClass(pos?: string): string {
+  return OBJECT_POSITION_CLASS[pos ?? "top"] ?? "object-top";
+}
+
 function AvatarCard({
   member,
   idx,
@@ -108,7 +126,7 @@ function AvatarCard({
                   unoptimized={isRemoteImageSrc(member.img)}
                   alt={member.name}
                   fill
-                  className={`object-cover ${member.pos ?? ""}`}
+                  className={`object-cover ${objectPositionClass(member.pos)}`}
                   onError={() => setImgErr(true)}
                   sizes="112px"
                 />

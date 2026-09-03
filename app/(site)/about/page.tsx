@@ -7,6 +7,7 @@ import { TeamMosaic } from "@/components/home/TeamMosaic";
 import { TimelineScene } from "@/components/about/TimelineScene";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { getValues, getMilestones, getJourneyYears, getTeam } from "@/lib/cms/collections";
+import { getImageUrl } from "@/lib/cms/media";
 import { getText } from "@/lib/cms/text";
 
 export const revalidate = 60;
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function About() {
-  const [values, milestones, journeyYears, team, subtitle] = await Promise.all([
+  const [values, milestones, journeyYears, team, subtitle, introImage, missionImage, visionImage] = await Promise.all([
     getValues(),
     getMilestones(),
     getJourneyYears(),
@@ -31,14 +32,17 @@ export default async function About() {
       "about.hero.subtitle",
       "We are the leading service provider for remotely operating front desks for hotels based in the US."
     ),
+    getImageUrl("about.intro.image", "/img/about/agent-workstation-2.jpeg"),
+    getImageUrl("about.mission.image", "/img/about/mission-2.png"),
+    getImageUrl("about.vision.image", "/img/about/vision-1.png"),
   ]);
 
   return (
     <>
-      <AboutIntro subtitle={subtitle} />
+      <AboutIntro subtitle={subtitle} imageSrc={introImage} />
       <TimelineScene milestones={milestones} journeyYears={journeyYears} />
-      <MissionBlock />
-      <VisionBlock />
+      <MissionBlock imageSrc={missionImage} />
+      <VisionBlock imageSrc={visionImage} />
       <ValuesGrid values={values} />
       <TeamMosaic team={team} />
       <FinalCTA />

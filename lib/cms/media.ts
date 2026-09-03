@@ -17,7 +17,17 @@ export async function getImageUrl(slotKey: string, fallbackSrc: string): Promise
   const supabase = getSupabaseAdmin();
   if (!supabase) return fallbackSrc;
 
-  const { data, error } = await supabase.from("media").select("url").eq("slot_key", slotKey).maybeSingle();
+  // Newest-first + limit(1): the slot_key unique constraint plus the
+  // delete-before-insert in the upload route should keep this to one row,
+  // but if a stray duplicate ever slips in, take the latest instead of
+  // letting .single() throw and silently dropping back to the bundled image.
+  const { data, error } = await supabase
+    .from("media")
+    .select("url")
+    .eq("slot_key", slotKey)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
   if (error || !data) return fallbackSrc;
   return data.url;
 }

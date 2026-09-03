@@ -61,9 +61,13 @@ const SOCIAL = [
 
 interface FooterProps {
   logoSrc?: string;
+  mascotSrc?: string;
 }
 
-export function Footer({ logoSrc = "/img/kiosist-logo.png" }: FooterProps) {
+export function Footer({
+  logoSrc = "/img/kiosist-logo.png",
+  mascotSrc = "/img/hero/agent-red.png",
+}: FooterProps) {
   return (
     <footer className="border-t border-kio-line bg-kio-bg-soft pb-16 lg:pb-0">
       <div className="container-kio py-9">
@@ -152,7 +156,8 @@ export function Footer({ logoSrc = "/img/kiosist-logo.png" }: FooterProps) {
               hidden there (map keeps its existing justify-self-end spot). */}
           <div className="relative aspect-square w-full max-w-[150px] justify-self-start self-center md:hidden">
             <Image
-              src="/img/hero/agent-red.png"
+              src={mascotSrc}
+              unoptimized={isRemoteImageSrc(mascotSrc)}
               alt="A Kiosist front desk agent"
               fill
               className="object-contain object-center"

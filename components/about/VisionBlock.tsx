@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const TEXT =
@@ -18,7 +19,11 @@ const wordVariants: Variants = {
   },
 };
 
-export function VisionBlock() {
+interface VisionBlockProps {
+  imageSrc?: string;
+}
+
+export function VisionBlock({ imageSrc = "/img/about/vision-1.png" }: VisionBlockProps) {
   const rm = useReducedMotion();
 
   return (
@@ -52,7 +57,8 @@ export function VisionBlock() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
               <Image
-                src="/img/about/vision-1.png"
+                src={imageSrc}
+                unoptimized={isRemoteImageSrc(imageSrc)}
                 alt="Vision - blub icon"
                 width={1024}
                 height={1024}

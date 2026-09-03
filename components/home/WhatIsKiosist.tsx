@@ -2,8 +2,13 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
-export function WhatIsKiosist() {
+interface WhatIsKiosistProps {
+  imageSrc?: string;
+}
+
+export function WhatIsKiosist({ imageSrc = "/img/about/kiosist-team.jpeg" }: WhatIsKiosistProps) {
   const rm = useReducedMotion();
 
   return (
@@ -73,7 +78,8 @@ export function WhatIsKiosist() {
           className="relative h-[78vw] max-h-[420px] w-full md:h-auto md:max-h-none md:w-[62%]"
         >
           <Image
-            src="/img/about/kiosist-team.jpeg"
+            src={imageSrc}
+            unoptimized={isRemoteImageSrc(imageSrc)}
             alt="The Kiosist team at their office in India"
             fill
             className="object-cover object-[center_35%]"

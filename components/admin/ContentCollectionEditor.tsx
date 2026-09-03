@@ -3,6 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronUp, ChevronDown, Trash2, Plus, Save, Upload } from "lucide-react";
 import { COLLECTION_CONFIG, getPath, setPath, type FieldDef } from "@/lib/cms/schema";
+import {
+  ACCEPTED_IMAGE_MIME_TYPES,
+  IMAGE_FILE_ACCEPT,
+  UNSUPPORTED_IMAGE_MESSAGE,
+} from "@/lib/cms/image-formats";
 
 type Item = { id: string; data: unknown; sort_order: number };
 
@@ -22,7 +27,13 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
 
   async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
+    // HEIC files can slip past the `accept` filter- reject before uploading.
+    if (!(ACCEPTED_IMAGE_MIME_TYPES as readonly string[]).includes(file.type)) {
+      alert(UNSUPPORTED_IMAGE_MESSAGE);
+      return;
+    }
     setBusy(true);
     try {
       onChange(await uploadImage(file));
@@ -30,7 +41,6 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
       alert(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setBusy(false);
-      e.target.value = "";
     }
   }
 
@@ -49,7 +59,7 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
         </div>
       )}
       <div className="flex flex-wrap items-center gap-2">
-        <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={onFile} />
+        <input ref={inputRef} type="file" accept={IMAGE_FILE_ACCEPT} className="hidden" onChange={onFile} />
         <button
           type="button"
           onClick={() => inputRef.current?.click()}

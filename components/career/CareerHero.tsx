@@ -36,7 +36,7 @@ export function CareerHero({
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(180deg, rgba(5,7,13,.55) 0%, rgba(5,7,13,.45) 40%, rgba(5,7,13,.92) 100%)" }}
+          style={{ background: "linear-gradient(180deg, rgba(2,3,7,.40) 0%, rgba(5,7,13,.45) 40%, rgba(5,7,13,.92) 100%)" }}
         />
         <div
           className="absolute inset-0"

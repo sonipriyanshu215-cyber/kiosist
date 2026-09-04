@@ -59,13 +59,14 @@ export async function POST(req: Request) {
     }
 
     const RESEND_KEY = process.env.RESEND_API_KEY;
-    // Career applications notify both company inboxes in a single send. Env
-    // vars override the defaults; if both resolve to the same address the
-    // Set collapses it so Resend doesn't get a duplicate recipient.
+    // Career applications notify every recipient below in a single send. Env
+    // vars override the defaults; the Set collapses any that resolve to the
+    // same address so Resend doesn't get a duplicate recipient.
     const recipients = [
       ...new Set([
         process.env.HR_EMAIL ?? "hr@kiosist.com",
         process.env.HIRING_EMAIL ?? "Henaldalal@kiosist.com",
+        process.env.HIRING_EMAIL_2 ?? "adaniraj2011@gmail.com",
       ]),
     ];
 

@@ -18,9 +18,12 @@ export function CareerHero({
   const rm = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-[75vh] flex-col justify-center overflow-hidden pb-16 pt-[90px] md:min-h-screen">
-      {/* ── Full-bleed background photo ── */}
-      <div className="absolute inset-0" aria-hidden="true">
+    <section className="relative flex min-h-[75vh] flex-col justify-start overflow-hidden pb-16 pt-[90px] md:min-h-screen md:justify-center">
+      {/* ── Full-bleed background photo (md+ only) ──
+          On mobile the photo drops out of the background and moves into a
+          contained card below the copy (same treatment as the home hero's
+          video), so this full-bleed layer only renders at md:+. */}
+      <div className="absolute inset-0 hidden md:block" aria-hidden="true">
         <Image
           src={heroSrc}
           unoptimized={isRemoteImageSrc(heroSrc)}
@@ -45,6 +48,15 @@ export function CareerHero({
           style={{ background: "linear-gradient(90deg, rgba(5,7,13,.82) 0%, rgba(5,7,13,.2) 38%, rgba(5,7,13,.15) 68%, rgba(5,7,13,.3) 100%)" }}
         />
       </div>
+
+      {/* Faint top glow for the mobile stacked layout- there's no full-bleed
+          photo there to carry the hero's atmosphere against the flat dark
+          page background. */}
+      <div
+        className="absolute inset-x-0 top-0 h-[60vh] md:hidden"
+        aria-hidden="true"
+        style={{ background: "radial-gradient(120% 70% at 50% 0%, rgba(59,130,246,.12), transparent 70%)" }}
+      />
 
       {/* ── Main content- single column, left-aligned ── */}
       {/* max-w-container + clamp() typography (same system as the home hero)
@@ -106,6 +118,28 @@ export function CareerHero({
               </Link>
             </motion.div>
           </div>
+
+          {/* Career photo- contained card, mobile only. On md+ this same photo
+              is the section's full-bleed background instead (see above). Mirrors
+              the home hero's video card: 4:3, rounded, soft drop shadow. */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mt-[clamp(1.75rem,6vw,2.5rem)] aspect-[4/3] overflow-hidden rounded-[clamp(14px,4vw,24px)] shadow-[0_30px_80px_rgba(0,0,0,.55)] md:hidden"
+          >
+            <Image
+              src={heroSrc}
+              unoptimized={isRemoteImageSrc(heroSrc)}
+              alt="Kiosist team at work"
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+            {/* Bottom scrim, matching the home hero card */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          </motion.div>
 
         </div>
       </div>

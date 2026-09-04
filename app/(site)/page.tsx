@@ -10,11 +10,11 @@ import { getImageUrl } from "@/lib/cms/media";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Kiosist- Smart Hotel Self-Service Kiosks",
+  title: "Kiosist - Inspired by Convenience, Driven by Excellence",
   description:
     "Kiosist transforms your hotel lobby with intelligent self-service kiosks- cutting operational costs while elevating every guest touchpoint.",
   openGraph: {
-    title: "Kiosist- Smart Hotel Self-Service Kiosks",
+    title: "Kiosist - Inspired by Convenience, Driven by Excellence",
     description: "Intelligent self-service kiosk solutions for modern hotels.",
     images: [{ url: "/og/home.jpg", width: 1200, height: 630 }],
   },

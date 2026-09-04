@@ -21,7 +21,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const whatIsImage = await getImageUrl("home.about.image", "/img/about/kiosist-team.jpeg");
+  const [whatIsImage, ...whyChooseImages] = await Promise.all([
+    getImageUrl("home.about.image", "/img/about/kiosist-team.jpeg"),
+    // Empty fallback- the component keeps its own bundled photo for any
+    // slot that hasn't been replaced from the admin.
+    ...[1, 2, 3, 4, 5, 6].map((n) => getImageUrl(`home.whychoose.${n}`, "")),
+  ]);
 
   return (
     <div className="relative">
@@ -29,7 +34,7 @@ export default async function Home() {
       <WhatIsKiosist imageSrc={whatIsImage} />
       <StatCounter />
       <WhyGrid />
-      <WhyChooseKiosist />
+      <WhyChooseKiosist images={whyChooseImages} />
       <FinalCTA />
     </div>
   );

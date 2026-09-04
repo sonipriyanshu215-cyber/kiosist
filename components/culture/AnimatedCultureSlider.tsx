@@ -5,46 +5,27 @@ import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 import { isRemoteImageSrc } from "@/lib/cms/image-props";
+import { cultureSlider as DEFAULT_SLIDES, type CultureSlide } from "@/content/cultureSlider";
 
-// Exactly 3 default slides for a clean, classic presentation
-const DEFAULT_SLIDES = [
-  {
-    id: 1,
-    title: "Annual Team Retreat",
-    subtitle: "Connecting beyond the screen",
-    image: "/img/slider/DSC08351 (1).JPG.jpeg",
-  },
-  {
-    id: 2,
-    title: "Hospitality Expo USA",
-    subtitle: "Showcasing our innovations",
-    image: "/img/slider/DSC08256.JPG.jpeg",
-  },
-  {
-    id: 3,
-    title: "Office Hackathons",
-    subtitle: "Building the future of service",
-    image: "/img/slider/DSC08314.JPG.jpeg",
-  },
-];
+export type { CultureSlide };
 
 const AUTOPLAY_MS = 5000;
 
 interface AnimatedCultureSliderProps {
-  // One entry per default slide (in order). A falsy entry keeps that slide's
-  // bundled image. Wired from the Culture page's `culture.slider.{1,2,3}`
-  // image slots so an admin can swap any slide photo without a deploy.
-  images?: (string | undefined)[];
+  // Ordered slide photos from the `culture-slider` media collection. Empty/
+  // omitted -> the bundled DEFAULT_SLIDES are shown. Length is dynamic: the
+  // dots and autoplay follow whatever count is passed.
+  slides?: CultureSlide[];
 }
 
-export function AnimatedCultureSlider({ images }: AnimatedCultureSliderProps = {}) {
+export function AnimatedCultureSlider({ slides: slidesProp }: AnimatedCultureSliderProps = {}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const rm = useReducedMotion();
 
-  const slides = DEFAULT_SLIDES.map((slide, i) => ({
-    ...slide,
-    image: images?.[i] || slide.image,
-  }));
+  const slides = slidesProp && slidesProp.length > 0 ? slidesProp : DEFAULT_SLIDES;
+  // Guard against a shrunk list leaving currentIndex out of range mid-session.
+  const safeIndex = currentIndex % slides.length;
+  const activeSlide = slides[safeIndex];
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
@@ -64,7 +45,7 @@ export function AnimatedCultureSlider({ images }: AnimatedCultureSliderProps = {
           never revealed mid-transition. */}
       <AnimatePresence>
         <motion.div
-          key={currentIndex}
+          key={safeIndex}
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -72,10 +53,10 @@ export function AnimatedCultureSlider({ images }: AnimatedCultureSliderProps = {
           className="absolute inset-0 h-full w-full"
         >
           <Image
-            src={slides[currentIndex].image}
-            alt={slides[currentIndex].title}
+            src={activeSlide.src}
+            alt={activeSlide.alt}
             fill
-            unoptimized={isRemoteImageSrc(slides[currentIndex].image)}
+            unoptimized={isRemoteImageSrc(activeSlide.src)}
             className="object-cover"
             sizes="100vw"
             priority
@@ -112,7 +93,7 @@ export function AnimatedCultureSlider({ images }: AnimatedCultureSliderProps = {
             onClick={() => setCurrentIndex(index)}
             aria-label={`Go to slide ${index + 1}`}
             className={`h-2 rounded-full transition-all duration-300 ${
-              currentIndex === index ? "w-8 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]" : "w-2 bg-white/30 hover:bg-white/50"
+              safeIndex === index ? "w-8 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]" : "w-2 bg-white/30 hover:bg-white/50"
             }`}
             suppressHydrationWarning
           />

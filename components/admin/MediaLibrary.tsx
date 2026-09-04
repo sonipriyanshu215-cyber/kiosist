@@ -5,6 +5,7 @@ import { Upload, Trash2, Copy, Check, ChevronUp, ChevronDown } from "lucide-reac
 import { IMAGE_SLOTS } from "@/lib/cms/slots";
 import { GALLERY_CATEGORIES } from "@/lib/cms/gallery-categories";
 import { IMAGE_FILE_ACCEPT, imageFileError } from "@/lib/cms/image-formats";
+import { cultureSlider as DEFAULT_SLIDER } from "@/content/cultureSlider";
 
 type MediaRow = {
   id: string;
@@ -151,6 +152,170 @@ function GalleryCard({
   );
 }
 
+const SLIDER_COLLECTION = "culture-slider";
+
+function SliderCard({
+  row,
+  index,
+  isFirst,
+  isLast,
+  onDeleted,
+  onMove,
+}: {
+  row: MediaRow;
+  index: number;
+  isFirst: boolean;
+  isLast: boolean;
+  onDeleted: (id: string) => void;
+  onMove: (id: string, direction: "up" | "down") => void;
+}) {
+  async function remove() {
+    if (!confirm("Remove this slide from the Culture page slider?")) return;
+    await fetch(`/api/admin/media/${row.id}`, { method: "DELETE" });
+    onDeleted(row.id);
+  }
+
+  return (
+    <div className="overflow-hidden rounded-xl border border-kio-line bg-kio-bg-soft">
+      <div className="relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={row.url} alt="" className="aspect-video w-full object-cover" />
+        <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-semibold text-white">
+          Slide {index + 1}
+        </span>
+      </div>
+      <div className="flex items-center gap-1 p-2">
+        <button onClick={() => onMove(row.id, "up")} disabled={isFirst} className="rounded p-1 text-kio-muted hover:text-kio-ink disabled:opacity-30">
+          <ChevronUp className="h-3.5 w-3.5" />
+        </button>
+        <button onClick={() => onMove(row.id, "down")} disabled={isLast} className="rounded p-1 text-kio-muted hover:text-kio-ink disabled:opacity-30">
+          <ChevronDown className="h-3.5 w-3.5" />
+        </button>
+        <button onClick={remove} className="ml-auto rounded p-1 text-kio-muted hover:text-kio-error">
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SliderSection({ media, onChange }: { media: MediaRow[]; onChange: (media: MediaRow[]) => void }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const [importing, setImporting] = useState(false);
+
+  const rows = media.filter((m) => m.collection === SLIDER_COLLECTION).sort((a, b) => a.sort_order - b.sort_order);
+
+  async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true);
+    try {
+      const row = await upload(file, { collection: SLIDER_COLLECTION });
+      onChange([...media, row]);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setBusy(false);
+      e.target.value = "";
+    }
+  }
+
+  async function importDefaults() {
+    setImporting(true);
+    try {
+      const res = await fetch("/api/admin/media/seed-slider", { method: "POST" });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? `Import failed (HTTP ${res.status})`);
+      }
+      const { media: created } = (await res.json()) as { media: MediaRow[] };
+      onChange([...media, ...created]);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Import failed");
+    } finally {
+      setImporting(false);
+    }
+  }
+
+  function onDeleted(id: string) {
+    onChange(media.filter((m) => m.id !== id));
+  }
+
+  async function onMove(id: string, direction: "up" | "down") {
+    const index = rows.findIndex((r) => r.id === id);
+    const swapWith = direction === "up" ? index - 1 : index + 1;
+    if (swapWith < 0 || swapWith >= rows.length) return;
+
+    const reordered = [...rows];
+    [reordered[index], reordered[swapWith]] = [reordered[swapWith], reordered[index]];
+    const withNewOrder = reordered.map((r, i) => ({ ...r, sort_order: i }));
+
+    onChange([...media.filter((m) => m.collection !== SLIDER_COLLECTION), ...withNewOrder]);
+    await fetch("/api/admin/media/reorder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ids: withNewOrder.map((r) => r.id) }),
+    });
+  }
+
+  return (
+    <section>
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-kio-muted">Culture page slider</h2>
+        <input ref={inputRef} type="file" accept={IMAGE_FILE_ACCEPT} className="hidden" onChange={onFile} />
+        <button
+          onClick={() => inputRef.current?.click()}
+          disabled={busy}
+          className="flex items-center gap-1.5 rounded-full bg-kio-primary px-4 py-2 text-xs font-semibold text-white hover:bg-kio-primary/85 disabled:opacity-60"
+        >
+          <Upload className="h-3.5 w-3.5" /> {busy ? "Uploading…" : "Add slide"}
+        </button>
+      </div>
+      <p className="mb-3 text-xs text-kio-muted">
+        Full-bleed background photos for the Culture page hero slider- add as many as you like, order them with the arrows, remove with the trash icon.
+      </p>
+      {rows.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-kio-line bg-kio-bg-soft/50 p-4">
+          <p className="text-sm text-kio-ink">
+            The slider is showing these {DEFAULT_SLIDER.length} bundled photos. Import them to start editing, then add / remove / reorder freely.
+          </p>
+          <button
+            onClick={importDefaults}
+            disabled={importing}
+            className="mt-3 flex items-center gap-1.5 rounded-full bg-kio-primary px-4 py-2 text-xs font-semibold text-white hover:bg-kio-primary/85 disabled:opacity-60"
+          >
+            <Upload className="h-3.5 w-3.5" /> {importing ? "Importing…" : `Import these ${DEFAULT_SLIDER.length} to start editing`}
+          </button>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {DEFAULT_SLIDER.map((slide, i) => (
+              <div key={i} className="overflow-hidden rounded-xl border border-kio-line opacity-70">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={slide.src} alt="" className="aspect-video w-full object-cover" />
+                <p className="px-2 py-1.5 text-[11px] font-medium text-kio-muted">Bundled default {i + 1}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {rows.map((row, i) => (
+            <SliderCard
+              key={row.id}
+              row={row}
+              index={i}
+              isFirst={i === 0}
+              isLast={i === rows.length - 1}
+              onDeleted={onDeleted}
+              onMove={onMove}
+            />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 function GallerySection({ media, onChange }: { media: MediaRow[]; onChange: (media: MediaRow[]) => void }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [category, setCategory] = useState<string>(GALLERY_CATEGORIES[0]);
@@ -291,6 +456,8 @@ export function MediaLibrary() {
           ))}
         </div>
       </section>
+
+      <SliderSection media={media} onChange={setMedia} />
 
       <GallerySection media={media} onChange={setMedia} />
 

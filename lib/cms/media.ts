@@ -65,3 +65,14 @@ export async function getCultureGallery(
   if (items.length === 0) return fallback;
   return items.map((item) => ({ src: item.url, alt: item.altText ?? "" }));
 }
+
+// Culture page's hero slider- a free add/remove/reorder collection of
+// full-bleed slide photos (managed under "Culture page slider" on the admin
+// Media page). Empty collection -> the caller's bundled fallback list.
+export async function getCultureSlider(
+  fallback: { src: string; alt: string }[]
+): Promise<{ src: string; alt: string }[]> {
+  const items = await getMediaCollection("culture-slider", []);
+  if (items.length === 0) return fallback;
+  return items.map((item) => ({ src: item.url, alt: item.altText ?? "" }));
+}

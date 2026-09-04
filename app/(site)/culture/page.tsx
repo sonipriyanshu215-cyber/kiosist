@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { MasonryGallery } from "@/components/culture/MasonryGallery";
 import { AnimatedCultureSlider } from "@/components/culture/AnimatedCultureSlider";
-import { getCultureGallery, getImageUrl } from "@/lib/cms/media";
+import { getCultureGallery, getCultureSlider } from "@/lib/cms/media";
 import { cultureGallery as DEFAULT_GALLERY } from "@/content/cultureGallery";
+import { cultureSlider as DEFAULT_SLIDER } from "@/content/cultureSlider";
 
 export const revalidate = 60;
 
@@ -17,17 +18,17 @@ export const metadata: Metadata = {
 };
 
 export default async function Culture() {
-  const [gallery, sliderImages] = await Promise.all([
+  const [gallery, sliderSlides] = await Promise.all([
     getCultureGallery(DEFAULT_GALLERY),
-    // Empty fallback- the slider keeps its own bundled photo for any slot
-    // that hasn't been replaced from the admin Media page.
-    Promise.all([1, 2, 3].map((n) => getImageUrl(`culture.slider.${n}`, ""))),
+    // Shows these bundled slides until an admin imports/adds their own to the
+    // culture-slider collection from /admin/media.
+    getCultureSlider(DEFAULT_SLIDER),
   ]);
 
   return (
     <>
       {/* Unique Animated Expanding Slider */}
-      <AnimatedCultureSlider images={sliderImages} />
+      <AnimatedCultureSlider slides={sliderSlides} />
 
       <MasonryGallery gallery={gallery} />
     </>

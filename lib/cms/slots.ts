@@ -17,4 +17,7 @@ export const IMAGE_SLOTS = [
   { key: "home.whychoose.4", label: "Why Choose Kiosist- photo 4 (Corporate Friendly)", fallback: "/img/culture/office-2.jpg" },
   { key: "home.whychoose.5", label: "Why Choose Kiosist- photo 5 (Global Exposure)", fallback: "/img/culture/office-3.jpg" },
   { key: "home.whychoose.6", label: "Why Choose Kiosist- photo 6 (A Team That Supports You)", fallback: "/img/culture/team-3.jpg" },
+  { key: "culture.slider.1", label: "Culture page slider- photo 1", fallback: "/img/slider/DSC08351 (1).JPG.jpeg" },
+  { key: "culture.slider.2", label: "Culture page slider- photo 2", fallback: "/img/slider/DSC08256.JPG.jpeg" },
+  { key: "culture.slider.3", label: "Culture page slider- photo 3", fallback: "/img/slider/DSC08314.JPG.jpeg" },
 ] as const;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 // Exactly 3 default slides for a clean, classic presentation
 const DEFAULT_SLIDES = [
@@ -29,11 +30,21 @@ const DEFAULT_SLIDES = [
 
 const AUTOPLAY_MS = 5000;
 
-export function AnimatedCultureSlider() {
+interface AnimatedCultureSliderProps {
+  // One entry per default slide (in order). A falsy entry keeps that slide's
+  // bundled image. Wired from the Culture page's `culture.slider.{1,2,3}`
+  // image slots so an admin can swap any slide photo without a deploy.
+  images?: (string | undefined)[];
+}
+
+export function AnimatedCultureSlider({ images }: AnimatedCultureSliderProps = {}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const rm = useReducedMotion();
 
-  const slides = DEFAULT_SLIDES;
+  const slides = DEFAULT_SLIDES.map((slide, i) => ({
+    ...slide,
+    image: images?.[i] || slide.image,
+  }));
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
@@ -64,6 +75,7 @@ export function AnimatedCultureSlider() {
             src={slides[currentIndex].image}
             alt={slides[currentIndex].title}
             fill
+            unoptimized={isRemoteImageSrc(slides[currentIndex].image)}
             className="object-cover"
             sizes="100vw"
             priority

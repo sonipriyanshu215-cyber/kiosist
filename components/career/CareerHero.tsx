@@ -40,7 +40,9 @@ export function CareerHero({
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(90deg, rgba(5,7,13,.82) 0%, rgba(5,7,13,.2) 38%, rgba(5,7,13,.2) 62%, rgba(5,7,13,.78) 100%)" }}
+          // Left stays dark for the headline; the right edge is only lightly
+          // shaded now (was .78- too heavy a black wash with no text there).
+          style={{ background: "linear-gradient(90deg, rgba(5,7,13,.82) 0%, rgba(5,7,13,.2) 38%, rgba(5,7,13,.15) 68%, rgba(5,7,13,.3) 100%)" }}
         />
       </div>
 

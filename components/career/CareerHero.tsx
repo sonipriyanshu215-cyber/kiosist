@@ -49,13 +49,13 @@ export function CareerHero({
         />
       </div>
 
-      {/* Faint top glow for the mobile stacked layout- there's no full-bleed
-          photo there to carry the hero's atmosphere against the flat dark
-          page background. */}
+      {/* Ambient wash for the mobile stacked layout- with no full-bleed photo
+          to carry the hero's atmosphere, a soft brand-tinted gradient over the
+          flat dark page background does it instead. */}
       <div
-        className="absolute inset-x-0 top-0 h-[60vh] md:hidden"
+        className="absolute inset-x-0 top-0 h-[85vh] md:hidden"
         aria-hidden="true"
-        style={{ background: "radial-gradient(120% 70% at 50% 0%, rgba(59,130,246,.12), transparent 70%)" }}
+        style={{ background: "linear-gradient(180deg, rgba(59,130,246,.14) 0%, rgba(6,182,212,.05) 34%, rgba(13,17,23,0) 70%)" }}
       />
 
       {/* ── Main content- single column, left-aligned ── */}
@@ -83,6 +83,33 @@ export function CareerHero({
           >
             Your Next Opportunity Starts Here
           </motion.p>
+
+          {/* Career photo- contained card sitting right under the hero copy,
+              mirroring the home hero's "text then media" mobile order. On md+
+              this same photo is the section's full-bleed background instead
+              (see above), so it's md:hidden here. */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mt-[clamp(1.5rem,6vw,2.25rem)] aspect-square overflow-hidden rounded-[clamp(16px,4vw,26px)] shadow-[0_24px_70px_rgba(0,0,0,.5)] ring-1 ring-white/10 md:hidden"
+          >
+            <Image
+              src={heroSrc}
+              unoptimized={isRemoteImageSrc(heroSrc)}
+              alt="Kiosist team at work"
+              fill
+              priority
+              // hero2.png is a 16:9 desktop-background plate: its subjects sit
+              // in a small centre-right region with wide dark negative space
+              // (meant for overlay text) on the left and above. object-cover
+              // alone can't fill a card with just the team, so pull the crop
+              // right + slightly up and zoom past the dead space.
+              className="scale-[1.24] object-cover object-[76%_42%]"
+              sizes="100vw"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+          </motion.div>
 
           {/* CTA card, below the headline */}
           <div className="mt-[clamp(1.75rem,3vw,2.75rem)]">
@@ -118,28 +145,6 @@ export function CareerHero({
               </Link>
             </motion.div>
           </div>
-
-          {/* Career photo- contained card, mobile only. On md+ this same photo
-              is the section's full-bleed background instead (see above). Mirrors
-              the home hero's video card: 4:3, rounded, soft drop shadow. */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mt-[clamp(1.75rem,6vw,2.5rem)] aspect-[4/3] overflow-hidden rounded-[clamp(14px,4vw,24px)] shadow-[0_30px_80px_rgba(0,0,0,.55)] md:hidden"
-          >
-            <Image
-              src={heroSrc}
-              unoptimized={isRemoteImageSrc(heroSrc)}
-              alt="Kiosist team at work"
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="100vw"
-            />
-            {/* Bottom scrim, matching the home hero card */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-          </motion.div>
 
         </div>
       </div>

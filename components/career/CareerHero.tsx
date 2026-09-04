@@ -27,7 +27,11 @@ export function CareerHero({
           alt=""
           fill
           priority
-          className="object-cover object-right"
+          // object-cover always crops to fill, and this box swings from wide
+          // (desktop) to tall/narrow (mobile)- object-right then showed only
+          // the far-right of the photo on phones while desktop showed all of
+          // it. Centre keeps the subject in frame as steadily as cover allows.
+          className="object-cover object-center"
           sizes="100vw"
         />
         <div

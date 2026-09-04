@@ -18,7 +18,7 @@ export function CareerHero({
   const rm = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-[75vh] flex-col justify-start overflow-hidden pb-16 pt-[90px] md:min-h-screen md:justify-center">
+    <section className="relative flex min-h-[75vh] flex-col justify-start overflow-hidden pb-8 pt-[90px] md:min-h-screen md:justify-center md:pb-16">
       {/* ── Full-bleed background photo (md+ only) ──
           On mobile the photo drops out of the background and moves into a
           contained card below the copy (same treatment as the home hero's
@@ -84,35 +84,68 @@ export function CareerHero({
             Your Next Opportunity Starts Here
           </motion.p>
 
-          {/* Career photo- contained card sitting right under the hero copy,
-              mirroring the home hero's "text then media" mobile order. On md+
-              this same photo is the section's full-bleed background instead
-              (see above), so it's md:hidden here. */}
+          {/* Mobile only: the team photo and the "Ready to Apply?" CTA are
+              fused into a single card- photo on top, CTA panel below, thumbs-up
+              badge on the seam- so the hero reads as one unit, not three
+              stacked blocks. Desktop (md+) instead uses the full-bleed
+              background photo + the standalone glass CTA card further down. */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mt-[clamp(1.5rem,6vw,2.25rem)] aspect-square overflow-hidden rounded-[clamp(16px,4vw,26px)] shadow-[0_24px_70px_rgba(0,0,0,.5)] ring-1 ring-white/10 md:hidden"
+            className="relative mt-[clamp(1.5rem,6vw,2.25rem)] overflow-hidden rounded-[24px] border border-white/10 shadow-[0_24px_70px_rgba(0,0,0,.5)] md:hidden"
+            style={{ background: "linear-gradient(180deg, rgba(40,52,96,.5), rgba(23,28,44,.65))" }}
           >
-            <Image
-              src={heroSrc}
-              unoptimized={isRemoteImageSrc(heroSrc)}
-              alt="Kiosist team at work"
-              fill
-              priority
-              // hero2.png is a 16:9 desktop-background plate: its subjects sit
-              // in a small centre-right region with wide dark negative space
-              // (meant for overlay text) on the left and above. object-cover
-              // alone can't fill a card with just the team, so pull the crop
-              // right + slightly up and zoom past the dead space.
-              className="scale-[1.24] object-cover object-[76%_42%]"
-              sizes="100vw"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            {/* Photo. hero2.png is a 16:9 desktop-background plate- its whole
+                left ~45% is dark negative space for desktop overlay text, with
+                the team packed into the right side. A near-square box crops off
+                enough width, right-anchored (object + origin) so the crop lands
+                entirely on the team; the small scale zoom past the last edge
+                slivers of wall. */}
+            <div className="relative aspect-[5/4] overflow-hidden">
+              <Image
+                src={heroSrc}
+                unoptimized={isRemoteImageSrc(heroSrc)}
+                alt="Kiosist team at work"
+                fill
+                priority
+                className="origin-right scale-[1.12] object-cover object-[100%_38%]"
+                sizes="100vw"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+            </div>
+
+            {/* CTA panel */}
+            <div className="relative p-5">
+              {/* Thumbs-up badge- straddles the photo/panel seam */}
+              <motion.div
+                aria-hidden="true"
+                className="absolute -top-7 right-4 flex h-14 w-14 items-center justify-center rounded-full border border-white/15"
+                style={{
+                  background: "linear-gradient(135deg, rgba(18,20,30,.95), rgba(22,25,38,.9))",
+                  boxShadow: "0 0 0 1px rgba(59,130,246,.25), 0 10px 30px rgba(0,0,0,.4)",
+                }}
+                animate={rm ? {} : { y: [0, -6, 0], rotate: [-6, 6, -6] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ThumbsUp className="h-6 w-6 text-kio-accent2" fill="currentColor" fillOpacity={0.15} />
+              </motion.div>
+
+              <p className="text-[1.05rem] font-bold text-white">Ready to Apply?</p>
+              <p className="mt-1.5 text-[0.8rem] leading-relaxed text-white/70">{blurb}</p>
+              <Link
+                href="#apply"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#05070D] shadow-[0_10px_30px_rgba(255,255,255,.15)] transition-transform hover:-translate-y-0.5"
+              >
+                Apply Now
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </motion.div>
 
-          {/* CTA card, below the headline */}
-          <div className="mt-[clamp(1.75rem,3vw,2.75rem)]">
+          {/* CTA card, below the headline (desktop/tablet- mobile uses the
+              fused photo+CTA card above instead) */}
+          <div className="mt-[clamp(1.75rem,3vw,2.75rem)] hidden md:block">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -149,9 +182,11 @@ export function CareerHero({
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator (desktop/tablet- on mobile the fused card already
+          ends the hero and the next section peeks in, so it's redundant and
+          was colliding with the card's lower edge) */}
       <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 md:block"
         animate={rm ? {} : { y: [0, 8, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
         aria-hidden="true"

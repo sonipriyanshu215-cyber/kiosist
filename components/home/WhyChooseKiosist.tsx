@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { GraduationCap, Laptop, TrendingUp, Building2, Globe, HeartHandshake } from "lucide-react";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
+import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 const REASONS = [
   {
@@ -55,6 +56,7 @@ function Photo({ title, image, color, priority }: { title: string; image: string
     <div className="relative h-[70vw] max-h-[380px] w-full overflow-hidden rounded-[28px] border md:h-full md:min-h-[440px] md:max-h-none" style={{ borderColor: `${color}40` }}>
       <Image
         src={image}
+        unoptimized={isRemoteImageSrc(image)}
         alt={title}
         fill
         className="object-cover"
@@ -112,7 +114,13 @@ function Details({
   );
 }
 
-export function WhyChooseKiosist() {
+interface WhyChooseKiosistProps {
+  // One optional replaced photo URL per row, index-aligned to REASONS.
+  // A falsy entry (nothing uploaded for that slot) keeps the bundled image.
+  images?: (string | undefined)[];
+}
+
+export function WhyChooseKiosist({ images }: WhyChooseKiosistProps = {}) {
   return (
     <section className="section-pad relative overflow-hidden">
       {/* Ambient blob */}
@@ -159,7 +167,7 @@ export function WhyChooseKiosist() {
                           : "md:pr-12 md:-ml-10 md:w-[calc(100%+2.5rem)] lg:-ml-20 lg:w-[calc(100%+5rem)]"
                       }
                     >
-                      <Photo title={r.title} image={r.image} color={r.color} priority={i === 0} />
+                      <Photo title={r.title} image={images?.[i] || r.image} color={r.color} priority={i === 0} />
                     </div>
                     <div
                       className={

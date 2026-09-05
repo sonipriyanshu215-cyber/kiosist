@@ -65,7 +65,7 @@ export async function POST(req: Request) {
     const recipients = [
       ...new Set([
         process.env.HR_EMAIL ?? "hr@kiosist.com",
-        process.env.HIRING_EMAIL ?? "Henaldalal@kiosist.com",
+        process.env.HIRING_EMAIL ?? "henaldalal@kiosist.com",
         process.env.HIRING_EMAIL_2 ?? "adaniraj2011@gmail.com",
       ]),
     ];

@@ -95,10 +95,10 @@ function AvatarCard({
           </div>
 
           {/* ── Avatar ── */}
-          <div className="relative mx-auto mb-4 h-28 w-28">
+          <div className="relative mx-auto mb-5 h-40 w-40">
             {/* Glowing halo- static, no pulse */}
             <div
-              className="absolute -inset-3 rounded-full"
+              className="absolute -inset-4 rounded-full"
               style={{
                 background: `radial-gradient(circle, ${accent.from}28, transparent 70%)`,
               }}
@@ -127,13 +127,13 @@ function AvatarCard({
                   fill
                   className={`object-cover ${objectPositionClass(member.pos)}`}
                   onError={() => setImgErr(true)}
-                  sizes="112px"
+                  sizes="160px"
                 />
               ) : (
                 /* Stylised initials placeholder */
                 <div className="flex h-full w-full items-center justify-center">
                   <span
-                    className="select-none text-xl font-extrabold tracking-tight"
+                    className="select-none text-3xl font-extrabold tracking-tight"
                     style={{
                       background: `linear-gradient(135deg, ${accent.from}, ${accent.to})`,
                       WebkitBackgroundClip: "text",

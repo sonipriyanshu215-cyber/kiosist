@@ -72,7 +72,7 @@ function AvatarCard({
 
         {/* Card body */}
         <div
-          className="relative aspect-square overflow-hidden rounded-3xl border border-white/[0.07]
+          className="relative overflow-hidden rounded-3xl border border-white/[0.07]
                      bg-kio-bg-soft p-5 text-center flex flex-col items-center justify-center"
         >
           {/* Hover tint overlay */}
@@ -95,7 +95,7 @@ function AvatarCard({
           </div>
 
           {/* ── Avatar ── */}
-          <div className="relative mx-auto mb-5 h-40 w-40">
+          <div className="relative mx-auto mb-5 h-40 w-40 shrink-0">
             {/* Glowing halo- static, no pulse */}
             <div
               className="absolute -inset-4 rounded-full"

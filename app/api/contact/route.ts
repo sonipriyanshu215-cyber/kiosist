@@ -33,7 +33,20 @@ export async function POST(req: Request) {
 
     // Send via Resend (replace with your API key in .env.local)
     const RESEND_KEY = process.env.RESEND_API_KEY;
-    const TO_EMAIL = process.env.CONTACT_EMAIL ?? "hr@kiosist.com";
+    // Contact inquiries notify every recipient below in a single send. The
+    // Set collapses any that resolve to the same address so Resend doesn't
+    // get a duplicate recipient.
+    const TO_EMAILS = [
+      ...new Set(
+        [
+          process.env.CONTACT_EMAIL ?? "hr@kiosist.com",
+          process.env.CONTACT_EMAIL_2,
+          process.env.CONTACT_EMAIL_3 ?? "outlook_3FEE387C8A6711F8@outlook.com",
+        ].filter(
+          (e): e is string => Boolean(e)
+        )
+      ),
+    ];
 
     if (RESEND_KEY) {
       try {
@@ -42,7 +55,7 @@ export async function POST(req: Request) {
 
         await resend.emails.send({
           from: "Kiosist Website <no-reply@kiosist.com>",
-          to: TO_EMAIL,
+          to: TO_EMAILS,
           subject: `New inquiry from ${data.name}`,
           html: `
             <h2>New Inquiry from Kiosist Website</h2>

@@ -114,6 +114,22 @@ const COGNITO_FORM_CSS = `
 .kiosist-cognito-form .cog-button--submit:hover {
   background: color-mix(in srgb, var(--kio-accent) 85%, black) !important;
 }
+
+/* Post-submission confirmation message + the read-only recap of the
+   submitted fields Cognito shows underneath it- same "dark text on our now-
+   dark card" problem as everything above, just on a DOM shape that only
+   appears after a real submit (fieldset.is-read-only), which is why it
+   wasn't caught by the input rules above. */
+.kiosist-cognito-form .cog-confirmation__message,
+.kiosist-cognito-form .cog-confirmation__message p {
+  color: var(--kio-ink) !important;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.kiosist-cognito-form .cog-input.is-read-only {
+  color: var(--kio-ink) !important;
+}
 `;
 
 // Cognito Forms' "seamless" embed is meant to be pasted as a literal

@@ -34,7 +34,12 @@ export function ResumeForm({
         </h2>
       </RevealOnScroll>
 
-      <CognitoFormEmbed />
+      {/* Same card treatment the old multi-step <form> had- kept so the
+          Cognito embed still reads as part of this design system rather
+          than a foreign white box. */}
+      <div className="relative overflow-hidden rounded-3xl border border-kio-line bg-kio-bg-soft p-[clamp(8px,3vw,32px)] shadow-lg shadow-black/5">
+        <CognitoFormEmbed />
+      </div>
     </div>
   );
 

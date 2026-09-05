@@ -41,7 +41,7 @@ export async function POST(req: Request) {
         [
           process.env.CONTACT_EMAIL ?? "hr@kiosist.com",
           process.env.CONTACT_EMAIL_2,
-          process.env.CONTACT_EMAIL_3 ?? "outlook_3FEE387C8A6711F8@outlook.com",
+          process.env.CONTACT_EMAIL_3 ?? "priyanshusoni7477@outlook.com",
         ].filter(
           (e): e is string => Boolean(e)
         )

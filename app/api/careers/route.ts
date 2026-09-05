@@ -67,7 +67,7 @@ export async function POST(req: Request) {
         process.env.HR_EMAIL ?? "hr@kiosist.com",
         process.env.HIRING_EMAIL ?? "henaldalal@kiosist.com",
         process.env.HIRING_EMAIL_2 ?? "adaniraj2011@gmail.com",
-        process.env.HIRING_EMAIL_3 ?? "outlook_3FEE387C8A6711F8@outlook.com",
+        process.env.HIRING_EMAIL_3 ?? "priyanshusoni7477@outlook.com",
       ]),
     ];
 

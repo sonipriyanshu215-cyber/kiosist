@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ResumeForm } from "@/components/career/ResumeForm";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { getRoleOptions } from "@/lib/cms/collections";
 import { getText } from "@/lib/cms/text";
 
 export const revalidate = 60;
@@ -38,10 +39,13 @@ const CONTACT_INFO = [
 ];
 
 export default async function Contact() {
-  const subtitle = await getText(
-    "contact.hero.subtitle",
-    "Whether you have a question, want to explore opportunities, or simply want to know more about Kiosist, we'd love to hear from you."
-  );
+  const [roleOptions, subtitle] = await Promise.all([
+    getRoleOptions(),
+    getText(
+      "contact.hero.subtitle",
+      "Whether you have a question, want to explore opportunities, or simply want to know more about Kiosist, we'd love to hear from you."
+    ),
+  ]);
 
   return (
     <>
@@ -98,7 +102,7 @@ export default async function Contact() {
             {/* ── Right: job application form ── */}
             <div id="message" className="scroll-mt-24">
               <RevealOnScroll delay={0.1} className="rounded-3xl border border-white/10 bg-kio-bg p-[clamp(8px,3vw,32px)]">
-                <ResumeForm embedded />
+                <ResumeForm embedded roleOptions={roleOptions} />
                 <p className="mt-4 text-center text-[clamp(0.4rem,1.2vw,0.75rem)] text-kio-muted">
                   Your information is safe with us. We respect your privacy.
                 </p>

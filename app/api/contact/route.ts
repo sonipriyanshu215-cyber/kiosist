@@ -33,11 +33,7 @@ export async function POST(req: Request) {
 
     // Send via Resend (replace with your API key in .env.local)
     const RESEND_KEY = process.env.RESEND_API_KEY;
-    // Comma-separated list, all notified in one send.
-    const TO_EMAILS = (process.env.NOTIFY_EMAILS ?? "hr@kiosist.com")
-      .split(",")
-      .map((e) => e.trim())
-      .filter(Boolean);
+    const TO_EMAIL = process.env.CONTACT_EMAIL ?? "hr@kiosist.com";
 
     if (RESEND_KEY) {
       try {
@@ -46,7 +42,7 @@ export async function POST(req: Request) {
 
         await resend.emails.send({
           from: "Kiosist Website <no-reply@kiosist.com>",
-          to: TO_EMAILS,
+          to: TO_EMAIL,
           subject: `New inquiry from ${data.name}`,
           html: `
             <h2>New Inquiry from Kiosist Website</h2>

@@ -5,7 +5,7 @@ import { PerksGrid } from "@/components/career/PerksGrid";
 import { ResumeForm } from "@/components/career/ResumeForm";
 import { ReviewSlider } from "@/components/career/ReviewSlider";
 import { FAQAccordion } from "@/components/career/FAQAccordion";
-import { getPerks, getFaqs, getRoleOptions } from "@/lib/cms/collections";
+import { getPerks, getFaqs } from "@/lib/cms/collections";
 import { getImageUrl } from "@/lib/cms/media";
 import { getText } from "@/lib/cms/text";
 
@@ -22,10 +22,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Career() {
-  const [perks, faqs, roleOptions, heroSrc, mascotSrc, blurb] = await Promise.all([
+  const [perks, faqs, heroSrc, mascotSrc, blurb] = await Promise.all([
     getPerks(),
     getFaqs(),
-    getRoleOptions(),
     getImageUrl("career.hero", "/img/career/hero2.png"),
     getImageUrl("career.mascot", "/img/hero/agent-red.png"),
     getText("career.hero.blurb", "Join the team building the future of remote hospitality."),
@@ -38,7 +37,7 @@ export default async function Career() {
       <PerksGrid perks={perks} />
       <ReviewSlider />
       <FAQAccordion faqs={faqs} />
-      <ResumeForm roleOptions={roleOptions} mascotSrc={mascotSrc} />
+      <ResumeForm mascotSrc={mascotSrc} />
     </>
   );
 }

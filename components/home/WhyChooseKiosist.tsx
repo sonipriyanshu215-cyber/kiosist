@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { motion, useReducedMotion } from "framer-motion";
 import { GraduationCap, Laptop, TrendingUp, Building2, Globe, HeartHandshake } from "lucide-react";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";

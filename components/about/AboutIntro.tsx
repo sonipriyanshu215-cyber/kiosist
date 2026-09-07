@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 

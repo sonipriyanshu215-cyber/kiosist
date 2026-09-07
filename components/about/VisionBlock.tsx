@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment } from "react";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 

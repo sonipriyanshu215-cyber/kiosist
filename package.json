@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "seed": "tsx scripts/seed-content.ts",
-    "seed:gallery": "tsx scripts/seed-gallery.ts"
+    "seed:gallery": "tsx scripts/seed-gallery.ts",
+    "backfill:storage": "tsx scripts/backfill-storage.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -17,6 +18,7 @@
     "@supabase/supabase-js": "^2.112.4",
     "@types/three": "^0.165.0",
     "autoprefixer": "^10.4.19",
+    "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.0",
     "framer-motion": "^12.0.0",
     "jose": "^6.2.8",

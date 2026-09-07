@@ -11,6 +11,16 @@ const nextConfig = {
         hostname: "*.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      // The image-transformation endpoint SafeImage's custom loader targets
+      // for Supabase-hosted images (cached at Supabase's CDN with a 1-year
+      // TTL, unlike /object/public/). A custom loader bypasses remotePatterns
+      // validation, but the lightbox and any default-loader use still need
+      // this whitelisted. See lib/supabase/image-loader.ts.
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/render/image/public/**",
+      },
     ],
   },
   experimental: {

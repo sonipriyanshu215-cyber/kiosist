@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 import { cultureSlider as DEFAULT_SLIDES, type CultureSlide } from "@/content/cultureSlider";

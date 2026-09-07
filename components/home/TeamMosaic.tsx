@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 

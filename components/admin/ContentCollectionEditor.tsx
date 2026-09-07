@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronUp, ChevronDown, Trash2, Plus, Save, Upload } from "lucide-react";
 import { COLLECTION_CONFIG, getPath, setPath, type FieldDef } from "@/lib/cms/schema";
 import { IMAGE_FILE_ACCEPT, imageFileError } from "@/lib/cms/image-formats";
+import { compressImageForUpload } from "@/lib/cms/compress-image";
 
 type Item = { id: string; data: unknown; sort_order: number };
 
@@ -25,9 +26,12 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
   const [busy, setBusy] = useState(false);
 
   async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+    // Downscale + re-encode in the browser first (Supabase egress fix), then
+    // run the shared checks against the compressed result.
+    file = await compressImageForUpload(file);
     // HEIC / oversized files can slip past the `accept` filter- catch them
     // here so the admin gets a clear message without a failed round trip.
     const preflight = imageFileError(file);

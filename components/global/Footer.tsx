@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 
 const FOOTER_COLS = [
   {

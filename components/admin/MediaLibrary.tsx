@@ -5,6 +5,7 @@ import { Upload, Trash2, Copy, Check, ChevronUp, ChevronDown } from "lucide-reac
 import { IMAGE_SLOTS } from "@/lib/cms/slots";
 import { GALLERY_CATEGORIES } from "@/lib/cms/gallery-categories";
 import { IMAGE_FILE_ACCEPT, imageFileError } from "@/lib/cms/image-formats";
+import { compressImageForUpload } from "@/lib/cms/compress-image";
 import { cultureSlider as DEFAULT_SLIDER } from "@/content/cultureSlider";
 
 type MediaRow = {
@@ -17,6 +18,9 @@ type MediaRow = {
 };
 
 async function upload(file: File, opts: { slotKey?: string; collection?: string; altText?: string }) {
+  // Downscale + re-encode in the browser first- keeps multi-MB originals
+  // out of Storage, which is what runs up Supabase cached egress.
+  file = await compressImageForUpload(file);
   const preflight = imageFileError(file);
   if (preflight) throw new Error(preflight);
 

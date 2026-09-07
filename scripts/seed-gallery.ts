@@ -12,6 +12,7 @@ config({ path: resolve(__dirname, "../.env.local") });
 import { readFileSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
 import { cultureGallery } from "../content/cultureGallery";
+import { STORAGE_CACHE_CONTROL } from "../lib/cms/image-formats";
 
 async function main() {
   const url = process.env.SUPABASE_URL;
@@ -49,7 +50,7 @@ async function main() {
 
     const { error: uploadError } = await supabase.storage
       .from("media")
-      .upload(storagePath, fileBuffer, { contentType, upsert: true });
+      .upload(storagePath, fileBuffer, { contentType, upsert: true, cacheControl: STORAGE_CACHE_CONTROL });
     if (uploadError) {
       console.error(`Failed to upload "${src}":`, uploadError.message);
       continue;

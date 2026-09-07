@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SafeImage } from "@/components/primitives/SafeImage";
+import { isSupabaseStorageUrl, supabaseImageLoader } from "@/lib/supabase/image-loader";
 import { motion, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { staggerParent, staggerChild, hoverLift } from "@/lib/motion";
@@ -16,13 +17,17 @@ const TABS = ["All", ...GALLERY_CATEGORIES] as const;
 
 // The lightbox renders a plain <img> at whatever `src` it's given- unlike
 // the grid thumbnails above (SafeImage -> next/image), it never goes
-// through Next's resizing/caching. Routing it through Next's own image
-// endpoint here gets the same effect for the full-screen zoom view, so a
-// multi-MB original (this collection has had 7-9MB admin uploads) isn't
-// served byte-for-byte on every open. w=1920 matches next/image's own
-// default deviceSizes step for a full-bleed image; q=75 is the only
-// quality this app's image config allows.
+// through any resizing/caching on its own. For Supabase-hosted images,
+// point it at the transform endpoint (CDN-cached, resized) directly- the
+// same path SafeImage's loader uses. For bundled /img/* images, fall back
+// to Next's own image endpoint. Either way a multi-MB original isn't
+// served byte-for-byte on every open. w=1920 matches next/image's default
+// deviceSizes step for a full-bleed image; q=75 is the only quality this
+// app's image config allows.
 function toOptimizedSrc(src: string): string {
+  if (isSupabaseStorageUrl(src)) {
+    return supabaseImageLoader({ src, width: 1920, quality: 75 });
+  }
   return `/_next/image?url=${encodeURIComponent(src)}&w=1920&q=75`;
 }
 

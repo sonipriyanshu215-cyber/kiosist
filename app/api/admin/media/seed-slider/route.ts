@@ -4,6 +4,7 @@ import path from "path";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { revalidateSite } from "@/lib/cms/revalidate";
+import { STORAGE_CACHE_CONTROL } from "@/lib/cms/image-formats";
 import { cultureSlider } from "@/content/cultureSlider";
 
 // One-click "import the bundled default slides into the editable
@@ -45,7 +46,7 @@ export async function POST() {
 
     const { error: uploadError } = await supabase.storage
       .from("media")
-      .upload(storagePath, buffer, { contentType, cacheControl: "3600" });
+      .upload(storagePath, buffer, { contentType, cacheControl: STORAGE_CACHE_CONTROL });
     if (uploadError) return NextResponse.json({ error: uploadError.message }, { status: 500 });
 
     const { data: publicUrlData } = supabase.storage.from("media").getPublicUrl(storagePath);

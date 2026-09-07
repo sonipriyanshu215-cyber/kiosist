@@ -7,6 +7,7 @@ import {
   ACCEPTED_IMAGE_MIME_TYPES,
   MAX_IMAGE_UPLOAD_BYTES,
   OVERSIZE_IMAGE_MESSAGE,
+  STORAGE_CACHE_CONTROL,
   UNSUPPORTED_IMAGE_MESSAGE,
 } from "@/lib/cms/image-formats";
 
@@ -78,7 +79,7 @@ export async function POST(req: Request) {
 
     const { error: uploadError } = await supabase.storage
       .from("media")
-      .upload(storagePath, file, { contentType: file.type, cacheControl: "3600" });
+      .upload(storagePath, file, { contentType: file.type, cacheControl: STORAGE_CACHE_CONTROL });
     if (uploadError) return NextResponse.json({ error: uploadError.message }, { status: 500 });
 
     const { data: publicUrlData } = supabase.storage.from("media").getPublicUrl(storagePath);

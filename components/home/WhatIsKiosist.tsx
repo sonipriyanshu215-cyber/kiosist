@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { motion, useReducedMotion } from "framer-motion";
 
 interface WhatIsKiosistProps {

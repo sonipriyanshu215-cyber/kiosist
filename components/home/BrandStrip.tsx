@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const ROW1 = [

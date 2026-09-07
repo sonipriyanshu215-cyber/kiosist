@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/primitives/CmsImage";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ThumbsUp } from "lucide-react";
 

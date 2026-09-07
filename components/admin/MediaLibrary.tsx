@@ -6,6 +6,7 @@ import { IMAGE_SLOTS } from "@/lib/cms/slots";
 import { GALLERY_CATEGORIES } from "@/lib/cms/gallery-categories";
 import { IMAGE_FILE_ACCEPT, imageFileError } from "@/lib/cms/image-formats";
 import { compressImageForUpload } from "@/lib/cms/compress-image";
+import { supabaseThumb } from "@/lib/supabase/image-loader";
 import { cultureSlider as DEFAULT_SLIDER } from "@/content/cultureSlider";
 
 type MediaRow = {
@@ -60,7 +61,7 @@ function SlotRow({ slot, current, onChange }: { slot: (typeof IMAGE_SLOTS)[numbe
     <div className="flex items-center gap-4 rounded-2xl border border-kio-line bg-kio-bg-soft p-4">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={current?.url ?? slot.fallback}
+        src={supabaseThumb(current?.url ?? slot.fallback, 128)}
         alt=""
         className="h-16 w-16 shrink-0 rounded-xl border border-kio-line object-cover"
       />
@@ -98,7 +99,7 @@ function UploadCard({ row, onDeleted }: { row: MediaRow; onDeleted: (id: string)
   return (
     <div className="overflow-hidden rounded-xl border border-kio-line bg-kio-bg-soft">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={row.url} alt="" className="aspect-square w-full object-cover" />
+      <img src={supabaseThumb(row.url, 400)} alt="" className="aspect-square w-full object-cover" />
       <div className="flex items-center gap-1 p-2">
         <button
           onClick={copyUrl}
@@ -137,7 +138,7 @@ function GalleryCard({
   return (
     <div className="overflow-hidden rounded-xl border border-kio-line bg-kio-bg-soft">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={row.url} alt={row.alt_text ?? ""} className="aspect-[4/3] w-full object-cover" />
+      <img src={supabaseThumb(row.url, 400)} alt={row.alt_text ?? ""} className="aspect-[4/3] w-full object-cover" />
       <div className="p-2">
         <p className="truncate text-xs font-medium text-kio-ink">{row.alt_text ?? "Uncategorized"}</p>
         <div className="mt-1 flex items-center gap-1">
@@ -183,7 +184,7 @@ function SliderCard({
     <div className="overflow-hidden rounded-xl border border-kio-line bg-kio-bg-soft">
       <div className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={row.url} alt="" className="aspect-video w-full object-cover" />
+        <img src={supabaseThumb(row.url, 640)} alt="" className="aspect-video w-full object-cover" />
         <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-semibold text-white">
           Slide {index + 1}
         </span>

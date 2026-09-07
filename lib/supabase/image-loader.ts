@@ -43,3 +43,13 @@ export function supabaseImageLoader({ src, width, quality }: ImageLoaderProps): 
   params.set("quality", String(quality ?? 75));
   return `${rawBase}?${params.toString()}`;
 }
+
+// For plain <img> tags that can't take a next/image loader (the admin media
+// grid). Returns a CDN-cached, resized transform URL for Supabase Storage
+// images; anything else (a bundled /img/* fallback, an external URL) passes
+// through untouched. The /object/public/ endpoint these would otherwise hit
+// is served `no-cache` and full-size on this project.
+export function supabaseThumb(src: string, width = 400): string {
+  if (typeof src !== "string" || !isSupabaseStorageUrl(src)) return src;
+  return supabaseImageLoader({ src, width, quality: 75 });
+}

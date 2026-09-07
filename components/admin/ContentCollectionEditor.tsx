@@ -5,6 +5,7 @@ import { ChevronUp, ChevronDown, Trash2, Plus, Save, Upload } from "lucide-react
 import { COLLECTION_CONFIG, getPath, setPath, type FieldDef } from "@/lib/cms/schema";
 import { IMAGE_FILE_ACCEPT, imageFileError } from "@/lib/cms/image-formats";
 import { compressImageForUpload } from "@/lib/cms/compress-image";
+import { supabaseThumb } from "@/lib/supabase/image-loader";
 
 type Item = { id: string; data: unknown; sort_order: number };
 
@@ -54,7 +55,7 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
       {value ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={value}
+          src={supabaseThumb(value, 128)}
           alt=""
           className="h-16 w-16 shrink-0 rounded-full border border-kio-line bg-kio-bg object-cover"
         />

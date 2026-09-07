@@ -33,7 +33,7 @@
 | `lib/cms/image-formats.ts` | New `STORAGE_CACHE_CONTROL = "31536000"` — used on upload so the stored metadata is right (the transform endpoint *does* honour it). |
 | `app/api/admin/media/route.ts`, `…/seed-slider/route.ts`, `scripts/seed-gallery.ts` | Upload `cacheControl: "3600"` → `STORAGE_CACHE_CONTROL`. |
 | `lib/cms/compress-image.ts` | **New.** `compressImageForUpload()` — browser-side downscale to ≤1600 px, re-encode to WebP (PNG stays PNG) at q80, ≤1 MB target. Skips GIF + files <400 KB. Falls back to the original on failure. |
-| `components/admin/MediaLibrary.tsx`, `components/admin/ContentCollectionEditor.tsx` | Run `compressImageForUpload()` before the 4 MB preflight (so the cap is checked against the compressed result). |
+| `components/admin/MediaLibrary.tsx`, `components/admin/ContentCollectionEditor.tsx` | Run `compressImageForUpload()` before the 4 MB preflight (so the cap is checked against the compressed result). Raw `<img>` thumbnails in the admin media grid now use `supabaseThumb()` → the CDN-cached transform endpoint at 128–640 px instead of a full-size `no-cache` `/object/public/` fetch on every visit to `/admin/media`. |
 | `scripts/backfill-storage.ts` | **New.** `npm run backfill:storage [N]` — walks every `media` row, re-compresses with sharp (resize 1600 / q80, same format, same path → `media.url` unchanged, no DB writes), re-uploads with the 1-year header. Kept only if smaller; else original bytes re-uploaded to refresh the header. GIFs header-only. Idempotent. Optional `N` limits rows for a smoke test. |
 | `package.json` | `browser-image-compression` dep; `backfill:storage` script. |
 

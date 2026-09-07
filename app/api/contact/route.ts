@@ -53,7 +53,12 @@ export async function POST(req: Request) {
         const { Resend } = await import("resend");
         const resend = new Resend(RESEND_KEY);
 
-        await resend.emails.send({
+        // Resend's SDK does NOT throw on a rejected send- it returns
+        // `{ data: null, error }`. Without inspecting it, a suppressed
+        // recipient (e.g. an address that hard-bounced before and is now on
+        // the account suppression list) fails completely silently. Log both
+        // outcomes so the deploy logs show what actually happened.
+        const { data: sent, error: sendError } = await resend.emails.send({
           from: "Kiosist Website <no-reply@kiosist.com>",
           to: TO_EMAILS,
           subject: `New inquiry from ${data.name}`,
@@ -69,6 +74,11 @@ export async function POST(req: Request) {
             </table>
           `,
         });
+        if (sendError) {
+          console.error("Resend rejected the contact notification:", sendError, "| recipients:", TO_EMAILS);
+        } else {
+          console.log("Contact notification accepted by Resend:", sent?.id, "| recipients:", TO_EMAILS.join(", "));
+        }
       } catch (emailError) {
         console.error("Contact email notification failed (inquiry was still stored):", emailError);
       }

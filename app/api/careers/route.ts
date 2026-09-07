@@ -81,7 +81,10 @@ export async function POST(req: Request) {
           attachments.push({ filename: resume.name, content: resumeBuffer });
         }
 
-        await resend.emails.send({
+        // Resend's SDK returns `{ data, error }`- it does not throw on a
+        // rejected send. Inspect it so a suppressed/bounced recipient shows
+        // up in the logs instead of failing silently.
+        const { data: sent, error: sendError } = await resend.emails.send({
           from: "Kiosist Careers <no-reply@kiosist.com>",
           to: recipients,
           subject: `New Career Application- ${name} (${role})`,
@@ -98,6 +101,11 @@ export async function POST(req: Request) {
           `,
           attachments,
         });
+        if (sendError) {
+          console.error("Resend rejected the career notification:", sendError, "| recipients:", recipients);
+        } else {
+          console.log("Career notification accepted by Resend:", sent?.id, "| recipients:", recipients.join(", "));
+        }
       } catch (emailError) {
         console.error("Career email notification failed (application was still stored):", emailError);
       }

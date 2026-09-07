@@ -14,6 +14,18 @@ const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: fals
 
 const TABS = ["All", ...GALLERY_CATEGORIES] as const;
 
+// The lightbox renders a plain <img> at whatever `src` it's given- unlike
+// the grid thumbnails above (SafeImage -> next/image), it never goes
+// through Next's resizing/caching. Routing it through Next's own image
+// endpoint here gets the same effect for the full-screen zoom view, so a
+// multi-MB original (this collection has had 7-9MB admin uploads) isn't
+// served byte-for-byte on every open. w=1920 matches next/image's own
+// default deviceSizes step for a full-bleed image; q=75 is the only
+// quality this app's image config allows.
+function toOptimizedSrc(src: string): string {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=1920&q=75`;
+}
+
 interface MasonryGalleryProps {
   gallery?: GalleryImage[];
 }
@@ -99,7 +111,7 @@ export function MasonryGallery({ gallery = DEFAULT_GALLERY }: MasonryGalleryProp
           open={index >= 0}
           index={index}
           close={() => setIndex(-1)}
-          slides={filtered.map((img) => ({ src: img.src, alt: img.alt }))}
+          slides={filtered.map((img) => ({ src: toOptimizedSrc(img.src), alt: img.alt }))}
         />
       </div>
     </section>

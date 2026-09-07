@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 const FOOTER_COLS = [
   {
@@ -82,7 +81,6 @@ export function Footer({
             <Link href="/" className="inline-flex items-center">
               <Image
                 src={logoSrc}
-                unoptimized={isRemoteImageSrc(logoSrc)}
                 alt="Kiosist"
                 width={1545}
                 height={435}
@@ -157,7 +155,6 @@ export function Footer({
           <div className="relative aspect-square w-full max-w-[150px] justify-self-start self-center md:hidden">
             <Image
               src={mascotSrc}
-              unoptimized={isRemoteImageSrc(mascotSrc)}
               alt="A Kiosist front desk agent"
               fill
               className="object-contain object-center"

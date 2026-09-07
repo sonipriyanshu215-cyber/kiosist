@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 import { cultureSlider as DEFAULT_SLIDES, type CultureSlide } from "@/content/cultureSlider";
 
 export type { CultureSlide };
@@ -64,7 +63,6 @@ export function AnimatedCultureSlider({ slides: slidesProp }: AnimatedCultureSli
             alt=""
             aria-hidden="true"
             fill
-            unoptimized={isRemoteImageSrc(activeSlide.src)}
             className="scale-110 object-cover object-center blur-2xl brightness-[0.4] sm:hidden"
             sizes="100vw"
           />
@@ -72,7 +70,6 @@ export function AnimatedCultureSlider({ slides: slidesProp }: AnimatedCultureSli
             src={activeSlide.src}
             alt={activeSlide.alt}
             fill
-            unoptimized={isRemoteImageSrc(activeSlide.src)}
             className="object-contain sm:object-cover"
             sizes="100vw"
             priority

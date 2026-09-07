@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { GraduationCap, Laptop, TrendingUp, Building2, Globe, HeartHandshake } from "lucide-react";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 const REASONS = [
   {
@@ -56,7 +55,6 @@ function Photo({ title, image, color, priority }: { title: string; image: string
     <div className="relative h-[70vw] max-h-[380px] w-full overflow-hidden rounded-[28px] border md:h-full md:min-h-[440px] md:max-h-none" style={{ borderColor: `${color}40` }}>
       <Image
         src={image}
-        unoptimized={isRemoteImageSrc(image)}
         alt={title}
         fill
         className="object-cover"

@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ThumbsUp } from "lucide-react";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 interface CareerHeroProps {
   heroSrc?: string;
@@ -26,7 +25,6 @@ export function CareerHero({
       <div className="absolute inset-0 hidden md:block" aria-hidden="true">
         <Image
           src={heroSrc}
-          unoptimized={isRemoteImageSrc(heroSrc)}
           alt=""
           fill
           priority
@@ -105,7 +103,6 @@ export function CareerHero({
             <div className="relative aspect-[5/4] overflow-hidden">
               <Image
                 src={heroSrc}
-                unoptimized={isRemoteImageSrc(heroSrc)}
                 alt="Kiosist team at work"
                 fill
                 priority

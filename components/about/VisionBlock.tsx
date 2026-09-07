@@ -3,7 +3,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const TEXT =
@@ -58,7 +57,6 @@ export function VisionBlock({ imageSrc = "/img/about/vision-1.png" }: VisionBloc
               />
               <Image
                 src={imageSrc}
-                unoptimized={isRemoteImageSrc(imageSrc)}
                 alt="Vision - blub icon"
                 width={1024}
                 height={1024}

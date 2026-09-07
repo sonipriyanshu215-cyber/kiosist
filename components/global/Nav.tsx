@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import { Menu, X, Phone, Info, Home, Users } from "lucide-react";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 const NAV_LINKS = [
   { href: "/",            label: "Home" },
@@ -55,7 +54,6 @@ export function Nav({ logoSrc = "/img/kiosist-logo.png", ctaLabel = "Join Us" }:
         <Link href="/" className="flex items-center shrink-0">
           <Image
             src={logoSrc}
-            unoptimized={isRemoteImageSrc(logoSrc)}
             alt="Kiosist"
             width={1545}
             height={435}

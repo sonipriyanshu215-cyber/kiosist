@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { staggerParent, staggerChild } from "@/lib/motion";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const SERVICE_COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"];
@@ -119,7 +118,6 @@ export function AboutIntro({
           >
             <Image
               src={imageSrc}
-              unoptimized={isRemoteImageSrc(imageSrc)}
               alt="Kiosist front desk agents working at their stations"
               fill
               className="object-cover"
@@ -156,7 +154,6 @@ export function AboutIntro({
 >
   <Image
     src={imageSrc}
-    unoptimized={isRemoteImageSrc(imageSrc)}
     alt="Kiosist front desk agents working at their stations"
     fill
     className="object-cover object-right"

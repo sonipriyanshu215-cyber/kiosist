@@ -5,7 +5,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { staggerParent, staggerChild } from "@/lib/motion";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 
 /* Unique accent per card- cycles if team grows */
 const ACCENTS = [
@@ -122,7 +121,6 @@ function AvatarCard({
               {member.img && !imgErr ? (
                 <Image
                   src={member.img}
-                  unoptimized={isRemoteImageSrc(member.img)}
                   alt={member.name}
                   fill
                   className={`object-cover ${objectPositionClass(member.pos)}`}

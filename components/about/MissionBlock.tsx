@@ -3,7 +3,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const HEADING = "To provide hassle-free, cost-effective, and unique front desk assistance, creating memorable stays for every guest who walks through the hotel doors.";
@@ -71,7 +70,6 @@ export function MissionBlock({ imageSrc = "/img/about/mission-2.png" }: MissionB
               />
               <Image
                 src={imageSrc}
-                unoptimized={isRemoteImageSrc(imageSrc)}
                 alt="Mission - target hit atop a mountain, flanked by a flag and compass"
                 width={1024}
                 height={1024}

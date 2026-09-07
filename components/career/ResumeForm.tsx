@@ -7,7 +7,6 @@ import { z } from "zod";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Upload, CheckCircle, ChevronRight, ChevronLeft, Check } from "lucide-react";
-import { isRemoteImageSrc } from "@/lib/cms/image-props";
 import { staggerChild } from "@/lib/motion";
 import { roleOptions as DEFAULT_ROLE_OPTIONS } from "@/content/roles";
 import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
@@ -498,7 +497,6 @@ export function ResumeForm({
 
               <Image
                 src={mascotSrc}
-                unoptimized={isRemoteImageSrc(mascotSrc)}
                 alt="A Kiosist front desk agent ready to welcome your application"
                 width={1024}
                 height={1024}

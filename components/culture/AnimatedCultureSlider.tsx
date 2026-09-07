@@ -52,12 +52,28 @@ export function AnimatedCultureSlider({ slides: slidesProp }: AnimatedCultureSli
           transition={{ duration: 0.9, ease: "easeInOut" }}
           className="absolute inset-0 h-full w-full"
         >
+          {/* Blurred cover copy fills the frame behind the real photo so a
+              wide group shot doesn't leave bare letterbox bars once the
+              foreground switches to object-contain below on mobile- that's
+              what stops a narrow phone viewport from cropping people out of
+              a wide photo the way object-cover always did here before.
+              Desktop's wider viewport rarely needs the contain fallback, so
+              this backdrop only shows below sm. */}
+          <Image
+            src={activeSlide.src}
+            alt=""
+            aria-hidden="true"
+            fill
+            unoptimized={isRemoteImageSrc(activeSlide.src)}
+            className="scale-110 object-cover object-center blur-2xl brightness-[0.4] sm:hidden"
+            sizes="100vw"
+          />
           <Image
             src={activeSlide.src}
             alt={activeSlide.alt}
             fill
             unoptimized={isRemoteImageSrc(activeSlide.src)}
-            className="object-cover"
+            className="object-contain sm:object-cover"
             sizes="100vw"
             priority
           />

@@ -7,7 +7,7 @@ import { RevealOnScroll } from "@/components/primitives/RevealOnScroll";
 
 const STATS = [
   { to: 10,     suffix: "M+", label: "Guests Attended" },
-  { to: 150,    suffix: "+", label: "Team"       },
+  { to: 250,    suffix: "+", label: "Team"       },
   { to: 45,     suffix: "+", label: "Brands"          },
   { to: 100,    suffix: "+", label: "Hotels Onboard"  },
   { to: 70,     suffix: "+", label: "Locations"       },

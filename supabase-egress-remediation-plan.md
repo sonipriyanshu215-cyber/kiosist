@@ -24,7 +24,7 @@
 
 | File | Change |
 |---|---|
-| `lib/supabase/image-loader.ts` | **New.** `supabaseImageLoader({src,width,quality})` — rewrites a `/object/public/` URL to `/render/image/public/` with `width` (clamped 3000) + `quality`. `isSupabaseStorageUrl()` guard. |
+| `lib/supabase/image-loader.ts` | **New.** `supabaseImageLoader({src,width,quality})` — rewrites a `/object/public/` URL to `/render/image/public/` with `width` (clamped 3000) + `quality` + **`resize=contain`** (2026-09-08: without it the endpoint returns `width × original-height`, i.e. a horizontally squashed image that `object-cover` then crops — cut off heads on mobile). `isSupabaseStorageUrl()` guard. |
 | `components/primitives/CmsImage.tsx` | **New.** Drop-in for `next/image` that applies the loader **only** when `src` is a Supabase URL; bundled `/img/*` keeps Next's built-in optimiser. |
 | `components/primitives/SafeImage.tsx` | Same conditional-loader logic inline (it already wraps `next/image`). |
 | 11 components | `import Image from "next/image"` → `import { CmsImage as Image } …` (alias — no JSX changes). `WhatIsKiosist`, `WhyChooseKiosist`, `TeamMosaic`, `BrandStrip`, `AboutIntro`, `MissionBlock`, `VisionBlock`, `Nav`, `Footer`, `CareerHero`, `AnimatedCultureSlider`. `HeroBanner` / `KiosistIntro` untouched (bundled art only). |

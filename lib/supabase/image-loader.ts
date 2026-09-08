@@ -41,6 +41,14 @@ export function supabaseImageLoader({ src, width, quality }: ImageLoaderProps): 
   const params = new URLSearchParams(rawQuery);
   params.set("width", String(Math.min(width, MAX_RENDER_WIDTH)));
   params.set("quality", String(quality ?? 75));
+  // `resize=contain` = scale proportionally to fit `width`, preserving the
+  // source aspect ratio (and never upscaling past the original). Without
+  // it Supabase's default mode returns `width` x ORIGINAL-height- i.e. a
+  // horizontally squashed image- which then gets cropped again by CSS
+  // object-cover, cutting heads/subjects off. Callers do their own visual
+  // cropping via next/image `fill` + object-cover / an explicit width+
+  // height, so the transform must not crop or distort.
+  params.set("resize", "contain");
   return `${rawBase}?${params.toString()}`;
 }
 

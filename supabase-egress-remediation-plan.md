@@ -105,6 +105,35 @@ Client-side compression before every admin upload (`lib/cms/compress-image.ts`, 
 
 ---
 
+## Phase 2b — Bundled video + lazy-loading pass · 2026-09-08
+
+The Supabase work above only covers admin-uploaded (`media` bucket) images. A separate sweep of the **committed** `public/` assets and the `next/image` `priority` flags, since those are the largest per-view downloads on the site even though they don't hit the Supabase egress meter (they're served by the Next host / Vercel).
+
+| File | Change | Why |
+|---|---|---|
+| `components/global/KiosistIntro.tsx` | `<video src="/video/ANIMATED-3.mp4">` `preload="auto"` → **`preload="none"`** | It's click-to-play behind the poster + play button; `handlePlay`'s `.play()` starts the fetch on demand. `auto` was pulling **7.1 MB on every intro view** whether or not anyone pressed play. |
+| `components/home/HeroBanner.tsx` | `<video src="/video/explainer.mp4">` `preload="auto"` → **`preload="metadata"`** | Autoplays, so it still loads — but `auto` raced to buffer all **~25 MB** ahead of every other first-load asset. `metadata` lets the browser pace it and back off on Save-Data / slow links. **Still wants a real re-encode** (see below) — this is the mitigation, not the fix. |
+| `components/about/MissionBlock.tsx`, `components/about/VisionBlock.tsx` | Dropped `priority`, added `sizes="140px"` on the 1024×1024 icon | The icon renders at ≤140 px, is scroll-revealed (`RevealOnScroll`) well below the fold, and is decorative — not the LCP. `priority` was `<link rel=preload>`-ing it on every `/about` view; no `sizes` meant next/image served a ~1024 px variant for a 140 px slot (Supabase transform width too, since these use `CmsImage`). |
+| `next.config.js` `headers()` | `/video/:path*` split off from the `/img/*` rule: `max-age=60, must-revalidate` → **`max-age=2592000`** (30 d) | `/img/*` keeps the short TTL because admins swap slot files in place. Videos are committed assets, never swapped — a returning visitor was re-validating (and on a cache miss, re-pulling) 25 MB every 60 s. Bust with a `?v=` query at the reference site if a clip is ever replaced under the same name. |
+
+Verified: `tsc --noEmit` clean, `next build` clean.
+
+### Still open (needs a tool not available in-session)
+
+1. **Re-encode `public/video/explainer.mp4` (25 MB → target ~2–4 MB).** It's a muted, looping, `object-cover` hero clip — it does not need 25 MB. With ffmpeg:
+   ```
+   ffmpeg -i explainer.mp4 -vf "scale=-2:720" -c:v libx264 -profile:v high -crf 28 -preset slow \
+     -movflags +faststart -an -pix_fmt yuv420p explainer.web.mp4
+   # optional smaller VP9/AV1 sibling + <source> tags for a further ~30%
+   ```
+   `-an` drops the audio track (the hero is muted with a manual unmute button — check whether the unmuted track is actually wanted before stripping). `+faststart` moves the moov atom up so playback starts before the full file arrives.
+2. **`public/video/ANIMATED-3.mp4` (7.1 MB)** — smaller, and now `preload="none"` so it only downloads on a click, but a re-encode still halves what those users pull.
+3. **`public/img/Kiosk-machine.png` (2.0 MB)** — displayed at ~160 px in `KiosistIntro`. Clients get the `/_next/image` 160 px variant so it's not per-view egress, but the 2 MB source ships in the deploy and is the origin fetch for the optimizer. `pngquant`/`sharp` to a ~150 KB WebP would be a clean win.
+4. **Consider gating the hero `<video>` behind an IntersectionObserver** so mobile visitors who bounce before scrolling past the headline (the clip is stacked *below* it on mobile) never fetch it at all. Deferred — `HeroVideo` has fiddly autoplay/black-frame handling that a rushed change could regress.
+5. **`next/image` `priority` is deprecated in Next 16** in favour of `preload` (`node_modules/next/dist/docs/01-app/03-api-reference/02-components/image.md`). Remaining `priority` uses (CareerHero, AboutIntro, AnimatedCultureSlider, Nav, KiosistIntro, WhyChooseKiosist) are all genuine above-the-fold LCP candidates so they were left as-is, but they'll want migrating — separate from egress work, since a careless swap can regress LCP.
+
+---
+
 ## Phase 3 — Lock down the buckets · **RECOMMEND DEFERRING**
 
 Signed URLs baked into statically-generated pages (`/`, `/about`, `/culture`, `/career` are `○ Static`) and into the `/_next/image` / transform cache key **404 on expiry**. Making it work needs dynamic rendering everywhere, a very long expiry (pointless), or a signing proxy. Only worth it if Phase 0 shows significant hotlinking. For access control alone, no.

@@ -601,7 +601,10 @@ export function KiosistIntro({ onComplete }: KiosistIntroProps) {
                   className="agent-video"
                   src="/video/ANIMATED-3.mp4"
                   poster="/img/agent-video-poster.jpg"
-                  preload="auto"
+                  // Click-to-play (the poster covers the frame until the play
+                  // button is hit), so don't fetch the 7 MB file up front-
+                  // handlePlay's .play() call kicks off loading on demand.
+                  preload="none"
                   playsInline
                   muted={muted}
                   onEnded={() => setStarted(false)}

@@ -61,7 +61,7 @@ export function VisionBlock({ imageSrc = "/img/about/vision-1.png" }: VisionBloc
                 width={1024}
                 height={1024}
                 className="relative h-full w-full rounded-3xl object-contain"
-                priority
+                sizes="140px"
               />
             </div>
           </RevealOnScroll>

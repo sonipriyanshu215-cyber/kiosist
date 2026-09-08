@@ -134,7 +134,12 @@ function HeroVideo({ rm }: { rm: boolean | null }) {
             loop
             playsInline
             autoPlay={rm !== true}
-            preload="auto"
+            // `metadata`, not `auto`: autoplay still pulls the clip, but this
+            // stops the browser racing to buffer all 25 MB ahead of every
+            // other first-load asset (and lets it back off on slow/Save-Data
+            // connections). The clip really wants a re-encode- see
+            // supabase-egress-remediation-plan.md.
+            preload="metadata"
             onPlay={() => { setPlaying(true); everPlayedRef.current = true; clearStallTimer(); }}
             onPause={() => setPlaying(false)}
             onLoadedData={() => setReady(true)}

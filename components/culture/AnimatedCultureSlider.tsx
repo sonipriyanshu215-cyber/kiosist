@@ -80,8 +80,10 @@ export function AnimatedCultureSlider({ slides: slidesProp }: AnimatedCultureSli
 
       {/* Tagline- plain div owns the centering transform (-translate-x-1/2);
           RevealOnScroll's own y-transform would otherwise clobber it, since
-          framer-motion writes its animated transform inline. */}
-      <div className="absolute bottom-24 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center">
+          framer-motion writes its animated transform inline. Sits lower on
+          mobile (closer to the dots) where the shorter hero leaves a big
+          gap; back to bottom-24 from sm+ where the desktop framing works. */}
+      <div className="absolute bottom-14 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center sm:bottom-24">
         <RevealOnScroll>
           <h1
             className="font-black text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]"
